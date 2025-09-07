@@ -11,6 +11,7 @@ import {
 } from '@mantine/core';
 import SakuraBackground from '@/components/SakuraBackground';
 import ScrollIndicator from '@/components/ScrollIndicator';
+import AboutSection from '@/components/AboutSection';
 
 export default function HomePage() {
   return (
@@ -98,17 +99,9 @@ export default function HomePage() {
         </Box>
       </SakuraBackground>
 
-      {/* Placeholder sections for navigation */}
+      {/* About Section */}
       <Box id="about" style={{ minHeight: '100vh', padding: '4rem 0' }}>
-        <Container size="lg">
-          <Title order={2} ta="center" mb="xl">
-            About Section
-          </Title>
-          <Text ta="center" c="dimmed">
-            This section will contain your skills, timeline, and professional
-            summary.
-          </Text>
-        </Container>
+        <AboutSection />
       </Box>
 
       <Box

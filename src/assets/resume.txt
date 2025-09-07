@@ -1,0 +1,42 @@
+﻿Lakeland, FL
+(863)513-6851
+gervontefowler.dev@outlook.com | github.com/gervonte
+Gervonte Fowler A long, thin rectangle to divide sections of the document 
+
+
+SKILLS
+LANGUAGES & TOOLS  
+Python, TypeScript, JavaScript (React, Node.js, Express), HTML, CSS, REST APIs, PostgreSQL, GraphQL (familiar), Git, GitHub Actions
+DATA & INFRASTRUCTURE  
+API Development & Consumption, Docker (basic), LLM Evaluation, Prompt Engineering, Model Interpretability (LIME), Unit & Integration Testing, CI/CD Pipelines
+PRODUCT EXPERIENCE  
+Product Thinking, Agile Development, Developer Experience, Human-in-the-loop Evaluation, API Usability & Documentation, UI/UX Iteration
+EXPERIENCE
+NovaCredit (Fintech Startup), San Francisco, CA — Software Engineer, Full Stack
+August 2020 - June 2022
+* Shipped production-ready full-stack features using React, Node.js, and PostgreSQL, exposing real-time credit data through secure, scalable REST APIs.
+* Refactored internal APIs into developer-facing public endpoints, complete with API documentation, onboarding flows, and test sandboxes.
+* Collaborated on testing, deployment, and monitoring pipelines to ensure reliability and traceability across internal and partner-facing systems.
+* Built modular React (TypeScript) components to support iterative product experiments and rapid A/B testing.
+
+
+PROJECTS & RESEARCH
+AI-Assisted User Story Generation — Graduate Research Project
+Spring 2025
+* Evaluated LLMs (ChatGPT, Gemini, QWEN) for generating Agile user stories using structured metrics such as coherence, completeness, and relevance.
+* Developed a lightweight framework for integrating LLM outputs into real-world Agile workflows to improve clarity and delivery speed.
+* Simulated product integration and human-in-the-loop validation, emphasizing real-world usage and developer trust.
+Enhancing Fake News Detection with Explainability — Graduate Research Project
+Spring 2025
+* Added LIME-based explainability to a high-accuracy classification model for fake news detection, improving transparency for non-technical stakeholders.
+* Built interactive HTML visualizations of model decisions to simulate user-facing explainability tools.
+* Analyzed the system’s robustness and generalizability to mimic production-ready ML pipelines.
+EDUCATION
+Florida Polytechnic University, Lakeland, FL — M.S. Computer Science
+June 2025 | GPA 3.26
+Florida Polytechnic University, Lakeland, FL — B.S. Computer Science
+May 2020 | GPA 3.54
+LEADERSHIP & INITIATIVES
+Treasurer, National Society of Black Engineers (NSBE)
+Florida Polytechnic University Chapter
+* Oversaw budgeting and logistics for conference attendance, managing registrations, hotels, and travel.
