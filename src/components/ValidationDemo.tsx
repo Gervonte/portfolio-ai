@@ -8,7 +8,6 @@ import {
   Button,
   TextInput,
   Textarea,
-  Select,
   Group,
   Stack,
   Alert,

@@ -55,8 +55,8 @@ export function validateData<T>(
 
 // Format Zod errors into a readable string
 export function formatZodError(error: z.ZodError): string {
-  return error.errors
-    .map(err => {
+  return error.issues
+    .map((err: z.ZodIssue) => {
       const path = err.path.length > 0 ? `${err.path.join('.')}: ` : '';
       return `${path}${err.message}`;
     })
@@ -129,9 +129,10 @@ export function validateFormField<T>(
     schema.parse(value);
     return { isValid: true };
   } catch (error) {
-    if (error instanceof z.ZodError && error.errors) {
-      const fieldError = error.errors.find(
-        err => err.path.includes(fieldName) || err.path.length === 0
+    if (error instanceof z.ZodError && error.issues) {
+      const fieldError = error.issues.find(
+        (err: z.ZodIssue) =>
+          err.path.includes(fieldName) || err.path.length === 0
       );
       return {
         isValid: false,

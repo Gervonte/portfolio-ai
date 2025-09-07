@@ -54,7 +54,7 @@ export function useFormValidation<T extends Record<string, any>>({
 
         // Validate on change if enabled
         if (validateOnChange) {
-          const fieldSchema = schema.shape[fieldName];
+          const fieldSchema = (schema as any).shape?.[fieldName];
           if (fieldSchema) {
             const validation = validateFormField(
               fieldSchema,
@@ -84,7 +84,7 @@ export function useFormValidation<T extends Record<string, any>>({
 
         // Validate on blur if enabled
         if (validateOnBlur && touched) {
-          const fieldSchema = schema.shape[fieldName];
+          const fieldSchema = (schema as any).shape?.[fieldName];
           if (fieldSchema) {
             const validation = validateFormField(
               fieldSchema,
@@ -122,7 +122,7 @@ export function useFormValidation<T extends Record<string, any>>({
         // Update field errors
         setFormState(prev => {
           const newState = { ...prev };
-          result.error.errors.forEach(error => {
+          result.error.issues.forEach((error: z.ZodIssue) => {
             const fieldName = error.path[0] as string;
             if (fieldName && newState[fieldName]) {
               newState[fieldName] = {
@@ -139,8 +139,8 @@ export function useFormValidation<T extends Record<string, any>>({
         return {
           success: false,
           errors: result.error,
-          errorMessage: result.error.errors
-            .map(err => `${err.path.join('.')}: ${err.message}`)
+          errorMessage: result.error.issues
+            .map((err: z.ZodIssue) => `${err.path.join('.')}: ${err.message}`)
             .join('; '),
         };
       }
