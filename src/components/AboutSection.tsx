@@ -23,7 +23,6 @@ import {
   IconCloud,
   IconTools,
   IconSchool,
-  IconAward,
   IconBriefcase,
   IconHeart,
   IconRocket,
@@ -31,179 +30,19 @@ import {
   IconTarget,
   IconFileText,
 } from '@tabler/icons-react';
+import {
+  aboutData,
+  getSkillsByCategory,
+  getSkillColor,
+  type Skill,
+} from '@/lib/about';
 
-interface Skill {
-  name: string;
-  level: 'beginner' | 'intermediate' | 'advanced' | 'expert';
-  category: 'frontend' | 'backend' | 'devops' | 'tools' | 'soft';
-}
+// Use data from metadata file
+const { personalInfo, experience, education, researchProjects, leadership } =
+  aboutData;
 
-interface Experience {
-  title: string;
-  company: string;
-  period: string;
-  description: string;
-  technologies: string[];
-  achievements: string[];
-}
-
-interface Education {
-  degree: string;
-  institution: string;
-  year: string;
-  description?: string;
-}
-
-interface Certification {
-  name: string;
-  issuer: string;
-  year: string;
-  credentialId?: string;
-  description?: string;
-}
-
-interface ResearchProject {
-  title: string;
-  period: string;
-  description: string;
-  technologies: string[];
-  achievements: string[];
-}
-
-const skills: Skill[] = [
-  // Languages & Tools
-  { name: 'Python', level: 'expert', category: 'backend' },
-  { name: 'TypeScript', level: 'expert', category: 'frontend' },
-  { name: 'JavaScript', level: 'expert', category: 'frontend' },
-  { name: 'React', level: 'expert', category: 'frontend' },
-  { name: 'Node.js', level: 'expert', category: 'backend' },
-  { name: 'Express.js', level: 'expert', category: 'backend' },
-  { name: 'HTML/CSS', level: 'expert', category: 'frontend' },
-  { name: 'REST APIs', level: 'expert', category: 'backend' },
-  { name: 'PostgreSQL', level: 'expert', category: 'backend' },
-  { name: 'GraphQL', level: 'intermediate', category: 'backend' },
-  { name: 'Git', level: 'expert', category: 'tools' },
-  { name: 'GitHub Actions', level: 'expert', category: 'devops' },
-
-  // Data & Infrastructure
-  { name: 'API Development', level: 'expert', category: 'backend' },
-  { name: 'Docker', level: 'intermediate', category: 'devops' },
-  { name: 'LLM Evaluation', level: 'advanced', category: 'tools' },
-  { name: 'Prompt Engineering', level: 'advanced', category: 'tools' },
-  { name: 'Model Interpretability', level: 'advanced', category: 'tools' },
-  { name: 'Unit Testing', level: 'expert', category: 'tools' },
-  { name: 'Integration Testing', level: 'expert', category: 'tools' },
-  { name: 'CI/CD Pipelines', level: 'expert', category: 'devops' },
-
-  // Product Experience
-  { name: 'Product Thinking', level: 'advanced', category: 'soft' },
-  { name: 'Agile Development', level: 'expert', category: 'soft' },
-  { name: 'Developer Experience', level: 'expert', category: 'soft' },
-  { name: 'API Documentation', level: 'expert', category: 'tools' },
-  { name: 'UI/UX Iteration', level: 'advanced', category: 'frontend' },
-  { name: 'A/B Testing', level: 'advanced', category: 'tools' },
-
-  // Soft Skills
-  { name: 'Team Leadership', level: 'advanced', category: 'soft' },
-  { name: 'Problem Solving', level: 'expert', category: 'soft' },
-  { name: 'Communication', level: 'expert', category: 'soft' },
-  { name: 'Budget Management', level: 'advanced', category: 'soft' },
-  { name: 'Event Planning', level: 'intermediate', category: 'soft' },
-];
-
-const experience: Experience[] = [
-  {
-    title: 'Software Engineer, Full Stack',
-    company: 'NovaCredit (Fintech Startup)',
-    period: 'August 2020 - June 2022',
-    description:
-      'Shipped production-ready full-stack features and refactored internal APIs into developer-facing public endpoints.',
-    technologies: ['React', 'Node.js', 'PostgreSQL', 'TypeScript', 'REST APIs'],
-    achievements: [
-      'Shipped production-ready full-stack features using React, Node.js, and PostgreSQL, exposing real-time credit data through secure, scalable REST APIs',
-      'Refactored internal APIs into developer-facing public endpoints, complete with API documentation, onboarding flows, and test sandboxes',
-      'Collaborated on testing, deployment, and monitoring pipelines to ensure reliability and traceability across internal and partner-facing systems',
-      'Built modular React (TypeScript) components to support iterative product experiments and rapid A/B testing',
-    ],
-  },
-];
-
-const education: Education[] = [
-  {
-    degree: 'Master of Science in Computer Science',
-    institution: 'Florida Polytechnic University',
-    year: 'June 2025',
-    description:
-      'GPA: 3.26 | Focused on AI/ML research, LLM evaluation, and explainable AI systems.',
-  },
-  {
-    degree: 'Bachelor of Science in Computer Science',
-    institution: 'Florida Polytechnic University',
-    year: 'May 2020',
-    description:
-      'GPA: 3.54 | Comprehensive foundation in computer science, algorithms, and software engineering.',
-  },
-];
-
-const researchProjects: ResearchProject[] = [
-  {
-    title: 'AI-Assisted User Story Generation',
-    period: 'Spring 2025',
-    description:
-      'Graduate research project evaluating LLMs for generating Agile user stories using structured metrics.',
-    technologies: ['Python', 'LLMs', 'ChatGPT', 'Gemini', 'QWEN', 'Agile'],
-    achievements: [
-      'Evaluated LLMs (ChatGPT, Gemini, QWEN) for generating Agile user stories using structured metrics such as coherence, completeness, and relevance',
-      'Developed a lightweight framework for integrating LLM outputs into real-world Agile workflows to improve clarity and delivery speed',
-      'Simulated product integration and human-in-the-loop validation, emphasizing real-world usage and developer trust',
-    ],
-  },
-  {
-    title: 'Enhancing Fake News Detection with Explainability',
-    period: 'Spring 2025',
-    description:
-      'Graduate research project adding LIME-based explainability to high-accuracy classification models.',
-    technologies: [
-      'Python',
-      'LIME',
-      'Machine Learning',
-      'HTML',
-      'Visualization',
-    ],
-    achievements: [
-      'Added LIME-based explainability to a high-accuracy classification model for fake news detection, improving transparency for non-technical stakeholders',
-      'Built interactive HTML visualizations of model decisions to simulate user-facing explainability tools',
-      "Analyzed the system's robustness and generalizability to mimic production-ready ML pipelines",
-    ],
-  },
-];
-
-const certifications: Certification[] = [
-  {
-    name: 'Treasurer, National Society of Black Engineers (NSBE)',
-    issuer: 'Florida Polytechnic University Chapter',
-    year: '2020 - Present',
-    description:
-      'Oversaw budgeting and logistics for conference attendance, managing registrations, hotels, and travel.',
-  },
-];
-
-const getSkillColor = (level: Skill['level']) => {
-  switch (level) {
-    case 'expert':
-      return 'sakura';
-    case 'advanced':
-      return 'blue';
-    case 'intermediate':
-      return 'green';
-    case 'beginner':
-      return 'gray';
-    default:
-      return 'gray';
-  }
-};
-
-const getCategoryIcon = (category: Skill['category']) => {
+// Utility function to get icon component from string
+const getCategoryIconComponent = (category: Skill['category']) => {
   switch (category) {
     case 'frontend':
       return <IconCode size={16} />;
@@ -220,17 +59,26 @@ const getCategoryIcon = (category: Skill['category']) => {
   }
 };
 
+// Utility function to get display name for category
+const getCategoryDisplayName = (category: string) => {
+  switch (category) {
+    case 'frontend':
+      return 'Frontend';
+    case 'backend':
+      return 'Backend';
+    case 'devops':
+      return 'DevOps & Workflow';
+    case 'tools':
+      return 'Development Tools';
+    case 'soft':
+      return 'Soft Skills';
+    default:
+      return category.charAt(0).toUpperCase() + category.slice(1);
+  }
+};
+
 export default function AboutSection() {
-  const skillCategories = skills.reduce(
-    (acc, skill) => {
-      if (!acc[skill.category]) {
-        acc[skill.category] = [];
-      }
-      acc[skill.category].push(skill);
-      return acc;
-    },
-    {} as Record<string, Skill[]>
-  );
+  const skillCategories = getSkillsByCategory();
 
   return (
     <Container size="lg" py="xl">
@@ -262,10 +110,7 @@ export default function AboutSection() {
             About Me
           </Title>
           <Text size="xl" c="dimmed" maw={800} mx="auto">
-            Full Stack Developer and Computer Science graduate student with
-            expertise in modern web technologies, AI/ML research, and fintech
-            applications. I specialize in building scalable systems and
-            conducting cutting-edge research in explainable AI.
+            {personalInfo.summary}
           </Text>
         </Box>
 
@@ -307,9 +152,9 @@ export default function AboutSection() {
               ([category, categorySkills]) => (
                 <Card key={category} p="lg" withBorder radius="lg">
                   <Group mb="md">
-                    {getCategoryIcon(category as Skill['category'])}
-                    <Title order={4} tt="capitalize">
-                      {category} Skills
+                    {getCategoryIconComponent(category as Skill['category'])}
+                    <Title order={4}>
+                      {getCategoryDisplayName(category)} Skills
                     </Title>
                   </Group>
                   <Stack gap="sm">
@@ -476,25 +321,25 @@ export default function AboutSection() {
             <Card p="lg" withBorder radius="lg" h="100%">
               <Group mb="md">
                 <ThemeIcon color="sakura" variant="light">
-                  <IconAward size={20} />
+                  <IconUsers size={20} />
                 </ThemeIcon>
-                <Title order={3}>Certifications</Title>
+                <Title order={3}>Leadership</Title>
               </Group>
               <Stack gap="md">
-                {certifications.map((cert, index) => (
+                {leadership.map((role, index) => (
                   <Box key={index}>
                     <Text fw={600} size="md">
-                      {cert.name}
+                      {role.name}
                     </Text>
                     <Text c="sakura" size="sm" mb="xs">
-                      {cert.issuer} • {cert.year}
+                      {role.organization} • {role.year}
                     </Text>
-                    {cert.credentialId && (
-                      <Text size="xs" c="dimmed" ff="monospace">
-                        ID: {cert.credentialId}
+                    {role.description && (
+                      <Text size="sm" c="dimmed">
+                        {role.description}
                       </Text>
                     )}
-                    {index < certifications.length - 1 && <Divider my="md" />}
+                    {index < leadership.length - 1 && <Divider my="md" />}
                   </Box>
                 ))}
               </Stack>

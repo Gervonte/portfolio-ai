@@ -1,0 +1,139 @@
+{
+  "personalInfo": {
+    "name": "Gervonte Fowler",
+    "title": "Full-Stack Software Engineer & AI Researcher",
+    "location": "Lakeland, FL",
+    "email": "gervontefowler.dev@outlook.com",
+    "linkedin": "https://linkedin.com/in/gervonte-thomas",
+    "github": "https://github.com/gervonte",
+    "summary": "Passionate full-stack software engineer with expertise in React, Node.js, and AI/ML research. Currently pursuing MS in Computer Science with focus on LLM evaluation and explainable AI systems. Proven track record of shipping production-ready features and leading technical initiatives at fintech startups."
+  },
+  "skills": [
+    {
+      "name": "Python",
+      "level": "expert",
+      "category": "backend"
+    },
+    {
+      "name": "TypeScript",
+      "level": "expert",
+      "category": "frontend"
+    },
+    {
+      "name": "JavaScript",
+      "level": "expert",
+      "category": "frontend"
+    },
+    {
+      "name": "React",
+      "level": "expert",
+      "category": "frontend"
+    },
+    {
+      "name": "Node.js",
+      "level": "expert",
+      "category": "backend"
+    },
+    {
+      "name": "Express",
+      "level": "expert",
+      "category": "backend"
+    },
+    {
+      "name": "HTML",
+      "level": "expert",
+      "category": "frontend"
+    },
+    {
+      "name": "CSS",
+      "level": "expert",
+      "category": "frontend"
+    },
+    {
+      "name": "REST APIs",
+      "level": "expert",
+      "category": "backend"
+    },
+    {
+      "name": "PostgreSQL",
+      "level": "expert",
+      "category": "backend"
+    },
+    {
+      "name": "GraphQL",
+      "level": "advanced",
+      "category": "backend"
+    },
+    {
+      "name": "Git",
+      "level": "expert",
+      "category": "devops"
+    },
+    {
+      "name": "GitHub Actions",
+      "level": "advanced",
+      "category": "devops"
+    }
+  ],
+  "experience": [
+    {
+      "title": "Software Engineer, Full Stack",
+      "company": "NovaCredit (Fintech Startup)",
+      "period": "August 2020 - June 2022",
+      "description": "",
+      "technologies": [],
+      "achievements": [
+        "Shipped production-ready full-stack features using React, Node.js, and PostgreSQL, exposing real-time credit data through secure, scalable REST APIs.",
+        "Refactored internal APIs into developer-facing public endpoints, complete with API documentation, onboarding flows, and test sandboxes.",
+        "Collaborated on testing, deployment, and monitoring pipelines to ensure reliability and traceability across internal and partner-facing systems.",
+        "Built modular React (TypeScript) components to support iterative product experiments and rapid A/B testing."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "M.S. Computer Science",
+      "institution": "Florida Polytechnic University",
+      "year": "2025",
+      "description": "GPA: 3.26"
+    },
+    {
+      "degree": "B.S. Computer Science",
+      "institution": "Florida Polytechnic University",
+      "year": "2025",
+      "description": "GPA: 3.54"
+    }
+  ],
+  "researchProjects": [
+    {
+      "title": "AI-Assisted User Story Generation",
+      "period": "Spring 2025",
+      "description": "",
+      "technologies": [],
+      "achievements": [
+        "Evaluated LLMs (ChatGPT, Gemini, QWEN) for generating Agile user stories using structured metrics such as coherence, completeness, and relevance.",
+        "Developed a lightweight framework for integrating LLM outputs into real-world Agile workflows to improve clarity and delivery speed.",
+        "Simulated product integration and human-in-the-loop validation, emphasizing real-world usage and developer trust."
+      ]
+    },
+    {
+      "title": "Enhancing Fake News Detection with Explainability",
+      "period": "Spring 2025",
+      "description": "",
+      "technologies": [],
+      "achievements": [
+        "Added LIME-based explainability to a high-accuracy classification model for fake news detection, improving transparency for non-technical stakeholders.",
+        "Built interactive HTML visualizations of model decisions to simulate user-facing explainability tools.",
+        "Analyzed the system’s robustness and generalizability to mimic production-ready ML pipelines."
+      ]
+    }
+  ],
+  "leadership": [
+    {
+      "name": "Treasurer, National Society of Black Engineers (NSBE)",
+      "organization": "Florida Polytechnic University Chapter",
+      "year": "2020 - Present",
+      "description": "Oversaw budgeting and logistics for conference attendance, managing registrations, hotels, and travel."
+    }
+  ]
+}

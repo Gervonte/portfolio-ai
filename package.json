@@ -12,6 +12,7 @@
     "type-check": "tsc --noEmit",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,md,css}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "parse-resume": "node scripts/parse-resume.js",
     "prepare": "husky"
   },
   "dependencies": {
