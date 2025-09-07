@@ -1,0 +1,88 @@
+{
+  "projects": [
+    {
+      "id": "portfolio-ai",
+      "title": "Portfolio AI",
+      "description": "AI-generated portfolio website with sakura theme and modern animations",
+      "longDescription": "A comprehensive portfolio website built with Next.js, TypeScript, and Mantine UI, featuring AI-assisted development throughout the process. The project showcases both traditional development skills and AI collaboration, with a beautiful sakura theme inspired by mono no aware aesthetics.",
+      "type": "vibe-coded",
+      "technologies": [
+        "Next.js",
+        "TypeScript",
+        "Mantine UI",
+        "Sakura.js",
+        "Vercel"
+      ],
+      "status": "completed",
+      "featured": true,
+      "liveUrl": "https://portfolio-ai-xi.vercel.app/",
+      "githubUrl": "https://github.com/gervonte/portfolio-ai",
+      "imagePath": "portfolio-ai2.png",
+      "achievements": [
+        "AI-assisted development from concept to deployment",
+        "Custom sakura petal animations with sakura.js",
+        "Responsive design with Mantine UI components",
+        "Comprehensive data validation with Zod schemas",
+        "Advanced scroll indicator with keyboard navigation",
+        "Resume data extraction and structured display"
+      ],
+      "aiTools": ["Claude AI", "GitHub Copilot", "ChatGPT"],
+      "timeline": "2 weeks",
+      "category": "Full Stack Web Development"
+    },
+    {
+      "id": "audio-key-bpm-analyzer-ai",
+      "title": "Audio Key BPM Analyzer AI",
+      "description": "KIRO/AI generated music tool that analyzes the key and BPM of an audio file",
+      "longDescription": "A tool comparable to tunebat.com built with Vite, TypeScript, and Chakra UI, featuring AI-assisted development throughout the process. The project showcases both traditional development skills and AI collaboration, with a beautiful sakura theme inspired by mono no aware aesthetics.",
+      "type": "vibe-coded",
+      "technologies": ["Vite", "TypeScript", "Chakra UI", "Vercel", "Sentry"],
+      "status": "completed",
+      "featured": true,
+      "liveUrl": "https://audio-key-bpm-analyzer-kiro.vercel.app/",
+      "githubUrl": "https://github.com/Gervonte/audio-key-bpm-analyzer-kiro",
+      "imagePath": "audio-analyzer3.png",
+      "achievements": [
+        "AI-assisted development from concept to deployment",
+        "Responsive design with Chakra UI components",
+        "Audio key and BPM analysis with essentia.js",
+        "Audio file analysis and visualization"
+      ],
+      "aiTools": ["Claude AI", "Kiro", "ChatGPT"],
+      "timeline": "1 week",
+      "category": "Full Stack Web Development"
+    }
+  ],
+  "categories": {
+    "vibe-coded": {
+      "title": "Vibe Coded Projects",
+      "subtitle": "AI-Assisted Development",
+      "description": "Projects where I collaborated with AI tools to enhance development speed, creativity, and problem-solving capabilities",
+      "icon": "brain",
+      "color": "sakura"
+    },
+    "standard-work": {
+      "title": "Standard Work Projects",
+      "subtitle": "Traditional Development",
+      "description": "Projects built using traditional development approaches, showcasing core programming skills and problem-solving",
+      "icon": "code",
+      "color": "blue"
+    }
+  },
+  "philosophy": {
+    "title": "My Development Philosophy",
+    "description": "I believe in the power of both traditional programming skills and AI-assisted development. Each approach has its place:",
+    "vibeCoded": {
+      "title": "Vibe Coded",
+      "description": "AI tools enhance creativity, accelerate development, and help explore new possibilities. Perfect for rapid prototyping, research, and innovative solutions.",
+      "icon": "brain",
+      "color": "sakura"
+    },
+    "standardWork": {
+      "title": "Standard Work",
+      "description": "Traditional development builds strong fundamentals, deep understanding, and reliable systems. Essential for production-ready applications and complex problem-solving.",
+      "icon": "code",
+      "color": "blue"
+    }
+  }
+}

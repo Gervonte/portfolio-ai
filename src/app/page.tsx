@@ -12,6 +12,7 @@ import {
 import SakuraBackground from '@/components/SakuraBackground';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import AboutSection from '@/components/AboutSection';
+import WorkSection from '@/components/WorkSection';
 
 export default function HomePage() {
   return (
@@ -108,15 +109,7 @@ export default function HomePage() {
         id="work"
         style={{ minHeight: '100vh', padding: '4rem 0', background: '#FDFCFB' }}
       >
-        <Container size="lg">
-          <Title order={2} ta="center" mb="xl">
-            Work Section
-          </Title>
-          <Text ta="center" c="dimmed">
-            This section will showcase your &quot;Vibe Coded&quot; and
-            &quot;Standard Work&quot; projects.
-          </Text>
-        </Container>
+        <WorkSection />
       </Box>
 
       <Box id="experience" style={{ minHeight: '100vh', padding: '4rem 0' }}>

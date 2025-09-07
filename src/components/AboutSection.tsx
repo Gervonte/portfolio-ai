@@ -10,7 +10,6 @@ import {
   Group,
   Stack,
   Timeline,
-  Avatar,
   Box,
   Divider,
   Paper,
