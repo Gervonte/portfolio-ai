@@ -6,6 +6,7 @@ import { Notifications } from '@mantine/notifications';
 import { theme } from '@/lib/theme';
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
+import '../styles/sakura.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
