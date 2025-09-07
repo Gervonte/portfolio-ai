@@ -4,11 +4,21 @@ import { Inter } from 'next/font/google';
 import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 import { theme } from '@/lib/theme';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
 import '../styles/sakura.css';
 
 const inter = Inter({ subsets: ['latin'] });
+
+// Navigation links
+const navigationLinks = [
+  { link: '#about', label: 'About' },
+  { link: '#work', label: 'Work' },
+  { link: '#experience', label: 'Experience' },
+  { link: '#contact', label: 'Contact' },
+];
 
 export const metadata: Metadata = {
   title: 'Portfolio - Developer Showcase',
@@ -26,7 +36,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <MantineProvider theme={theme}>
           <Notifications />
-          {children}
+          <Header links={navigationLinks} />
+          <main style={{ paddingTop: '60px' }}>{children}</main>
+          <Footer />
         </MantineProvider>
       </body>
     </html>
