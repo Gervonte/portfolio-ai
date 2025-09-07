@@ -10,6 +10,7 @@ import {
   Stack,
 } from '@mantine/core';
 import SakuraBackground from '@/components/SakuraBackground';
+import ScrollIndicator from '@/components/ScrollIndicator';
 
 export default function HomePage() {
   return (
@@ -150,6 +151,16 @@ export default function HomePage() {
           </Text>
         </Container>
       </Box>
+
+      {/* Scroll Indicator */}
+      <ScrollIndicator
+        sections={['hero', 'about', 'work', 'experience', 'contact']}
+        showProgress={true}
+        showNavigation={true}
+        position="bottom"
+        orientation="horizontal"
+        variant="detailed"
+      />
     </>
   );
 }
