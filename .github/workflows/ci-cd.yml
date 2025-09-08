@@ -161,8 +161,16 @@ jobs:
         uses: treosh/lighthouse-ci-action@v10
         with:
           configPath: './lighthouserc.json'
-          uploadArtifacts: true
+          uploadArtifacts: false
           temporaryPublicStorage: true
+
+      - name: Upload Lighthouse Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse_results
+          path: .lighthouseci/
+          retention-days: 30
 
   # Note: Vercel handles deployment automatically
   # No need for GitHub Actions deployment since Vercel auto-deploys on push
