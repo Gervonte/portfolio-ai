@@ -26,8 +26,8 @@ export async function POST(request: NextRequest) {
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: `Portfolio Contact <contact@${process.env.RESEND_DOMAIN || 'portfolio-ai-xi.vercel.app'}>`, // Use your Vercel domain or custom domain
-      to: ['gervontefowler.dev@outlook.com'], // Your email
+      from: 'Portfolio Contact <onboarding@resend.dev>', // Resend's verified domain
+      to: ['gervonte.fowler@hotmail.com'], // Your verified email address
       subject: `Portfolio Contact: ${subject}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

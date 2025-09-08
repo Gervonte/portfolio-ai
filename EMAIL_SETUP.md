@@ -24,12 +24,14 @@ RESEND_API_KEY=your_resend_api_key_here
 RESEND_DOMAIN=portfolio-ai-xi.vercel.app
 ```
 
-## 3. Verify Domain (Optional)
+## 3. Custom Domain (Optional)
 
-For production use, you should verify your domain:
+**Note**: Resend's free tier doesn't support free domains like `*.vercel.app`. For now, emails are sent from `onboarding@resend.dev`.
+
+To use a custom domain (requires paid Resend plan):
 
 1. In Resend dashboard, go to Domains
-2. Add your domain (e.g., yourdomain.com)
+2. Add your custom domain (e.g., yourdomain.com)
 3. Follow DNS verification steps
 4. Update the `from` field in `src/app/api/contact/route.ts`
 
