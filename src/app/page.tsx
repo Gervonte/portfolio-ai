@@ -13,6 +13,7 @@ import SakuraBackground from '@/components/SakuraBackground';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import AboutSection from '@/components/AboutSection';
 import WorkSection from '@/components/WorkSection';
+import ExperienceSection from '@/components/ExperienceSection';
 
 export default function HomePage() {
   return (
@@ -113,15 +114,7 @@ export default function HomePage() {
       </Box>
 
       <Box id="experience" style={{ minHeight: '100vh', padding: '4rem 0' }}>
-        <Container size="lg">
-          <Title order={2} ta="center" mb="xl">
-            Experience Section
-          </Title>
-          <Text ta="center" c="dimmed">
-            This section will contain your professional experience and career
-            timeline.
-          </Text>
-        </Container>
+        <ExperienceSection />
       </Box>
 
       <Box
