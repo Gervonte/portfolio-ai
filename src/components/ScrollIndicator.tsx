@@ -195,9 +195,234 @@ export default function ScrollIndicator({
   // Horizontal layout for bottom position
   if (orientation === 'horizontal' || position === 'bottom') {
     return (
+      <Box visibleFrom="sm">
+        <Transition
+          mounted={isVisible && showIndicator}
+          transition="slide-up"
+          duration={300}
+          timingFunction="ease"
+        >
+          {styles => (
+            <Box
+              style={{
+                ...styles,
+                position: 'fixed',
+                bottom: '20px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                zIndex: 1000,
+              }}
+              className={className}
+            >
+              <Box
+                style={{
+                  background: 'rgba(0, 0, 0, 0.8)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(233, 30, 99, 0.3)',
+                  borderRadius: '20px',
+                  padding: '16px 24px',
+                  minWidth: '400px',
+                  boxShadow:
+                    '0 12px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(233, 30, 99, 0.2)',
+                }}
+              >
+                <Group justify="center" gap="md">
+                  {/* Progress Bar */}
+                  {showProgress && (
+                    <Box style={{ flex: 1, maxWidth: '200px' }}>
+                      <Progress
+                        value={scrollProgress}
+                        size="md"
+                        radius="xl"
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.2)',
+                        }}
+                      />
+                      <Text size="sm" c="white" ta="center" mt="xs" fw={600}>
+                        {Math.round(scrollProgress)}%
+                      </Text>
+                    </Box>
+                  )}
+
+                  {/* Section Navigation */}
+                  {showNavigation && (
+                    <Group gap="xs">
+                      {sections.map((section, index) => (
+                        <Box
+                          key={section}
+                          style={{
+                            padding: '8px 16px',
+                            borderRadius: '12px',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease',
+                            background:
+                              currentSection === index
+                                ? 'linear-gradient(135deg, #E91E63, #F8BBD9)'
+                                : 'rgba(255, 255, 255, 0.1)',
+                            border:
+                              currentSection === index
+                                ? '1px solid rgba(233, 30, 99, 0.5)'
+                                : '1px solid rgba(255, 255, 255, 0.2)',
+                            boxShadow:
+                              currentSection === index
+                                ? '0 4px 15px rgba(233, 30, 99, 0.3)'
+                                : 'none',
+                          }}
+                          onClick={() => scrollToSection(index)}
+                          onMouseEnter={e => {
+                            if (currentSection !== index) {
+                              e.currentTarget.style.background =
+                                'rgba(255, 255, 255, 0.1)';
+                            }
+                          }}
+                          onMouseLeave={e => {
+                            if (currentSection !== index) {
+                              e.currentTarget.style.background = 'transparent';
+                            }
+                          }}
+                        >
+                          <Text
+                            size="sm"
+                            c={
+                              currentSection === index
+                                ? 'white'
+                                : 'rgba(255, 255, 255, 0.8)'
+                            }
+                            fw={currentSection === index ? 700 : 500}
+                          >
+                            {getSectionName(index)}
+                          </Text>
+                        </Box>
+                      ))}
+                    </Group>
+                  )}
+
+                  {/* Quick Navigation */}
+                  <Group gap="xs">
+                    <ActionIcon
+                      variant="subtle"
+                      color="white"
+                      size="md"
+                      onClick={scrollToTop}
+                      style={{
+                        background:
+                          pressedButton === 'up'
+                            ? 'linear-gradient(135deg, #E91E63, #F8BBD9)'
+                            : 'rgba(255, 255, 255, 0.2)',
+                        border:
+                          pressedButton === 'up'
+                            ? '1px solid rgba(233, 30, 99, 0.5)'
+                            : '1px solid rgba(255, 255, 255, 0.3)',
+                        boxShadow:
+                          pressedButton === 'up'
+                            ? '0 4px 15px rgba(233, 30, 99, 0.4), 0 0 10px rgba(233, 30, 99, 0.3)'
+                            : '0 2px 8px rgba(0, 0, 0, 0.2)',
+                        transform:
+                          pressedButton === 'up' ? 'scale(0.95)' : 'scale(1)',
+                        transition: 'all 0.2s ease',
+                      }}
+                    >
+                      <IconChevronUp size={16} />
+                    </ActionIcon>
+                    <ActionIcon
+                      variant="subtle"
+                      color="white"
+                      size="md"
+                      onClick={scrollToBottom}
+                      style={{
+                        background:
+                          pressedButton === 'down'
+                            ? 'linear-gradient(135deg, #E91E63, #F8BBD9)'
+                            : 'rgba(255, 255, 255, 0.2)',
+                        border:
+                          pressedButton === 'down'
+                            ? '1px solid rgba(233, 30, 99, 0.5)'
+                            : '1px solid rgba(255, 255, 255, 0.3)',
+                        boxShadow:
+                          pressedButton === 'down'
+                            ? '0 4px 15px rgba(233, 30, 99, 0.4), 0 0 10px rgba(233, 30, 99, 0.3)'
+                            : '0 2px 8px rgba(0, 0, 0, 0.2)',
+                        transform:
+                          pressedButton === 'down' ? 'scale(0.95)' : 'scale(1)',
+                        transition: 'all 0.2s ease',
+                      }}
+                    >
+                      <IconChevronDown size={16} />
+                    </ActionIcon>
+                  </Group>
+                </Group>
+
+                {/* Scroll Status Indicator */}
+                <Box
+                  style={{
+                    position: 'absolute',
+                    top: '-6px',
+                    right: '-6px',
+                    width: '12px',
+                    height: '12px',
+                    borderRadius: '50%',
+                    background: isScrolling
+                      ? 'linear-gradient(135deg, #E91E63, #F8BBD9)'
+                      : 'rgba(255, 255, 255, 0.3)',
+                    transition: 'all 0.3s ease',
+                    boxShadow: isScrolling
+                      ? '0 0 8px rgba(233, 30, 99, 0.5)'
+                      : 'none',
+                  }}
+                />
+              </Box>
+            </Box>
+          )}
+        </Transition>
+      </Box>
+    );
+  }
+
+  if (variant === 'minimal') {
+    return (
+      <Box visibleFrom="sm">
+        <Transition
+          mounted={isVisible && showIndicator}
+          transition="fade"
+          duration={300}
+          timingFunction="ease"
+        >
+          {styles => (
+            <Box
+              style={{
+                ...styles,
+                position: 'fixed',
+                [position]: '20px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: 1000,
+              }}
+              className={className}
+            >
+              <Progress
+                value={scrollProgress}
+                size="xs"
+                radius="xl"
+                style={{
+                  width: '4px',
+                  height: '200px',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                }}
+              />
+            </Box>
+          )}
+        </Transition>
+      </Box>
+    );
+  }
+
+  return (
+    <Box visibleFrom="sm">
       <Transition
         mounted={isVisible && showIndicator}
-        transition="slide-up"
+        transition="slide-left"
         duration={300}
         timingFunction="ease"
       >
@@ -206,66 +431,69 @@ export default function ScrollIndicator({
             style={{
               ...styles,
               position: 'fixed',
-              bottom: '20px',
-              left: '50%',
-              transform: 'translateX(-50%)',
+              [position]: '20px',
+              top: '50%',
+              transform: 'translateY(-50%)',
               zIndex: 1000,
             }}
             className={className}
           >
             <Box
               style={{
-                background: 'rgba(0, 0, 0, 0.8)',
+                background: 'rgba(255, 255, 255, 0.1)',
                 backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(233, 30, 99, 0.3)',
-                borderRadius: '20px',
-                padding: '16px 24px',
-                minWidth: '400px',
-                boxShadow:
-                  '0 12px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(233, 30, 99, 0.2)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                borderRadius: '16px',
+                padding: '16px',
+                minWidth: '200px',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
               }}
             >
-              <Group justify="center" gap="md">
-                {/* Progress Bar */}
-                {showProgress && (
-                  <Box style={{ flex: 1, maxWidth: '200px' }}>
-                    <Progress
-                      value={scrollProgress}
-                      size="md"
-                      radius="xl"
-                      style={{
-                        background: 'rgba(255, 255, 255, 0.2)',
-                      }}
-                    />
-                    <Text size="sm" c="white" ta="center" mt="xs" fw={600}>
+              {/* Progress Section */}
+              {showProgress && (
+                <Box mb="md">
+                  <Group justify="space-between" mb="xs">
+                    <Text size="sm" fw={500} c="white">
+                      Progress
+                    </Text>
+                    <Text size="sm" c="dimmed">
                       {Math.round(scrollProgress)}%
                     </Text>
-                  </Box>
-                )}
+                  </Group>
+                  <Progress
+                    value={scrollProgress}
+                    size="sm"
+                    radius="xl"
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.1)',
+                    }}
+                  />
+                </Box>
+              )}
 
-                {/* Section Navigation */}
-                {showNavigation && (
-                  <Group gap="xs">
+              {/* Section Navigation */}
+              {showNavigation && (
+                <Box>
+                  <Text size="sm" fw={500} c="white" mb="xs">
+                    Sections
+                  </Text>
+                  <Stack gap="xs">
                     {sections.map((section, index) => (
                       <Box
                         key={section}
                         style={{
-                          padding: '8px 16px',
-                          borderRadius: '12px',
+                          padding: '8px 12px',
+                          borderRadius: '8px',
                           cursor: 'pointer',
-                          transition: 'all 0.3s ease',
+                          transition: 'all 0.2s ease',
                           background:
                             currentSection === index
-                              ? 'linear-gradient(135deg, #E91E63, #F8BBD9)'
-                              : 'rgba(255, 255, 255, 0.1)',
+                              ? 'rgba(233, 30, 99, 0.2)'
+                              : 'transparent',
                           border:
                             currentSection === index
-                              ? '1px solid rgba(233, 30, 99, 0.5)'
-                              : '1px solid rgba(255, 255, 255, 0.2)',
-                          boxShadow:
-                            currentSection === index
-                              ? '0 4px 15px rgba(233, 30, 99, 0.3)'
-                              : 'none',
+                              ? '1px solid rgba(233, 30, 99, 0.3)'
+                              : '1px solid transparent',
                         }}
                         onClick={() => scrollToSection(index)}
                         onMouseEnter={e => {
@@ -282,90 +510,60 @@ export default function ScrollIndicator({
                       >
                         <Text
                           size="sm"
-                          c={
-                            currentSection === index
-                              ? 'white'
-                              : 'rgba(255, 255, 255, 0.8)'
-                          }
-                          fw={currentSection === index ? 700 : 500}
+                          c={currentSection === index ? 'white' : 'dimmed'}
+                          fw={currentSection === index ? 600 : 400}
                         >
                           {getSectionName(index)}
                         </Text>
                       </Box>
                     ))}
-                  </Group>
-                )}
+                  </Stack>
+                </Box>
+              )}
 
-                {/* Quick Navigation */}
-                <Group gap="xs">
-                  <ActionIcon
-                    variant="subtle"
-                    color="white"
-                    size="md"
-                    onClick={scrollToTop}
-                    style={{
-                      background:
-                        pressedButton === 'up'
-                          ? 'linear-gradient(135deg, #E91E63, #F8BBD9)'
-                          : 'rgba(255, 255, 255, 0.2)',
-                      border:
-                        pressedButton === 'up'
-                          ? '1px solid rgba(233, 30, 99, 0.5)'
-                          : '1px solid rgba(255, 255, 255, 0.3)',
-                      boxShadow:
-                        pressedButton === 'up'
-                          ? '0 4px 15px rgba(233, 30, 99, 0.4), 0 0 10px rgba(233, 30, 99, 0.3)'
-                          : '0 2px 8px rgba(0, 0, 0, 0.2)',
-                      transform:
-                        pressedButton === 'up' ? 'scale(0.95)' : 'scale(1)',
-                      transition: 'all 0.2s ease',
-                    }}
-                  >
-                    <IconChevronUp size={16} />
-                  </ActionIcon>
-                  <ActionIcon
-                    variant="subtle"
-                    color="white"
-                    size="md"
-                    onClick={scrollToBottom}
-                    style={{
-                      background:
-                        pressedButton === 'down'
-                          ? 'linear-gradient(135deg, #E91E63, #F8BBD9)'
-                          : 'rgba(255, 255, 255, 0.2)',
-                      border:
-                        pressedButton === 'down'
-                          ? '1px solid rgba(233, 30, 99, 0.5)'
-                          : '1px solid rgba(255, 255, 255, 0.3)',
-                      boxShadow:
-                        pressedButton === 'down'
-                          ? '0 4px 15px rgba(233, 30, 99, 0.4), 0 0 10px rgba(233, 30, 99, 0.3)'
-                          : '0 2px 8px rgba(0, 0, 0, 0.2)',
-                      transform:
-                        pressedButton === 'down' ? 'scale(0.95)' : 'scale(1)',
-                      transition: 'all 0.2s ease',
-                    }}
-                  >
-                    <IconChevronDown size={16} />
-                  </ActionIcon>
-                </Group>
+              {/* Quick Navigation Buttons */}
+              <Group justify="center" mt="md" gap="xs">
+                <ActionIcon
+                  variant="subtle"
+                  color="white"
+                  size="sm"
+                  onClick={scrollToTop}
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                  }}
+                >
+                  <IconChevronUp size={16} />
+                </ActionIcon>
+                <ActionIcon
+                  variant="subtle"
+                  color="white"
+                  size="sm"
+                  onClick={scrollToBottom}
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                  }}
+                >
+                  <IconChevronDown size={16} />
+                </ActionIcon>
               </Group>
 
               {/* Scroll Status Indicator */}
               <Box
                 style={{
                   position: 'absolute',
-                  top: '-6px',
-                  right: '-6px',
-                  width: '12px',
-                  height: '12px',
+                  top: '-8px',
+                  right: '-8px',
+                  width: '16px',
+                  height: '16px',
                   borderRadius: '50%',
                   background: isScrolling
                     ? 'linear-gradient(135deg, #E91E63, #F8BBD9)'
                     : 'rgba(255, 255, 255, 0.3)',
                   transition: 'all 0.3s ease',
                   boxShadow: isScrolling
-                    ? '0 0 8px rgba(233, 30, 99, 0.5)'
+                    ? '0 0 10px rgba(233, 30, 99, 0.5)'
                     : 'none',
                 }}
               />
@@ -373,198 +571,6 @@ export default function ScrollIndicator({
           </Box>
         )}
       </Transition>
-    );
-  }
-
-  if (variant === 'minimal') {
-    return (
-      <Transition
-        mounted={isVisible && showIndicator}
-        transition="fade"
-        duration={300}
-        timingFunction="ease"
-      >
-        {styles => (
-          <Box
-            style={{
-              ...styles,
-              position: 'fixed',
-              [position]: '20px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              zIndex: 1000,
-            }}
-            className={className}
-          >
-            <Progress
-              value={scrollProgress}
-              size="xs"
-              radius="xl"
-              style={{
-                width: '4px',
-                height: '200px',
-                background: 'rgba(255, 255, 255, 0.1)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-              }}
-            />
-          </Box>
-        )}
-      </Transition>
-    );
-  }
-
-  return (
-    <Transition
-      mounted={isVisible && showIndicator}
-      transition="slide-left"
-      duration={300}
-      timingFunction="ease"
-    >
-      {styles => (
-        <Box
-          style={{
-            ...styles,
-            position: 'fixed',
-            [position]: '20px',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            zIndex: 1000,
-          }}
-          className={className}
-        >
-          <Box
-            style={{
-              background: 'rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              borderRadius: '16px',
-              padding: '16px',
-              minWidth: '200px',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-            }}
-          >
-            {/* Progress Section */}
-            {showProgress && (
-              <Box mb="md">
-                <Group justify="space-between" mb="xs">
-                  <Text size="sm" fw={500} c="white">
-                    Progress
-                  </Text>
-                  <Text size="sm" c="dimmed">
-                    {Math.round(scrollProgress)}%
-                  </Text>
-                </Group>
-                <Progress
-                  value={scrollProgress}
-                  size="sm"
-                  radius="xl"
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.1)',
-                  }}
-                />
-              </Box>
-            )}
-
-            {/* Section Navigation */}
-            {showNavigation && (
-              <Box>
-                <Text size="sm" fw={500} c="white" mb="xs">
-                  Sections
-                </Text>
-                <Stack gap="xs">
-                  {sections.map((section, index) => (
-                    <Box
-                      key={section}
-                      style={{
-                        padding: '8px 12px',
-                        borderRadius: '8px',
-                        cursor: 'pointer',
-                        transition: 'all 0.2s ease',
-                        background:
-                          currentSection === index
-                            ? 'rgba(233, 30, 99, 0.2)'
-                            : 'transparent',
-                        border:
-                          currentSection === index
-                            ? '1px solid rgba(233, 30, 99, 0.3)'
-                            : '1px solid transparent',
-                      }}
-                      onClick={() => scrollToSection(index)}
-                      onMouseEnter={e => {
-                        if (currentSection !== index) {
-                          e.currentTarget.style.background =
-                            'rgba(255, 255, 255, 0.1)';
-                        }
-                      }}
-                      onMouseLeave={e => {
-                        if (currentSection !== index) {
-                          e.currentTarget.style.background = 'transparent';
-                        }
-                      }}
-                    >
-                      <Text
-                        size="sm"
-                        c={currentSection === index ? 'white' : 'dimmed'}
-                        fw={currentSection === index ? 600 : 400}
-                      >
-                        {getSectionName(index)}
-                      </Text>
-                    </Box>
-                  ))}
-                </Stack>
-              </Box>
-            )}
-
-            {/* Quick Navigation Buttons */}
-            <Group justify="center" mt="md" gap="xs">
-              <ActionIcon
-                variant="subtle"
-                color="white"
-                size="sm"
-                onClick={scrollToTop}
-                style={{
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                }}
-              >
-                <IconChevronUp size={16} />
-              </ActionIcon>
-              <ActionIcon
-                variant="subtle"
-                color="white"
-                size="sm"
-                onClick={scrollToBottom}
-                style={{
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                }}
-              >
-                <IconChevronDown size={16} />
-              </ActionIcon>
-            </Group>
-
-            {/* Scroll Status Indicator */}
-            <Box
-              style={{
-                position: 'absolute',
-                top: '-8px',
-                right: '-8px',
-                width: '16px',
-                height: '16px',
-                borderRadius: '50%',
-                background: isScrolling
-                  ? 'linear-gradient(135deg, #E91E63, #F8BBD9)'
-                  : 'rgba(255, 255, 255, 0.3)',
-                transition: 'all 0.3s ease',
-                boxShadow: isScrolling
-                  ? '0 0 10px rgba(233, 30, 99, 0.5)'
-                  : 'none',
-              }}
-            />
-          </Box>
-        </Box>
-      )}
-    </Transition>
+    </Box>
   );
 }

@@ -113,6 +113,11 @@ export default function Header({ links }: HeaderProps) {
               color="sakura"
               variant="outline"
               leftSection={<IconHeart size={16} />}
+              onClick={() => {
+                document
+                  .getElementById('contact')
+                  ?.scrollIntoView({ behavior: 'smooth' });
+              }}
               style={{
                 borderColor: scrolled ? '#E91E63' : '#F8BBD9',
                 color: scrolled ? '#E91E63' : '#F8BBD9',
@@ -160,6 +165,12 @@ export default function Header({ links }: HeaderProps) {
                   color="sakura"
                   variant="outline"
                   leftSection={<IconHeart size={16} />}
+                  onClick={() => {
+                    document
+                      .getElementById('contact')
+                      ?.scrollIntoView({ behavior: 'smooth' });
+                    toggle(); // Close mobile menu
+                  }}
                   style={{
                     borderColor: '#E91E63',
                     color: '#E91E63',

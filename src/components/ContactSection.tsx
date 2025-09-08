@@ -27,10 +27,11 @@ import {
   IconAlertCircle,
 } from '@tabler/icons-react';
 import { aboutData } from '@/lib/about';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function ContactSection() {
   const { personalInfo } = aboutData;
+  const [isClient, setIsClient] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -41,6 +42,11 @@ export default function ContactSection() {
   const [submitStatus, setSubmitStatus] = useState<
     'idle' | 'success' | 'error'
   >('idle');
+
+  // Prevent hydration issues with browser extensions
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -209,83 +215,98 @@ export default function ContactSection() {
               back to you as soon as possible.
             </Text>
 
-            <form onSubmit={handleSubmit}>
-              <Stack gap="md">
-                <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
+            {isClient ? (
+              <form onSubmit={handleSubmit}>
+                <Stack gap="md">
+                  <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
+                    <TextInput
+                      label="Name"
+                      placeholder="Your name"
+                      value={formData.name}
+                      onChange={e => handleInputChange('name', e.target.value)}
+                      required
+                      radius="md"
+                    />
+                    <TextInput
+                      label="Email"
+                      placeholder="your.email@example.com"
+                      type="email"
+                      value={formData.email}
+                      onChange={e => handleInputChange('email', e.target.value)}
+                      required
+                      radius="md"
+                    />
+                  </SimpleGrid>
+
                   <TextInput
-                    label="Name"
-                    placeholder="Your name"
-                    value={formData.name}
-                    onChange={e => handleInputChange('name', e.target.value)}
+                    label="Subject"
+                    placeholder="What's this about?"
+                    value={formData.subject}
+                    onChange={e => handleInputChange('subject', e.target.value)}
                     required
                     radius="md"
                   />
-                  <TextInput
-                    label="Email"
-                    placeholder="your.email@example.com"
-                    type="email"
-                    value={formData.email}
-                    onChange={e => handleInputChange('email', e.target.value)}
+
+                  <Textarea
+                    label="Message"
+                    placeholder="Tell me about your project, opportunity, or just say hello!"
+                    value={formData.message}
+                    onChange={e => handleInputChange('message', e.target.value)}
                     required
+                    minRows={4}
                     radius="md"
                   />
-                </SimpleGrid>
 
-                <TextInput
-                  label="Subject"
-                  placeholder="What's this about?"
-                  value={formData.subject}
-                  onChange={e => handleInputChange('subject', e.target.value)}
-                  required
-                  radius="md"
-                />
+                  {submitStatus === 'success' && (
+                    <Alert
+                      icon={<IconCheck size={16} />}
+                      title="Message sent!"
+                      color="green"
+                      variant="light"
+                    >
+                      Thanks for reaching out! I&apos;ll get back to you soon.
+                    </Alert>
+                  )}
 
-                <Textarea
-                  label="Message"
-                  placeholder="Tell me about your project, opportunity, or just say hello!"
-                  value={formData.message}
-                  onChange={e => handleInputChange('message', e.target.value)}
-                  required
-                  minRows={4}
-                  radius="md"
-                />
+                  {submitStatus === 'error' && (
+                    <Alert
+                      icon={<IconAlertCircle size={16} />}
+                      title="Error sending message"
+                      color="red"
+                      variant="light"
+                    >
+                      Something went wrong. Please try again or contact me
+                      directly via email.
+                    </Alert>
+                  )}
 
-                {submitStatus === 'success' && (
-                  <Alert
-                    icon={<IconCheck size={16} />}
-                    title="Message sent!"
-                    color="green"
-                    variant="light"
+                  <Button
+                    type="submit"
+                    size="lg"
+                    color="sakura"
+                    loading={isSubmitting}
+                    leftSection={<IconSend size={16} />}
+                    radius="md"
+                    fullWidth
                   >
-                    Thanks for reaching out! I&apos;ll get back to you soon.
-                  </Alert>
-                )}
-
-                {submitStatus === 'error' && (
-                  <Alert
-                    icon={<IconAlertCircle size={16} />}
-                    title="Error sending message"
-                    color="red"
-                    variant="light"
-                  >
-                    Something went wrong. Please try again or contact me
-                    directly via email.
-                  </Alert>
-                )}
-
-                <Button
-                  type="submit"
-                  size="lg"
-                  color="sakura"
-                  loading={isSubmitting}
-                  leftSection={<IconSend size={16} />}
-                  radius="md"
-                  fullWidth
-                >
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
-                </Button>
-              </Stack>
-            </form>
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                  </Button>
+                </Stack>
+              </form>
+            ) : (
+              <div
+                style={{
+                  minHeight: '400px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Text size="lg" c="dimmed">
+                  Loading contact form...
+                </Text>
+              </div>
+            )}
           </Stack>
         </SimpleGrid>
 
