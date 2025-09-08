@@ -5,12 +5,15 @@ A modern, AI-assisted portfolio website built with Next.js, TypeScript, and Mant
 ## ✨ Features
 
 - **AI-Assisted Development**: Built with Claude AI, GitHub Copilot, and ChatGPT
-- **Modern Tech Stack**: Next.js 14+, TypeScript, Mantine UI
+- **Modern Tech Stack**: Next.js 15+, TypeScript, Mantine UI
 - **Beautiful Animations**: Custom sakura petal effects with sakura.js
 - **Responsive Design**: Mobile-first approach with Mantine components
 - **Dynamic Screenshots**: Automatic project thumbnails with fallback system
 - **Data Validation**: Comprehensive schemas with Zod
-- **Performance Optimized**: Caching, lazy loading, and optimized images
+- **Performance Optimized**: 26% smaller bundle, lazy loading, and optimized images
+- **CI/CD Pipeline**: Automated testing, building, and deployment with GitHub Actions
+- **Security Scanning**: Automated vulnerability detection and dependency updates
+- **Performance Monitoring**: Lighthouse CI with Core Web Vitals tracking
 
 ## 🚀 Quick Start
 
@@ -27,6 +30,37 @@ npm run build
 # Start production server
 npm start
 ```
+
+## 🔄 CI/CD Pipeline
+
+This project includes comprehensive GitHub Actions workflows:
+
+- **Automated Testing**: Lint, type-check, and build verification
+- **Security Scanning**: Vulnerability detection and dependency review
+- **Performance Monitoring**: Lighthouse CI with Core Web Vitals tracking
+- **Auto Deployment**: Deploy to Vercel on push to main/preview branches
+- **Dependency Updates**: Weekly automated dependency updates
+
+### Setup GitHub Actions
+
+1. **Get Vercel credentials**:
+
+   ```bash
+   ./scripts/setup-vercel.sh
+   ```
+
+2. **Add GitHub Secrets**:
+   - `VERCEL_TOKEN`: Your Vercel API token
+   - `VERCEL_ORG_ID`: Your Vercel team ID
+   - `VERCEL_PROJECT_ID`: Your Vercel project ID
+
+3. **Push to trigger workflows**:
+   ```bash
+   git push origin preview  # Deploys to preview
+   git push origin main    # Deploys to production
+   ```
+
+See [.github/README.md](.github/README.md) for detailed setup instructions.
 
 ## 📁 Project Structure
 

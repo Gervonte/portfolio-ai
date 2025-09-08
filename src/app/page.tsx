@@ -9,18 +9,42 @@ import {
   Box,
   Stack,
 } from '@mantine/core';
+import { Suspense, lazy, memo } from 'react';
 import SakuraBackground from '@/components/SakuraBackground';
 import ScrollIndicator from '@/components/ScrollIndicator';
-import AboutSection from '@/components/AboutSection';
-import WorkSection from '@/components/WorkSection';
 
-export default function HomePage() {
+// Lazy load heavy components
+const AboutSection = lazy(() => import('@/components/AboutSection'));
+const WorkSection = lazy(() => import('@/components/WorkSection'));
+const ExperienceSection = lazy(() => import('@/components/ExperienceSection'));
+const ContactSection = lazy(() => import('@/components/ContactSection'));
+
+// Loading component for sections
+const SectionLoader = memo(() => (
+  <Box
+    style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: '400px',
+    }}
+  >
+    <Text size="lg" c="dimmed">
+      Loading...
+    </Text>
+  </Box>
+));
+
+SectionLoader.displayName = 'SectionLoader';
+
+const HomePage = memo(() => {
   return (
     <>
       {/* Hero Section */}
       <SakuraBackground intensity="moderate" variant="falling">
         <Box
           id="hero"
+          role="banner"
           style={{
             position: 'relative',
             zIndex: 2,
@@ -43,9 +67,11 @@ export default function HomePage() {
                   WebkitTextFillColor: 'transparent',
                   fontSize: 'clamp(2.5rem, 5vw, 4rem)',
                   fontWeight: 700,
+                  willChange: 'transform',
+                  transform: 'translateZ(0)',
                 }}
               >
-                Welcome to My Portfolio
+                Gervonte Fowler
               </Title>
               <Text
                 ta="center"
@@ -57,13 +83,27 @@ export default function HomePage() {
                   lineHeight: 1.6,
                 }}
               >
-                Professional portfolio showcasing AI-assisted and traditional
-                development work with a touch of mono no aware
+                Full-Stack Software Engineer & AI Researcher
+              </Text>
+              <Text
+                ta="center"
+                size="lg"
+                mb="xl"
+                c="dimmed"
+                style={{
+                  maxWidth: '700px',
+                  lineHeight: 1.6,
+                }}
+              >
+                Passionate about building scalable software solutions and
+                advancing AI research. Currently pursuing MS in Computer Science
+                with focus on LLM evaluation and explainable AI systems.
               </Text>
               <Group justify="center" gap="md">
                 <Button
                   size="lg"
                   color="sakura"
+                  aria-label="View my work projects"
                   style={{
                     background: 'linear-gradient(135deg, #E91E63, #F48FB1)',
                     border: 'none',
@@ -81,9 +121,11 @@ export default function HomePage() {
                   size="lg"
                   variant="outline"
                   color="sakura"
+                  aria-label="Contact me for opportunities"
                   style={{
                     borderColor: '#E91E63',
                     color: '#E91E63',
+
                     background: 'rgba(248, 187, 217, 0.1)',
                   }}
                   onClick={() => {
@@ -101,41 +143,47 @@ export default function HomePage() {
       </SakuraBackground>
 
       {/* About Section */}
-      <Box id="about" style={{ minHeight: '100vh', padding: '4rem 0' }}>
-        <AboutSection />
+      <Box
+        id="about"
+        role="main"
+        style={{ minHeight: '100vh', padding: '4rem 0' }}
+      >
+        <Suspense fallback={<SectionLoader />}>
+          <AboutSection />
+        </Suspense>
       </Box>
 
       <Box
         id="work"
+        role="region"
+        aria-label="Work projects"
         style={{ minHeight: '100vh', padding: '4rem 0', background: '#FDFCFB' }}
       >
-        <WorkSection />
+        <Suspense fallback={<SectionLoader />}>
+          <WorkSection />
+        </Suspense>
       </Box>
 
-      <Box id="experience" style={{ minHeight: '100vh', padding: '4rem 0' }}>
-        <Container size="lg">
-          <Title order={2} ta="center" mb="xl">
-            Experience Section
-          </Title>
-          <Text ta="center" c="dimmed">
-            This section will contain your professional experience and career
-            timeline.
-          </Text>
-        </Container>
+      <Box
+        id="experience"
+        role="region"
+        aria-label="Professional experience"
+        style={{ minHeight: '100vh', padding: '4rem 0' }}
+      >
+        <Suspense fallback={<SectionLoader />}>
+          <ExperienceSection />
+        </Suspense>
       </Box>
 
       <Box
         id="contact"
+        role="region"
+        aria-label="Contact information"
         style={{ minHeight: '100vh', padding: '4rem 0', background: '#FDFCFB' }}
       >
-        <Container size="lg">
-          <Title order={2} ta="center" mb="xl">
-            Contact Section
-          </Title>
-          <Text ta="center" c="dimmed">
-            This section will contain your contact information and contact form.
-          </Text>
-        </Container>
+        <Suspense fallback={<SectionLoader />}>
+          <ContactSection />
+        </Suspense>
       </Box>
 
       {/* Scroll Indicator */}
@@ -149,4 +197,8 @@ export default function HomePage() {
       />
     </>
   );
-}
+});
+
+HomePage.displayName = 'HomePage';
+
+export default HomePage;

@@ -36,6 +36,7 @@ import {
   getSkillColor,
   type Skill,
 } from '@/lib/about';
+import { memo } from 'react';
 
 // Use data from metadata file
 const { personalInfo, experience, education, researchProjects, leadership } =
@@ -77,7 +78,7 @@ const getCategoryDisplayName = (category: string) => {
   }
 };
 
-export default function AboutSection() {
+const AboutSection = memo(() => {
   const skillCategories = getSkillsByCategory();
 
   return (
@@ -392,4 +393,8 @@ export default function AboutSection() {
       </Stack>
     </Container>
   );
-}
+});
+
+AboutSection.displayName = 'AboutSection';
+
+export default AboutSection;
