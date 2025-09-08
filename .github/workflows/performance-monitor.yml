@@ -46,7 +46,8 @@ jobs:
         uses: treosh/lighthouse-ci-action@v10
         with:
           configPath: './lighthouserc.json'
-          uploadArtifacts: false
+          uploadArtifacts: true
+          artifactName: 'lighthouse-performance-results'
           temporaryPublicStorage: true
 
       - name: Comment PR with Lighthouse results
