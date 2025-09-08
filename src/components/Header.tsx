@@ -40,6 +40,7 @@ export default function Header({ links }: HeaderProps) {
       key={link.label}
       href={link.link}
       size="sm"
+      aria-label={`Navigate to ${link.label} section`}
       style={{
         textDecoration: 'none',
         color: scrolled ? '#2C2C2C' : '#FEFEFE',
@@ -62,6 +63,8 @@ export default function Header({ links }: HeaderProps) {
 
   return (
     <Box
+      component="header"
+      role="banner"
       style={{
         position: 'fixed',
         top: 0,
@@ -82,6 +85,7 @@ export default function Header({ links }: HeaderProps) {
           <Group gap="xs">
             <IconCode
               size={28}
+              aria-hidden="true"
               style={{
                 color: scrolled ? '#E91E63' : '#F8BBD9',
                 transition: 'color 0.3s ease',
@@ -106,13 +110,19 @@ export default function Header({ links }: HeaderProps) {
           </Group>
 
           {/* Desktop Navigation */}
-          <Group gap="xl" visibleFrom="sm">
+          <Group
+            gap="xl"
+            visibleFrom="sm"
+            role="navigation"
+            aria-label="Main navigation"
+          >
             {items}
             <Button
               size="sm"
               color="sakura"
               variant="outline"
-              leftSection={<IconHeart size={16} />}
+              leftSection={<IconHeart size={16} aria-hidden="true" />}
+              aria-label="Connect with me for opportunities"
               onClick={() => {
                 document
                   .getElementById('contact')
@@ -136,6 +146,8 @@ export default function Header({ links }: HeaderProps) {
             size="sm"
             color={scrolled ? '#2C2C2C' : '#FEFEFE'}
             hiddenFrom="sm"
+            aria-label="Toggle mobile menu"
+            aria-expanded={opened}
           />
         </Group>
       </Container>
@@ -144,6 +156,8 @@ export default function Header({ links }: HeaderProps) {
       <Transition transition="pop-top-right" duration={200} mounted={opened}>
         {styles => (
           <Paper
+            role="navigation"
+            aria-label="Mobile navigation"
             style={{
               ...styles,
               position: 'absolute',
@@ -164,7 +178,8 @@ export default function Header({ links }: HeaderProps) {
                   fullWidth
                   color="sakura"
                   variant="outline"
-                  leftSection={<IconHeart size={16} />}
+                  leftSection={<IconHeart size={16} aria-hidden="true" />}
+                  aria-label="Connect with me for opportunities"
                   onClick={() => {
                     document
                       .getElementById('contact')

@@ -44,6 +44,7 @@ const HomePage = memo(() => {
       <SakuraBackground intensity="moderate" variant="falling">
         <Box
           id="hero"
+          role="banner"
           style={{
             position: 'relative',
             zIndex: 2,
@@ -66,6 +67,8 @@ const HomePage = memo(() => {
                   WebkitTextFillColor: 'transparent',
                   fontSize: 'clamp(2.5rem, 5vw, 4rem)',
                   fontWeight: 700,
+                  willChange: 'transform',
+                  transform: 'translateZ(0)',
                 }}
               >
                 Gervonte Fowler
@@ -100,6 +103,7 @@ const HomePage = memo(() => {
                 <Button
                   size="lg"
                   color="sakura"
+                  aria-label="View my work projects"
                   style={{
                     background: 'linear-gradient(135deg, #E91E63, #F48FB1)',
                     border: 'none',
@@ -117,6 +121,7 @@ const HomePage = memo(() => {
                   size="lg"
                   variant="outline"
                   color="sakura"
+                  aria-label="Contact me for opportunities"
                   style={{
                     borderColor: '#E91E63',
                     color: '#E91E63',
@@ -138,7 +143,11 @@ const HomePage = memo(() => {
       </SakuraBackground>
 
       {/* About Section */}
-      <Box id="about" style={{ minHeight: '100vh', padding: '4rem 0' }}>
+      <Box
+        id="about"
+        role="main"
+        style={{ minHeight: '100vh', padding: '4rem 0' }}
+      >
         <Suspense fallback={<SectionLoader />}>
           <AboutSection />
         </Suspense>
@@ -146,6 +155,8 @@ const HomePage = memo(() => {
 
       <Box
         id="work"
+        role="region"
+        aria-label="Work projects"
         style={{ minHeight: '100vh', padding: '4rem 0', background: '#FDFCFB' }}
       >
         <Suspense fallback={<SectionLoader />}>
@@ -153,7 +164,12 @@ const HomePage = memo(() => {
         </Suspense>
       </Box>
 
-      <Box id="experience" style={{ minHeight: '100vh', padding: '4rem 0' }}>
+      <Box
+        id="experience"
+        role="region"
+        aria-label="Professional experience"
+        style={{ minHeight: '100vh', padding: '4rem 0' }}
+      >
         <Suspense fallback={<SectionLoader />}>
           <ExperienceSection />
         </Suspense>
@@ -161,6 +177,8 @@ const HomePage = memo(() => {
 
       <Box
         id="contact"
+        role="region"
+        aria-label="Contact information"
         style={{ minHeight: '100vh', padding: '4rem 0', background: '#FDFCFB' }}
       >
         <Suspense fallback={<SectionLoader />}>
