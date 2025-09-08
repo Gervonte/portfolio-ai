@@ -14,6 +14,7 @@ import ScrollIndicator from '@/components/ScrollIndicator';
 import AboutSection from '@/components/AboutSection';
 import WorkSection from '@/components/WorkSection';
 import ExperienceSection from '@/components/ExperienceSection';
+import ContactSection from '@/components/ContactSection';
 
 export default function HomePage() {
   return (
@@ -46,7 +47,7 @@ export default function HomePage() {
                   fontWeight: 700,
                 }}
               >
-                Welcome to My Portfolio
+                Gervonte Fowler
               </Title>
               <Text
                 ta="center"
@@ -58,8 +59,21 @@ export default function HomePage() {
                   lineHeight: 1.6,
                 }}
               >
-                Professional portfolio showcasing AI-assisted and traditional
-                development work with a touch of mono no aware
+                Full-Stack Software Engineer & AI Researcher
+              </Text>
+              <Text
+                ta="center"
+                size="lg"
+                mb="xl"
+                c="dimmed"
+                style={{
+                  maxWidth: '700px',
+                  lineHeight: 1.6,
+                }}
+              >
+                Passionate about building scalable software solutions and
+                advancing AI research. Currently pursuing MS in Computer Science
+                with focus on LLM evaluation and explainable AI systems.
               </Text>
               <Group justify="center" gap="md">
                 <Button
@@ -121,14 +135,7 @@ export default function HomePage() {
         id="contact"
         style={{ minHeight: '100vh', padding: '4rem 0', background: '#FDFCFB' }}
       >
-        <Container size="lg">
-          <Title order={2} ta="center" mb="xl">
-            Contact Section
-          </Title>
-          <Text ta="center" c="dimmed">
-            This section will contain your contact information and contact form.
-          </Text>
-        </Container>
+        <ContactSection />
       </Box>
 
       {/* Scroll Indicator */}
