@@ -7,6 +7,7 @@ import { theme } from '@/lib/theme';
 import { generatePageMetadata, generateStructuredData } from '@/lib/seo';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import SkipLink from '@/components/SkipLink';
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
 import '../styles/sakura.css';
@@ -72,31 +73,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <MantineProvider theme={theme}>
           <Notifications />
-          {/* Skip to main content link for accessibility */}
-          <a
-            href="#about"
-            style={{
-              position: 'absolute',
-              top: '-40px',
-              left: '6px',
-              background: '#E91E63',
-              color: 'white',
-              padding: '8px',
-              textDecoration: 'none',
-              borderRadius: '4px',
-              zIndex: 10000,
-              fontSize: '14px',
-              fontWeight: 'bold',
-            }}
-            onFocus={e => {
-              e.target.style.top = '6px';
-            }}
-            onBlur={e => {
-              e.target.style.top = '-40px';
-            }}
-          >
-            Skip to main content
-          </a>
+          <SkipLink />
           <Header links={navigationLinks} />
           <main style={{ paddingTop: '60px' }}>{children}</main>
           <Footer />
