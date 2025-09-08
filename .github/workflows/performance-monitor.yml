@@ -1,0 +1,91 @@
+name: Performance Monitoring
+
+on:
+  push:
+    branches: [ main, preview ]
+  schedule:
+    # Run daily at 6 AM UTC
+    - cron: '0 6 * * *'
+
+env:
+  NODE_VERSION: '20'
+  PNPM_VERSION: '8'
+
+jobs:
+  performance-test:
+    name: Performance Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build application
+        run: pnpm build
+
+      - name: Start application
+        run: |
+          pnpm start &
+          sleep 15
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          configPath: './lighthouserc.json'
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: Comment PR with Lighthouse results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            
+            // Read Lighthouse results
+            const resultsPath = path.join(process.cwd(), '.lighthouseci');
+            if (fs.existsSync(resultsPath)) {
+              const files = fs.readdirSync(resultsPath);
+              const jsonFiles = files.filter(file => file.endsWith('.json'));
+              
+              if (jsonFiles.length > 0) {
+                const results = JSON.parse(fs.readFileSync(path.join(resultsPath, jsonFiles[0]), 'utf8'));
+                const scores = results.lhr.categories;
+                
+                const comment = `## 🚀 Performance Report
+                
+                | Metric | Score | Status |
+                |--------|-------|--------|
+                | Performance | ${Math.round(scores.performance.score * 100)} | ${scores.performance.score >= 0.9 ? '✅' : scores.performance.score >= 0.8 ? '⚠️' : '❌'} |
+                | Accessibility | ${Math.round(scores.accessibility.score * 100)} | ${scores.accessibility.score >= 0.9 ? '✅' : '❌'} |
+                | Best Practices | ${Math.round(scores['best-practices'].score * 100)} | ${scores['best-practices'].score >= 0.9 ? '✅' : '❌'} |
+                | SEO | ${Math.round(scores.seo.score * 100)} | ${scores.seo.score >= 0.9 ? '✅' : '❌'} |
+                
+                ### Core Web Vitals
+                - **LCP**: ${Math.round(results.lhr.audits['largest-contentful-paint'].numericValue)}ms
+                - **FID**: ${Math.round(results.lhr.audits['max-potential-fid'].numericValue)}ms
+                - **CLS**: ${results.lhr.audits['cumulative-layout-shift'].numericValue.toFixed(3)}
+                
+                [View full report](${results.lhr.finalUrl})`;
+                
+                github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: comment
+                });
+              }
+            }
