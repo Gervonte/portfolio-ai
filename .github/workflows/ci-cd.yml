@@ -164,54 +164,5 @@ jobs:
           uploadArtifacts: true
           temporaryPublicStorage: true
 
-  # Deploy to Vercel (Preview)
-  deploy-preview:
-    name: Deploy Preview
-    runs-on: ubuntu-latest
-    needs: [build-and-test, security-audit]
-    if: github.ref == 'refs/heads/preview' && github.event_name == 'push'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          working-directory: ./
-          scope: ${{ secrets.VERCEL_ORG_ID }}
-
-  # Deploy to Vercel (Production)
-  deploy-production:
-    name: Deploy Production
-    runs-on: ubuntu-latest
-    needs: [build-and-test, security-audit]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
-          working-directory: ./
-          scope: ${{ secrets.VERCEL_ORG_ID }}
-
-  # Notify on Success
-  notify-success:
-    name: Notify Success
-    runs-on: ubuntu-latest
-    needs: [deploy-preview, deploy-production]
-    if: always() && (needs.deploy-preview.result == 'success' || needs.deploy-production.result == 'success')
-    steps:
-      - name: Notify deployment success
-        run: |
-          echo "🚀 Deployment successful!"
-          echo "Preview: https://portfolio-ai-xi.vercel.app"
-          echo "Production: https://portfolio-ai-xi.vercel.app"
+  # Note: Vercel handles deployment automatically
+  # No need for GitHub Actions deployment since Vercel auto-deploys on push
