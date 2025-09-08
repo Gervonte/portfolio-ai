@@ -27,9 +27,9 @@ import {
   IconAlertCircle,
 } from '@tabler/icons-react';
 import { aboutData } from '@/lib/about';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 
-export default function ContactSection() {
+const ContactSection = memo(() => {
   const { personalInfo } = aboutData;
   const [isClient, setIsClient] = useState(false);
   const [formData, setFormData] = useState({
@@ -349,4 +349,8 @@ export default function ContactSection() {
       </Stack>
     </Container>
   );
-}
+});
+
+ContactSection.displayName = 'ContactSection';
+
+export default ContactSection;

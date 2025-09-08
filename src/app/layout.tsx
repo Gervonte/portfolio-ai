@@ -11,7 +11,12 @@ import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
 import '../styles/sakura.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  preload: true,
+  fallback: ['system-ui', 'arial'],
+});
 
 // Navigation links
 const navigationLinks = [

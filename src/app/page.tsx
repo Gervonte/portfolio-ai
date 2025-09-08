@@ -9,14 +9,35 @@ import {
   Box,
   Stack,
 } from '@mantine/core';
+import { Suspense, lazy, memo } from 'react';
 import SakuraBackground from '@/components/SakuraBackground';
 import ScrollIndicator from '@/components/ScrollIndicator';
-import AboutSection from '@/components/AboutSection';
-import WorkSection from '@/components/WorkSection';
-import ExperienceSection from '@/components/ExperienceSection';
-import ContactSection from '@/components/ContactSection';
 
-export default function HomePage() {
+// Lazy load heavy components
+const AboutSection = lazy(() => import('@/components/AboutSection'));
+const WorkSection = lazy(() => import('@/components/WorkSection'));
+const ExperienceSection = lazy(() => import('@/components/ExperienceSection'));
+const ContactSection = lazy(() => import('@/components/ContactSection'));
+
+// Loading component for sections
+const SectionLoader = memo(() => (
+  <Box
+    style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: '400px',
+    }}
+  >
+    <Text size="lg" c="dimmed">
+      Loading...
+    </Text>
+  </Box>
+));
+
+SectionLoader.displayName = 'SectionLoader';
+
+const HomePage = memo(() => {
   return (
     <>
       {/* Hero Section */}
@@ -99,6 +120,7 @@ export default function HomePage() {
                   style={{
                     borderColor: '#E91E63',
                     color: '#E91E63',
+
                     background: 'rgba(248, 187, 217, 0.1)',
                   }}
                   onClick={() => {
@@ -117,25 +139,33 @@ export default function HomePage() {
 
       {/* About Section */}
       <Box id="about" style={{ minHeight: '100vh', padding: '4rem 0' }}>
-        <AboutSection />
+        <Suspense fallback={<SectionLoader />}>
+          <AboutSection />
+        </Suspense>
       </Box>
 
       <Box
         id="work"
         style={{ minHeight: '100vh', padding: '4rem 0', background: '#FDFCFB' }}
       >
-        <WorkSection />
+        <Suspense fallback={<SectionLoader />}>
+          <WorkSection />
+        </Suspense>
       </Box>
 
       <Box id="experience" style={{ minHeight: '100vh', padding: '4rem 0' }}>
-        <ExperienceSection />
+        <Suspense fallback={<SectionLoader />}>
+          <ExperienceSection />
+        </Suspense>
       </Box>
 
       <Box
         id="contact"
         style={{ minHeight: '100vh', padding: '4rem 0', background: '#FDFCFB' }}
       >
-        <ContactSection />
+        <Suspense fallback={<SectionLoader />}>
+          <ContactSection />
+        </Suspense>
       </Box>
 
       {/* Scroll Indicator */}
@@ -149,4 +179,8 @@ export default function HomePage() {
       />
     </>
   );
-}
+});
+
+HomePage.displayName = 'HomePage';
+
+export default HomePage;

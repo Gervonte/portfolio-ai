@@ -14,7 +14,6 @@ import {
   List,
   SimpleGrid,
   Tabs,
-  Image,
   ActionIcon,
   Tooltip,
 } from '@mantine/core';
@@ -36,6 +35,8 @@ import {
   type Project,
 } from '@/lib/projects';
 import { getProjectScreenshots } from '@/lib/screenshot';
+import { memo, useMemo } from 'react';
+import { Image } from '@mantine/core';
 
 // Get projects from metadata file
 
@@ -64,10 +65,13 @@ const getTypeColor = (type: Project['type']) => {
   return type === 'vibe-coded' ? 'sakura' : 'blue';
 };
 
-export default function WorkSection() {
-  const vibeCodedProjects = getProjectsByType('vibe-coded');
-  const standardWorkProjects = getProjectsByType('standard-work');
-  const featuredProjects = getFeaturedProjects();
+const WorkSection = memo(() => {
+  const vibeCodedProjects = useMemo(() => getProjectsByType('vibe-coded'), []);
+  const standardWorkProjects = useMemo(
+    () => getProjectsByType('standard-work'),
+    []
+  );
+  const featuredProjects = useMemo(() => getFeaturedProjects(), []);
 
   return (
     <Container size="lg" py="xl">
@@ -879,4 +883,8 @@ export default function WorkSection() {
       </Stack>
     </Container>
   );
-}
+});
+
+WorkSection.displayName = 'WorkSection';
+
+export default WorkSection;

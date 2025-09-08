@@ -23,8 +23,9 @@ import {
   IconTarget,
 } from '@tabler/icons-react';
 import { aboutData } from '@/lib/about';
+import { memo } from 'react';
 
-export default function ExperienceSection() {
+const ExperienceSection = memo(() => {
   const { experience } = aboutData;
 
   // Utility function to get icon for achievement type
@@ -188,4 +189,8 @@ export default function ExperienceSection() {
       </Stack>
     </Container>
   );
-}
+});
+
+ExperienceSection.displayName = 'ExperienceSection';
+
+export default ExperienceSection;
