@@ -3,16 +3,16 @@ import { createTheme } from '@mantine/core';
 export const theme = createTheme({
   colors: {
     sakura: [
-      '#FCE4EC', // sakura[0] - lightest
-      '#F8BBD9', // sakura[1] - light
-      '#F48FB1', // sakura[2] - medium
-      '#E91E63', // sakura[3] - deep
-      '#C2185B', // sakura[4] - darker
-      '#AD1457', // sakura[5] - darkest
-      '#880E4F', // sakura[6] - very dark
-      '#4A0E2E', // sakura[7] - ultra dark
-      '#2C0B1A', // sakura[8] - near black
-      '#1A070F', // sakura[9] - black
+      '#FFEBEE', // sakura[0] - lightest red
+      '#FFCDD2', // sakura[1] - light red
+      '#EF9A9A', // sakura[2] - medium red
+      '#F44336', // sakura[3] - deep red
+      '#E53935', // sakura[4] - darker red
+      '#D32F2F', // sakura[5] - darkest red
+      '#C62828', // sakura[6] - very dark red
+      '#B71C1C', // sakura[7] - ultra dark red
+      '#8D1A1A', // sakura[8] - near black red
+      '#4A0E0E', // sakura[9] - black red
     ],
     warm: [
       '#FDFCFB', // warm[0] - cream white

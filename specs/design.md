@@ -3,6 +3,7 @@
 ## Design Philosophy
 
 ### Core Design Principles
+
 - **Mono No Aware**: Embracing the beauty of transience and impermanence through delicate, fleeting visual elements
 - **Cherry Blossom Aesthetic**: Soft, organic design inspired by sakura petals and spring renewal
 - **Professional Elegance**: Clean, sophisticated design that conveys competence while maintaining warmth
@@ -12,6 +13,7 @@
 - **Brand Consistency**: Cohesive visual language throughout all sections
 
 ### Target Audience
+
 - **Primary**: Hiring managers and technical leads
 - **Secondary**: Recruiters and HR professionals
 - **Tertiary**: Fellow developers and industry peers
@@ -19,6 +21,7 @@
 ## Design System Foundation
 
 ### Mantine UI Integration
+
 - **Component Library**: Mantine UI for consistent, accessible components
 - **Theme System**: Custom Mantine theme with sakura color palette
 - **Typography**: Mantine's typography system with custom font configurations
@@ -26,6 +29,7 @@
 - **Accessibility**: Built-in accessibility features from Mantine components
 
 ### Design Tokens
+
 - **Colors**: Mantine theme colors mapped to sakura palette
 - **Typography**: Mantine font families with custom sizing
 - **Spacing**: Mantine spacing scale (4px base unit)
@@ -37,19 +41,22 @@
 
 ### Color Palette
 
-#### Primary Colors (Cherry Blossom Inspired)
-- **Sakura Pink**: `#F8BBD9` - Soft, delicate pink for primary elements
-- **Sakura Deep**: `#E91E63` - Deeper pink for emphasis and CTAs
-- **Sakura Light**: `#FCE4EC` - Very light pink for backgrounds and highlights
-- **Sakura Accent**: `#F48FB1` - Medium pink for secondary elements
+#### Primary Colors (Cherry Blossom Inspired - Red Variant)
+
+- **Sakura Red**: `#FFCDD2` - Soft, delicate red for primary elements
+- **Sakura Deep**: `#F44336` - Deeper red for emphasis and CTAs
+- **Sakura Light**: `#FFEBEE` - Very light red for backgrounds and highlights
+- **Sakura Accent**: `#EF9A9A` - Medium red for secondary elements
 
 #### Secondary Colors
+
 - **Warm White**: `#FEFEFE` - Pure, clean white for main backgrounds
 - **Soft Gray**: `#F5F5F5` - Gentle gray for section backgrounds
 - **Charcoal**: `#2C2C2C` - Deep charcoal for primary text
 - **Midnight**: `#1A1A1A` - Near black for strong contrast
 
 #### Neutral Colors
+
 - **Text Primary**: `#2C2C2C` - Charcoal for main text content
 - **Text Secondary**: `#666666` - Medium gray for supporting text
 - **Text Muted**: `#999999` - Light gray for placeholders and subtle text
@@ -58,32 +65,35 @@
 - **Border Light**: `#E8E8E8` - Subtle borders and dividers
 
 #### Work Section Specific Colors
-- **Vibe Coded Accent**: `#E91E63` - Deep sakura pink for AI-assisted work
+
+- **Vibe Coded Accent**: `#F44336` - Deep sakura red for AI-assisted work
 - **Standard Work Accent**: `#8B4513` - Warm brown for traditional development
-- **Vibe Coded Background**: `#FCE4EC` with sakura pink tint
+- **Vibe Coded Background**: `#FFEBEE` with sakura red tint
 - **Standard Work Background**: `#FDF4E3` with warm brown tint
 
 #### Sakura Petal Colors
-- **Petal Pink**: `#F8BBD9` - Main petal color
-- **Petal Light**: `#FCE4EC` - Light petal for subtle effects
-- **Petal Dark**: `#E91E63` - Dark petal for depth and shadow
+
+- **Petal Red**: `#FFCDD2` - Main petal color
+- **Petal Light**: `#FFEBEE` - Light petal for subtle effects
+- **Petal Dark**: `#F44336` - Dark petal for depth and shadow
 
 ### Mantine Theme Configuration
+
 ```typescript
 // Mantine theme with sakura color palette
 const theme = {
   colors: {
     sakura: [
-      '#FCE4EC', // sakura[0] - lightest
-      '#F8BBD9', // sakura[1] - light
-      '#F48FB1', // sakura[2] - medium
-      '#E91E63', // sakura[3] - deep
-      '#C2185B', // sakura[4] - darker
-      '#AD1457', // sakura[5] - darkest
-      '#880E4F', // sakura[6] - very dark
-      '#4A0E2E', // sakura[7] - ultra dark
-      '#2C0B1A', // sakura[8] - near black
-      '#1A070F', // sakura[9] - black
+      '#FFEBEE', // sakura[0] - lightest red
+      '#FFCDD2', // sakura[1] - light red
+      '#EF9A9A', // sakura[2] - medium red
+      '#F44336', // sakura[3] - deep red
+      '#E53935', // sakura[4] - darker red
+      '#D32F2F', // sakura[5] - darkest red
+      '#C62828', // sakura[6] - very dark red
+      '#B71C1C', // sakura[7] - ultra dark red
+      '#8D1A1A', // sakura[8] - near black red
+      '#4A0E0E', // sakura[9] - black red
     ],
     warm: [
       '#FDFCFB', // warm[0] - cream white
@@ -104,7 +114,8 @@ const theme = {
   },
   primaryColor: 'sakura',
   primaryShade: 3, // Use sakura[3] as primary
-  fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
+  fontFamily:
+    'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
   fontFamilyMonospace: 'JetBrains Mono, Fira Code, Consolas, monospace',
   headings: {
     fontFamily: 'Inter, sans-serif',
@@ -137,11 +148,13 @@ const theme = {
 ### Typography
 
 #### Font Stack
+
 - **Primary Font**: Inter (Google Fonts) - Modern, highly readable
 - **Fallback**: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif
 - **Monospace**: "JetBrains Mono", "Fira Code", Consolas, monospace
 
 #### Type Scale
+
 - **H1 (Hero)**: 3.5rem (56px) / 4rem (64px) mobile / 1.2 line-height
 - **H2 (Section Headers)**: 2.5rem (40px) / 1.3 line-height
 - **H3 (Subsections)**: 1.875rem (30px) / 1.4 line-height
@@ -152,6 +165,7 @@ const theme = {
 - **Caption**: 0.75rem (12px) / 1.4 line-height
 
 #### Font Weights
+
 - **Light**: 300 - For subtle text and descriptions
 - **Regular**: 400 - Body text and general content
 - **Medium**: 500 - Emphasized text and labels
@@ -161,12 +175,14 @@ const theme = {
 ## Layout & Grid System
 
 ### Grid Structure
+
 - **Desktop**: 12-column grid with 24px gutters
 - **Tablet**: 8-column grid with 20px gutters
 - **Mobile**: 4-column grid with 16px gutters
 - **Max Width**: 1200px container with auto margins
 
 ### Spacing System
+
 - **Base Unit**: 8px
 - **Spacing Scale**: 4px, 8px, 12px, 16px, 24px, 32px, 48px, 64px, 96px, 128px
 - **Section Padding**: 80px vertical, 24px horizontal
@@ -174,6 +190,7 @@ const theme = {
 - **Component Spacing**: 16px between related elements
 
 ### Breakpoints
+
 - **Mobile**: 320px - 767px
 - **Tablet**: 768px - 1023px
 - **Desktop**: 1024px - 1439px
@@ -182,6 +199,7 @@ const theme = {
 ## Component Design System
 
 ### Mantine Component Integration
+
 - **Base Components**: Mantine Button, Input, Card, Text, Title, Group, Stack
 - **Layout Components**: Mantine Container, Grid, Paper, Box, Center
 - **Navigation**: Mantine Navbar, Burger, Anchor, Breadcrumbs
@@ -190,6 +208,7 @@ const theme = {
 - **Custom Components**: SakuraPetal, ProjectCard, WorkSectionHeader
 
 #### Atomic Design Principles
+
 - **Atoms**: Mantine Button, Input, Icon + Custom SakuraPetal
 - **Molecules**: Mantine Card + Custom ProjectCard, SkillBadge, ContactItem
 - **Organisms**: Custom WorkSection, ExperienceTimeline + Mantine Navbar
@@ -199,6 +218,7 @@ const theme = {
 ### Navigation
 
 #### Desktop Navigation
+
 - **Height**: 72px
 - **Background**: White with subtle shadow
 - **Logo**: Left-aligned, 32px height
@@ -207,6 +227,7 @@ const theme = {
 - **Active State**: Primary blue color with bottom border
 
 #### Mobile Navigation
+
 - **Height**: 64px
 - **Hamburger Menu**: 24px icon, right-aligned
 - **Overlay**: Full-screen with blur background
@@ -216,17 +237,20 @@ const theme = {
 ### Hero Section
 
 #### Layout
+
 - **Height**: 100vh minimum
 - **Content**: Centered vertically and horizontally
 - **Background**: Subtle gradient or pattern
 - **CTA Buttons**: Primary and secondary styles
 
 #### Typography Hierarchy
+
 - **Headline**: H1 with bold weight, center-aligned
 - **Subheadline**: H3 with regular weight, center-aligned
 - **Description**: Body large, center-aligned, max-width 600px
 
 #### Visual Elements
+
 - **Profile Image**: Circular, 200px diameter, subtle shadow with sakura petal frame
 - **Background Pattern**: Floating sakura petals with gentle movement
 - **Scroll Indicator**: Animated sakura petal falling or gentle arrow with petal accent
@@ -236,6 +260,7 @@ const theme = {
 ### Work Sections
 
 #### Vibe Coded Section
+
 - **Header**: Sakura pink gradient background with floating petal pattern
 - **Card Design**: Rounded corners (12px), sakura pink accent border with petal shadows
 - **Badge**: "AI-Assisted" with soft pink background and petal icon
@@ -244,6 +269,7 @@ const theme = {
 - **Background**: Subtle sakura petal particles floating gently
 
 #### Standard Work Section
+
 - **Header**: Warm brown gradient background with organic texture
 - **Card Design**: Rounded corners (12px), warm brown accent border
 - **Badge**: "Hand-Coded" with earth-tone background and traditional icon
@@ -252,6 +278,7 @@ const theme = {
 - **Background**: Subtle paper or wood grain texture
 
 #### Project Cards
+
 - **Layout**: 3-column grid on desktop, 2-column on tablet, 1-column on mobile
 - **Image**: 16:9 aspect ratio, rounded top corners
 - **Content**: Title, description, tech stack, links
@@ -261,12 +288,14 @@ const theme = {
 ### About Section
 
 #### Layout
+
 - **Two-Column**: Text content and skills visualization
 - **Skills Section**: Interactive skill bars or tag cloud
 - **Timeline**: Vertical timeline for career progression
 - **Image**: Professional headshot with subtle styling
 
 #### Skills Visualization
+
 - **Skill Bars**: Animated progress bars with percentages
 - **Tech Stack**: Tag-based layout with category grouping
 - **Proficiency Levels**: Beginner, Intermediate, Advanced, Expert
@@ -274,6 +303,7 @@ const theme = {
 ### Contact Section
 
 #### Contact Form
+
 - **Layout**: Centered, max-width 600px
 - **Fields**: Name, email, subject, message
 - **Styling**: Rounded inputs with focus states
@@ -281,6 +311,7 @@ const theme = {
 - **Submit Button**: Primary style with loading state
 
 #### Contact Information
+
 - **Layout**: Grid of contact methods
 - **Icons**: Consistent icon set for each method
 - **Links**: Hover effects and external link indicators
@@ -288,6 +319,7 @@ const theme = {
 ## Sakura Petal Effects
 
 ### Petal Animation System
+
 - **Floating Petals**: Gentle, random movement across the viewport
 - **Petal Shapes**: Organic, hand-drawn style with slight variations
 - **Petal Sizes**: 3-4 different sizes (8px, 12px, 16px, 20px)
@@ -297,6 +329,7 @@ const theme = {
 - **Z-Index Layering**: Petals behind content, subtle depth
 
 ### Petal Interactions
+
 - **Hover Effects**: Petals gently drift toward cursor
 - **Scroll Triggers**: New petals appear on scroll with fade-in animation
 - **Work Section Focus**: Petals cluster around active work sections
@@ -304,6 +337,7 @@ const theme = {
 - **Mobile Optimization**: Reduced petal count and simpler animations
 
 ### Petal Visual Design
+
 - **Shape**: Organic, slightly irregular petal forms
 - **Opacity**: 0.3-0.6 for subtle presence
 - **Rotation**: Random rotation angles for natural feel
@@ -316,17 +350,20 @@ const theme = {
 ### Animations
 
 #### Page Transitions
+
 - **Fade In**: 0.3s ease-out for page load
 - **Slide Up**: 0.4s ease-out for section reveals
 - **Stagger**: 0.1s delay between card animations
 
 #### Hover Effects
+
 - **Cards**: Scale (1.02x) with shadow increase
 - **Buttons**: Color transition and slight scale
 - **Links**: Underline animation from left to right
 - **Images**: Subtle zoom effect
 
 #### Loading States
+
 - **Skeleton Screens**: For content loading
 - **Spinner**: For form submissions
 - **Progress Bar**: For page transitions
@@ -334,12 +371,14 @@ const theme = {
 ### Micro-Interactions
 
 #### Button States
+
 - **Default**: Primary color with subtle shadow
 - **Hover**: Darker shade with increased shadow
 - **Active**: Pressed state with reduced shadow
 - **Disabled**: Muted color with no interaction
 
 #### Form Interactions
+
 - **Focus**: Blue border with subtle glow
 - **Error**: Red border with shake animation
 - **Success**: Green border with checkmark
@@ -348,6 +387,7 @@ const theme = {
 ## Responsive Design
 
 ### Mobile-First Approach
+
 - **Base Styles**: Mobile-optimized
 - **Progressive Enhancement**: Add features for larger screens
 - **Touch Targets**: Minimum 44px for interactive elements
@@ -356,18 +396,21 @@ const theme = {
 ### Breakpoint-Specific Adjustments
 
 #### Mobile (320px - 767px)
+
 - **Single Column**: All content stacked vertically
 - **Larger Touch Targets**: Buttons and links
 - **Simplified Navigation**: Hamburger menu
 - **Reduced Spacing**: Tighter vertical rhythm
 
 #### Tablet (768px - 1023px)
+
 - **Two-Column Layout**: Where appropriate
 - **Larger Images**: Better visual impact
 - **Hover States**: Maintained for touch devices
 - **Grid Adjustments**: 2-column project cards
 
 #### Desktop (1024px+)
+
 - **Multi-Column Layout**: Full grid system
 - **Hover Effects**: All interactive elements
 - **Larger Typography**: Enhanced readability
@@ -376,18 +419,21 @@ const theme = {
 ## Accessibility Design
 
 ### Color Contrast
+
 - **Text on Background**: Minimum 4.5:1 ratio
 - **Large Text**: Minimum 3:1 ratio
 - **Interactive Elements**: High contrast for visibility
 - **Focus Indicators**: Clear, high-contrast outlines
 
 ### Visual Hierarchy
+
 - **Clear Headings**: Proper heading structure
 - **Consistent Spacing**: Predictable layout patterns
 - **Logical Flow**: Left-to-right, top-to-bottom
 - **Grouped Content**: Related elements visually connected
 
 ### Interactive Elements
+
 - **Focus States**: Visible focus indicators
 - **Keyboard Navigation**: All elements accessible via keyboard
 - **Screen Reader Support**: Proper ARIA labels
@@ -396,6 +442,7 @@ const theme = {
 ## Brand Personality
 
 ### Visual Tone
+
 - **Contemplative**: Reflective and thoughtful, embracing the beauty of transience
 - **Elegant**: Sophisticated yet gentle, like cherry blossoms in spring
 - **Professional**: Clean and trustworthy while maintaining warmth
@@ -403,6 +450,7 @@ const theme = {
 - **Approachable**: Friendly and inviting without being casual
 
 ### Design Language
+
 - **Organic**: Flowing, natural shapes inspired by nature
 - **Minimalist**: Essential elements with breathing room
 - **Consistent**: Unified visual language throughout
@@ -412,18 +460,21 @@ const theme = {
 ## Design Assets
 
 ### Icons
+
 - **Style**: Outline style with 2px stroke weight
 - **Size**: 16px, 20px, 24px, 32px variants
 - **Library**: Heroicons or Feather Icons
 - **Custom Icons**: For unique elements like work section badges
 
 ### Images
+
 - **Profile Photo**: Professional headshot, 400x400px minimum
 - **Project Screenshots**: High-resolution, consistent aspect ratios
 - **Background Images**: Subtle, non-distracting patterns
 - **Optimization**: WebP format with fallbacks
 
 ### Illustrations
+
 - **Custom Graphics**: For empty states and loading
 - **Decorative Elements**: Subtle patterns and shapes
 - **Work Section Graphics**: AI and coding-themed illustrations
@@ -432,12 +483,14 @@ const theme = {
 ## Design Validation
 
 ### User Testing Scenarios
+
 - **First Impression**: 5-second test for immediate impact
 - **Navigation**: Find specific information quickly
 - **Mobile Experience**: Complete tasks on mobile device
 - **Accessibility**: Screen reader and keyboard navigation
 
 ### Design Review Checklist
+
 - [ ] Consistent color usage throughout
 - [ ] Proper typography hierarchy
 - [ ] Responsive design at all breakpoints
@@ -450,12 +503,14 @@ const theme = {
 ## Future Design Considerations
 
 ### Scalability
+
 - **Component Library**: Reusable design components
 - **Design Tokens**: Centralized design values
 - **Style Guide**: Living documentation
 - **Version Control**: Design system updates
 
 ### Enhancement Opportunities
+
 - **Dark Mode**: Alternative color scheme
 - **Animation Library**: Advanced micro-interactions
 - **Custom Illustrations**: Brand-specific graphics
@@ -463,4 +518,4 @@ const theme = {
 
 ---
 
-*This design document will be updated as the visual design evolves and new requirements are identified.*
+_This design document will be updated as the visual design evolves and new requirements are identified._

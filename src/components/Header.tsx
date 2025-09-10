@@ -87,7 +87,7 @@ export default function Header({ links }: HeaderProps) {
               size={28}
               aria-hidden="true"
               style={{
-                color: scrolled ? '#E91E63' : '#F8BBD9',
+                color: scrolled ? '#F44336' : '#FFCDD2',
                 transition: 'color 0.3s ease',
               }}
             />
@@ -96,8 +96,8 @@ export default function Header({ links }: HeaderProps) {
               fw={700}
               style={{
                 backgroundImage: scrolled
-                  ? 'linear-gradient(135deg, #E91E63, #F8BBD9)'
-                  : 'linear-gradient(135deg, #F8BBD9, #FCE4EC)',
+                  ? 'linear-gradient(135deg, #F44336, #FFCDD2)'
+                  : 'linear-gradient(135deg, #FFCDD2, #FFEBEE)',
                 backgroundSize: '100% 100%',
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
@@ -129,8 +129,8 @@ export default function Header({ links }: HeaderProps) {
                   ?.scrollIntoView({ behavior: 'smooth' });
               }}
               style={{
-                borderColor: scrolled ? '#E91E63' : '#F8BBD9',
-                color: scrolled ? '#E91E63' : '#F8BBD9',
+                borderColor: scrolled ? '#F44336' : '#FFCDD2',
+                color: scrolled ? '#F44336' : '#FFCDD2',
                 background: 'transparent',
                 transition: 'all 0.3s ease',
               }}
@@ -187,8 +187,8 @@ export default function Header({ links }: HeaderProps) {
                     toggle(); // Close mobile menu
                   }}
                   style={{
-                    borderColor: '#E91E63',
-                    color: '#E91E63',
+                    borderColor: '#F44336',
+                    color: '#F44336',
                     background: 'transparent',
                   }}
                 >

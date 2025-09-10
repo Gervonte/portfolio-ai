@@ -61,7 +61,7 @@ const HomePage = memo(() => {
                 ta="center"
                 mb="md"
                 style={{
-                  background: 'linear-gradient(135deg, #E91E63, #F8BBD9)',
+                  background: 'linear-gradient(135deg, #F44336, #FFCDD2)',
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -106,9 +106,9 @@ const HomePage = memo(() => {
                   color="sakura"
                   aria-label="View my work projects"
                   style={{
-                    background: 'linear-gradient(135deg, #E91E63, #F48FB1)',
+                    background: 'linear-gradient(135deg, #F44336, #EF9A9A)',
                     border: 'none',
-                    boxShadow: '0 4px 15px rgba(233, 30, 99, 0.3)',
+                    boxShadow: '0 4px 15px rgba(244, 67, 54, 0.3)',
                   }}
                   onClick={() => {
                     document
@@ -124,10 +124,9 @@ const HomePage = memo(() => {
                   color="sakura"
                   aria-label="Contact me for opportunities"
                   style={{
-                    borderColor: '#E91E63',
-                    color: '#E91E63',
-
-                    background: 'rgba(248, 187, 217, 0.1)',
+                    borderColor: '#F44336',
+                    color: '#F44336',
+                    background: 'rgba(255, 205, 210, 0.1)',
                   }}
                   onClick={() => {
                     document

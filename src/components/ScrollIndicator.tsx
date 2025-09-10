@@ -257,7 +257,7 @@ export default function ScrollIndicator({
                             transition: 'all 0.3s ease',
                             background:
                               currentSection === index
-                                ? 'linear-gradient(135deg, #E91E63, #F8BBD9)'
+                                ? 'linear-gradient(135deg, #F44336, #FFCDD2)'
                                 : 'rgba(255, 255, 255, 0.1)',
                             border:
                               currentSection === index
@@ -307,7 +307,7 @@ export default function ScrollIndicator({
                       style={{
                         background:
                           pressedButton === 'up'
-                            ? 'linear-gradient(135deg, #E91E63, #F8BBD9)'
+                            ? 'linear-gradient(135deg, #F44336, #FFCDD2)'
                             : 'rgba(255, 255, 255, 0.2)',
                         border:
                           pressedButton === 'up'
@@ -332,7 +332,7 @@ export default function ScrollIndicator({
                       style={{
                         background:
                           pressedButton === 'down'
-                            ? 'linear-gradient(135deg, #E91E63, #F8BBD9)'
+                            ? 'linear-gradient(135deg, #F44336, #FFCDD2)'
                             : 'rgba(255, 255, 255, 0.2)',
                         border:
                           pressedButton === 'down'
@@ -362,7 +362,7 @@ export default function ScrollIndicator({
                     height: '12px',
                     borderRadius: '50%',
                     background: isScrolling
-                      ? 'linear-gradient(135deg, #E91E63, #F8BBD9)'
+                      ? 'linear-gradient(135deg, #F44336, #FFCDD2)'
                       : 'rgba(255, 255, 255, 0.3)',
                     transition: 'all 0.3s ease',
                     boxShadow: isScrolling
@@ -559,7 +559,7 @@ export default function ScrollIndicator({
                   height: '16px',
                   borderRadius: '50%',
                   background: isScrolling
-                    ? 'linear-gradient(135deg, #E91E63, #F8BBD9)'
+                    ? 'linear-gradient(135deg, #F44336, #FFCDD2)'
                     : 'rgba(255, 255, 255, 0.3)',
                   transition: 'all 0.3s ease',
                   boxShadow: isScrolling

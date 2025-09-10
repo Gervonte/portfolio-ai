@@ -100,7 +100,7 @@
     {
       "degree": "B.S. Computer Science",
       "institution": "Florida Polytechnic University",
-      "year": "2025",
+      "year": "2020",
       "description": "GPA: 3.54"
     }
   ],
@@ -129,6 +129,12 @@
     }
   ],
   "leadership": [
+    {
+      "name": "Member, Alumni Leadership Committee (ALC)",
+      "organization": "Florida Polytechnic University",
+      "year": "",
+      "description": "Oversee events and initiatives to engage and support alumni."
+    },
     {
       "name": "Treasurer, National Society of Black Engineers (NSBE)",
       "organization": "Florida Polytechnic University Chapter",
