@@ -24,7 +24,7 @@ export default function Footer() {
     <Box
       component="footer"
       style={{
-        background: 'linear-gradient(135deg, #FCE4EC, #F8BBD9)',
+        background: 'linear-gradient(135deg, #FFEBEE, #FFCDD2)',
         padding: '3rem 0 2rem',
         marginTop: '4rem',
         position: 'relative',
@@ -53,12 +53,12 @@ export default function Footer() {
             {/* Brand Section */}
             <Stack gap="md" style={{ flex: 1, minWidth: '250px' }}>
               <Group gap="xs">
-                <IconCode size={24} style={{ color: '#E91E63' }} />
+                <IconCode size={24} style={{ color: '#F44336' }} />
                 <Text
                   size="lg"
                   fw={700}
                   style={{
-                    background: 'linear-gradient(135deg, #E91E63, #F8BBD9)',
+                    background: 'linear-gradient(135deg, #F44336, #FFCDD2)',
                     backgroundClip: 'text',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
@@ -72,7 +72,7 @@ export default function Footer() {
                 development work with a touch of mono no aware.
               </Text>
               <Group gap="xs">
-                <IconHeart size={16} style={{ color: '#E91E63' }} />
+                <IconHeart size={16} style={{ color: '#F44336' }} />
                 <Text size="xs" c="dimmed">
                   Built with Next.js, Mantine, and sakura.js
                 </Text>
@@ -101,7 +101,7 @@ export default function Footer() {
                       transition: 'color 0.3s ease',
                     }}
                     onMouseEnter={e => {
-                      e.currentTarget.style.color = '#E91E63';
+                      e.currentTarget.style.color = '#F44336';
                     }}
                     onMouseLeave={e => {
                       e.currentTarget.style.color = '#666666';
@@ -125,7 +125,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   style={{ color: '#666666', transition: 'color 0.3s ease' }}
                   onMouseEnter={e => {
-                    e.currentTarget.style.color = '#E91E63';
+                    e.currentTarget.style.color = '#F44336';
                   }}
                   onMouseLeave={e => {
                     e.currentTarget.style.color = '#666666';
@@ -139,7 +139,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   style={{ color: '#666666', transition: 'color 0.3s ease' }}
                   onMouseEnter={e => {
-                    e.currentTarget.style.color = '#E91E63';
+                    e.currentTarget.style.color = '#F44336';
                   }}
                   onMouseLeave={e => {
                     e.currentTarget.style.color = '#666666';
@@ -151,7 +151,7 @@ export default function Footer() {
                   href="mailto:gervontefowler.dev@outlook.com"
                   style={{ color: '#666666', transition: 'color 0.3s ease' }}
                   onMouseEnter={e => {
-                    e.currentTarget.style.color = '#E91E63';
+                    e.currentTarget.style.color = '#F44336';
                   }}
                   onMouseLeave={e => {
                     e.currentTarget.style.color = '#666666';
@@ -174,7 +174,7 @@ export default function Footer() {
               Made with{' '}
               <IconHeart
                 size={12}
-                style={{ color: '#E91E63', verticalAlign: 'middle' }}
+                style={{ color: '#F44336', verticalAlign: 'middle' }}
               />{' '}
               and sakura petals
             </Text>

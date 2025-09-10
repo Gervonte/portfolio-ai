@@ -28,9 +28,9 @@ export default function SakuraBackground({
     };
 
     const variantConfig = {
-      falling: { colors: ['#F8BBD9', '#FCE4EC', '#F48FB1', '#E91E63'] },
-      floating: { colors: ['#FCE4EC', '#F8BBD9', '#F48FB1'] },
-      gentle: { colors: ['#FCE4EC', '#F8BBD9'] },
+      falling: { colors: ['#FFCDD2', '#FFEBEE', '#EF9A9A', '#F44336'] },
+      floating: { colors: ['#FFEBEE', '#FFCDD2', '#EF9A9A'] },
+      gentle: { colors: ['#FFEBEE', '#FFCDD2'] },
     };
 
     const config = {

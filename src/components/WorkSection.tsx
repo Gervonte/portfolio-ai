@@ -83,7 +83,7 @@ const WorkSection = memo(() => {
             size="h1"
             mb="md"
             style={{
-              background: 'linear-gradient(135deg, #E91E63, #F8BBD9)',
+              background: 'linear-gradient(135deg, #F44336, #FFCDD2)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -121,7 +121,7 @@ const WorkSection = memo(() => {
                         height: '200px',
                         borderRadius: '8px',
                         overflow: 'hidden',
-                        background: 'linear-gradient(135deg, #E91E63, #F8BBD9)',
+                        background: 'linear-gradient(135deg, #F44336, #FFCDD2)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -171,7 +171,7 @@ const WorkSection = memo(() => {
                           alignItems: 'center',
                           justifyContent: 'center',
                           background:
-                            'linear-gradient(135deg, #E91E63, #F8BBD9)',
+                            'linear-gradient(135deg, #F44336, #FFCDD2)',
                           position: 'absolute',
                           top: 0,
                           left: 0,
@@ -412,7 +412,7 @@ const WorkSection = memo(() => {
                             borderRadius: '8px',
                             overflow: 'hidden',
                             background:
-                              'linear-gradient(135deg, #E91E63, #F8BBD9)',
+                              'linear-gradient(135deg, #F44336, #FFCDD2)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
@@ -464,7 +464,7 @@ const WorkSection = memo(() => {
                               alignItems: 'center',
                               justifyContent: 'center',
                               background:
-                                'linear-gradient(135deg, #E91E63, #F8BBD9)',
+                                'linear-gradient(135deg, #F44336, #FFCDD2)',
                               position: 'absolute',
                               top: 0,
                               left: 0,

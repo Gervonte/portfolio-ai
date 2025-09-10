@@ -12,7 +12,7 @@ export default function SkipLink() {
         position: 'absolute',
         top: isVisible ? '6px' : '-40px',
         left: '6px',
-        background: '#E91E63',
+        background: '#F44336',
         color: 'white',
         padding: '8px',
         textDecoration: 'none',

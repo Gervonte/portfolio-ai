@@ -61,7 +61,7 @@ const ExperienceSection = memo(() => {
             size="h1"
             mb="md"
             style={{
-              background: 'linear-gradient(135deg, #E91E63, #F8BBD9)',
+              background: 'linear-gradient(135deg, #F44336, #FFCDD2)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',

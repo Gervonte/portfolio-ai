@@ -17,7 +17,7 @@ export default function SakuraEffect({
   petalSize = 15,
   fallSpeed = 0.5,
   windSpeed = 0.5,
-  colors = ['#F8BBD9', '#FCE4EC', '#F48FB1', '#E91E63'],
+  colors = ['#FFCDD2', '#FFEBEE', '#EF9A9A', '#F44336'],
 }: SakuraEffectProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
