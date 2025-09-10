@@ -3,6 +3,7 @@
 ## System Overview
 
 ### Architecture Philosophy
+
 - **Performance First**: Optimized for fast loading and smooth interactions
 - **Maintainable**: Clean, modular code structure for easy updates
 - **Scalable**: Architecture that can grow with future requirements
@@ -12,6 +13,7 @@
 ### Technology Stack
 
 #### Frontend Framework
+
 - **Next.js 14+**: Full-stack React framework with App Router
 - **React 18+**: Component-based architecture with hooks
 - **TypeScript**: Type safety and better developer experience
@@ -19,6 +21,7 @@
 - **Static Site Generation**: Pre-built pages for maximum performance
 
 #### Styling & Animation
+
 - **Mantine UI**: Comprehensive React component library with built-in design system
 - **Mantine Theme**: Custom theme configuration for sakura color palette
 - **Framer Motion**: Smooth animations and transitions
@@ -26,11 +29,13 @@
 - **PostCSS**: CSS processing and optimization
 
 #### State Management
+
 - **React Context**: Global state for theme and user preferences
 - **React Query**: Server state management and caching
 - **Zustand**: Lightweight state management for complex interactions
 
 #### Build & Deployment
+
 - **Next.js Build**: Optimized production builds
 - **ESLint + Prettier**: Code quality and formatting
 - **Husky**: Git hooks for code quality
@@ -119,6 +124,7 @@ portfolio-ai/
 ## Mantine Integration
 
 ### Mantine Provider Setup
+
 ```typescript
 // src/app/layout.tsx
 import { MantineProvider } from '@mantine/core';
@@ -140,6 +146,7 @@ export default function RootLayout({ children }) {
 ```
 
 ### Mantine Theme Configuration
+
 ```typescript
 // src/lib/theme.ts
 import { createTheme } from '@mantine/core';
@@ -147,20 +154,32 @@ import { createTheme } from '@mantine/core';
 export const theme = createTheme({
   colors: {
     sakura: [
-      '#FCE4EC', '#F8BBD9', '#F48FB1', '#E91E63', '#C2185B',
-      '#AD1457', '#880E4F', '#4A0E2E', '#2C0B1A', '#1A070F'
+      '#FCE4EC',
+      '#F8BBD9',
+      '#F48FB1',
+      '#E91E63',
+      '#C2185B',
+      '#AD1457',
+      '#880E4F',
+      '#4A0E2E',
+      '#2C0B1A',
+      '#1A070F',
     ],
     warm: [
-      '#FDFCFB', '#F5F5F5', '#E8E8E8', '#999999', '#666666',
-      '#2C2C2C', '#1A1A1A'
+      '#FDFCFB',
+      '#F5F5F5',
+      '#E8E8E8',
+      '#999999',
+      '#666666',
+      '#2C2C2C',
+      '#1A1A1A',
     ],
-    earth: [
-      '#FDF4E3', '#F4E4BC', '#D4A574', '#8B4513', '#654321'
-    ],
+    earth: ['#FDF4E3', '#F4E4BC', '#D4A574', '#8B4513', '#654321'],
   },
   primaryColor: 'sakura',
   primaryShade: 3,
-  fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
+  fontFamily:
+    'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
   headings: { fontFamily: 'Inter, sans-serif', fontWeight: '600' },
   spacing: { xs: 4, sm: 8, md: 16, lg: 24, xl: 32 },
   radius: { xs: 4, sm: 8, md: 12, lg: 16, xl: 20 },
@@ -168,6 +187,7 @@ export const theme = createTheme({
 ```
 
 ### Mantine Component Usage
+
 - **Layout**: Container, Grid, Stack, Group, Box
 - **Typography**: Text, Title, Anchor, List
 - **Inputs**: TextInput, Textarea, Select, Checkbox, Radio
@@ -214,6 +234,7 @@ RootLayout
 ### Component Design Patterns
 
 #### Atomic Design Principles
+
 - **Atoms**: Button, Input, Icon, SakuraPetal
 - **Molecules**: ProjectCard, SkillBadge, ContactItem
 - **Organisms**: WorkSection, ExperienceTimeline, Navigation
@@ -221,6 +242,7 @@ RootLayout
 - **Pages**: Home, About, Work, Contact
 
 #### Component Structure
+
 ```typescript
 // Example component structure
 interface ComponentProps {
@@ -232,7 +254,7 @@ const Component: React.FC<ComponentProps> = ({ ...props }) => {
   // State
   // Effects
   // Handlers
-  
+
   return (
     <div className="component-wrapper">
       {/* JSX */}
@@ -248,6 +270,7 @@ export default Component;
 ### Data Models
 
 #### Project Model
+
 ```typescript
 interface Project {
   id: string;
@@ -276,6 +299,7 @@ interface ProjectImage {
 ```
 
 #### Experience Model
+
 ```typescript
 interface Experience {
   id: string;
@@ -293,6 +317,7 @@ interface Experience {
 ```
 
 #### Skill Model
+
 ```typescript
 interface Skill {
   id: string;
@@ -308,12 +333,14 @@ interface Skill {
 ### Data Management
 
 #### Static Data
+
 - **Projects**: Stored in `src/data/projects.ts`
 - **Experience**: Stored in `src/data/experience.ts`
 - **Skills**: Stored in `src/data/skills.ts`
 - **Content**: Markdown files for blog posts (future)
 
 #### Dynamic Data
+
 - **Contact Form**: Form submission handling
 - **Analytics**: User interaction tracking
 - **Preferences**: Theme and user settings
@@ -323,6 +350,7 @@ interface Skill {
 ### Sakura Petal System
 
 #### Petal Component
+
 ```typescript
 interface SakuraPetalProps {
   size: 'small' | 'medium' | 'large';
@@ -339,23 +367,25 @@ const SakuraPetal: React.FC<SakuraPetalProps> = ({ ...props }) => {
 ```
 
 #### Petal Manager Hook
+
 ```typescript
 const useSakuraPetals = () => {
   const [petals, setPetals] = useState<SakuraPetal[]>([]);
-  
+
   const createPetal = () => {
     // Petal creation logic
   };
-  
+
   const animatePetals = () => {
     // Animation loop
   };
-  
+
   return { petals, createPetal, animatePetals };
 };
 ```
 
 #### Animation Performance
+
 - **RequestAnimationFrame**: Smooth 60fps animations
 - **CSS Transforms**: Hardware-accelerated animations
 - **Intersection Observer**: Animate only visible elements
@@ -364,22 +394,24 @@ const useSakuraPetals = () => {
 ### Scroll Animations
 
 #### Intersection Observer Hook
+
 ```typescript
 const useIntersectionObserver = (
   ref: RefObject<HTMLElement>,
   options?: IntersectionObserverInit
 ) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
-  
+
   useEffect(() => {
     // Observer logic
   }, [ref, options]);
-  
+
   return isIntersecting;
 };
 ```
 
 #### Animation Triggers
+
 - **Fade In**: Elements fade in on scroll
 - **Slide Up**: Elements slide up from bottom
 - **Stagger**: Sequential animation of child elements
@@ -388,23 +420,27 @@ const useIntersectionObserver = (
 ## Performance Architecture
 
 ### Code Splitting
+
 - **Route-based**: Split by page sections
 - **Component-based**: Lazy load heavy components
 - **Library-based**: Split large dependencies
 
 ### Image Optimization
+
 - **WebP Format**: Modern image format with fallbacks
 - **Responsive Images**: Different sizes for different screens
 - **Lazy Loading**: Load images as they enter viewport
 - **Blur Placeholders**: Smooth loading experience
 
 ### Caching Strategy
+
 - **Static Assets**: Long-term caching with versioning
 - **API Responses**: Short-term caching for dynamic data
 - **Service Worker**: Offline functionality and caching
 - **CDN**: Global content delivery
 
 ### Bundle Optimization
+
 - **Tree Shaking**: Remove unused code
 - **Minification**: Compress JavaScript and CSS
 - **Compression**: Gzip/Brotli compression
@@ -413,21 +449,26 @@ const useIntersectionObserver = (
 ## Security Architecture
 
 ### Content Security Policy
+
 ```html
-<meta http-equiv="Content-Security-Policy" 
-      content="default-src 'self'; 
+<meta
+  http-equiv="Content-Security-Policy"
+  content="default-src 'self'; 
                script-src 'self' 'unsafe-inline'; 
                style-src 'self' 'unsafe-inline'; 
-               img-src 'self' data: https:;">
+               img-src 'self' data: https:;"
+/>
 ```
 
 ### Form Security
+
 - **Input Validation**: Client and server-side validation
 - **XSS Protection**: Sanitize user inputs
 - **CSRF Protection**: Token-based protection
 - **Rate Limiting**: Prevent spam submissions
 
 ### External Dependencies
+
 - **Audit Dependencies**: Regular security audits
 - **Update Dependencies**: Keep packages current
 - **Minimize Attack Surface**: Use minimal dependencies
@@ -436,18 +477,21 @@ const useIntersectionObserver = (
 ## Accessibility Architecture
 
 ### Semantic HTML
+
 - **Proper Heading Hierarchy**: H1 → H2 → H3 structure
 - **ARIA Labels**: Screen reader support
 - **Landmark Roles**: Navigation, main, complementary
 - **Form Labels**: Associated labels for all inputs
 
 ### Keyboard Navigation
+
 - **Tab Order**: Logical tab sequence
 - **Focus Management**: Visible focus indicators
 - **Skip Links**: Jump to main content
 - **Keyboard Shortcuts**: Common actions
 
 ### Screen Reader Support
+
 - **Alt Text**: Descriptive image alternatives
 - **Live Regions**: Dynamic content announcements
 - **Descriptive Links**: Meaningful link text
@@ -456,6 +500,7 @@ const useIntersectionObserver = (
 ## SEO Architecture (Next.js Optimized)
 
 ### Next.js SEO Features
+
 - **Server-Side Rendering**: Full HTML content for search engines
 - **Static Site Generation**: Pre-built pages for maximum performance
 - **Automatic Code Splitting**: Optimized loading per page
@@ -463,21 +508,27 @@ const useIntersectionObserver = (
 - **Metadata API**: Dynamic meta tags per page
 
 ### Metadata Management
+
 ```typescript
 // src/lib/metadata.ts
 export const siteConfig = {
-  name: "Your Name - Developer Portfolio",
-  description: "Professional portfolio showcasing AI-assisted and traditional development work",
-  url: "https://yourportfolio.com",
-  ogImage: "/images/og-image.jpg",
+  name: 'Gervonte Fowler - Developer Portfolio',
+  description:
+    'Professional portfolio showcasing AI-assisted and traditional development work',
+  url: 'https://portfolio-ai-xi.vercel.app/',
+  ogImage: '/images/og-image.jpg',
   links: {
-    github: "https://github.com/yourusername",
-    linkedin: "https://linkedin.com/in/yourusername",
+    github: 'https://github.com/gervonte',
+    linkedin: 'https://www.linkedin.com/in/gervonte-fowler-5a7781158',
   },
 };
 
 // Page-level metadata
-export const generateMetadata = async ({ params }: { params: { slug: string } }) => {
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { slug: string };
+}) => {
   return {
     title: `${siteConfig.name} - ${params.slug}`,
     description: siteConfig.description,
@@ -494,11 +545,11 @@ export const generateMetadata = async ({ params }: { params: { slug: string } })
           alt: siteConfig.name,
         },
       ],
-      locale: "en_US",
-      type: "website",
+      locale: 'en_US',
+      type: 'website',
     },
     twitter: {
-      card: "summary_large_image",
+      card: 'summary_large_image',
       title: siteConfig.name,
       description: siteConfig.description,
       images: [siteConfig.ogImage],
@@ -508,6 +559,7 @@ export const generateMetadata = async ({ params }: { params: { slug: string } })
 ```
 
 ### Layout Metadata
+
 ```typescript
 // src/app/layout.tsx
 export const metadata: Metadata = {
@@ -517,30 +569,30 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   keywords: [
-    "developer",
-    "portfolio",
-    "AI",
-    "coding",
-    "web development",
-    "React",
-    "Next.js",
-    "TypeScript",
+    'developer',
+    'portfolio',
+    'AI',
+    'coding',
+    'web development',
+    'React',
+    'Next.js',
+    'TypeScript',
   ],
-  authors: [{ name: "Your Name" }],
-  creator: "Your Name",
+  authors: [{ name: 'Your Name' }],
+  creator: 'Your Name',
   openGraph: {
-    type: "website",
-    locale: "en_US",
+    type: 'website',
+    locale: 'en_US',
     url: siteConfig.url,
     title: siteConfig.name,
     description: siteConfig.description,
     siteName: siteConfig.name,
   },
   twitter: {
-    card: "summary_large_image",
+    card: 'summary_large_image',
     title: siteConfig.name,
     description: siteConfig.description,
-    creator: "@yourusername",
+    creator: '@yourusername',
   },
   robots: {
     index: true,
@@ -548,88 +600,92 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
     },
   },
 };
 ```
 
 ### Structured Data
+
 ```typescript
 // src/lib/structured-data.ts
 export const personStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Your Name",
-  jobTitle: "Software Developer",
-  description: "Full-stack developer specializing in modern web technologies and AI-assisted development",
-  url: "https://yourportfolio.com",
-  image: "https://yourportfolio.com/images/profile.jpg",
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Your Name',
+  jobTitle: 'Software Developer',
+  description:
+    'Full-stack developer specializing in modern web technologies and AI-assisted development',
+  url: 'https://yourportfolio.com',
+  image: 'https://yourportfolio.com/images/profile.jpg',
   sameAs: [
-    "https://github.com/yourusername",
-    "https://linkedin.com/in/yourusername",
-    "https://twitter.com/yourusername",
+    'https://github.com/yourusername',
+    'https://linkedin.com/in/yourusername',
+    'https://twitter.com/yourusername',
   ],
   knowsAbout: [
-    "React",
-    "Next.js",
-    "TypeScript",
-    "AI Development",
-    "Web Development",
+    'React',
+    'Next.js',
+    'TypeScript',
+    'AI Development',
+    'Web Development',
   ],
   hasOccupation: {
-    "@type": "Occupation",
-    name: "Software Developer",
-    description: "Creating modern web applications with AI assistance and traditional coding",
+    '@type': 'Occupation',
+    name: 'Software Developer',
+    description:
+      'Creating modern web applications with AI assistance and traditional coding',
   },
 };
 ```
 
 ### Sitemap Generation
+
 ```typescript
 // src/app/sitemap.ts
-import { MetadataRoute } from "next";
+import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://yourportfolio.com";
-  
+  const baseUrl = 'https://yourportfolio.com';
+
   return [
     {
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: 'monthly',
       priority: 1,
     },
     {
       url: `${baseUrl}/about`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
       url: `${baseUrl}/work`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
+      changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/work/vibe-coded`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
+      changeFrequency: 'weekly',
       priority: 0.7,
     },
     {
       url: `${baseUrl}/work/standard-work`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
+      changeFrequency: 'weekly',
       priority: 0.7,
     },
     {
       url: `${baseUrl}/contact`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: 'monthly',
       priority: 0.6,
     },
   ];
@@ -637,23 +693,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
 ```
 
 ### Robots.txt
+
 ```typescript
 // src/app/robots.ts
-import { MetadataRoute } from "next";
+import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
-      userAgent: "*",
-      allow: "/",
-      disallow: ["/api/", "/admin/"],
+      userAgent: '*',
+      allow: '/',
+      disallow: ['/api/', '/admin/'],
     },
-    sitemap: "https://yourportfolio.com/sitemap.xml",
+    sitemap: 'https://yourportfolio.com/sitemap.xml',
   };
 }
 ```
 
 ### Image Optimization
+
 ```typescript
 // Using Next.js Image component
 import Image from "next/image";
@@ -673,6 +731,7 @@ const OptimizedImage = ({ src, alt, ...props }) => (
 ```
 
 ### Performance Optimization
+
 - **Automatic Code Splitting**: Each page loads only necessary code
 - **Image Optimization**: WebP format with fallbacks
 - **Font Optimization**: Google Fonts with display=swap
@@ -682,12 +741,14 @@ const OptimizedImage = ({ src, alt, ...props }) => (
 ## Deployment Architecture
 
 ### Hosting Platform
+
 - **Vercel**: Optimized for React applications
 - **Netlify**: Alternative with good performance
 - **GitHub Pages**: Free option for static sites
 - **Custom Domain**: Professional URL
 
 ### CI/CD Pipeline
+
 ```yaml
 # GitHub Actions workflow
 name: Deploy Portfolio
@@ -710,6 +771,7 @@ jobs:
 ```
 
 ### Environment Configuration
+
 - **Development**: Local development with hot reload
 - **Staging**: Pre-production testing environment
 - **Production**: Live site with optimizations
@@ -718,18 +780,21 @@ jobs:
 ## Monitoring & Analytics
 
 ### Performance Monitoring
+
 - **Core Web Vitals**: LCP, FID, CLS tracking
 - **Bundle Analysis**: Webpack bundle analyzer
 - **Lighthouse**: Automated performance audits
 - **Real User Monitoring**: Actual user performance data
 
 ### Error Tracking
+
 - **Sentry**: Error monitoring and reporting
 - **Console Logging**: Development error tracking
 - **User Feedback**: Error reporting system
 - **Health Checks**: System status monitoring
 
 ### Analytics
+
 - **Google Analytics 4**: User behavior tracking
 - **Google Search Console**: SEO performance
 - **Heatmaps**: User interaction analysis
@@ -738,18 +803,21 @@ jobs:
 ## Future Architecture Considerations
 
 ### Scalability
+
 - **Microservices**: Break into smaller services
 - **CDN Integration**: Global content delivery
 - **Database**: Move from static to dynamic data
 - **API Layer**: Backend API for dynamic content
 
 ### Feature Additions
+
 - **Blog System**: Content management
 - **Admin Panel**: Content editing interface
 - **Multi-language**: Internationalization
 - **Dark Mode**: Theme switching system
 
 ### Technology Evolution
+
 - **React 19**: Latest React features
 - **Next.js**: Full-stack React framework
 - **Edge Functions**: Serverless functions
@@ -757,4 +825,4 @@ jobs:
 
 ---
 
-*This architecture document will be updated as the technical implementation evolves and new requirements are identified.*
+_This architecture document will be updated as the technical implementation evolves and new requirements are identified._

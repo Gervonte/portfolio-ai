@@ -17,18 +17,18 @@ const resumePath = path.join(__dirname, '../src/assets/resume.txt');
 const outputPath = path.join(__dirname, '../src/data/about-metadata.json');
 
 // Skill level mapping based on context and keywords
-const skillLevelMap = {
-  expert: ['expert', 'advanced', 'production', 'scalable', 'comprehensive'],
-  advanced: [
-    'familiar',
-    'intermediate',
-    'basic',
-    'evaluation',
-    'interpretability',
-  ],
-  intermediate: ['basic', 'familiar', 'learning'],
-  beginner: ['learning', 'introduction', 'basics'],
-};
+// const skillLevelMap = {
+//   expert: ['expert', 'advanced', 'production', 'scalable', 'comprehensive'],
+//   advanced: [
+//     'familiar',
+//     'intermediate',
+//     'basic',
+//     'evaluation',
+//     'interpretability',
+//   ],
+//   intermediate: ['basic', 'familiar', 'learning'],
+//   beginner: ['learning', 'introduction', 'basics'],
+// };
 
 // Skill category mapping
 const skillCategoryMap = {
@@ -91,7 +91,7 @@ function parseResume(resumeText) {
 function extractPersonalInfo(lines) {
   const firstLine = lines[0];
   const secondLine = lines[1];
-  const thirdLine = lines[2];
+  // const thirdLine = lines[2];
   const fourthLine = lines[3];
 
   // Extract name (usually in the 4th line)
@@ -101,7 +101,7 @@ function extractPersonalInfo(lines) {
   const location = firstLine;
 
   // Extract phone and email
-  const phoneMatch = secondLine.match(/\([0-9]{3}\)[0-9]{3}-[0-9]{4}/);
+  // const phoneMatch = secondLine.match(/\([0-9]{3}\)[0-9]{3}-[0-9]{4}/);
   const emailMatch = secondLine.match(
     /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/
   );
@@ -112,7 +112,7 @@ function extractPersonalInfo(lines) {
     title: 'Full-Stack Software Engineer & AI Researcher',
     location: location || 'Lakeland, FL',
     email: emailMatch ? emailMatch[0] : 'gervontefowler.dev@outlook.com',
-    linkedin: 'https://linkedin.com/in/gervonte-fowler', // Not in resume, using placeholder
+    linkedin: 'https://www.linkedin.com/in/gervonte-fowler-5a7781158', // Not in resume, using placeholder
     github: githubMatch
       ? `https://${githubMatch[0]}`
       : 'https://github.com/gervonte',
@@ -597,7 +597,7 @@ function extractLeadership(lines) {
       // Check if this is an organization line
       else if (currentRole && line.includes('Chapter')) {
         currentRole.organization = line;
-        currentRole.year = '2020 - Present';
+        currentRole.year = '';
       }
       // Check if this is a description (starts with *)
       else if (currentRole && line.startsWith('*')) {

@@ -86,9 +86,9 @@ export default function Footer() {
               </Text>
               <Stack gap="xs">
                 {[
-                  { label: 'About', href: '#about' },
                   { label: 'Work', href: '#work' },
                   { label: 'Experience', href: '#experience' },
+                  { label: 'About', href: '#about' },
                   { label: 'Contact', href: '#contact' },
                 ].map(link => (
                   <Anchor
@@ -120,7 +120,7 @@ export default function Footer() {
               </Text>
               <Group gap="md">
                 <Anchor
-                  href="https://github.com"
+                  href="https://github.com/gervonte"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ color: '#666666', transition: 'color 0.3s ease' }}
@@ -134,7 +134,7 @@ export default function Footer() {
                   <IconBrandGithub size={20} />
                 </Anchor>
                 <Anchor
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/gervonte-fowler-5a7781158"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ color: '#666666', transition: 'color 0.3s ease' }}
@@ -148,7 +148,7 @@ export default function Footer() {
                   <IconBrandLinkedin size={20} />
                 </Anchor>
                 <Anchor
-                  href="mailto:contact@example.com"
+                  href="mailto:gervontefowler.dev@outlook.com"
                   style={{ color: '#666666', transition: 'color 0.3s ease' }}
                   onMouseEnter={e => {
                     e.currentTarget.style.color = '#E91E63';

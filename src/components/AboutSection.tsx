@@ -24,7 +24,7 @@ import {
   IconTools,
   IconSchool,
   IconBriefcase,
-  IconHeart,
+  // IconHeart,
   IconRocket,
   IconUsers,
   IconTarget,
@@ -115,34 +115,6 @@ const AboutSection = memo(() => {
           </Text>
         </Box>
 
-        {/* Professional Summary */}
-        <Paper
-          p="xl"
-          withBorder
-          radius="lg"
-          style={{ background: 'rgba(248, 187, 217, 0.05)' }}
-        >
-          <Group align="flex-start" gap="xl">
-            <ThemeIcon size={60} radius="xl" color="sakura" variant="light">
-              <IconRocket size={30} />
-            </ThemeIcon>
-            <Box style={{ flex: 1 }}>
-              <Title order={3} mb="md">
-                Professional Summary
-              </Title>
-              <Text size="lg" lh={1.6}>
-                I&apos;m a passionate Full Stack Developer and Computer Science
-                graduate student with experience building production-ready
-                applications at NovaCredit, a fintech startup. I specialize in
-                React, Node.js, PostgreSQL, and have extensive experience with
-                API development, testing pipelines, and A/B testing. Currently
-                pursuing my M.S. in Computer Science with research focus on
-                AI/ML, LLM evaluation, and explainable AI systems.
-              </Text>
-            </Box>
-          </Group>
-        </Paper>
-
         {/* Skills Section */}
         <Box>
           <Title order={2} ta="center" mb="xl">
@@ -180,7 +152,7 @@ const AboutSection = memo(() => {
           </SimpleGrid>
         </Box>
 
-        {/* Experience Timeline */}
+        {/* Experience Timeline
         <Box>
           <Title order={2} ta="center" mb="xl">
             Professional Experience
@@ -213,7 +185,7 @@ const AboutSection = memo(() => {
                 </Text>
                 <Group mb="sm">
                   <Text size="sm" fw={500}>
-                    Technologies:
+                    Highlights:
                   </Text>
                   <Group gap="xs">
                     {exp.technologies.map(tech => (
@@ -236,12 +208,12 @@ const AboutSection = memo(() => {
               </Timeline.Item>
             ))}
           </Timeline>
-        </Box>
+        </Box> */}
 
         {/* Research Projects */}
         <Box>
           <Title order={2} ta="center" mb="xl">
-            Research Projects
+            Graduate Research Projects
           </Title>
           <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="xl">
             {researchProjects.map((project, index) => (
@@ -262,7 +234,7 @@ const AboutSection = memo(() => {
                 </Text>
                 <Group mb="md">
                   <Text size="sm" fw={500}>
-                    Technologies:
+                    Highlights:
                   </Text>
                   <Group gap="xs">
                     {project.technologies.map(tech => (
@@ -347,49 +319,6 @@ const AboutSection = memo(() => {
             </Card>
           </Grid.Col>
         </Grid>
-
-        {/* Personal Philosophy */}
-        <Paper
-          p="xl"
-          withBorder
-          radius="lg"
-          style={{ background: 'rgba(248, 187, 217, 0.05)' }}
-        >
-          <Group align="flex-start" gap="xl">
-            <ThemeIcon size={60} radius="xl" color="sakura" variant="light">
-              <IconHeart size={30} />
-            </ThemeIcon>
-            <Box style={{ flex: 1 }}>
-              <Title order={3} mb="md">
-                My Philosophy
-              </Title>
-              <Text size="lg" lh={1.6} mb="md">
-                I believe in the power of technology to solve real-world
-                problems and improve people&apos;s lives. My approach to
-                development is rooted in:
-              </Text>
-              <List spacing="sm" size="md">
-                <List.Item>
-                  <Text fw={500}>Continuous Learning:</Text> Always staying
-                  current with the latest technologies and best practices
-                </List.Item>
-                <List.Item>
-                  <Text fw={500}>User-Centric Design:</Text> Building
-                  applications that are not just functional, but delightful to
-                  use
-                </List.Item>
-                <List.Item>
-                  <Text fw={500}>Collaborative Growth:</Text> Mentoring others
-                  and learning from diverse perspectives
-                </List.Item>
-                <List.Item>
-                  <Text fw={500}>Quality & Performance:</Text> Writing clean,
-                  maintainable code that scales with business needs
-                </List.Item>
-              </List>
-            </Box>
-          </Group>
-        </Paper>
       </Stack>
     </Container>
   );

@@ -4,74 +4,74 @@
     "title": "Full-Stack Software Engineer & AI Researcher",
     "location": "Lakeland, FL",
     "email": "gervontefowler.dev@outlook.com",
-    "linkedin": "https://linkedin.com/in/gervonte-fowler",
+    "linkedin": "https://www.linkedin.com/in/gervonte-fowler-5a7781158",
     "github": "https://github.com/gervonte",
-    "summary": "Passionate full-stack software engineer with expertise in React, Node.js, and AI/ML research. Currently pursuing MS in Computer Science with focus on LLM evaluation and explainable AI systems. Proven track record of shipping production-ready features and leading technical initiatives at fintech startups."
+    "summary": "Passionate full-stack software engineer with expertise in React, Node.js, and AI/ML research."
   },
   "skills": [
     {
       "name": "Python",
-      "level": "expert",
+      "level": "advanced",
       "category": "backend"
     },
     {
       "name": "TypeScript",
-      "level": "expert",
+      "level": "advanced",
       "category": "frontend"
     },
     {
       "name": "JavaScript",
-      "level": "expert",
+      "level": "advanced",
       "category": "frontend"
     },
     {
       "name": "React",
-      "level": "expert",
+      "level": "advanced",
       "category": "frontend"
     },
     {
       "name": "Node.js",
-      "level": "expert",
+      "level": "advanced",
       "category": "backend"
     },
     {
       "name": "Express",
-      "level": "expert",
+      "level": "advanced",
       "category": "backend"
     },
     {
       "name": "HTML",
-      "level": "expert",
+      "level": "advanced",
       "category": "frontend"
     },
     {
       "name": "CSS",
-      "level": "expert",
+      "level": "advanced",
       "category": "frontend"
     },
     {
       "name": "REST APIs",
-      "level": "expert",
+      "level": "advanced",
       "category": "backend"
     },
     {
       "name": "PostgreSQL",
-      "level": "expert",
+      "level": "advanced",
       "category": "backend"
     },
     {
       "name": "GraphQL",
-      "level": "advanced",
+      "level": "intermediate",
       "category": "backend"
     },
     {
       "name": "Git",
-      "level": "expert",
+      "level": "advanced",
       "category": "devops"
     },
     {
       "name": "GitHub Actions",
-      "level": "advanced",
+      "level": "intermediate",
       "category": "devops"
     }
   ],
@@ -132,7 +132,7 @@
     {
       "name": "Treasurer, National Society of Black Engineers (NSBE)",
       "organization": "Florida Polytechnic University Chapter",
-      "year": "2020 - Present",
+      "year": "",
       "description": "Oversaw budgeting and logistics for conference attendance, managing registrations, hotels, and travel."
     }
   ]

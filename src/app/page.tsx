@@ -65,13 +65,13 @@ const HomePage = memo(() => {
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                  fontSize: 'clamp(3.5rem, 6vw, 5rem)',
                   fontWeight: 700,
                   willChange: 'transform',
                   transform: 'translateZ(0)',
                 }}
               >
-                Gervonte Fowler
+                Hello, I&apos;m Gervonte Fowler
               </Title>
               <Text
                 ta="center"
@@ -79,13 +79,14 @@ const HomePage = memo(() => {
                 mb="xl"
                 c="dimmed"
                 style={{
-                  maxWidth: '600px',
+                  maxWidth: '850px',
                   lineHeight: 1.6,
                 }}
               >
-                Full-Stack Software Engineer & AI Researcher
+                2025 M.S. Computer Science Graduate | 2 Years of Series B
+                Fintech Startup Experience
               </Text>
-              <Text
+              {/* <Text
                 ta="center"
                 size="lg"
                 mb="xl"
@@ -95,10 +96,10 @@ const HomePage = memo(() => {
                   lineHeight: 1.6,
                 }}
               >
-                Passionate about building scalable software solutions and
-                advancing AI research. Currently pursuing MS in Computer Science
-                with focus on LLM evaluation and explainable AI systems.
-              </Text>
+                Skilled in building scalable applications, data-driven
+                solutions, and contributing to fast-paced, high-growth
+                environments with or without the use of AI.
+              </Text> */}
               <Group justify="center" gap="md">
                 <Button
                   size="lg"
@@ -142,17 +143,6 @@ const HomePage = memo(() => {
         </Box>
       </SakuraBackground>
 
-      {/* About Section */}
-      <Box
-        id="about"
-        role="main"
-        style={{ minHeight: '100vh', padding: '4rem 0' }}
-      >
-        <Suspense fallback={<SectionLoader />}>
-          <AboutSection />
-        </Suspense>
-      </Box>
-
       <Box
         id="work"
         role="region"
@@ -175,6 +165,17 @@ const HomePage = memo(() => {
         </Suspense>
       </Box>
 
+      {/* About Section */}
+      <Box
+        id="about"
+        role="main"
+        style={{ minHeight: '100vh', padding: '4rem 0' }}
+      >
+        <Suspense fallback={<SectionLoader />}>
+          <AboutSection />
+        </Suspense>
+      </Box>
+
       <Box
         id="contact"
         role="region"
@@ -188,7 +189,7 @@ const HomePage = memo(() => {
 
       {/* Scroll Indicator */}
       <ScrollIndicator
-        sections={['hero', 'about', 'work', 'experience', 'contact']}
+        sections={['hero', 'work', 'experience', 'about', 'contact']}
         showProgress={true}
         showNavigation={true}
         position="bottom"
