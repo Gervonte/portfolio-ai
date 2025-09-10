@@ -105,7 +105,7 @@ export default function Header({ links }: HeaderProps) {
                 transition: 'all 0.3s ease',
               }}
             >
-              Portfolio
+              Gervonte&apos;s Portfolio
             </Text>
           </Group>
 

@@ -9,7 +9,7 @@ import {
   Group,
   Stack,
   Box,
-  Paper,
+  //Paper,
   ThemeIcon,
   List,
   SimpleGrid,
@@ -23,9 +23,9 @@ import {
   IconBrandGithub,
   IconBrain,
   IconTools,
-  IconStar,
+  //IconStar,
   IconCalendar,
-  IconHeart,
+  //IconHeart,
   IconSparkles,
 } from '@tabler/icons-react';
 import {
@@ -103,15 +103,6 @@ const WorkSection = memo(() => {
             <Title order={2} ta="center">
               Featured Projects
             </Title>
-            <Badge
-              leftSection={<IconStar size={14} />}
-              color="sakura"
-              variant="light"
-              size="lg"
-              radius="xl"
-            >
-              Highlighted Work
-            </Badge>
           </Group>
           <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="xl">
             {featuredProjects.map(project => {
@@ -374,7 +365,7 @@ const WorkSection = memo(() => {
               leftSection={<IconCode size={16} />}
               fw={600}
             >
-              Standard Work
+              Traditional Work
             </Tabs.Tab>
           </Tabs.List>
 
@@ -610,7 +601,7 @@ const WorkSection = memo(() => {
             <Box>
               <Group justify="center" mb="xl">
                 <Title order={2} ta="center">
-                  Standard Work Projects
+                  Traditional Work Projects
                 </Title>
                 <Badge
                   leftSection={<IconTools size={14} />}
@@ -834,52 +825,6 @@ const WorkSection = memo(() => {
             </Box>
           </Tabs.Panel>
         </Tabs>
-
-        {/* Philosophy Section */}
-        <Paper
-          p="xl"
-          withBorder
-          radius="lg"
-          style={{ background: 'rgba(248, 187, 217, 0.05)' }}
-        >
-          <Group align="flex-start" gap="xl">
-            <ThemeIcon size={60} radius="xl" color="sakura" variant="light">
-              <IconHeart size={30} />
-            </ThemeIcon>
-            <Box style={{ flex: 1 }}>
-              <Title order={3} mb="md">
-                {projectsData.philosophy.title}
-              </Title>
-              <Text size="lg" lh={1.6} mb="md">
-                {projectsData.philosophy.description}
-              </Text>
-              <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg">
-                <Box>
-                  <Group mb="sm">
-                    <IconBrain size={20} color="#E91E63" />
-                    <Text fw={600} c="sakura">
-                      {projectsData.philosophy.vibeCoded.title}
-                    </Text>
-                  </Group>
-                  <Text size="sm" c="dimmed">
-                    {projectsData.philosophy.vibeCoded.description}
-                  </Text>
-                </Box>
-                <Box>
-                  <Group mb="sm">
-                    <IconCode size={20} color="#228BE6" />
-                    <Text fw={600} c="blue">
-                      {projectsData.philosophy.standardWork.title}
-                    </Text>
-                  </Group>
-                  <Text size="sm" c="dimmed">
-                    {projectsData.philosophy.standardWork.description}
-                  </Text>
-                </Box>
-              </SimpleGrid>
-            </Box>
-          </Group>
-        </Paper>
       </Stack>
     </Container>
   );

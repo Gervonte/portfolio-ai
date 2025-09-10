@@ -3,18 +3,12 @@
     {
       "id": "portfolio-ai",
       "title": "Portfolio AI",
-      "description": "AI-generated portfolio website with sakura theme and modern animations",
+      "description": "My personal portfolio website with sakura theme and modern animations built using Cursor and Next.js for SEO.",
       "longDescription": "A comprehensive portfolio website built with Next.js, TypeScript, and Mantine UI, featuring AI-assisted development throughout the process. The project showcases both traditional development skills and AI collaboration, with a beautiful sakura theme inspired by mono no aware aesthetics.",
       "type": "vibe-coded",
-      "technologies": [
-        "Next.js",
-        "TypeScript",
-        "Mantine UI",
-        "Sakura.js",
-        "Vercel"
-      ],
+      "technologies": ["Next.js", "Mantine UI", "Sakura.js", "Vercel"],
       "status": "completed",
-      "featured": true,
+      "featured": false,
       "liveUrl": "https://portfolio-ai-xi.vercel.app/",
       "githubUrl": "https://github.com/gervonte/portfolio-ai",
       "imagePath": "portfolio-ai2.png",
@@ -33,22 +27,22 @@
     {
       "id": "audio-key-bpm-analyzer-ai",
       "title": "Audio Key BPM Analyzer AI",
-      "description": "KIRO/AI generated music tool that analyzes the key and BPM of an audio file",
-      "longDescription": "A tool comparable to tunebat.com built with Vite, TypeScript, and Chakra UI, featuring AI-assisted development throughout the process. The project showcases both traditional development skills and AI collaboration, with a beautiful sakura theme inspired by mono no aware aesthetics.",
+      "description": "KIRO/AI generated music tool that helps new (or not so new!) music producers by analyzing the key and BPM of an instrumental file. Useful for autotune applications.",
+      "longDescription": "This tool is comparable in output to Tunebat.com's key and bpm analyzer. The waveform display was inspired by Soundcloud and the algorithm behind the analysis uses essentia.js. It's main use case is for analyzing instrumental music files as a music producer with a lack of music theory knowledge.",
       "type": "vibe-coded",
-      "technologies": ["Vite", "TypeScript", "Chakra UI", "Vercel", "Sentry"],
+      "technologies": ["Vite", "TypeScript", "Chakra UI", "Sentry"],
       "status": "completed",
       "featured": true,
       "liveUrl": "https://audio-key-bpm-analyzer-kiro.vercel.app/",
       "githubUrl": "https://github.com/Gervonte/audio-key-bpm-analyzer-kiro",
       "imagePath": "audio-analyzer3.png",
       "achievements": [
-        "AI-assisted development from concept to deployment",
+        "AI-assisted development taking concept to deployment",
         "Responsive design with Chakra UI components",
         "Audio key and BPM analysis with essentia.js",
-        "Audio file analysis and visualization"
+        "Simple waveform display"
       ],
-      "aiTools": ["Claude AI", "Kiro", "ChatGPT"],
+      "aiTools": ["Claude AI", "Kiro (AWS)", "ChatGPT"],
       "timeline": "1 week",
       "category": "Full Stack Web Development"
     }

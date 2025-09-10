@@ -12,7 +12,7 @@ import {
   ThemeIcon,
   Box,
   Timeline,
-  Paper,
+  //Paper,
 } from '@mantine/core';
 import {
   IconBriefcase,
@@ -161,31 +161,6 @@ const ExperienceSection = memo(() => {
             </Timeline.Item>
           ))}
         </Timeline>
-
-        {/* Call to Action */}
-        <Paper p="xl" withBorder radius="lg" ta="center" mt="xl">
-          <Stack gap="md">
-            <Title order={3} c="sakura">
-              Ready to Build Something Amazing?
-            </Title>
-            <Text size="md" c="dimmed" maw={600} mx="auto">
-              I&apos;m passionate about creating innovative solutions and would
-              love to discuss how my experience can contribute to your
-              team&apos;s success.
-            </Text>
-            <Group justify="center" gap="md" mt="md">
-              <Badge
-                leftSection={<IconRocket size={14} />}
-                color="sakura"
-                variant="light"
-                size="lg"
-                radius="xl"
-              >
-                Available for Opportunities
-              </Badge>
-            </Group>
-          </Stack>
-        </Paper>
       </Stack>
     </Container>
   );
