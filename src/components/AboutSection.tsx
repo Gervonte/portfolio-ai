@@ -115,34 +115,6 @@ const AboutSection = memo(() => {
           </Text>
         </Box>
 
-        {/* Professional Summary */}
-        <Paper
-          p="xl"
-          withBorder
-          radius="lg"
-          style={{ background: 'rgba(248, 187, 217, 0.05)' }}
-        >
-          <Group align="flex-start" gap="xl">
-            <ThemeIcon size={60} radius="xl" color="sakura" variant="light">
-              <IconRocket size={30} />
-            </ThemeIcon>
-            <Box style={{ flex: 1 }}>
-              <Title order={3} mb="md">
-                Professional Summary
-              </Title>
-              <Text size="lg" lh={1.6}>
-                I&apos;m a passionate Full Stack Developer and Computer Science
-                graduate student with experience building production-ready
-                applications at NovaCredit, a fintech startup. I specialize in
-                React, Node.js, PostgreSQL, and have extensive experience with
-                API development, testing pipelines, and A/B testing. Currently
-                pursuing my M.S. in Computer Science with research focus on
-                AI/ML, LLM evaluation, and explainable AI systems.
-              </Text>
-            </Box>
-          </Group>
-        </Paper>
-
         {/* Skills Section */}
         <Box>
           <Title order={2} ta="center" mb="xl">
@@ -180,7 +152,7 @@ const AboutSection = memo(() => {
           </SimpleGrid>
         </Box>
 
-        {/* Experience Timeline */}
+        {/* Experience Timeline
         <Box>
           <Title order={2} ta="center" mb="xl">
             Professional Experience
@@ -213,7 +185,7 @@ const AboutSection = memo(() => {
                 </Text>
                 <Group mb="sm">
                   <Text size="sm" fw={500}>
-                    Technologies:
+                    Highlights:
                   </Text>
                   <Group gap="xs">
                     {exp.technologies.map(tech => (
@@ -236,7 +208,7 @@ const AboutSection = memo(() => {
               </Timeline.Item>
             ))}
           </Timeline>
-        </Box>
+        </Box> */}
 
         {/* Research Projects */}
         <Box>

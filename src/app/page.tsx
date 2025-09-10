@@ -79,14 +79,14 @@ const HomePage = memo(() => {
                 mb="xl"
                 c="dimmed"
                 style={{
-                  maxWidth: '800px',
+                  maxWidth: '850px',
                   lineHeight: 1.6,
                 }}
               >
-                2025 M.S. Computer Science Graduate | 2 Years of Fintech Startup
-                Experience
+                2025 M.S. Computer Science Graduate | 2 Years of Series B
+                Fintech Startup Experience
               </Text>
-              <Text
+              {/* <Text
                 ta="center"
                 size="lg"
                 mb="xl"
@@ -99,7 +99,7 @@ const HomePage = memo(() => {
                 Skilled in building scalable applications, data-driven
                 solutions, and contributing to fast-paced, high-growth
                 environments with or without the use of AI.
-              </Text>
+              </Text> */}
               <Group justify="center" gap="md">
                 <Button
                   size="lg"

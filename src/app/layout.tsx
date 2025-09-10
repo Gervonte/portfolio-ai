@@ -23,9 +23,9 @@ const inter = Inter({
 
 // Navigation links
 const navigationLinks = [
-  { link: '#about', label: 'About' },
   { link: '#work', label: 'Work' },
   { link: '#experience', label: 'Experience' },
+  { link: '#about', label: 'About' },
   { link: '#contact', label: 'Contact' },
 ];
 

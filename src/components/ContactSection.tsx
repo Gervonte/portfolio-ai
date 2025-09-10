@@ -94,7 +94,7 @@ const ContactSection = memo(() => {
     {
       icon: <IconBrandLinkedin size={24} />,
       title: 'LinkedIn',
-      value: 'gervonte-fowler',
+      value: 'Gervonte Fowler',
       href: personalInfo.linkedin,
       description: 'Connect with me professionally',
     },

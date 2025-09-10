@@ -112,7 +112,7 @@ function extractPersonalInfo(lines) {
     title: 'Full-Stack Software Engineer & AI Researcher',
     location: location || 'Lakeland, FL',
     email: emailMatch ? emailMatch[0] : 'gervontefowler.dev@outlook.com',
-    linkedin: 'https://linkedin.com/in/gervonte-fowler', // Not in resume, using placeholder
+    linkedin: 'https://www.linkedin.com/in/gervonte-fowler-5a7781158', // Not in resume, using placeholder
     github: githubMatch
       ? `https://${githubMatch[0]}`
       : 'https://github.com/gervonte',
