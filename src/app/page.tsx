@@ -12,6 +12,8 @@ import {
 import { Suspense, lazy, memo } from 'react';
 import SakuraBackground from '@/components/SakuraBackground';
 import ScrollIndicator from '@/components/ScrollIndicator';
+import ParallaxElement from '@/components/ParallaxElement';
+import { ParallaxProvider } from '@/lib/parallax-context';
 
 // Lazy load heavy components
 const AboutSection = lazy(() => import('@/components/AboutSection'));
@@ -39,7 +41,7 @@ SectionLoader.displayName = 'SectionLoader';
 
 const HomePage = memo(() => {
   return (
-    <>
+    <ParallaxProvider>
       {/* Hero Section */}
       <SakuraBackground intensity="moderate" variant="falling">
         <Box
@@ -56,36 +58,40 @@ const HomePage = memo(() => {
         >
           <Container size="lg" py="xl">
             <Stack align="center" gap="xl">
-              <Title
-                order={1}
-                ta="center"
-                mb="md"
-                style={{
-                  background: 'linear-gradient(135deg, #F44336, #FFCDD2)',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  fontSize: 'clamp(3.5rem, 6vw, 5rem)',
-                  fontWeight: 700,
-                  willChange: 'transform',
-                  transform: 'translateZ(0)',
-                }}
-              >
-                Hello, I&apos;m Gervonte Fowler
-              </Title>
-              <Text
-                ta="center"
-                size="xl"
-                mb="xl"
-                c="dimmed"
-                style={{
-                  maxWidth: '850px',
-                  lineHeight: 1.6,
-                }}
-              >
-                2025 M.S. Computer Science Graduate | 2 Years of Series B
-                Fintech Startup Experience
-              </Text>
+              <ParallaxElement speed={-1} center={true}>
+                <Title
+                  order={1}
+                  ta="center"
+                  mb="md"
+                  style={{
+                    background: 'linear-gradient(135deg, #F44336, #FFCDD2)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    fontSize: 'clamp(3.5rem, 6vw, 5rem)',
+                    fontWeight: 700,
+                    willChange: 'transform',
+                    transform: 'translateZ(0)',
+                  }}
+                >
+                  Hello, I&apos;m Gervonte Fowler
+                </Title>
+              </ParallaxElement>
+              <ParallaxElement speed={-0.8} center={true}>
+                <Text
+                  ta="center"
+                  size="xl"
+                  mb="xl"
+                  c="dimmed"
+                  style={{
+                    maxWidth: '850px',
+                    lineHeight: 1.6,
+                  }}
+                >
+                  2025 M.S. Computer Science Graduate | 2 Years of Series B
+                  Fintech Startup Experience
+                </Text>
+              </ParallaxElement>
               {/* <Text
                 ta="center"
                 size="lg"
@@ -100,91 +106,109 @@ const HomePage = memo(() => {
                 solutions, and contributing to fast-paced, high-growth
                 environments with or without the use of AI.
               </Text> */}
-              <Group justify="center" gap="md">
-                <Button
-                  size="lg"
-                  color="sakura"
-                  aria-label="View my work projects"
-                  style={{
-                    background: 'linear-gradient(135deg, #F44336, #EF9A9A)',
-                    border: 'none',
-                    boxShadow: '0 4px 15px rgba(244, 67, 54, 0.3)',
-                  }}
-                  onClick={() => {
-                    document
-                      .getElementById('work')
-                      ?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                >
-                  View My Work
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  color="sakura"
-                  aria-label="Contact me for opportunities"
-                  style={{
-                    borderColor: '#F44336',
-                    color: '#F44336',
-                    background: 'rgba(255, 205, 210, 0.1)',
-                  }}
-                  onClick={() => {
-                    document
-                      .getElementById('contact')
-                      ?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                >
-                  Contact Me
-                </Button>
-              </Group>
+              <ParallaxElement speed={-0.8} center={true}>
+                <Group justify="center" gap="md">
+                  <Button
+                    size="lg"
+                    color="sakura"
+                    aria-label="View my work projects"
+                    style={{
+                      background: 'linear-gradient(135deg, #F44336, #EF9A9A)',
+                      border: 'none',
+                      boxShadow: '0 4px 15px rgba(244, 67, 54, 0.3)',
+                    }}
+                    onClick={() => {
+                      document
+                        .getElementById('work')
+                        ?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                  >
+                    View My Work
+                  </Button>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    color="sakura"
+                    aria-label="Contact me for opportunities"
+                    style={{
+                      borderColor: '#F44336',
+                      color: '#F44336',
+                      background: 'rgba(255, 205, 210, 0.1)',
+                    }}
+                    onClick={() => {
+                      document
+                        .getElementById('contact')
+                        ?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                  >
+                    Contact Me
+                  </Button>
+                </Group>
+              </ParallaxElement>
             </Stack>
           </Container>
         </Box>
       </SakuraBackground>
 
-      <Box
-        id="work"
-        role="region"
-        aria-label="Work projects"
-        style={{ minHeight: '100vh', padding: '4rem 0', background: '#FDFCFB' }}
-      >
-        <Suspense fallback={<SectionLoader />}>
-          <WorkSection />
-        </Suspense>
-      </Box>
+      <ParallaxElement speed={0.8} center={true}>
+        <Box
+          id="work"
+          role="region"
+          aria-label="Work projects"
+          style={{
+            minHeight: '100vh',
+            padding: '4rem 0',
+            background: '#FDFCFB',
+          }}
+        >
+          <Suspense fallback={<SectionLoader />}>
+            <WorkSection />
+          </Suspense>
+        </Box>
+      </ParallaxElement>
 
-      <Box
-        id="experience"
-        role="region"
-        aria-label="Professional experience"
-        style={{ minHeight: '100vh', padding: '4rem 0' }}
-      >
-        <Suspense fallback={<SectionLoader />}>
-          <ExperienceSection />
-        </Suspense>
-      </Box>
+      <ParallaxElement speed={-0.8} center={true}>
+        <Box
+          id="experience"
+          role="region"
+          aria-label="Professional experience"
+          style={{ minHeight: '100vh', padding: '4rem 0' }}
+        >
+          <Suspense fallback={<SectionLoader />}>
+            <ExperienceSection />
+          </Suspense>
+        </Box>
+      </ParallaxElement>
 
       {/* About Section */}
-      <Box
-        id="about"
-        role="main"
-        style={{ minHeight: '100vh', padding: '4rem 0' }}
-      >
-        <Suspense fallback={<SectionLoader />}>
-          <AboutSection />
-        </Suspense>
-      </Box>
+      <ParallaxElement speed={-0.8} center={true}>
+        <Box
+          id="about"
+          role="main"
+          style={{ minHeight: '100vh', padding: '4rem 0' }}
+        >
+          <Suspense fallback={<SectionLoader />}>
+            <AboutSection />
+          </Suspense>
+        </Box>
+      </ParallaxElement>
 
-      <Box
-        id="contact"
-        role="region"
-        aria-label="Contact information"
-        style={{ minHeight: '100vh', padding: '4rem 0', background: '#FDFCFB' }}
-      >
-        <Suspense fallback={<SectionLoader />}>
-          <ContactSection />
-        </Suspense>
-      </Box>
+      <ParallaxElement speed={0.8} center={true}>
+        <Box
+          id="contact"
+          role="region"
+          aria-label="Contact information"
+          style={{
+            minHeight: '100vh',
+            padding: '4rem 0',
+            background: '#FDFCFB',
+          }}
+        >
+          <Suspense fallback={<SectionLoader />}>
+            <ContactSection />
+          </Suspense>
+        </Box>
+      </ParallaxElement>
 
       {/* Scroll Indicator */}
       <ScrollIndicator
@@ -195,7 +219,7 @@ const HomePage = memo(() => {
         orientation="horizontal"
         variant="detailed"
       />
-    </>
+    </ParallaxProvider>
   );
 });
 

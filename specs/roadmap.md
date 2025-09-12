@@ -364,9 +364,176 @@
 
 ## 🔮 FUTURE ENHANCEMENTS
 
-### Phase 5: Advanced Project Showcase (Optional)
+### Phase 5: Parallax Scrolling Enhancement (Optional)
 
-#### Sprint 5.1: Behind-the-Scenes Project Details (Days 29-31)
+#### Sprint 5.0: Parallax Scrolling System (Days 28-30)
+
+##### Tasks
+
+- [ ] **Parallax Foundation**
+  - Install and configure Rellax.js for basic parallax effects
+  - Set up GSAP with ScrollTrigger plugin for advanced animations
+  - Create ParallaxProvider context for scroll position management
+  - Implement useParallax custom hook with Rellax/GSAP integration
+  - Add reduced motion support for accessibility
+- [ ] **Parallax Components**
+  - Create ParallaxElement wrapper component
+  - Implement ParallaxBackground for section backgrounds
+  - Add ParallaxText for moving text elements
+  - Create ParallaxImage for layered image effects
+- [ ] **Visual Effects**
+  - Apply Rellax.js to hero section background images
+  - Enhance sakura petal animations with GSAP ScrollTrigger
+  - Create layered scrolling for work sections using both libraries
+  - Implement smooth parallax transitions with GSAP timelines
+  - Add scroll-triggered sakura petal bursts
+  - Create depth layers for project cards with different parallax speeds
+- [ ] **Performance & Accessibility**
+  - Optimize scroll event handling with debouncing
+  - Use CSS transforms for hardware acceleration
+  - Implement fallbacks for unsupported browsers
+  - Add reduced motion preferences support
+
+##### Deliverables
+
+- ✅ Complete parallax scrolling system
+- ✅ Performance-optimized scroll effects
+- ✅ Accessible parallax implementation
+- ✅ Mobile-optimized parallax experience
+
+##### Success Criteria
+
+- Parallax effects enhance visual depth without impacting performance
+- Smooth scrolling maintained across all devices
+- Accessibility standards met with reduced motion support
+- No layout shifts or visual glitches during scroll
+
+##### Technical Implementation
+
+- **Rellax.js Integration**: Lightweight parallax library for smooth scroll effects
+- **GSAP ScrollTrigger**: Advanced animations and scroll-triggered effects
+- **Component System**: Reusable parallax components with TypeScript interfaces
+- **Performance**: Hardware-accelerated transforms with intersection observer
+- **Accessibility**: Respects prefers-reduced-motion media query
+- **Mobile**: Optimized touch scrolling with appropriate parallax speeds
+
+##### Library Integration
+
+```typescript
+// Rellax.js configuration
+const rellax = new Rellax('.rellax', {
+  speed: -7,
+  center: false,
+  wrapper: null,
+  round: true,
+  vertical: true,
+  horizontal: false,
+});
+
+// GSAP ScrollTrigger setup
+gsap.registerPlugin(ScrollTrigger);
+
+// Parallax animation with GSAP
+gsap.to('.parallax-bg', {
+  yPercent: -50,
+  ease: 'none',
+  scrollTrigger: {
+    trigger: '.section',
+    start: 'top bottom',
+    end: 'bottom top',
+    scrub: true,
+  },
+});
+```
+
+##### Dependencies
+
+```json
+{
+  "dependencies": {
+    "rellax": "^1.12.1",
+    "gsap": "^3.12.2"
+  },
+  "devDependencies": {
+    "@types/rellax": "^1.12.0"
+  }
+}
+```
+
+##### Implementation Example
+
+```typescript
+// components/ParallaxSection.tsx
+import { useEffect, useRef } from 'react';
+import Rellax from 'rellax';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+interface ParallaxSectionProps {
+  children: React.ReactNode;
+  rellaxSpeed?: number;
+  gsapConfig?: any;
+}
+
+export const ParallaxSection: React.FC<ParallaxSectionProps> = ({
+  children,
+  rellaxSpeed = -2,
+  gsapConfig
+}) => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const rellaxRef = useRef<Rellax | null>(null);
+
+  useEffect(() => {
+    // Initialize Rellax.js
+    if (sectionRef.current) {
+      rellaxRef.current = new Rellax(sectionRef.current, {
+        speed: rellaxSpeed,
+        center: false,
+        wrapper: null,
+        round: true,
+        vertical: true,
+        horizontal: false
+      });
+    }
+
+    // Setup GSAP ScrollTrigger
+    if (gsapConfig && sectionRef.current) {
+      gsap.fromTo(sectionRef.current,
+        gsapConfig.from || { opacity: 0, y: 50 },
+        {
+          ...gsapConfig.to || { opacity: 1, y: 0 },
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            end: "bottom 20%",
+            scrub: gsapConfig.scrub || false,
+            ...gsapConfig.scrollTrigger
+          }
+        }
+      );
+    }
+
+    return () => {
+      if (rellaxRef.current) {
+        rellaxRef.current.destroy();
+      }
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, [rellaxSpeed, gsapConfig]);
+
+  return (
+    <div ref={sectionRef} className="parallax-section">
+      {children}
+    </div>
+  );
+};
+```
+
+### Phase 6: Advanced Project Showcase (Optional)
+
+#### Sprint 6.1: Behind-the-Scenes Project Details (Days 31-33)
 
 ##### Tasks
 
@@ -437,6 +604,74 @@
   - Documentation and README files
 
 ##### Implementation Plan
+
+**Step 1: Parallax Scrolling System**
+
+```typescript
+// Parallax configuration for different elements
+interface ParallaxConfig {
+  speed: number; // 0-1, where 0 is fixed and 1 moves at scroll speed
+  direction: 'up' | 'down' | 'left' | 'right';
+  offset: number; // Initial offset in pixels
+  easing: 'linear' | 'ease-out' | 'ease-in-out';
+}
+
+// Parallax elements configuration
+const parallaxElements = {
+  heroBackground: {
+    speed: 0.5,
+    direction: 'down',
+    offset: 0,
+    easing: 'ease-out',
+  },
+  sakuraPetals: {
+    speed: 0.3,
+    direction: 'down',
+    offset: -100,
+    easing: 'linear',
+  },
+  sectionBackgrounds: {
+    speed: 0.2,
+    direction: 'down',
+    offset: 0,
+    easing: 'ease-out',
+  },
+  projectCards: {
+    speed: 0.1,
+    direction: 'up',
+    offset: 50,
+    easing: 'ease-in-out',
+  },
+};
+```
+
+**Step 2: Component Architecture**
+
+- `ParallaxProvider` - Context provider for Rellax/GSAP integration
+- `RellaxElement` - Wrapper component using Rellax.js for simple parallax
+- `GSAPParallaxElement` - Advanced component using GSAP ScrollTrigger
+- `useParallax` - Custom hook managing both Rellax and GSAP instances
+- `ParallaxBackground` - Background image with Rellax.js parallax
+- `ParallaxText` - Text elements with GSAP scroll-triggered animations
+- `SakuraParallax` - Enhanced sakura petals with layered parallax effects
+
+**Step 3: Performance Optimization**
+
+- **Rellax.js**: Built-in performance optimizations with hardware acceleration
+- **GSAP**: Use `gsap.ticker` for optimized animation loops
+- **ScrollTrigger**: Automatic intersection observer implementation
+- **Hardware Acceleration**: Leverage CSS transforms and will-change properties
+- **Reduced Motion**: Respect `prefers-reduced-motion` for both libraries
+- **Mobile Optimization**: Disable parallax on mobile or use reduced effects
+- **Memory Management**: Proper cleanup of Rellax instances and GSAP timelines
+
+**Step 4: Visual Design**
+
+- Subtle parallax effects that enhance without overwhelming
+- Different speeds for different layers to create depth
+- Smooth transitions between parallax states
+- Mobile-optimized parallax with reduced motion
+- Fallback static positioning for unsupported browsers
 
 **Step 1: Data Structure Extension**
 
@@ -625,6 +860,16 @@
 | 19  | Content     | Review, proofread, finalize content  | 4-6             |
 | 20  | Launch Prep | Deployment, domain, monitoring       | 6-8             |
 
+### Week 5: Parallax Enhancement (Optional)
+
+| Day | Focus Area     | Key Tasks                                | Estimated Hours |
+| --- | -------------- | ---------------------------------------- | --------------- |
+| 21  | Parallax Core  | ParallaxProvider, useParallax hook       | 6-8             |
+| 22  | Components     | ParallaxElement, ParallaxBackground      | 6-8             |
+| 23  | Visual Effects | Hero parallax, sakura depth, sections    | 8-10            |
+| 24  | Optimization   | Performance tuning, accessibility        | 6-8             |
+| 25  | Testing        | Cross-device testing, motion preferences | 4-6             |
+
 ## Risk Management
 
 ### Technical Risks
@@ -729,6 +974,7 @@
 ### Month 3: Feature Enhancements
 
 - [ ] **Expandable Project Cards** - Add behind-the-scenes technical details
+- [ ] **Parallax Scrolling Effects** - Add depth and visual interest with layered scrolling
 - [ ] Add blog section (optional)
 - [ ] Implement dark mode toggle
 - [ ] Add more interactive elements
