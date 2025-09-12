@@ -25,7 +25,7 @@
       "category": "Full Stack Web Development",
       "technicalDetails": {
         "analytics": {
-          "screenshots": [],
+          "screenshots": ["analytics-dashboard.svg", "user-metrics.svg"],
           "description": "Real-time user engagement and performance metrics",
           "metrics": {
             "pageViews": "1,200+",
@@ -35,14 +35,22 @@
           }
         },
         "monitoring": {
-          "screenshots": [],
+          "screenshots": [
+            "error-tracking.svg",
+            "system-health.svg",
+            "uptime-monitor.svg"
+          ],
           "description": "Error tracking and system health monitoring",
           "tools": ["Vercel Analytics", "GitHub Actions", "ESLint"],
           "uptime": "99.9%",
           "errorRate": "< 0.1%"
         },
         "cicd": {
-          "screenshots": [],
+          "screenshots": [
+            "github-actions.svg",
+            "deployment-pipeline.svg",
+            "security-scan.svg"
+          ],
           "description": "Automated testing, security scanning, and deployment pipeline",
           "workflows": [
             "CI/CD Pipeline",
@@ -100,7 +108,7 @@
       "category": "Full Stack Web Development",
       "technicalDetails": {
         "analytics": {
-          "screenshots": [],
+          "screenshots": ["audio-analytics.svg", "processing-metrics.svg"],
           "description": "User engagement and audio processing metrics",
           "metrics": {
             "pageViews": "800+",
@@ -110,14 +118,14 @@
           }
         },
         "monitoring": {
-          "screenshots": [],
+          "screenshots": ["audio-error-tracking.svg", "processing-health.svg"],
           "description": "Error tracking and audio processing monitoring",
           "tools": ["Sentry", "Vercel Analytics", "Console Logging"],
           "uptime": "99.8%",
           "errorRate": "< 0.2%"
         },
         "cicd": {
-          "screenshots": [],
+          "screenshots": ["audio-tests.svg", "deployment-pipeline.svg"],
           "description": "Automated testing and deployment pipeline",
           "workflows": [
             "Build & Test",

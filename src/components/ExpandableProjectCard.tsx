@@ -134,25 +134,24 @@ const ExpandableProjectCard = memo(
                 e.currentTarget.style.boxShadow = 'none';
               }}
             >
-              <Image
-                src={
-                  screenshots.thumbnail || '/images/projects/placeholder.png'
-                }
-                alt={project.title}
-                height={120}
-                fallback={
-                  <Center h={120} c="white">
-                    <Stack align="center" gap="xs">
-                      <Text size="lg" fw={600}>
-                        {project.title}
-                      </Text>
-                      <Text size="sm" opacity={0.8}>
-                        Click to view
-                      </Text>
-                    </Stack>
-                  </Center>
-                }
-              />
+              {screenshots.thumbnail ? (
+                <Image
+                  src={screenshots.thumbnail}
+                  alt={project.title}
+                  height={120}
+                />
+              ) : (
+                <Center h={120} c="white">
+                  <Stack align="center" gap="xs">
+                    <Text size="lg" fw={600}>
+                      {project.title}
+                    </Text>
+                    <Text size="sm" opacity={0.8}>
+                      Click to view
+                    </Text>
+                  </Stack>
+                </Center>
+              )}
             </Box>
 
             {/* Project Description */}

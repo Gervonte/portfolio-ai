@@ -70,12 +70,11 @@ export default function Header({ links }: HeaderProps) {
         top: 0,
         left: 0,
         right: 0,
-        zIndex: 1000,
+        zIndex: 100,
         transition: 'all 0.3s ease',
         background: scrolled
           ? 'rgba(254, 254, 254, 0.95)'
           : 'rgba(254, 254, 254, 0.1)',
-        backdropFilter: 'blur(10px)',
         borderBottom: scrolled ? '1px solid rgba(248, 187, 217, 0.2)' : 'none',
       }}
     >
