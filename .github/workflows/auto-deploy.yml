@@ -46,7 +46,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 pull_number: existingPRs[0].number,
-                title: `Auto-deploy: Preview → Main (${new Date().toISOString().replace('T', ' ').split('.')[0]})`,
+                title: `Auto-deploy: Preview → Main (${new Date().toISOString().split('T')[0]})`,
                 body: `## 📋 Auto-generated PR from preview branch
 
                 **Source Branch:** \`preview\`  
@@ -72,7 +72,7 @@ jobs:
               await github.rest.pulls.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                title: `Auto-deploy: Preview → Main (${new Date().toISOString().replace('T', ' ').split('.')[0]})`,
+                title: `Auto-deploy: Preview → Main (${new Date().toISOString().split('T')[0]})`,
                 head: 'preview',
                 base: 'main',
                 body: `## 📋 Auto-generated PR from preview branch
