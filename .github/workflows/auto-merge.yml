@@ -8,11 +8,17 @@ on:
 jobs:
   auto-merge:
     runs-on: ubuntu-latest
-    if: |
-      github.event.pull_request.head.ref == 'preview' &&
-      github.event.pull_request.title.startsWith('🚀 Auto-deploy: Preview → Main')
+    if: github.event.pull_request.head.ref == 'preview'
     
     steps:
+      - name: Check PR title
+        run: |
+          if [[ "${{ github.event.pull_request.title }}" != *"Auto-deploy: Preview → Main"* ]]; then
+            echo "PR title doesn't match expected pattern. Exiting."
+            exit 1
+          fi
+          echo "PR title matches expected pattern. Continuing."
+
       - name: Checkout code
         uses: actions/checkout@v4
         with:
@@ -54,7 +60,7 @@ jobs:
                 repo: context.repo.repo,
                 pull_number: context.payload.pull_request.number,
                 merge_method: 'squash',
-                commit_title: `🚀 Deploy: ${pr.title.replace('🚀 Auto-deploy: Preview → Main ', '')}`,
+                commit_title: `Deploy: ${pr.title.replace('Auto-deploy: Preview → Main ', '')}`,
                 commit_message: `Auto-merge from preview branch\n\nPR #${pr.number}\nCloses #${pr.number}`
               });
               
