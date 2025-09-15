@@ -7,13 +7,19 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "npm run build && npm run dev",
+    "start:prod": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
     "type-check": "tsc --noEmit",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,md,css}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,md,css}\"",
     "parse-resume": "node scripts/parse-resume.js",
-    "prepare": "husky"
+    "prepare": "husky",
+    "clean": "rm -rf .next && rm -rf node_modules/.cache",
+    "fresh": "npm run clean && npm install && npm run dev",
+    "check": "npm run type-check && npm run lint && npm run format:check",
+    "fix": "npm run lint:fix && npm run format"
   },
   "dependencies": {
     "@mantine/core": "^8.2.8",
