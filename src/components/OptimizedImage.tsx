@@ -8,13 +8,9 @@ interface OptimizedImageProps extends Omit<ImageProps, 'alt'> {
   alt?: string;
 }
 
-const OptimizedImage = memo<OptimizedImageProps>(
-  ({ priority = false, alt, ...props }) => {
-    return (
-      <Image {...props} loading={priority ? 'eager' : 'lazy'} alt={alt || ''} />
-    );
-  }
-);
+const OptimizedImage = memo<OptimizedImageProps>(({ priority = false, alt, ...props }) => {
+  return <Image {...props} loading={priority ? 'eager' : 'lazy'} alt={alt || ''} />;
+});
 
 OptimizedImage.displayName = 'OptimizedImage';
 

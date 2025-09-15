@@ -9,10 +9,7 @@ export async function GET(request: NextRequest) {
   const fullPage = searchParams.get('fullPage') === 'true';
 
   if (!url) {
-    return NextResponse.json(
-      { error: 'URL parameter is required' },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: 'URL parameter is required' }, { status: 400 });
   }
 
   try {

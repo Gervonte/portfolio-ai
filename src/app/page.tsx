@@ -1,14 +1,6 @@
 'use client';
 
-import {
-  Container,
-  Title,
-  Text,
-  Button,
-  Group,
-  Box,
-  Stack,
-} from '@mantine/core';
+import { Container, Title, Text, Button, Group, Box, Stack } from '@mantine/core';
 import { Suspense, lazy, memo } from 'react';
 import SakuraBackground from '@/components/SakuraBackground';
 import ScrollIndicator from '@/components/ScrollIndicator';
@@ -88,8 +80,8 @@ const HomePage = memo(() => {
                     lineHeight: 1.6,
                   }}
                 >
-                  2025 M.S. Computer Science Graduate | 2 Years of Series B
-                  Fintech Startup Experience
+                  2025 M.S. Computer Science Graduate | 2 Years of Series B Fintech Startup
+                  Experience
                 </Text>
               </ParallaxElement>
               {/* <Text
@@ -118,9 +110,7 @@ const HomePage = memo(() => {
                       boxShadow: '0 4px 15px rgba(244, 67, 54, 0.3)',
                     }}
                     onClick={() => {
-                      document
-                        .getElementById('work')
-                        ?.scrollIntoView({ behavior: 'smooth' });
+                      document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
                     }}
                   >
                     View My Work
@@ -136,9 +126,7 @@ const HomePage = memo(() => {
                       background: 'rgba(255, 205, 210, 0.1)',
                     }}
                     onClick={() => {
-                      document
-                        .getElementById('contact')
-                        ?.scrollIntoView({ behavior: 'smooth' });
+                      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                     }}
                   >
                     Contact Me
@@ -182,11 +170,7 @@ const HomePage = memo(() => {
 
       {/* About Section */}
       <ParallaxElement speed={-0.8} center={true}>
-        <Box
-          id="about"
-          role="main"
-          style={{ minHeight: '100vh', padding: '4rem 0' }}
-        >
+        <Box id="about" role="main" style={{ minHeight: '100vh', padding: '4rem 0' }}>
           <Suspense fallback={<SectionLoader />}>
             <AboutSection />
           </Suspense>

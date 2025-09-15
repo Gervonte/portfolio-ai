@@ -61,8 +61,7 @@ export default function ValidationDemo() {
         </Title>
 
         <Text ta="center" c="dimmed">
-          This demo showcases the comprehensive data validation schemas built
-          with Zod.
+          This demo showcases the comprehensive data validation schemas built with Zod.
         </Text>
 
         {/* Sample Data Validation */}
@@ -71,8 +70,7 @@ export default function ValidationDemo() {
             Sample Data Validation
           </Title>
           <Text mb="md">
-            Click the button below to validate sample project and experience
-            data.
+            Click the button below to validate sample project and experience data.
           </Text>
           <Button onClick={handleValidateSampleData} mb="md">
             Validate Sample Data
@@ -82,24 +80,18 @@ export default function ValidationDemo() {
             <Stack gap="sm">
               <Alert
                 icon={
-                  validationResults.project.success ? (
-                    <IconCheck size={16} />
-                  ) : (
-                    <IconX size={16} />
-                  )
+                  validationResults.project.success ? <IconCheck size={16} /> : <IconX size={16} />
                 }
                 color={validationResults.project.success ? 'green' : 'red'}
                 title="Project Validation"
               >
                 {validationResults.project.success ? (
                   <Text size="sm">
-                    ✅ Project data is valid! Title:{' '}
-                    {validationResults.project.data?.title}
+                    ✅ Project data is valid! Title: {validationResults.project.data?.title}
                   </Text>
                 ) : (
                   <Text size="sm">
-                    ❌ Project validation failed:{' '}
-                    {validationResults.project.errorMessage}
+                    ❌ Project validation failed: {validationResults.project.errorMessage}
                   </Text>
                 )}
               </Alert>
@@ -122,8 +114,7 @@ export default function ValidationDemo() {
                   </Text>
                 ) : (
                   <Text size="sm">
-                    ❌ Experience validation failed:{' '}
-                    {validationResults.experience.errorMessage}
+                    ❌ Experience validation failed: {validationResults.experience.errorMessage}
                   </Text>
                 )}
               </Alert>
@@ -138,10 +129,7 @@ export default function ValidationDemo() {
           <Title order={3} mb="md">
             Contact Form Validation Demo
           </Title>
-          <Text mb="md">
-            Try filling out the form below to see real-time validation in
-            action.
-          </Text>
+          <Text mb="md">Try filling out the form below to see real-time validation in action.</Text>
 
           <Stack gap="md">
             <TextInput
@@ -195,19 +183,12 @@ export default function ValidationDemo() {
                 Reset Form
               </Button>
 
-              <Button
-                onClick={handleContactFormSubmit}
-                disabled={!contactForm.isFormValid}
-              >
+              <Button onClick={handleContactFormSubmit} disabled={!contactForm.isFormValid}>
                 Submit Form
               </Button>
             </Group>
 
-            <Alert
-              icon={<IconInfoCircle size={16} />}
-              color="blue"
-              title="Form Status"
-            >
+            <Alert icon={<IconInfoCircle size={16} />} color="blue" title="Form Status">
               <Text size="sm">
                 Form is {contactForm.isFormValid ? 'valid' : 'invalid'} •
                 {contactForm.isFormTouched ? ' Touched' : ' Untouched'}
@@ -224,9 +205,7 @@ export default function ValidationDemo() {
             Available Validation Schemas
           </Title>
           <Stack gap="sm">
-            <Text size="sm">
-              The validation system includes comprehensive schemas for:
-            </Text>
+            <Text size="sm">The validation system includes comprehensive schemas for:</Text>
             <Code block>
               {`• Project Schema - Validates project data with technologies, URLs, dates
 • Experience Schema - Validates work experience with dates and responsibilities  
@@ -237,8 +216,7 @@ export default function ValidationDemo() {
 • Portfolio Data Schema - Master schema combining all data types`}
             </Code>
             <Text size="sm" c="dimmed">
-              All schemas include proper TypeScript types, error handling, and
-              validation utilities.
+              All schemas include proper TypeScript types, error handling, and validation utilities.
             </Text>
           </Stack>
         </Paper>

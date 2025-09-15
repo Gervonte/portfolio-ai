@@ -72,9 +72,7 @@ export default function Header({ links }: HeaderProps) {
         right: 0,
         zIndex: 100,
         transition: 'all 0.3s ease',
-        background: scrolled
-          ? 'rgba(254, 254, 254, 0.95)'
-          : 'rgba(254, 254, 254, 0.1)',
+        background: scrolled ? 'rgba(254, 254, 254, 0.95)' : 'rgba(254, 254, 254, 0.1)',
         borderBottom: scrolled ? '1px solid rgba(248, 187, 217, 0.2)' : 'none',
       }}
     >
@@ -109,12 +107,7 @@ export default function Header({ links }: HeaderProps) {
           </Group>
 
           {/* Desktop Navigation */}
-          <Group
-            gap="xl"
-            visibleFrom="sm"
-            role="navigation"
-            aria-label="Main navigation"
-          >
+          <Group gap="xl" visibleFrom="sm" role="navigation" aria-label="Main navigation">
             {items}
             <Button
               size="sm"
@@ -123,9 +116,7 @@ export default function Header({ links }: HeaderProps) {
               leftSection={<IconHeart size={16} aria-hidden="true" />}
               aria-label="Connect with me for opportunities"
               onClick={() => {
-                document
-                  .getElementById('contact')
-                  ?.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
               }}
               style={{
                 borderColor: scrolled ? '#F44336' : '#FFCDD2',
@@ -180,9 +171,7 @@ export default function Header({ links }: HeaderProps) {
                   leftSection={<IconHeart size={16} aria-hidden="true" />}
                   aria-label="Connect with me for opportunities"
                   onClick={() => {
-                    document
-                      .getElementById('contact')
-                      ?.scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                     toggle(); // Close mobile menu
                   }}
                   style={{

@@ -70,13 +70,10 @@ export interface ProjectsMetadata {
 }
 
 // Type-safe access to the metadata
-export const projectsData: ProjectsMetadata =
-  projectsMetadata as ProjectsMetadata;
+export const projectsData: ProjectsMetadata = projectsMetadata as ProjectsMetadata;
 
 // Utility functions
-export const getProjectsByType = (
-  type: 'vibe-coded' | 'standard-work'
-): Project[] => {
+export const getProjectsByType = (type: 'vibe-coded' | 'standard-work'): Project[] => {
   return projectsData.projects.filter(project => project.type === type);
 };
 
@@ -97,9 +94,7 @@ export const getProjectsByStatus = (status: Project['status']): Project[] => {
 };
 
 export const getProjectTechnologies = (): string[] => {
-  const allTechnologies = projectsData.projects.flatMap(
-    project => project.technologies
-  );
+  const allTechnologies = projectsData.projects.flatMap(project => project.technologies);
   return [...new Set(allTechnologies)].sort();
 };
 

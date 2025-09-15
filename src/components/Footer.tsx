@@ -1,14 +1,6 @@
 'use client';
 
-import {
-  Container,
-  Group,
-  Text,
-  Anchor,
-  Stack,
-  Box,
-  Divider,
-} from '@mantine/core';
+import { Container, Group, Text, Anchor, Stack, Box, Divider } from '@mantine/core';
 import {
   IconBrandGithub,
   IconBrandLinkedin,
@@ -68,8 +60,8 @@ export default function Footer() {
                 </Text>
               </Group>
               <Text size="sm" c="dimmed" style={{ maxWidth: '300px' }}>
-                Professional portfolio showcasing AI-assisted and traditional
-                development work with a touch of mono no aware.
+                Professional portfolio showcasing AI-assisted and traditional development work with
+                a touch of mono no aware.
               </Text>
               <Group gap="xs">
                 <IconHeart size={16} style={{ color: '#F44336' }} />
@@ -172,11 +164,8 @@ export default function Footer() {
             </Text>
             <Text size="xs" c="dimmed">
               Made with{' '}
-              <IconHeart
-                size={12}
-                style={{ color: '#F44336', verticalAlign: 'middle' }}
-              />{' '}
-              and sakura petals
+              <IconHeart size={12} style={{ color: '#F44336', verticalAlign: 'middle' }} /> and
+              sakura petals
             </Text>
           </Group>
         </Stack>

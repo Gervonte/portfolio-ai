@@ -33,12 +33,8 @@ export default function ParallaxElement({
 }: ParallaxElementProps) {
   const elementRef = useRef<HTMLDivElement>(null);
   const instanceRef = useRef<RellaxInstance | null>(null);
-  const {
-    createRellaxInstance,
-    destroyRellaxInstance,
-    isReducedMotion,
-    globalSpeedMultiplier,
-  } = useParallax();
+  const { createRellaxInstance, destroyRellaxInstance, isReducedMotion, globalSpeedMultiplier } =
+    useParallax();
 
   useEffect(() => {
     if (!elementRef.current || isReducedMotion) {

@@ -64,16 +64,10 @@ export default function SakuraBackground({
             script.onload = () => {
               console.log('Script loaded, checking for Sakura...');
               console.log('window.Sakura:', (window as any).Sakura);
-              console.log(
-                'typeof window.Sakura:',
-                typeof (window as any).Sakura
-              );
+              console.log('typeof window.Sakura:', typeof (window as any).Sakura);
               // Wait a bit more to ensure the library is fully loaded
               setTimeout(() => {
-                console.log(
-                  'After timeout - window.Sakura:',
-                  (window as any).Sakura
-                );
+                console.log('After timeout - window.Sakura:', (window as any).Sakura);
                 resolve(undefined);
               }, 200);
             };
@@ -89,9 +83,7 @@ export default function SakuraBackground({
         console.log('Sakura loaded:', typeof Sakura, Sakura);
         console.log(
           'Window object keys:',
-          Object.keys(window).filter(key =>
-            key.toLowerCase().includes('sakura')
-          )
+          Object.keys(window).filter(key => key.toLowerCase().includes('sakura'))
         );
         if (!Sakura || typeof Sakura !== 'function') {
           throw new Error(
@@ -103,8 +95,7 @@ export default function SakuraBackground({
 
         if (containerRef.current) {
           // Clear existing sakura
-          const existingSakura =
-            containerRef.current.querySelector('.sakura-container');
+          const existingSakura = containerRef.current.querySelector('.sakura-container');
           if (existingSakura) {
             existingSakura.remove();
           }
@@ -144,10 +135,7 @@ export default function SakuraBackground({
 
           // Cleanup function
           return () => {
-            if (
-              sakuraInstance &&
-              typeof sakuraInstance.destroy === 'function'
-            ) {
+            if (sakuraInstance && typeof sakuraInstance.destroy === 'function') {
               sakuraInstance.destroy();
             }
             if (sakuraContainer.parentNode) {
@@ -164,8 +152,7 @@ export default function SakuraBackground({
 
     return () => {
       if (containerRef.current) {
-        const sakuraContainer =
-          containerRef.current.querySelector('.sakura-container');
+        const sakuraContainer = containerRef.current.querySelector('.sakura-container');
         if (sakuraContainer) {
           sakuraContainer.remove();
         }

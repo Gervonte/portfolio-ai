@@ -27,10 +27,7 @@ const CACHE_CONFIG: CacheConfig = {
  * Generate a cache key for a screenshot request
  */
 function generateCacheKey(url: string, width: number, height: number): string {
-  const hash = crypto
-    .createHash('md5')
-    .update(`${url}-${width}-${height}`)
-    .digest('hex');
+  const hash = crypto.createHash('md5').update(`${url}-${width}-${height}`).digest('hex');
   return `${hash}.png`;
 }
 
@@ -75,9 +72,7 @@ async function loadCacheMetadata(): Promise<Record<string, CacheEntry>> {
 /**
  * Save cache metadata
  */
-async function saveCacheMetadata(
-  metadata: Record<string, CacheEntry>
-): Promise<void> {
+async function saveCacheMetadata(metadata: Record<string, CacheEntry>): Promise<void> {
   try {
     const metadataPath = getCacheMetadataPath();
     await fs.writeFile(metadataPath, JSON.stringify(metadata, null, 2));

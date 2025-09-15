@@ -28,12 +28,7 @@ import {
   //IconHeart,
   IconSparkles,
 } from '@tabler/icons-react';
-import {
-  projectsData,
-  getProjectsByType,
-  getFeaturedProjects,
-  type Project,
-} from '@/lib/projects';
+import { projectsData, getProjectsByType, getFeaturedProjects, type Project } from '@/lib/projects';
 import { getProjectScreenshots } from '@/lib/screenshot';
 import { memo, useMemo } from 'react';
 import { Image } from '@mantine/core';
@@ -42,11 +37,7 @@ import ExpandableProjectCard from './ExpandableProjectCard';
 // Get projects from metadata file
 
 const getProjectIcon = (type: Project['type']) => {
-  return type === 'vibe-coded' ? (
-    <IconBrain size={20} />
-  ) : (
-    <IconCode size={20} />
-  );
+  return type === 'vibe-coded' ? <IconBrain size={20} /> : <IconCode size={20} />;
 };
 
 const getStatusColor = (status: Project['status']) => {
@@ -68,10 +59,7 @@ const getTypeColor = (type: Project['type']) => {
 
 const WorkSection = memo(() => {
   const vibeCodedProjects = useMemo(() => getProjectsByType('vibe-coded'), []);
-  const standardWorkProjects = useMemo(
-    () => getProjectsByType('standard-work'),
-    []
-  );
+  const standardWorkProjects = useMemo(() => getProjectsByType('standard-work'), []);
   const featuredProjects = useMemo(() => getFeaturedProjects(), []);
 
   return (
@@ -93,8 +81,8 @@ const WorkSection = memo(() => {
             My Work
           </Title>
           <Text size="xl" c="dimmed" maw={800} mx="auto">
-            A showcase of my projects, highlighting both AI-assisted development
-            and traditional programming approaches
+            A showcase of my projects, highlighting both AI-assisted development and traditional
+            programming approaches
           </Text>
         </Box>
 
@@ -132,8 +120,7 @@ const WorkSection = memo(() => {
                       }}
                       onMouseEnter={e => {
                         e.currentTarget.style.transform = 'translateY(-2px)';
-                        e.currentTarget.style.boxShadow =
-                          '0 8px 25px rgba(0,0,0,0.15)';
+                        e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
                       }}
                       onMouseLeave={e => {
                         e.currentTarget.style.transform = 'translateY(0)';
@@ -159,8 +146,7 @@ const WorkSection = memo(() => {
                         onError={e => {
                           const target = e.target as HTMLImageElement;
                           target.style.display = 'none';
-                          const fallback =
-                            target.nextElementSibling as HTMLElement;
+                          const fallback = target.nextElementSibling as HTMLElement;
                           if (fallback) fallback.style.display = 'flex';
                         }}
                       />
@@ -171,19 +157,13 @@ const WorkSection = memo(() => {
                           display: 'none',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          background:
-                            'linear-gradient(135deg, #F44336, #FFCDD2)',
+                          background: 'linear-gradient(135deg, #F44336, #FFCDD2)',
                           position: 'absolute',
                           top: 0,
                           left: 0,
                         }}
                       >
-                        <ThemeIcon
-                          color="white"
-                          variant="filled"
-                          size="xl"
-                          radius="xl"
-                        >
+                        <ThemeIcon color="white" variant="filled" size="xl" radius="xl">
                           {getProjectIcon(project.type)}
                         </ThemeIcon>
                       </Box>
@@ -222,19 +202,13 @@ const WorkSection = memo(() => {
                           right: '12px',
                         }}
                       >
-                        {project.type === 'vibe-coded'
-                          ? 'AI-Assisted'
-                          : 'Traditional'}
+                        {project.type === 'vibe-coded' ? 'AI-Assisted' : 'Traditional'}
                       </Badge>
                     </Box>
 
                     <Group justify="space-between" align="flex-start">
                       <Group>
-                        <ThemeIcon
-                          color={getTypeColor(project.type)}
-                          variant="light"
-                          size="lg"
-                        >
+                        <ThemeIcon color={getTypeColor(project.type)} variant="light" size="lg">
                           {getProjectIcon(project.type)}
                         </ThemeIcon>
                         <Box>
@@ -246,11 +220,7 @@ const WorkSection = memo(() => {
                           </Text>
                         </Box>
                       </Group>
-                      <Badge
-                        color={getStatusColor(project.status)}
-                        variant="light"
-                        size="sm"
-                      >
+                      <Badge color={getStatusColor(project.status)} variant="light" size="sm">
                         {project.status}
                       </Badge>
                     </Group>
@@ -299,11 +269,9 @@ const WorkSection = memo(() => {
                     )}
 
                     <List size="sm" spacing="xs">
-                      {project.achievements
-                        .slice(0, 3)
-                        .map((achievement, idx) => (
-                          <List.Item key={idx}>{achievement}</List.Item>
-                        ))}
+                      {project.achievements.slice(0, 3).map((achievement, idx) => (
+                        <List.Item key={idx}>{achievement}</List.Item>
+                      ))}
                     </List>
 
                     <Group justify="space-between" mt="auto">
@@ -354,18 +322,10 @@ const WorkSection = memo(() => {
         {/* Work Categories Tabs */}
         <Tabs defaultValue="vibe-coded" variant="pills" color="sakura">
           <Tabs.List justify="center" mb="xl">
-            <Tabs.Tab
-              value="vibe-coded"
-              leftSection={<IconBrain size={16} />}
-              fw={600}
-            >
+            <Tabs.Tab value="vibe-coded" leftSection={<IconBrain size={16} />} fw={600}>
               Vibe Coded
             </Tabs.Tab>
-            <Tabs.Tab
-              value="standard-work"
-              leftSection={<IconCode size={16} />}
-              fw={600}
-            >
+            <Tabs.Tab value="standard-work" leftSection={<IconCode size={16} />} fw={600}>
               Traditional Work
             </Tabs.Tab>
           </Tabs.List>
@@ -391,11 +351,7 @@ const WorkSection = memo(() => {
               </Text>
               <SimpleGrid cols={{ base: 1, md: 2, lg: 3 }} spacing="xl">
                 {vibeCodedProjects.map(project => (
-                  <ExpandableProjectCard
-                    key={project.id}
-                    project={project}
-                    type="vibe-coded"
-                  />
+                  <ExpandableProjectCard key={project.id} project={project} type="vibe-coded" />
                 ))}
               </SimpleGrid>
             </Box>
@@ -422,11 +378,7 @@ const WorkSection = memo(() => {
               </Text>
               <SimpleGrid cols={{ base: 1, md: 2, lg: 3 }} spacing="xl">
                 {standardWorkProjects.map(project => (
-                  <ExpandableProjectCard
-                    key={project.id}
-                    project={project}
-                    type="standard-work"
-                  />
+                  <ExpandableProjectCard key={project.id} project={project} type="standard-work" />
                 ))}
               </SimpleGrid>
             </Box>

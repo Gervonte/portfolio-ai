@@ -31,11 +31,7 @@ const navigationLinks = [
 
 export const metadata: Metadata = generatePageMetadata();
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   const structuredData = generateStructuredData();
 
   return (

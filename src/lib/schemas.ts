@@ -9,12 +9,7 @@ const phoneSchema = z
   .optional();
 
 // Skill level enum
-const skillLevelSchema = z.enum([
-  'beginner',
-  'intermediate',
-  'advanced',
-  'expert',
-]);
+const skillLevelSchema = z.enum(['beginner', 'intermediate', 'advanced', 'expert']);
 
 // Project type enum
 const projectTypeSchema = z.enum(['vibe-coded', 'standard-work']);
@@ -50,9 +45,7 @@ export const projectSchema = z.object({
   description: z.string().min(10, 'Description must be at least 10 characters'),
   longDescription: z.string().optional(),
   type: projectTypeSchema,
-  technologies: z
-    .array(technologySchema)
-    .min(1, 'At least one technology is required'),
+  technologies: z.array(technologySchema).min(1, 'At least one technology is required'),
   images: z.array(z.string().url()).optional(),
   liveUrl: urlSchema,
   githubUrl: urlSchema,
@@ -60,9 +53,7 @@ export const projectSchema = z.object({
   completedAt: z.date().optional(),
   startDate: z.date().optional(),
   endDate: z.date().optional(),
-  status: z
-    .enum(['completed', 'in-progress', 'planned', 'on-hold'])
-    .default('completed'),
+  status: z.enum(['completed', 'in-progress', 'planned', 'on-hold']).default('completed'),
   tags: z.array(z.string()).optional(),
   highlights: z.array(z.string()).optional(), // Key achievements or features
   challenges: z.array(z.string()).optional(), // Technical challenges faced
@@ -80,9 +71,7 @@ export const experienceSchema = z.object({
   endDate: z.date().optional(), // null for current position
   current: z.boolean().default(false),
   description: z.string().min(10, 'Description must be at least 10 characters'),
-  responsibilities: z
-    .array(z.string())
-    .min(1, 'At least one responsibility is required'),
+  responsibilities: z.array(z.string()).min(1, 'At least one responsibility is required'),
   achievements: z.array(z.string()).optional(),
   technologies: z.array(technologySchema).optional(),
   companyUrl: urlSchema,
@@ -134,21 +123,10 @@ export const contactFormSchema = z.object({
   company: z.string().optional(),
   phone: phoneSchema,
   budget: z
-    .enum([
-      'under-5k',
-      '5k-10k',
-      '10k-25k',
-      '25k-50k',
-      '50k-plus',
-      'not-specified',
-    ])
+    .enum(['under-5k', '5k-10k', '10k-25k', '25k-50k', '50k-plus', 'not-specified'])
     .optional(),
-  timeline: z
-    .enum(['asap', '1-month', '3-months', '6-months', 'flexible'])
-    .optional(),
-  projectType: z
-    .enum(['website', 'web-app', 'mobile-app', 'e-commerce', 'other'])
-    .optional(),
+  timeline: z.enum(['asap', '1-month', '3-months', '6-months', 'flexible']).optional(),
+  projectType: z.enum(['website', 'web-app', 'mobile-app', 'e-commerce', 'other']).optional(),
 });
 
 // Personal information schema
@@ -244,30 +222,18 @@ export type PortfolioData = z.infer<typeof portfolioDataSchema>;
 
 // Validation helper functions
 export const validateProject = (data: unknown) => projectSchema.parse(data);
-export const validateExperience = (data: unknown) =>
-  experienceSchema.parse(data);
+export const validateExperience = (data: unknown) => experienceSchema.parse(data);
 export const validateEducation = (data: unknown) => educationSchema.parse(data);
-export const validateCertification = (data: unknown) =>
-  certificationSchema.parse(data);
-export const validateContactForm = (data: unknown) =>
-  contactFormSchema.parse(data);
-export const validatePersonalInfo = (data: unknown) =>
-  personalInfoSchema.parse(data);
-export const validatePortfolioData = (data: unknown) =>
-  portfolioDataSchema.parse(data);
+export const validateCertification = (data: unknown) => certificationSchema.parse(data);
+export const validateContactForm = (data: unknown) => contactFormSchema.parse(data);
+export const validatePersonalInfo = (data: unknown) => personalInfoSchema.parse(data);
+export const validatePortfolioData = (data: unknown) => portfolioDataSchema.parse(data);
 
 // Safe validation functions (returns result instead of throwing)
-export const safeValidateProject = (data: unknown) =>
-  projectSchema.safeParse(data);
-export const safeValidateExperience = (data: unknown) =>
-  experienceSchema.safeParse(data);
-export const safeValidateEducation = (data: unknown) =>
-  educationSchema.safeParse(data);
-export const safeValidateCertification = (data: unknown) =>
-  certificationSchema.safeParse(data);
-export const safeValidateContactForm = (data: unknown) =>
-  contactFormSchema.safeParse(data);
-export const safeValidatePersonalInfo = (data: unknown) =>
-  personalInfoSchema.safeParse(data);
-export const safeValidatePortfolioData = (data: unknown) =>
-  portfolioDataSchema.safeParse(data);
+export const safeValidateProject = (data: unknown) => projectSchema.safeParse(data);
+export const safeValidateExperience = (data: unknown) => experienceSchema.safeParse(data);
+export const safeValidateEducation = (data: unknown) => educationSchema.safeParse(data);
+export const safeValidateCertification = (data: unknown) => certificationSchema.safeParse(data);
+export const safeValidateContactForm = (data: unknown) => contactFormSchema.safeParse(data);
+export const safeValidatePersonalInfo = (data: unknown) => personalInfoSchema.safeParse(data);
+export const safeValidatePortfolioData = (data: unknown) => portfolioDataSchema.safeParse(data);

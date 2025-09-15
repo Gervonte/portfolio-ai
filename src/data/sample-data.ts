@@ -1,10 +1,4 @@
-import {
-  PortfolioData,
-  Project,
-  Experience,
-  Education,
-  Technology,
-} from '@/lib/schemas';
+import { PortfolioData, Project, Experience, Education, Technology } from '@/lib/schemas';
 
 // Sample technologies
 export const sampleTechnologies: Technology[] = [
@@ -328,10 +322,8 @@ export const samplePortfolioData: PortfolioData = {
     phone: '+1 (555) 123-4567',
     website: 'https://johndoe.dev',
     resumeUrl: 'https://johndoe.dev/resume.pdf',
-    avatar:
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
-    coverImage:
-      'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
+    coverImage: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200',
     socialLinks: {
       github: 'https://github.com/johndoe',
       linkedin: 'https://linkedin.com/in/johndoe',

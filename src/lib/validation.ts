@@ -25,10 +25,7 @@ export interface ValidationResult<T> {
 }
 
 // Generic validation function
-export function validateData<T>(
-  schema: z.ZodSchema<T>,
-  data: unknown
-): ValidationResult<T> {
+export function validateData<T>(schema: z.ZodSchema<T>, data: unknown): ValidationResult<T> {
   try {
     const result = schema.safeParse(data);
 
@@ -47,8 +44,7 @@ export function validateData<T>(
   } catch (error) {
     return {
       success: false,
-      errorMessage:
-        error instanceof Error ? error.message : 'Unknown validation error',
+      errorMessage: error instanceof Error ? error.message : 'Unknown validation error',
     };
   }
 }
@@ -67,29 +63,23 @@ export function formatZodError(error: z.ZodError): string {
 export const validateProjectData = (data: unknown): ValidationResult<Project> =>
   validateData(projectSchema, data);
 
-export const validateExperienceData = (
-  data: unknown
-): ValidationResult<Experience> => validateData(experienceSchema, data);
+export const validateExperienceData = (data: unknown): ValidationResult<Experience> =>
+  validateData(experienceSchema, data);
 
-export const validateEducationData = (
-  data: unknown
-): ValidationResult<Education> => validateData(educationSchema, data);
+export const validateEducationData = (data: unknown): ValidationResult<Education> =>
+  validateData(educationSchema, data);
 
-export const validateCertificationData = (
-  data: unknown
-): ValidationResult<Certification> => validateData(certificationSchema, data);
+export const validateCertificationData = (data: unknown): ValidationResult<Certification> =>
+  validateData(certificationSchema, data);
 
-export const validateContactFormData = (
-  data: unknown
-): ValidationResult<ContactForm> => validateData(contactFormSchema, data);
+export const validateContactFormData = (data: unknown): ValidationResult<ContactForm> =>
+  validateData(contactFormSchema, data);
 
-export const validatePersonalInfoData = (
-  data: unknown
-): ValidationResult<PersonalInfo> => validateData(personalInfoSchema, data);
+export const validatePersonalInfoData = (data: unknown): ValidationResult<PersonalInfo> =>
+  validateData(personalInfoSchema, data);
 
-export const validatePortfolioData = (
-  data: unknown
-): ValidationResult<PortfolioData> => validateData(portfolioDataSchema, data);
+export const validatePortfolioData = (data: unknown): ValidationResult<PortfolioData> =>
+  validateData(portfolioDataSchema, data);
 
 // Validation middleware for API routes
 export function createValidationMiddleware<T>(schema: z.ZodSchema<T>) {
@@ -112,10 +102,7 @@ export function createValidationMiddleware<T>(schema: z.ZodSchema<T>) {
 }
 
 // Client-side validation hook
-export function useValidation<T>(
-  schema: z.ZodSchema<T>,
-  data: unknown
-): ValidationResult<T> {
+export function useValidation<T>(schema: z.ZodSchema<T>, data: unknown): ValidationResult<T> {
   return validateData(schema, data);
 }
 
@@ -131,8 +118,7 @@ export function validateFormField<T>(
   } catch (error) {
     if (error instanceof z.ZodError && error.issues) {
       const fieldError = error.issues.find(
-        (err: z.ZodIssue) =>
-          err.path.includes(fieldName) || err.path.length === 0
+        (err: z.ZodIssue) => err.path.includes(fieldName) || err.path.length === 0
       );
       return {
         isValid: false,
@@ -204,9 +190,7 @@ export function transformExperienceForDisplay(experience: Experience) {
     company: sanitizeString(experience.company),
     position: sanitizeString(experience.position),
     description: sanitizeString(experience.description),
-    companyUrl: experience.companyUrl
-      ? sanitizeUrl(experience.companyUrl)
-      : undefined,
+    companyUrl: experience.companyUrl ? sanitizeUrl(experience.companyUrl) : undefined,
   };
 }
 
@@ -224,20 +208,12 @@ export class ValidationError extends Error {
 
 export function handleValidationError(error: unknown): ValidationError {
   if (error instanceof z.ZodError) {
-    return new ValidationError(
-      formatZodError(error),
-      'validation',
-      'ZOD_VALIDATION_ERROR'
-    );
+    return new ValidationError(formatZodError(error), 'validation', 'ZOD_VALIDATION_ERROR');
   }
 
   if (error instanceof Error) {
     return new ValidationError(error.message, 'unknown', 'UNKNOWN_ERROR');
   }
 
-  return new ValidationError(
-    'An unknown error occurred',
-    'unknown',
-    'UNKNOWN_ERROR'
-  );
+  return new ValidationError('An unknown error occurred', 'unknown', 'UNKNOWN_ERROR');
 }

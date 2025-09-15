@@ -29,9 +29,6 @@ export async function DELETE(request: NextRequest) {
     });
   } catch (error) {
     console.error('Cache clear error:', error);
-    return NextResponse.json(
-      { success: false, error: 'Failed to clear cache' },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: 'Failed to clear cache' }, { status: 500 });
   }
 }
