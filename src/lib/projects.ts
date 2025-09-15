@@ -30,6 +30,7 @@ export interface TechnicalDetails {
 
 export interface TechnicalSection {
   enabled?: boolean;
+  showScreenshots?: boolean;
   screenshots: string[];
   description: string;
   [key: string]: any; // Allow for flexible additional properties

@@ -38,6 +38,7 @@
       "technicalDetails": {
         "analytics": {
           "enabled": false,
+          "showScreenshots": false,
           "screenshots": ["analytics-dashboard.svg", "user-metrics.svg"],
           "description": "User behavior tracking - like a store's security cameras showing what customers look at, how long they stay, and what they buy. Tracks page views, session duration, and engagement patterns to understand user preferences.",
           "metrics": {
@@ -49,6 +50,7 @@
         },
         "monitoring": {
           "enabled": false,
+          "showScreenshots": false,
           "screenshots": ["error-tracking.svg", "system-health.svg", "uptime-monitor.svg"],
           "description": "System health monitoring - like a car's dashboard showing fuel level, engine temperature, and warning lights. Tracks uptime, error rates, and performance to ensure everything runs smoothly.",
           "tools": ["Vercel Analytics", "GitHub Actions", "ESLint"],
@@ -57,6 +59,7 @@
         },
         "cicd": {
           "enabled": true,
+          "showScreenshots": false,
           "screenshots": ["github-actions.svg", "deployment-pipeline.svg", "security-scan.svg"],
           "description": "Automated code pipeline - like an assembly line that tests, builds, and ships products automatically. Runs daily deployments with automated testing, security scanning, and branch protection.",
           "workflows": [
@@ -78,6 +81,7 @@
         },
         "architecture": {
           "enabled": true,
+          "showScreenshots": false,
           "screenshots": [],
           "description": "Technical foundation - like the blueprint and foundation of a building, showing the frameworks, tools, and systems that power the project with scheduled deployments and comprehensive CI/CD.",
           "components": [
@@ -114,9 +118,11 @@
       "aiTools": ["Claude AI", "Kiro (AWS)", "ChatGPT"],
       "timeline": "1 week",
       "category": "Full Stack Web Development",
-      "enableTechnicalDetails": false,
+      "enableTechnicalDetails": true,
       "technicalDetails": {
         "analytics": {
+          "enabled": false,
+          "showScreenshots": false,
           "screenshots": ["audio-analytics.svg", "processing-metrics.svg"],
           "description": "User engagement and audio processing metrics - like a music studio's recording booth showing how many songs were recorded, how long sessions lasted, and which instruments were used most.",
           "metrics": {
@@ -127,6 +133,8 @@
           }
         },
         "monitoring": {
+          "enabled": true,
+          "showScreenshots": false,
           "screenshots": ["audio-error-tracking.svg", "processing-health.svg"],
           "description": "Error tracking and audio processing monitoring - like a sound engineer's mixing board showing signal levels, distortion warnings, and equipment status to ensure clean audio output.",
           "tools": ["Sentry", "Vercel Analytics", "Console Logging"],
@@ -134,6 +142,8 @@
           "errorRate": "< 0.2%"
         },
         "cicd": {
+          "enabled": true,
+          "showScreenshots": false,
           "screenshots": ["audio-tests.svg", "deployment-pipeline.svg"],
           "description": "Automated testing and deployment pipeline - like a music production line that automatically checks quality, mixes tracks, and ships finished albums without human intervention.",
           "workflows": ["Build & Test", "Deploy to Vercel", "Dependency Updates"],
@@ -141,7 +151,8 @@
           "leadTime": "< 3 minutes"
         },
         "architecture": {
-          "enabled": false,
+          "enabled": true,
+          "showScreenshots": false,
           "screenshots": [],
           "description": "Audio processing architecture and algorithms - like the technical blueprint of a recording studio, showing the equipment, software, and signal flow that makes music analysis possible.",
           "components": [

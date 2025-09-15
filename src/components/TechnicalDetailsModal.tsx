@@ -115,6 +115,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
         return section.uptime || section.errorRate;
       case 'screenshots':
         return (
+          section.showScreenshots !== false &&
           section.screenshots &&
           Array.isArray(section.screenshots) &&
           section.screenshots.length > 0
@@ -161,27 +162,29 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
           },
         }}
         title={
-          <Group gap="lg" align="flex-start">
-            <ThemeIcon
-              color="sakura"
-              variant="gradient"
-              gradient={{ from: 'pink', to: 'red' }}
-              size="xl"
-              radius="xl"
-              style={{
-                boxShadow: '0 8px 32px rgba(244, 67, 54, 0.25)',
-              }}
-            >
-              {getTechnicalIcon(activeTab || 'analytics')}
-            </ThemeIcon>
-            <Box style={{ flex: 1 }}>
-              <Title order={1} c="dark" fw={800} mb="xs" size="h2">
-                {project.title}
-              </Title>
-              <Text size="lg" c="dimmed" fw={500}>
-                Technical Deep Dive & Behind the Scenes
-              </Text>
-            </Box>
+          <Box>
+            <Group gap="lg" align="flex-start" mb="md">
+              <ThemeIcon
+                color="sakura"
+                variant="gradient"
+                gradient={{ from: 'pink', to: 'red' }}
+                size="xl"
+                radius="xl"
+                style={{
+                  boxShadow: '0 8px 32px rgba(244, 67, 54, 0.25)',
+                }}
+              >
+                {getTechnicalIcon(activeTab || 'analytics')}
+              </ThemeIcon>
+              <Box style={{ flex: 1 }}>
+                <Title order={1} c="dark" fw={800} mb="xs" size="h2">
+                  {project.title}
+                </Title>
+                <Text size="lg" c="dimmed" fw={500}>
+                  Technical Deep Dive & Behind the Scenes
+                </Text>
+              </Box>
+            </Group>
             {/* Tabs Navigation */}
             <Box
               style={{
@@ -206,6 +209,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     color: activeTab === key ? '#F44336' : '#6C757D',
                     background: activeTab === key ? 'rgba(244, 67, 54, 0.05)' : 'transparent',
                     flex: 1,
+                    minWidth: '120px',
                     textAlign: 'center',
                     display: 'flex',
                     alignItems: 'center',
@@ -228,15 +232,15 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 </Box>
               ))}
             </Box>
-          </Group>
+          </Box>
         }
         size="xl"
         centered
         styles={{
           header: {
             background: 'white',
-            borderBottom: '1px solid #E9ECEF',
-            padding: '2.5rem 2.5rem 1rem 2.5rem',
+            borderBottom: 'none',
+            padding: '2.5rem 2.5rem 0 2.5rem',
             marginBottom: 0,
             position: 'relative',
             zIndex: 100,
