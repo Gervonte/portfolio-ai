@@ -46,7 +46,39 @@ jobs:
               pull_number: context.payload.pull_request.number
             });
 
-            if (pr.mergeable && pr.mergeable_state === 'clean') {
+            // Handle different mergeable states
+            if (pr.mergeable_state === 'behind') {
+              console.log('PR is behind base branch, updating...');
+              await github.rest.pulls.updateBranch({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.payload.pull_request.number
+              });
+              
+              // Wait for the update to complete and recheck
+              await new Promise(resolve => setTimeout(resolve, 10000));
+              
+              // Re-fetch PR status after update
+              const { data: updatedPr } = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.payload.pull_request.number
+              });
+              
+              if (updatedPr.mergeable && updatedPr.mergeable_state === 'clean') {
+                await github.rest.pulls.merge({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: context.payload.pull_request.number,
+                  merge_method: 'squash',
+                  commit_title: `Deploy: ${updatedPr.title.replace(/Auto-deploy: Preview → Main \(.*\)/, '')}`,
+                  commit_message: `Auto-merge from preview branch\n\nPR #${updatedPr.number}\nCloses #${updatedPr.number}`
+                });
+                console.log('PR updated and merged successfully!');
+              } else {
+                console.log('PR still not ready to merge after update:', updatedPr.mergeable_state);
+              }
+            } else if (pr.mergeable && pr.mergeable_state === 'clean') {
               await github.rest.pulls.merge({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
