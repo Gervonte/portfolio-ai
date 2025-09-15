@@ -5,6 +5,12 @@ on:
     - cron: '0 14 * * 1-5'  # 2:00 PM UTC (9:00 AM EST), Monday-Friday
   workflow_dispatch:  # Manual trigger
 
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  checks: write
+
 jobs:
   scheduled-deploy:
     runs-on: ubuntu-latest
