@@ -35,6 +35,7 @@ jobs:
         run: npm run build
 
       - name: Check for changes between preview and main
+        id: check-changes
         run: |
           # Check if there are any differences between preview and main
           if git diff --quiet origin/main..origin/preview; then
