@@ -5,6 +5,12 @@ on:
     branches: [ preview ]  # Change this to your preview branch name
   workflow_dispatch:  # Allows manual triggering
 
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  checks: write
+
 jobs:
   create-pr:
     runs-on: ubuntu-latest

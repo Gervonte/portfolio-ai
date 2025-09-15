@@ -5,6 +5,12 @@ on:
     types: [opened, synchronize, reopened]
     branches: [ main ]
 
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  checks: write
+
 jobs:
   auto-merge:
     runs-on: ubuntu-latest
