@@ -195,16 +195,18 @@ const ExpandableProjectCard = memo(
             )}
 
             {/* Technical Details Button */}
-            <Button
-              variant="light"
-              color={type === 'vibe-coded' ? 'sakura' : 'blue'}
-              size="sm"
-              fullWidth
-              leftSection={<IconSettings size={16} />}
-              onClick={() => setModalOpened(true)}
-            >
-              View Technical Details
-            </Button>
+            {project.enableTechnicalDetails && (
+              <Button
+                variant="light"
+                color={type === 'vibe-coded' ? 'sakura' : 'blue'}
+                size="sm"
+                fullWidth
+                leftSection={<IconSettings size={16} />}
+                onClick={() => setModalOpened(true)}
+              >
+                View Technical Details
+              </Button>
+            )}
 
             {/* Project Footer */}
             <Group justify="space-between" mt="auto">

@@ -16,6 +16,7 @@ export interface Project {
   aiTools?: string[];
   timeline: string;
   category: string;
+  enableTechnicalDetails?: boolean;
   technicalDetails?: TechnicalDetails;
 }
 
@@ -23,11 +24,12 @@ export interface TechnicalDetails {
   analytics: TechnicalSection;
   monitoring: TechnicalSection;
   cicd: TechnicalSection;
-  performance: TechnicalSection;
+  performance?: TechnicalSection;
   architecture: TechnicalSection;
 }
 
 export interface TechnicalSection {
+  enabled?: boolean;
   screenshots: string[];
   description: string;
   [key: string]: any; // Allow for flexible additional properties

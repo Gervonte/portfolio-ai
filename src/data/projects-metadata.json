@@ -23,8 +23,10 @@
       "aiTools": ["Claude AI", "GitHub Copilot", "ChatGPT"],
       "timeline": "2 weeks",
       "category": "Full Stack Web Development",
+      "enableTechnicalDetails": true,
       "technicalDetails": {
         "analytics": {
+          "enabled": false,
           "screenshots": ["analytics-dashboard.svg", "user-metrics.svg"],
           "description": "Real-time user engagement and performance metrics",
           "metrics": {
@@ -35,6 +37,7 @@
           }
         },
         "monitoring": {
+          "enabled": false,
           "screenshots": [
             "error-tracking.svg",
             "system-health.svg",
@@ -46,6 +49,7 @@
           "errorRate": "< 0.1%"
         },
         "cicd": {
+          "enabled": true,
           "screenshots": [
             "github-actions.svg",
             "deployment-pipeline.svg",
@@ -61,18 +65,8 @@
           "deploymentFrequency": "Multiple times per day",
           "leadTime": "< 5 minutes"
         },
-        "performance": {
-          "screenshots": [],
-          "description": "Performance optimization and Core Web Vitals tracking",
-          "lighthouseScore": 92,
-          "bundleSize": "26% reduction",
-          "coreWebVitals": {
-            "LCP": "1.2s",
-            "FID": "45ms",
-            "CLS": "0.05"
-          }
-        },
         "architecture": {
+          "enabled": true,
           "screenshots": [],
           "description": "System architecture and technical documentation",
           "components": [
@@ -106,8 +100,10 @@
       "aiTools": ["Claude AI", "Kiro (AWS)", "ChatGPT"],
       "timeline": "1 week",
       "category": "Full Stack Web Development",
+      "enableTechnicalDetails": true,
       "technicalDetails": {
         "analytics": {
+          "enabled": true,
           "screenshots": ["audio-analytics.svg", "processing-metrics.svg"],
           "description": "User engagement and audio processing metrics",
           "metrics": {
@@ -118,6 +114,7 @@
           }
         },
         "monitoring": {
+          "enabled": true,
           "screenshots": ["audio-error-tracking.svg", "processing-health.svg"],
           "description": "Error tracking and audio processing monitoring",
           "tools": ["Sentry", "Vercel Analytics", "Console Logging"],
@@ -125,6 +122,7 @@
           "errorRate": "< 0.2%"
         },
         "cicd": {
+          "enabled": true,
           "screenshots": ["audio-tests.svg", "deployment-pipeline.svg"],
           "description": "Automated testing and deployment pipeline",
           "workflows": [
@@ -135,18 +133,8 @@
           "deploymentFrequency": "On every push",
           "leadTime": "< 3 minutes"
         },
-        "performance": {
-          "screenshots": [],
-          "description": "Performance optimization for audio processing",
-          "lighthouseScore": 88,
-          "bundleSize": "Optimized for audio libraries",
-          "coreWebVitals": {
-            "LCP": "1.8s",
-            "FID": "60ms",
-            "CLS": "0.08"
-          }
-        },
         "architecture": {
+          "enabled": false,
           "screenshots": [],
           "description": "Audio processing architecture and algorithms",
           "components": [

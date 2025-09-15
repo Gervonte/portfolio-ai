@@ -34,7 +34,7 @@ import {
   IconExternalLink,
   IconBrandGithub,
 } from '@tabler/icons-react';
-import { useState, memo } from 'react';
+import { useState, memo, useEffect } from 'react';
 import { Project } from '@/lib/projects';
 
 interface TechnicalDetailsModalProps {
@@ -62,8 +62,70 @@ const getTechnicalIcon = (section: string) => {
 
 const TechnicalDetailsModal = memo(
   ({ project, opened, onClose }: TechnicalDetailsModalProps) => {
-    const [activeTab, setActiveTab] = useState<string | null>('analytics');
+    const [activeTab, setActiveTab] = useState<string | null>(null);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+    // Get technical sections
+    const technicalSections = project.technicalDetails
+      ? Object.entries(project.technicalDetails)
+          .filter(([key, section]) => {
+            // Only show sections that are enabled and have meaningful content
+            return (
+              section &&
+              section.enabled !== false &&
+              (section.description ||
+                section.screenshots?.length > 0 ||
+                section.metrics ||
+                section.tools?.length > 0 ||
+                section.workflows?.length > 0 ||
+                section.components?.length > 0 ||
+                section.uptime ||
+                section.errorRate ||
+                section.deployment)
+            );
+          })
+          .map(([key, section]) => ({
+            key,
+            section,
+            icon: getTechnicalIcon(key),
+          }))
+      : [];
+
+    // Set initial active tab to first available section
+    useEffect(() => {
+      if (technicalSections.length > 0 && !activeTab) {
+        setActiveTab(technicalSections[0].key);
+      }
+    }, [technicalSections.length, activeTab]);
+
+    // Helper function to check if a section should be displayed
+    const shouldShowSection = (section: any, sectionType: string) => {
+      if (!section) return false;
+
+      switch (sectionType) {
+        case 'metrics':
+          return section.metrics && Object.keys(section.metrics).length > 0;
+        case 'tools':
+          return section.tools && section.tools.length > 0;
+        case 'workflows':
+          return section.workflows && section.workflows.length > 0;
+        case 'components':
+          return section.components && section.components.length > 0;
+        case 'monitoring':
+          return section.uptime || section.errorRate;
+        case 'screenshots':
+          return section.screenshots && section.screenshots.length > 0;
+        case 'architecture':
+          return (
+            (section.components && section.components.length > 0) ||
+            section.deployment
+          );
+        case 'deployment':
+          return section.deploymentFrequency || section.leadTime;
+        default:
+          return true;
+      }
+    };
 
     if (!project.technicalDetails) {
       return (
@@ -85,14 +147,6 @@ const TechnicalDetailsModal = memo(
       );
     }
 
-    const technicalSections = Object.entries(project.technicalDetails)
-      .filter(([key]) => ['analytics', 'monitoring', 'cicd'].includes(key))
-      .map(([key, section]) => ({
-        key,
-        section,
-        icon: getTechnicalIcon(key),
-      }));
-
     return (
       <>
         <Modal
@@ -111,77 +165,88 @@ const TechnicalDetailsModal = memo(
             },
           }}
           title={
-            <Box>
-              <Group gap="lg" mb="md" align="flex-start">
-                <ThemeIcon
-                  color="sakura"
-                  variant="gradient"
-                  gradient={{ from: 'pink', to: 'red' }}
-                  size="xl"
-                  radius="xl"
-                  style={{
-                    boxShadow: '0 8px 32px rgba(244, 67, 54, 0.25)',
-                  }}
-                >
-                  {getTechnicalIcon(activeTab || 'analytics')}
-                </ThemeIcon>
-                <Box style={{ flex: 1 }}>
-                  <Title order={1} c="dark" fw={800} mb="xs" size="h2">
-                    {project.title}
-                  </Title>
-                  <Text size="lg" c="dimmed" fw={500}>
-                    Technical Deep Dive & Behind the Scenes
-                  </Text>
-                </Box>
-              </Group>
-
-              <Tabs
-                value={activeTab}
-                onChange={setActiveTab}
-                variant="default"
+            <Group gap="lg" align="flex-start">
+              <ThemeIcon
                 color="sakura"
+                variant="gradient"
+                gradient={{ from: 'pink', to: 'red' }}
+                size="xl"
+                radius="xl"
+                style={{
+                  boxShadow: '0 8px 32px rgba(244, 67, 54, 0.25)',
+                }}
               >
-                <Tabs.List
-                  style={{
-                    background: 'transparent',
-                    borderBottom: '2px solid #E9ECEF',
-                    margin: 0,
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    gap: '1rem',
-                  }}
-                >
-                  {technicalSections.map(({ key, section, icon }) => (
-                    <Tabs.Tab
-                      key={key}
-                      value={key}
-                      leftSection={icon}
-                      style={{
-                        fontWeight: 600,
-                        transition: 'all 0.2s ease',
-                        padding: '16px 24px',
-                        fontSize: '15px',
-                        borderBottom: '3px solid transparent',
-                        color: activeTab === key ? '#F44336' : '#6C757D',
-                        background: 'transparent',
-                        flex: 1,
-                        textAlign: 'center',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        minWidth: 0,
-                      }}
-                    >
-                      {key === 'cicd'
-                        ? 'CI/CD'
-                        : key.charAt(0).toUpperCase() + key.slice(1)}
-                    </Tabs.Tab>
-                  ))}
-                </Tabs.List>
-              </Tabs>
-            </Box>
+                {getTechnicalIcon(activeTab || 'analytics')}
+              </ThemeIcon>
+              <Box style={{ flex: 1 }}>
+                <Title order={1} c="dark" fw={800} mb="xs" size="h2">
+                  {project.title}
+                </Title>
+                <Text size="lg" c="dimmed" fw={500}>
+                  Technical Deep Dive & Behind the Scenes
+                </Text>
+              </Box>
+              {/* Tabs Navigation */}
+              <Box
+                style={{
+                  background: 'white',
+                  padding: '0',
+                  margin: '0 -2.5rem',
+                  borderBottom: '4px solid #E9ECEF',
+                  display: 'flex',
+                  width: '100%',
+                  minHeight: '60px',
+                }}
+              >
+                {technicalSections.map(({ key, section, icon }) => (
+                  <Box
+                    key={key}
+                    onClick={() => setActiveTab(key)}
+                    style={{
+                      fontWeight: 600,
+                      transition: 'all 0.2s ease',
+                      padding: '20px 0',
+                      fontSize: '14px',
+                      color: activeTab === key ? '#F44336' : '#6C757D',
+                      background:
+                        activeTab === key
+                          ? 'rgba(244, 67, 54, 0.05)'
+                          : 'transparent',
+                      flex: 1,
+                      textAlign: 'center',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderTop:
+                        activeTab === key
+                          ? '1px solid #E9ECEF'
+                          : '1px solid transparent',
+                      borderLeft:
+                        activeTab === key
+                          ? '1px solid #E9ECEF'
+                          : '1px solid transparent',
+                      borderRight:
+                        activeTab === key
+                          ? '1px solid #E9ECEF'
+                          : '1px solid transparent',
+                      borderBottom: 'none',
+                      cursor: 'pointer',
+                      height: '100%',
+                      minHeight: '60px',
+                    }}
+                  >
+                    <Group gap="xs" align="center">
+                      {icon}
+                      <Text size="sm" fw={600}>
+                        {key === 'cicd'
+                          ? 'CI/CD'
+                          : key.charAt(0).toUpperCase() + key.slice(1)}
+                      </Text>
+                    </Group>
+                  </Box>
+                ))}
+              </Box>
+            </Group>
           }
           size="xl"
           centered
@@ -261,7 +326,7 @@ const TechnicalDetailsModal = memo(
                   </Card>
 
                   {/* Metrics Display */}
-                  {section.metrics && (
+                  {shouldShowSection(section, 'metrics') && (
                     <Card
                       padding="xl"
                       radius="lg"
@@ -340,7 +405,7 @@ const TechnicalDetailsModal = memo(
                   )}
 
                   {/* Additional Data */}
-                  {section.tools && (
+                  {shouldShowSection(section, 'tools') && (
                     <Card
                       padding="xl"
                       radius="lg"
@@ -387,7 +452,7 @@ const TechnicalDetailsModal = memo(
                   )}
 
                   {/* Monitoring Data */}
-                  {(section.uptime || section.errorRate) && (
+                  {shouldShowSection(section, 'monitoring') && (
                     <Card
                       padding="xl"
                       radius="lg"
@@ -455,7 +520,7 @@ const TechnicalDetailsModal = memo(
                     </Card>
                   )}
 
-                  {section.workflows && (
+                  {shouldShowSection(section, 'workflows') && (
                     <Card
                       padding="xl"
                       radius="lg"
@@ -523,7 +588,7 @@ const TechnicalDetailsModal = memo(
                     </Card>
                   )}
 
-                  {section.components && (
+                  {shouldShowSection(section, 'components') && (
                     <Box
                       style={{
                         background: 'linear-gradient(135deg, #FFF5F5, #F8F4F4)',
@@ -654,12 +719,76 @@ const TechnicalDetailsModal = memo(
                     </Box>
                   )}
 
-                  {/* Screenshots Section for Analytics, Monitoring and CI/CD */}
-                  {(key === 'analytics' ||
-                    key === 'monitoring' ||
-                    key === 'cicd') &&
-                    section.screenshots &&
-                    section.screenshots.length > 0 && (
+                  {/* Architecture Data */}
+                  {shouldShowSection(section, 'architecture') && (
+                    <Card
+                      padding="xl"
+                      radius="lg"
+                      withBorder
+                      style={{
+                        background: 'white',
+                        border: '1px solid #E9ECEF',
+                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                      }}
+                    >
+                      <Group gap="md" mb="lg">
+                        <ThemeIcon
+                          color="sakura"
+                          variant="gradient"
+                          gradient={{ from: 'pink', to: 'red' }}
+                          size="md"
+                          radius="xl"
+                        >
+                          🏗️
+                        </ThemeIcon>
+                        <Title order={4} fw={700} c="dark">
+                          Architecture & Deployment
+                        </Title>
+                      </Group>
+                      <Stack gap="md">
+                        {section.components &&
+                          section.components.length > 0 && (
+                            <Box>
+                              <Text size="sm" c="dimmed" fw={600} mb="sm">
+                                Key Components
+                              </Text>
+                              <Group gap="sm">
+                                {section.components.map((component: string) => (
+                                  <Badge
+                                    key={component}
+                                    size="md"
+                                    variant="light"
+                                    color="sakura"
+                                    radius="xl"
+                                    style={{
+                                      fontWeight: 500,
+                                      textTransform: 'none',
+                                      border: '1px solid #FFCDD2',
+                                    }}
+                                  >
+                                    {component}
+                                  </Badge>
+                                ))}
+                              </Group>
+                            </Box>
+                          )}
+                        {section.deployment && (
+                          <Box>
+                            <Text size="sm" c="dimmed" fw={600} mb="sm">
+                              Deployment
+                            </Text>
+                            <Text size="md" fw={600} c="dark">
+                              {section.deployment}
+                            </Text>
+                          </Box>
+                        )}
+                      </Stack>
+                    </Card>
+                  )}
+
+                  {/* Deployment Data for CI/CD */}
+                  {key === 'cicd' &&
+                    shouldShowSection(section, 'deployment') && (
                       <Card
                         padding="xl"
                         radius="lg"
@@ -678,94 +807,159 @@ const TechnicalDetailsModal = memo(
                             size="md"
                             radius="xl"
                           >
-                            📸
+                            🚀
                           </ThemeIcon>
                           <Title order={4} fw={700} c="dark">
-                            Screenshots & Visuals
+                            Deployment Metrics
                           </Title>
                         </Group>
-                        <SimpleGrid
-                          cols={{ base: 2, sm: 3, md: 4 }}
-                          spacing="md"
-                        >
-                          {section.screenshots.map(
-                            (screenshot: string, index: number) => (
-                              <Box
-                                key={index}
-                                style={{
-                                  position: 'relative',
-                                  height: '120px',
-                                  borderRadius: '8px',
-                                  overflow: 'hidden',
-                                  cursor: 'pointer',
-                                  border: '1px solid #E9ECEF',
-                                  transition: 'all 0.2s ease',
-                                }}
-                                onClick={() => setSelectedImage(screenshot)}
-                                onMouseEnter={(
-                                  e: React.MouseEvent<HTMLDivElement>
-                                ) => {
-                                  e.currentTarget.style.transform =
-                                    'scale(1.05)';
-                                  e.currentTarget.style.boxShadow =
-                                    '0 4px 12px rgba(0, 0, 0, 0.15)';
-                                }}
-                                onMouseLeave={(
-                                  e: React.MouseEvent<HTMLDivElement>
-                                ) => {
-                                  e.currentTarget.style.transform = 'scale(1)';
-                                  e.currentTarget.style.boxShadow = 'none';
-                                }}
-                              >
-                                <Image
-                                  src={`/images/technical/${screenshot}`}
-                                  alt={`${key} screenshot ${index + 1}`}
-                                  height={120}
-                                  style={{
-                                    objectFit: 'cover',
-                                    width: '100%',
-                                  }}
-                                />
-                                <Box
-                                  style={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    left: 0,
-                                    right: 0,
-                                    bottom: 0,
-                                    background: 'rgba(0, 0, 0, 0.3)',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    opacity: 0,
-                                    transition: 'opacity 0.2s ease',
-                                  }}
-                                  onMouseEnter={(
-                                    e: React.MouseEvent<HTMLDivElement>
-                                  ) => {
-                                    e.currentTarget.style.opacity = '1';
-                                  }}
-                                  onMouseLeave={(
-                                    e: React.MouseEvent<HTMLDivElement>
-                                  ) => {
-                                    e.currentTarget.style.opacity = '0';
-                                  }}
-                                >
-                                  <ThemeIcon
-                                    color="white"
-                                    variant="filled"
-                                    size="lg"
-                                    radius="xl"
-                                  >
-                                    <IconZoomIn size={20} />
-                                  </ThemeIcon>
-                                </Box>
-                              </Box>
-                            )
+                        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
+                          {section.deploymentFrequency && (
+                            <Card
+                              padding="md"
+                              radius="md"
+                              withBorder
+                              style={{
+                                background:
+                                  'linear-gradient(135deg, #E8F5E8, #F0F8F0)',
+                                border: '1px solid #C8E6C9',
+                              }}
+                            >
+                              <Text size="sm" c="dimmed" fw={600} mb="xs">
+                                Deployment Frequency
+                              </Text>
+                              <Text size="lg" fw={800} c="green">
+                                {section.deploymentFrequency}
+                              </Text>
+                            </Card>
+                          )}
+                          {section.leadTime && (
+                            <Card
+                              padding="md"
+                              radius="md"
+                              withBorder
+                              style={{
+                                background:
+                                  'linear-gradient(135deg, #E3F2FD, #F3E5F5)',
+                                border: '1px solid #BBDEFB',
+                              }}
+                            >
+                              <Text size="sm" c="dimmed" fw={600} mb="xs">
+                                Lead Time
+                              </Text>
+                              <Text size="lg" fw={800} c="blue">
+                                {section.leadTime}
+                              </Text>
+                            </Card>
                           )}
                         </SimpleGrid>
                       </Card>
                     )}
+
+                  {/* Screenshots Section for all tabs */}
+                  {shouldShowSection(section, 'screenshots') && (
+                    <Card
+                      padding="xl"
+                      radius="lg"
+                      withBorder
+                      style={{
+                        background: 'white',
+                        border: '1px solid #E9ECEF',
+                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                      }}
+                    >
+                      <Group gap="md" mb="lg">
+                        <ThemeIcon
+                          color="sakura"
+                          variant="gradient"
+                          gradient={{ from: 'pink', to: 'red' }}
+                          size="md"
+                          radius="xl"
+                        >
+                          📸
+                        </ThemeIcon>
+                        <Title order={4} fw={700} c="dark">
+                          Screenshots & Visuals
+                        </Title>
+                      </Group>
+                      <SimpleGrid cols={{ base: 2, sm: 3, md: 4 }} spacing="md">
+                        {section.screenshots.map(
+                          (screenshot: string, index: number) => (
+                            <Box
+                              key={index}
+                              style={{
+                                position: 'relative',
+                                height: '120px',
+                                borderRadius: '8px',
+                                overflow: 'hidden',
+                                cursor: 'pointer',
+                                border: '1px solid #E9ECEF',
+                                transition: 'all 0.2s ease',
+                              }}
+                              onClick={() => setSelectedImage(screenshot)}
+                              onMouseEnter={(
+                                e: React.MouseEvent<HTMLDivElement>
+                              ) => {
+                                e.currentTarget.style.transform = 'scale(1.05)';
+                                e.currentTarget.style.boxShadow =
+                                  '0 4px 12px rgba(0, 0, 0, 0.15)';
+                              }}
+                              onMouseLeave={(
+                                e: React.MouseEvent<HTMLDivElement>
+                              ) => {
+                                e.currentTarget.style.transform = 'scale(1)';
+                                e.currentTarget.style.boxShadow = 'none';
+                              }}
+                            >
+                              <Image
+                                src={`/images/technical/${screenshot}`}
+                                alt={`${key} screenshot ${index + 1}`}
+                                height={120}
+                                style={{
+                                  objectFit: 'cover',
+                                  width: '100%',
+                                }}
+                              />
+                              <Box
+                                style={{
+                                  position: 'absolute',
+                                  top: 0,
+                                  left: 0,
+                                  right: 0,
+                                  bottom: 0,
+                                  background: 'rgba(0, 0, 0, 0.3)',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  opacity: 0,
+                                  transition: 'opacity 0.2s ease',
+                                }}
+                                onMouseEnter={(
+                                  e: React.MouseEvent<HTMLDivElement>
+                                ) => {
+                                  e.currentTarget.style.opacity = '1';
+                                }}
+                                onMouseLeave={(
+                                  e: React.MouseEvent<HTMLDivElement>
+                                ) => {
+                                  e.currentTarget.style.opacity = '0';
+                                }}
+                              >
+                                <ThemeIcon
+                                  color="white"
+                                  variant="filled"
+                                  size="lg"
+                                  radius="xl"
+                                >
+                                  <IconZoomIn size={20} />
+                                </ThemeIcon>
+                              </Box>
+                            </Box>
+                          )
+                        )}
+                      </SimpleGrid>
+                    </Card>
+                  )}
                 </Stack>
               </Tabs.Panel>
             ))}
