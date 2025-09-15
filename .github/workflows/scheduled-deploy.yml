@@ -1,0 +1,179 @@
+name: Scheduled Daily Deploy
+
+on:
+  schedule:
+    - cron: '0 14 * * 1-5'  # 2:00 PM UTC (9:00 AM EST), Monday-Friday
+  workflow_dispatch:  # Manual trigger
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  checks: write
+
+jobs:
+  scheduled-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run build check
+        run: npm run build
+
+      - name: Check for pending PRs
+        id: check-prs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const core = require('@actions/core');
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: 'preview',
+              base: 'main',
+              state: 'open'
+            });
+
+            const approvedPRs = prs.filter(pr => 
+              pr.title.includes('Auto-deploy: Preview → Main') &&
+              pr.mergeable === true &&
+              (pr.mergeable_state === 'clean' || pr.mergeable_state === 'behind')
+            );
+
+            console.log(`Found ${approvedPRs.length} approved PRs ready for merge`);
+            
+            if (approvedPRs.length === 0) {
+              console.log('No approved PRs found. Exiting.');
+              core.setOutput('result', 'no-prs');
+              return;
+            }
+            
+            core.setOutput('result', 'prs-found');
+
+            // Merge all approved PRs
+            for (const pr of approvedPRs) {
+              try {
+                // Handle 'behind' state by updating the PR first
+                if (pr.mergeable_state === 'behind') {
+                  console.log(`Updating PR #${pr.number} (behind base branch)...`);
+                  await github.rest.pulls.updateBranch({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    pull_number: pr.number
+                  });
+                  
+                  // Wait for the update to complete
+                  await new Promise(resolve => setTimeout(resolve, 10000));
+                  
+                  // Re-fetch PR status after update
+                  const { data: updatedPr } = await github.rest.pulls.get({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    pull_number: pr.number
+                  });
+                  
+                  if (updatedPr.mergeable && updatedPr.mergeable_state === 'clean') {
+                    await github.rest.pulls.merge({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      pull_number: pr.number,
+                      merge_method: 'squash',
+                      commit_title: `Deploy: ${updatedPr.title.replace(/Auto-deploy: Preview → Main \(.*\)/, '')}`,
+                      commit_message: `Scheduled deployment from preview branch\n\nPR #${updatedPr.number}\nCloses #${updatedPr.number}`
+                    });
+                    console.log(`Updated and merged PR #${pr.number}`);
+                  } else {
+                    console.log(`PR #${pr.number} still not ready after update:`, updatedPr.mergeable_state);
+                  }
+                } else {
+                  // PR is clean, merge directly
+                  await github.rest.pulls.merge({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    pull_number: pr.number,
+                    merge_method: 'squash',
+                    commit_title: `Deploy: ${pr.title.replace(/Auto-deploy: Preview → Main \(.*\)/, '')}`,
+                    commit_message: `Scheduled deployment from preview branch\n\nPR #${pr.number}\nCloses #${pr.number}`
+                  });
+                  console.log(`Merged PR #${pr.number}`);
+                }
+              } catch (error) {
+                console.log(`Failed to merge PR #${pr.number}:`, error.message);
+              }
+            }
+
+      - name: Wait for deployment
+        if: steps.check-prs.outputs.result != 'no-prs'
+        run: sleep 30
+
+      - name: Merge main back to preview
+        if: steps.check-prs.outputs.result != 'no-prs'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action" 
+          
+          # Switch to preview branch
+          git checkout preview
+          git pull origin preview
+          
+          # Merge main into preview
+          git merge origin/main --no-ff -m "Sync preview with main after deployment"
+          
+          # Push updated preview
+          git push origin preview
+
+      - name: Comment on merged PRs
+        if: steps.check-prs.outputs.result != 'no-prs'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: 'preview',
+              base: 'main',
+              state: 'closed'
+            });
+
+            const todayPRs = prs.filter(pr => 
+              pr.title.includes('Auto-deploy: Preview → Main') &&
+              pr.merged_at && 
+              new Date(pr.merged_at).toDateString() === new Date().toDateString()
+            );
+
+            for (const pr of todayPRs) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body: `## ✅ Scheduled deployment completed!
+
+                This PR has been automatically merged to \`main\` and deployed to production.
+
+                **What happened:**
+                - Merged to main at scheduled time (2:00 PM UTC / 9:00 AM EST)
+                - Deployed to production via Vercel
+                - Preview branch synced with main
+
+                **Next steps:**
+                - Monitor the deployment status in your Vercel dashboard
+                - Preview branch is now ready for the next set of changes
+
+                ---
+                *This deployment was performed automatically by the scheduled workflow*`
+              });
+            }
