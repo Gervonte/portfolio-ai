@@ -114,10 +114,9 @@
       "aiTools": ["Claude AI", "Kiro (AWS)", "ChatGPT"],
       "timeline": "1 week",
       "category": "Full Stack Web Development",
-      "enableTechnicalDetails": true,
+      "enableTechnicalDetails": false,
       "technicalDetails": {
         "analytics": {
-          "enabled": true,
           "screenshots": ["audio-analytics.svg", "processing-metrics.svg"],
           "description": "User engagement and audio processing metrics - like a music studio's recording booth showing how many songs were recorded, how long sessions lasted, and which instruments were used most.",
           "metrics": {
@@ -128,7 +127,6 @@
           }
         },
         "monitoring": {
-          "enabled": true,
           "screenshots": ["audio-error-tracking.svg", "processing-health.svg"],
           "description": "Error tracking and audio processing monitoring - like a sound engineer's mixing board showing signal levels, distortion warnings, and equipment status to ensure clean audio output.",
           "tools": ["Sentry", "Vercel Analytics", "Console Logging"],
@@ -136,7 +134,6 @@
           "errorRate": "< 0.2%"
         },
         "cicd": {
-          "enabled": true,
           "screenshots": ["audio-tests.svg", "deployment-pipeline.svg"],
           "description": "Automated testing and deployment pipeline - like a music production line that automatically checks quality, mixes tracks, and ships finished albums without human intervention.",
           "workflows": ["Build & Test", "Deploy to Vercel", "Dependency Updates"],
