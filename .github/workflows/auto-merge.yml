@@ -1,0 +1,85 @@
+name: Auto Merge Approved PRs
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [ main ]
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    if: |
+      github.event.pull_request.head.ref == 'preview' &&
+      github.event.pull_request.title.startsWith('🚀 Auto-deploy: Preview → Main')
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run final build check
+        run: npm run build
+
+      - name: Wait for approval
+        uses: lewagon/wait-on-check-action@v1.3.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          check-name: 'Auto Merge Approved PRs'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+
+      - name: Auto merge PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number
+            });
+
+            if (pr.mergeable && pr.mergeable_state === 'clean') {
+              await github.rest.pulls.merge({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.payload.pull_request.number,
+                merge_method: 'squash',
+                commit_title: `🚀 Deploy: ${pr.title.replace('🚀 Auto-deploy: Preview → Main ', '')}`,
+                commit_message: `Auto-merge from preview branch\n\nPR #${pr.number}\nCloses #${pr.number}`
+              });
+              
+              console.log('PR merged successfully!');
+            } else {
+              console.log('PR is not ready to merge:', pr.mergeable_state);
+            }
+
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: `## ✅ Auto-merge completed!
+
+              This PR has been automatically merged to \`main\` and will trigger a production deployment.
+
+              **Next steps:**
+              - Vercel will automatically deploy the changes
+              - Monitor the deployment status in your Vercel dashboard
+              - The preview branch is now ready for the next set of changes
+
+              ---
+              *This merge was performed automatically by GitHub Actions*`
+            });

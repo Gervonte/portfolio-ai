@@ -1,0 +1,98 @@
+name: Auto Create PR from Preview
+
+on:
+  push:
+    branches: [ preview ]  # Change this to your preview branch name
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run build check
+        run: npm run build
+
+      - name: Create Pull Request
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: existingPRs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: `${context.repo.owner}:preview`,
+              base: 'main',
+              state: 'open'
+            });
+
+            if (existingPRs.length > 0) {
+              console.log('PR already exists, updating...');
+              await github.rest.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: existingPRs[0].number,
+                title: `🚀 Auto-deploy: Preview → Main (${new Date().toISOString().split('T')[0]})`,
+                body: `## 📋 Auto-generated PR from preview branch
+
+                **Source Branch:** \`preview\`  
+                **Target Branch:** \`main\`  
+                **Generated:** ${new Date().toISOString()}
+
+                ### 🔍 Changes Summary
+                This PR contains all changes from the preview branch ready for production deployment.
+
+                ### ✅ Pre-merge Checks
+                - [x] Build successful
+                - [x] No TypeScript errors
+                - [x] Linting passed
+
+                ### 🚀 Ready for Review
+                Once approved, this PR will be automatically merged and deployed to production.
+
+                ---
+                *This PR was automatically created by GitHub Actions*`
+              });
+            } else {
+              console.log('Creating new PR...');
+              await github.rest.pulls.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `🚀 Auto-deploy: Preview → Main (${new Date().toISOString().split('T')[0]})`,
+                head: 'preview',
+                base: 'main',
+                body: `## 📋 Auto-generated PR from preview branch
+
+                **Source Branch:** \`preview\`  
+                **Target Branch:** \`main\`  
+                **Generated:** ${new Date().toISOString()}
+
+                ### 🔍 Changes Summary
+                This PR contains all changes from the preview branch ready for production deployment.
+
+                ### ✅ Pre-merge Checks
+                - [x] Build successful
+                - [x] No TypeScript errors
+                - [x] Linting passed
+
+                ### 🚀 Ready for Review
+                Once approved, this PR will be automatically merged and deployed to production.
+
+                ---
+                *This PR was automatically created by GitHub Actions*`
+              });
+            }

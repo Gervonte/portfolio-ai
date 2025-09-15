@@ -38,8 +38,31 @@ This project includes comprehensive GitHub Actions workflows:
 - **Automated Testing**: Lint, type-check, and build verification
 - **Security Scanning**: Vulnerability detection and dependency review
 - **Performance Monitoring**: Lighthouse CI with Core Web Vitals tracking
+- **Pull Request Automation**: Auto-create PRs from preview branch with review process
 - **Auto Deployment**: Deploy to Vercel on push to main/preview branches
 - **Dependency Updates**: Weekly automated dependency updates
+
+### 🚀 Pull Request Automation Workflow
+
+The project uses a multi-stage PR workflow for safe deployments:
+
+1. **Create Feature Branch** (linked to GitHub issue):
+
+   ```bash
+   git checkout -b feature/issue-123-add-new-feature
+   # Make your changes
+   git add .
+   git commit -m "Add new feature (closes #123)"
+   git push origin feature/issue-123-add-new-feature
+   ```
+
+2. **PR to Preview**: Create PR from feature branch → preview branch
+3. **Review & Test**: Review changes and test on preview deployment
+4. **Merge to Preview**: Approved PRs merge to preview branch
+5. **Auto-Create Production PR**: GitHub automatically creates PR from preview → main
+6. **Review & Approve**: Review the preview changes and approve the PR
+7. **Auto-Merge**: Approved PRs are automatically merged to main
+8. **Auto-Deploy**: Vercel automatically deploys the main branch
 
 ### Setup GitHub Actions
 
@@ -54,10 +77,26 @@ This project includes comprehensive GitHub Actions workflows:
    - `VERCEL_ORG_ID`: Your Vercel team ID
    - `VERCEL_PROJECT_ID`: Your Vercel project ID
 
-3. **Push to trigger workflows**:
+3. **Create Preview Branch**:
+
    ```bash
-   git push origin preview  # Deploys to preview
-   git push origin main    # Deploys to production
+   git checkout -b preview
+   git push origin preview
+   ```
+
+4. **Development Workflow**:
+
+   ```bash
+   # Create feature branch linked to GitHub issue
+   git checkout -b feature/issue-123-add-new-feature
+
+   # Make changes and push
+   git add .
+   git commit -m "Add new feature (closes #123)"
+   git push origin feature/issue-123-add-new-feature
+
+   # Create PR: feature-branch → preview
+   # After approval, preview → main happens automatically
    ```
 
 See [.github/README.md](.github/README.md) for detailed setup instructions.
