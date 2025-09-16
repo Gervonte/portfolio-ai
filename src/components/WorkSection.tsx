@@ -93,7 +93,16 @@ const WorkSection = memo(() => {
               Featured Projects
             </Title>
           </Group>
-          <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="xl">
+          <Box
+            style={{
+              display: 'grid',
+              gridTemplateColumns:
+                featuredProjects.length === 1 ? '1fr' : 'repeat(auto-fit, minmax(400px, 1fr))',
+              gap: '2rem',
+              maxWidth: featuredProjects.length === 1 ? '600px' : 'none',
+              margin: featuredProjects.length === 1 ? '0 auto' : '0',
+            }}
+          >
             {featuredProjects.map(project => {
               const screenshots = getProjectScreenshots(project);
               return (
@@ -316,7 +325,7 @@ const WorkSection = memo(() => {
                 </Card>
               );
             })}
-          </SimpleGrid>
+          </Box>
         </Box>
 
         {/* Work Categories Tabs */}
