@@ -18,6 +18,17 @@ import {
   Title,
 } from '@mantine/core';
 import {
+  IconApi,
+  IconBrandCss3,
+  IconBrandGit,
+  IconBrandGithub,
+  IconBrandGraphql,
+  IconBrandHtml5,
+  IconBrandJavascript,
+  IconBrandNodejs,
+  IconBrandPython,
+  IconBrandReact,
+  IconBrandTypescript,
   IconCloud,
   IconCode,
   IconDatabase,
@@ -65,6 +76,52 @@ const getCategoryDisplayName = (category: string) => {
       return 'Soft Skills';
     default:
       return category.charAt(0).toUpperCase() + category.slice(1);
+  }
+};
+
+// Utility function to get skill icon component
+const getSkillIconComponent = (skillName: string) => {
+  const skillLower = skillName.toLowerCase();
+
+  switch (skillLower) {
+    // Frontend Technologies
+    case 'react':
+      return <IconBrandReact size={16} />;
+    case 'typescript':
+      return <IconBrandTypescript size={16} />;
+    case 'javascript':
+      return <IconBrandJavascript size={16} />;
+    case 'html':
+      return <IconBrandHtml5 size={16} />;
+    case 'css':
+      return <IconBrandCss3 size={16} />;
+
+    // Backend Technologies
+    case 'python':
+      return <IconBrandPython size={16} />;
+    case 'node.js':
+    case 'nodejs':
+      return <IconBrandNodejs size={16} />;
+    case 'express':
+      return <IconCode size={16} />; // Express uses generic code icon
+    case 'rest apis':
+      return <IconApi size={16} />;
+    case 'graphql':
+      return <IconBrandGraphql size={16} />;
+
+    // Database
+    case 'postgresql':
+      return <IconDatabase size={16} />;
+
+    // DevOps & Tools
+    case 'git':
+      return <IconBrandGit size={16} />;
+    case 'github actions':
+      return <IconBrandGithub size={16} />;
+
+    // Default fallback
+    default:
+      return <IconCode size={16} />;
   }
 };
 
@@ -119,10 +176,20 @@ const AboutSection = memo(() => {
                 </Group>
                 <Stack gap="sm">
                   {categorySkills.map(skill => (
-                    <Group key={skill.name} justify="space-between">
-                      <Text size="sm" fw={500}>
-                        {skill.name}
-                      </Text>
+                    <Group key={skill.name} justify="space-between" align="center">
+                      <Group gap="xs" align="center">
+                        <ThemeIcon
+                          color={getSkillColor(skill.level)}
+                          variant="light"
+                          size="sm"
+                          radius="sm"
+                        >
+                          {getSkillIconComponent(skill.name)}
+                        </ThemeIcon>
+                        <Text size="sm" fw={500}>
+                          {skill.name}
+                        </Text>
+                      </Group>
                       <Badge color={getSkillColor(skill.level)} variant="light" size="sm">
                         {skill.level}
                       </Badge>
@@ -249,17 +316,19 @@ const AboutSection = memo(() => {
               <Stack gap="md">
                 {education.map((edu, index) => (
                   <Box key={index}>
-                    <Text fw={600} size="md">
-                      {edu.degree}
-                    </Text>
-                    <Text c="sakura" size="sm" mb="xs">
-                      {edu.institution} • {edu.year}
-                    </Text>
-                    {edu.description && (
-                      <Text size="sm" c="dimmed">
-                        {edu.description}
+                    <Box style={{ flex: 1 }}>
+                      <Text fw={600} size="md">
+                        {edu.degree}
                       </Text>
-                    )}
+                      <Text c="sakura" size="sm" mb="xs">
+                        {edu.institution} • {edu.year}
+                      </Text>
+                      {edu.description && (
+                        <Text size="sm" c="dimmed">
+                          {edu.description}
+                        </Text>
+                      )}
+                    </Box>
                     {index < education.length - 1 && <Divider my="md" />}
                   </Box>
                 ))}
@@ -278,17 +347,19 @@ const AboutSection = memo(() => {
               <Stack gap="md">
                 {leadership.map((role, index) => (
                   <Box key={index}>
-                    <Text fw={600} size="md">
-                      {role.name}
-                    </Text>
-                    <Text c="sakura" size="sm" mb="xs">
-                      {role.organization} • {role.year}
-                    </Text>
-                    {role.description && (
-                      <Text size="sm" c="dimmed">
-                        {role.description}
+                    <Box style={{ flex: 1 }}>
+                      <Text fw={600} size="md">
+                        {role.name}
                       </Text>
-                    )}
+                      <Text c="sakura" size="sm" mb="xs">
+                        {role.organization} • {role.year}
+                      </Text>
+                      {role.description && (
+                        <Text size="sm" c="dimmed">
+                          {role.description}
+                        </Text>
+                      )}
+                    </Box>
                     {index < leadership.length - 1 && <Divider my="md" />}
                   </Box>
                 ))}
