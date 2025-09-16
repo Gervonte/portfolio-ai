@@ -1,34 +1,34 @@
 'use client';
 
+import { Project } from '@/lib/projects';
 import {
-  Modal,
-  Text,
-  Badge,
-  Group,
-  Stack,
-  Box,
-  ThemeIcon,
-  List,
-  SimpleGrid,
-  Tabs,
-  Image,
   Alert,
-  Progress,
-  Title,
+  Badge,
+  Box,
   Card,
+  Group,
+  Image,
+  List,
+  Modal,
+  Progress,
+  SimpleGrid,
+  Stack,
+  Tabs,
+  Text,
+  ThemeIcon,
+  Title,
   Tooltip,
 } from '@mantine/core';
 import {
-  IconChartBar,
-  IconShield,
-  IconRocket,
-  IconGauge,
-  IconBuilding,
-  IconZoomIn,
   IconAlertCircle,
+  IconBuilding,
+  IconChartBar,
+  IconGauge,
+  IconRocket,
+  IconShield,
+  IconZoomIn,
 } from '@tabler/icons-react';
-import { useState, memo, useEffect, useMemo } from 'react';
-import { Project } from '@/lib/projects';
+import { memo, useEffect, useMemo, useState } from 'react';
 
 interface TechnicalDetailsModalProps {
   project: Project;
@@ -163,24 +163,46 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
         }}
         title={
           <Box>
-            <Group gap="lg" align="flex-start" mb="md">
+            <Group gap="sm" align="flex-start" mb="md" wrap="wrap">
               <ThemeIcon
                 color="sakura"
                 variant="gradient"
                 gradient={{ from: 'pink', to: 'red' }}
-                size="xl"
+                size="md"
                 radius="xl"
                 style={{
                   boxShadow: '0 8px 32px rgba(244, 67, 54, 0.25)',
+                  flexShrink: 0,
                 }}
               >
                 {getTechnicalIcon(activeTab || 'analytics')}
               </ThemeIcon>
-              <Box style={{ flex: 1 }}>
-                <Title order={1} c="dark" fw={800} mb="xs" size="h2">
+              <Box style={{ flex: 1, minWidth: '0', overflow: 'hidden' }}>
+                <Title
+                  order={1}
+                  c="dark"
+                  fw={800}
+                  mb="xs"
+                  size="h3"
+                  style={{
+                    fontSize:
+                      'clamp(var(--mantine-font-size-lg), 4vw, var(--mantine-font-size-xl))',
+                    lineHeight: 1.2,
+                    wordBreak: 'break-word',
+                  }}
+                >
                   {project.title}
                 </Title>
-                <Text size="lg" c="dimmed" fw={500}>
+                <Text
+                  size="sm"
+                  c="dimmed"
+                  fw={500}
+                  style={{
+                    fontSize:
+                      'clamp(var(--mantine-font-size-xs), 3vw, var(--mantine-font-size-sm))',
+                    lineHeight: 1.3,
+                  }}
+                >
                   Technical Deep Dive & Behind the Scenes
                 </Text>
               </Box>
@@ -190,12 +212,18 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
               style={{
                 background: 'white',
                 padding: '0',
-                margin: '0 -2.5rem',
+                margin: '0 -1rem',
                 borderBottom: '4px solid #E9ECEF',
                 display: 'flex',
-                width: '100%',
-                minHeight: '60px',
+                justifyContent: 'center',
+                width: 'calc(100% + 2rem)',
+                minHeight: '44px',
+                overflowX: 'auto',
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
+                WebkitOverflowScrolling: 'touch',
               }}
+              className="hide-scrollbar"
             >
               {technicalSections.map(({ key, icon }) => (
                 <Box
@@ -204,28 +232,35 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   style={{
                     fontWeight: 600,
                     transition: 'all 0.2s ease',
-                    padding: '20px 0',
-                    fontSize: '14px',
-                    color: activeTab === key ? '#F44336' : '#6C757D',
-                    background: activeTab === key ? 'rgba(244, 67, 54, 0.05)' : 'transparent',
-                    flex: 1,
-                    minWidth: '120px',
+                    padding: 'var(--mantine-spacing-xs) var(--mantine-spacing-sm)',
+                    fontSize: 'var(--mantine-font-size-xs)',
+                    color:
+                      activeTab === key
+                        ? 'var(--mantine-color-sakura-3)'
+                        : 'var(--mantine-color-gray-6)',
+                    background: activeTab === key ? 'var(--mantine-color-sakura-0)' : 'transparent',
+                    flex: '1 1 0',
+                    minWidth: '0',
                     textAlign: 'center',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    borderTop: activeTab === key ? '1px solid #E9ECEF' : '1px solid transparent',
-                    borderLeft: activeTab === key ? '1px solid #E9ECEF' : '1px solid transparent',
-                    borderRight: activeTab === key ? '1px solid #E9ECEF' : '1px solid transparent',
+                    borderTop:
+                      activeTab === key
+                        ? '2px solid var(--mantine-color-sakura-3)'
+                        : '2px solid transparent',
+                    borderLeft: '1px solid var(--mantine-color-gray-2)',
+                    borderRight: '1px solid var(--mantine-color-gray-2)',
                     borderBottom: 'none',
                     cursor: 'pointer',
                     height: '100%',
-                    minHeight: '60px',
+                    minHeight: '44px',
+                    whiteSpace: 'nowrap',
                   }}
                 >
-                  <Group gap="xs" align="center">
+                  <Group gap="xs" align="center" wrap="nowrap">
                     {icon}
-                    <Text size="sm" fw={600}>
+                    <Text size="xs" fw={600}>
                       {key === 'cicd' ? 'CI/CD' : key.charAt(0).toUpperCase() + key.slice(1)}
                     </Text>
                   </Group>
@@ -240,22 +275,25 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
           header: {
             background: 'white',
             borderBottom: 'none',
-            padding: '2.5rem 2.5rem 0 2.5rem',
+            padding:
+              'var(--mantine-spacing-xl) var(--mantine-spacing-md) 0 var(--mantine-spacing-md)',
             marginBottom: 0,
             position: 'relative',
             zIndex: 100,
+            overflow: 'hidden',
           },
           body: {
-            padding: '1rem 2.5rem 2.5rem 2.5rem',
-            background: '#FAFBFC',
+            padding: 'var(--mantine-spacing-md)',
+            background: 'var(--mantine-color-gray-0)',
             maxHeight: '70vh',
+            minHeight: '400px',
             overflowY: 'auto',
           },
           content: {
-            borderRadius: '16px',
+            borderRadius: 'var(--mantine-radius-lg)',
             overflow: 'hidden',
-            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.1)',
-            border: '1px solid #E9ECEF',
+            boxShadow: 'var(--mantine-shadow-xl)',
+            border: '1px solid var(--mantine-color-gray-2)',
             maxHeight: '90vh',
             display: 'flex',
             flexDirection: 'column',
@@ -277,6 +315,10 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     background: 'white',
                     border: '1px solid #E9ECEF',
                     boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                    minHeight: '120px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
                   }}
                 >
                   <Group gap="lg" mb="md">
@@ -348,7 +390,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         </Tooltip>
                       </Group>
                     </Group>
-                    <SimpleGrid cols={{ base: 2, sm: 4 }} spacing="md">
+                    <SimpleGrid cols={{ base: 1, xs: 2, sm: 4 }} spacing="md">
                       {Object.entries(section.metrics).map(([metricKey, value]) => (
                         <Card
                           key={metricKey}
@@ -704,7 +746,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     <Text size="md" fw={600} mb="md" c="sakura">
                       ⚡ Core Web Vitals
                     </Text>
-                    <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="md">
+                    <SimpleGrid cols={{ base: 1, xs: 2, sm: 3 }} spacing="md">
                       {Object.entries(section.coreWebVitals).map(([vital, value]) => (
                         <Box
                           key={vital}
@@ -950,7 +992,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         </Tooltip>
                       </Group>
                     </Group>
-                    <SimpleGrid cols={{ base: 2, sm: 3, md: 4 }} spacing="md">
+                    <SimpleGrid cols={{ base: 1, xs: 2, sm: 3, md: 4 }} spacing="md">
                       {section.screenshots.map((screenshot: string, index: number) => (
                         <Box
                           key={index}

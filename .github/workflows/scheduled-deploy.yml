@@ -2,8 +2,8 @@ name: Scheduled Daily Deploy
 
 on:
   schedule:
-    - cron: '0 14 * * 1-5'  # 2:00 PM UTC (9:00 AM EST), Monday-Friday
-  workflow_dispatch:  # Manual trigger
+    - cron: '0 14 * * 1-5' # 2:00 PM UTC (9:00 AM EST), Monday-Friday
+  workflow_dispatch: # Manual trigger
 
 permissions:
   contents: write
@@ -14,7 +14,7 @@ permissions:
 jobs:
   scheduled-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -55,13 +55,13 @@ jobs:
             );
 
             console.log(`Found ${approvedPRs.length} approved PRs ready for merge`);
-            
+
             if (approvedPRs.length === 0) {
               console.log('No approved PRs found. Exiting.');
               core.setOutput('result', 'no-prs');
               return;
             }
-            
+
             core.setOutput('result', 'prs-found');
 
             // Merge all approved PRs
@@ -125,14 +125,14 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action" 
-          
+
           # Switch to preview branch
           git checkout preview
           git pull origin preview
-          
+
           # Merge main into preview
           git merge origin/main --no-ff -m "Sync preview with main after deployment"
-          
+
           # Push updated preview
           git push origin preview
 

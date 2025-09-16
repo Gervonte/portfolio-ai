@@ -1,11 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    optimizePackageImports: [
-      '@mantine/core',
-      '@mantine/hooks',
-      '@tabler/icons-react',
-    ],
+    optimizePackageImports: ['@mantine/core', '@mantine/hooks', '@tabler/icons-react'],
   },
   images: {
     domains: ['localhost', 'v1.screenshot.11ty.dev'],
