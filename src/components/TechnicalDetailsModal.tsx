@@ -185,7 +185,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   mb="xs"
                   size="h3"
                   style={{
-                    fontSize: 'clamp(1.2rem, 4vw, 1.5rem)',
+                    fontSize:
+                      'clamp(var(--mantine-font-size-lg), 4vw, var(--mantine-font-size-xl))',
                     lineHeight: 1.2,
                     wordBreak: 'break-word',
                   }}
@@ -197,7 +198,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   c="dimmed"
                   fw={500}
                   style={{
-                    fontSize: 'clamp(0.8rem, 3vw, 1rem)',
+                    fontSize:
+                      'clamp(var(--mantine-font-size-xs), 3vw, var(--mantine-font-size-sm))',
                     lineHeight: 1.3,
                   }}
                 >
@@ -219,7 +221,10 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 overflowX: 'auto',
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none',
-                WebkitScrollbar: 'none',
+                WebkitOverflowScrolling: 'touch',
+                '&::-webkit-scrollbar': {
+                  display: 'none',
+                },
               }}
             >
               {technicalSections.map(({ key, icon }) => (
@@ -229,19 +234,25 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   style={{
                     fontWeight: 600,
                     transition: 'all 0.2s ease',
-                    padding: '8px 12px',
-                    fontSize: '11px',
-                    color: activeTab === key ? '#F44336' : '#6C757D',
-                    background: activeTab === key ? 'rgba(244, 67, 54, 0.1)' : 'transparent',
+                    padding: 'var(--mantine-spacing-xs) var(--mantine-spacing-sm)',
+                    fontSize: 'var(--mantine-font-size-xs)',
+                    color:
+                      activeTab === key
+                        ? 'var(--mantine-color-sakura-3)'
+                        : 'var(--mantine-color-gray-6)',
+                    background: activeTab === key ? 'var(--mantine-color-sakura-0)' : 'transparent',
                     flex: '1 1 0',
                     minWidth: '0',
                     textAlign: 'center',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    borderTop: activeTab === key ? '2px solid #F44336' : '2px solid transparent',
-                    borderLeft: '1px solid #E9ECEF',
-                    borderRight: '1px solid #E9ECEF',
+                    borderTop:
+                      activeTab === key
+                        ? '2px solid var(--mantine-color-sakura-3)'
+                        : '2px solid transparent',
+                    borderLeft: '1px solid var(--mantine-color-gray-2)',
+                    borderRight: '1px solid var(--mantine-color-gray-2)',
                     borderBottom: 'none',
                     cursor: 'pointer',
                     height: '100%',
@@ -251,7 +262,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 >
                   <Group gap="xs" align="center" wrap="nowrap">
                     {icon}
-                    <Text size="11px" fw={600}>
+                    <Text size="xs" fw={600}>
                       {key === 'cicd' ? 'CI/CD' : key.charAt(0).toUpperCase() + key.slice(1)}
                     </Text>
                   </Group>
@@ -266,24 +277,25 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
           header: {
             background: 'white',
             borderBottom: 'none',
-            padding: '2rem 1rem 0 1rem',
+            padding:
+              'var(--mantine-spacing-xl) var(--mantine-spacing-md) 0 var(--mantine-spacing-md)',
             marginBottom: 0,
             position: 'relative',
             zIndex: 100,
             overflow: 'hidden',
           },
           body: {
-            padding: '1rem',
-            background: '#FAFBFC',
+            padding: 'var(--mantine-spacing-md)',
+            background: 'var(--mantine-color-gray-0)',
             maxHeight: '70vh',
             minHeight: '400px',
             overflowY: 'auto',
           },
           content: {
-            borderRadius: '16px',
+            borderRadius: 'var(--mantine-radius-lg)',
             overflow: 'hidden',
-            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.1)',
-            border: '1px solid #E9ECEF',
+            boxShadow: 'var(--mantine-shadow-xl)',
+            border: '1px solid var(--mantine-color-gray-2)',
             maxHeight: '90vh',
             display: 'flex',
             flexDirection: 'column',
