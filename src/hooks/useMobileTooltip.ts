@@ -48,7 +48,7 @@ export function useMobileTooltip({
       setOpened(true);
     }, delay);
     setTimeoutId(id);
-  }, [disabled, delay, clearTimeout]);
+  }, [disabled, delay, clearTooltipTimeout]);
 
   const closeTooltip = useCallback(() => {
     clearTooltipTimeout();
@@ -85,7 +85,7 @@ export function useMobileTooltip({
       clearTooltipTimeout();
       setOpened(true);
     }
-  }, [trigger, clearTimeout]);
+  }, [trigger, clearTooltipTimeout]);
 
   const handleTouchEnd = useCallback(() => {
     // On mobile, keep tooltip open until user taps elsewhere
