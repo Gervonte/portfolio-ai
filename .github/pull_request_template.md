@@ -4,11 +4,17 @@
 
 `[type-issue#]: Brief description`
 
+**Types:**
+
+- `feat` - New features
+- `fix` - Bug fixes
+- `refactor` - Code improvements
+
 **Examples:**
 
-- `feat-123: Add user authentication system`
-- `fix-456: Resolve modal header layout issues`
-- `refactor-789: Update CI/CD workflow automation`
+- `[feat-123]: Add user authentication system`
+- `[fix-456]: Resolve modal header layout issues`
+- `[refactor-789]: Update CI/CD workflow automation`
 
 ## 🎯 Summary
 
