@@ -485,6 +485,88 @@ export const technologyContexts: Record<string, BadgeContext> = {
     ],
     capabilitiesLabel: 'What It Does:',
   },
+
+  // Data Science & ML Technologies
+  'OpenAI API': {
+    title: 'OpenAI API',
+    description: 'AI platform for natural language processing and generation',
+    capabilities: [
+      'Generating human-like text and code',
+      'Analyzing and understanding language patterns',
+      'Building intelligent conversational interfaces',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  'Gemini API': {
+    title: 'Gemini API',
+    description: "Google's multimodal AI model for text and image understanding",
+    capabilities: [
+      'Processing text and image inputs together',
+      'Generating creative and analytical content',
+      'Building advanced AI-powered applications',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  QWEN: {
+    title: 'QWEN',
+    description: "Alibaba's large language model for various AI tasks",
+    capabilities: [
+      'Natural language understanding and generation',
+      'Code analysis and generation',
+      'Multilingual text processing',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  Jupyter: {
+    title: 'Jupyter',
+    description: 'Interactive computing environment for data science',
+    capabilities: [
+      'Creating interactive notebooks for data analysis',
+      'Combining code, visualizations, and documentation',
+      'Collaborating on data science projects',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  Pandas: {
+    title: 'Pandas',
+    description: 'Powerful data manipulation and analysis library for Python',
+    capabilities: [
+      'Cleaning and transforming datasets',
+      'Performing statistical analysis',
+      'Working with time series and structured data',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  'Scikit-learn': {
+    title: 'Scikit-learn',
+    description: 'Machine learning library for Python with simple tools',
+    capabilities: [
+      'Building and training ML models',
+      'Preprocessing and feature engineering',
+      'Model evaluation and selection',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  LIME: {
+    title: 'LIME',
+    description: 'Local Interpretable Model-agnostic Explanations for ML models',
+    capabilities: [
+      'Explaining individual model predictions',
+      'Understanding feature importance',
+      'Making AI decisions more transparent',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  Matplotlib: {
+    title: 'Matplotlib',
+    description: 'Python plotting library for creating visualizations',
+    capabilities: [
+      'Creating charts, graphs, and plots',
+      'Customizing visualizations for presentations',
+      'Analyzing data through visual representation',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
 };
 
 // AI Tools contexts
