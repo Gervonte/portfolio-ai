@@ -39,9 +39,7 @@ const ContactSection = memo(() => {
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<
-    'idle' | 'success' | 'error'
-  >('idle');
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   // Prevent hydration issues with browser extensions
   useEffect(() => {
@@ -133,8 +131,8 @@ const ContactSection = memo(() => {
             Let&apos;s Connect
           </Title>
           <Text size="xl" c="dimmed" maw={800} mx="auto">
-            Ready to discuss opportunities, collaborate on projects, or just
-            have a chat about technology?
+            Ready to discuss opportunities, collaborate on projects, or just have a chat about
+            technology?
           </Text>
         </Box>
 
@@ -145,20 +143,13 @@ const ContactSection = memo(() => {
               Get in Touch
             </Title>
             <Text size="md" c="dimmed" mb="lg">
-              I&apos;m always interested in hearing about new opportunities and
-              exciting projects. Feel free to reach out through any of the
-              channels below.
+              I&apos;m always interested in hearing about new opportunities and exciting projects.
+              Feel free to reach out through any of the channels below.
             </Text>
 
             <Stack gap="md">
               {contactMethods.map((method, index) => (
-                <Card
-                  key={index}
-                  p="md"
-                  withBorder
-                  radius="lg"
-                  style={{ cursor: 'pointer' }}
-                >
+                <Card key={index} p="md" withBorder radius="lg" style={{ cursor: 'pointer' }}>
                   <Group gap="md">
                     <ThemeIcon color="sakura" variant="light" size="lg">
                       {method.icon}
@@ -169,9 +160,7 @@ const ContactSection = memo(() => {
                       </Text>
                       <Anchor
                         href={method.href}
-                        target={
-                          method.href.startsWith('http') ? '_blank' : undefined
-                        }
+                        target={method.href.startsWith('http') ? '_blank' : undefined}
                         c="sakura"
                         size="sm"
                         style={{ textDecoration: 'none' }}
@@ -211,8 +200,8 @@ const ContactSection = memo(() => {
               Send a Message
             </Title>
             <Text size="md" c="dimmed" mb="lg">
-              Have a specific project in mind? Drop me a line and I&apos;ll get
-              back to you as soon as possible.
+              Have a specific project in mind? Drop me a line and I&apos;ll get back to you as soon
+              as possible.
             </Text>
 
             {isClient ? (
@@ -275,8 +264,7 @@ const ContactSection = memo(() => {
                       color="red"
                       variant="light"
                     >
-                      Something went wrong. Please try again or contact me
-                      directly via email.
+                      Something went wrong. Please try again or contact me directly via email.
                     </Alert>
                   )}
 
@@ -317,9 +305,8 @@ const ContactSection = memo(() => {
               Ready to Build Something Amazing Together?
             </Title>
             <Text size="md" c="dimmed" maw={600} mx="auto">
-              Whether you&apos;re looking for a full-stack developer, AI
-              researcher, or technical consultant, I&apos;m here to help bring
-              your ideas to life.
+              Whether you&apos;re looking for a full-stack developer, AI researcher, or technical
+              consultant, I&apos;m here to help bring your ideas to life.
             </Text>
             <Group justify="center" gap="md" mt="md">
               <Button

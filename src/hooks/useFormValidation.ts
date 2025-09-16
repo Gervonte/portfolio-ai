@@ -56,11 +56,7 @@ export function useFormValidation<T extends Record<string, any>>({
         if (validateOnChange) {
           const fieldSchema = (schema as any).shape?.[fieldName];
           if (fieldSchema) {
-            const validation = validateFormField(
-              fieldSchema,
-              value,
-              fieldName as string
-            );
+            const validation = validateFormField(fieldSchema, value, fieldName as string);
             fieldState.isValid = validation.isValid;
             fieldState.error = validation.error;
           }
@@ -147,8 +143,7 @@ export function useFormValidation<T extends Record<string, any>>({
     } catch (error) {
       return {
         success: false,
-        errorMessage:
-          error instanceof Error ? error.message : 'Validation error',
+        errorMessage: error instanceof Error ? error.message : 'Validation error',
       };
     }
   }, [formState, schema]);

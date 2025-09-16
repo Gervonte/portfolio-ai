@@ -48,8 +48,7 @@ export default function SakuraEffect({
     loadSakura().then(Sakura => {
       if (containerRef.current) {
         // Clear any existing sakura instances
-        const existingSakura =
-          containerRef.current.querySelector('.sakura-container');
+        const existingSakura = containerRef.current.querySelector('.sakura-container');
         if (existingSakura) {
           existingSakura.remove();
         }
@@ -109,8 +108,7 @@ export default function SakuraEffect({
     return () => {
       // Cleanup on unmount
       if (containerRef.current) {
-        const sakuraContainer =
-          containerRef.current.querySelector('.sakura-container');
+        const sakuraContainer = containerRef.current.querySelector('.sakura-container');
         if (sakuraContainer) {
           sakuraContainer.remove();
         }

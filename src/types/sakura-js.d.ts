@@ -16,10 +16,7 @@ declare module 'sakura-js' {
     destroy(graceful?: boolean): void;
   }
 
-  function Sakura(
-    selector: string | HTMLElement,
-    options?: SakuraOptions
-  ): SakuraInstance;
+  function Sakura(selector: string | HTMLElement, options?: SakuraOptions): SakuraInstance;
 
   export = Sakura;
 }

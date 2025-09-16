@@ -70,8 +70,7 @@ const ExperienceSection = memo(() => {
             Professional Experience
           </Title>
           <Text size="xl" c="dimmed" maw={800} mx="auto">
-            Building scalable software solutions and leading technical
-            initiatives in fintech
+            Building scalable software solutions and leading technical initiatives in fintech
           </Text>
         </Box>
 
@@ -144,12 +143,7 @@ const ExperienceSection = memo(() => {
                       </Text>
                       <Group gap="xs">
                         {exp.technologies.map((tech, techIndex) => (
-                          <Badge
-                            key={techIndex}
-                            color="sakura"
-                            variant="outline"
-                            size="sm"
-                          >
+                          <Badge key={techIndex} color="sakura" variant="outline" size="sm">
                             {tech}
                           </Badge>
                         ))}

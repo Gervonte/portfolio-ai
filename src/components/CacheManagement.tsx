@@ -138,12 +138,7 @@ export default function CacheManagement() {
               </Badge>
             </Group>
 
-            <Progress
-              value={getUsagePercentage()}
-              color={getUsageColor()}
-              size="lg"
-              radius="md"
-            />
+            <Progress value={getUsagePercentage()} color={getUsageColor()} size="lg" radius="md" />
 
             <Divider />
 
@@ -185,14 +180,10 @@ export default function CacheManagement() {
           </Stack>
         )}
 
-        <Alert
-          icon={<IconInfoCircle size={16} />}
-          color="blue"
-          title="Cache Information"
-        >
+        <Alert icon={<IconInfoCircle size={16} />} color="blue" title="Cache Information">
           <Text size="sm">
-            Screenshots are cached for 7 days to improve performance. The cache
-            automatically cleans up expired entries and manages size limits.
+            Screenshots are cached for 7 days to improve performance. The cache automatically cleans
+            up expired entries and manages size limits.
           </Text>
         </Alert>
       </Stack>

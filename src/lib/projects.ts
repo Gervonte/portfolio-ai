@@ -16,6 +16,24 @@ export interface Project {
   aiTools?: string[];
   timeline: string;
   category: string;
+  enableTechnicalDetails?: boolean;
+  technicalDetails?: TechnicalDetails;
+}
+
+export interface TechnicalDetails {
+  analytics: TechnicalSection;
+  monitoring: TechnicalSection;
+  cicd: TechnicalSection;
+  performance?: TechnicalSection;
+  architecture: TechnicalSection;
+}
+
+export interface TechnicalSection {
+  enabled?: boolean;
+  showScreenshots?: boolean;
+  screenshots: string[];
+  description: string;
+  [key: string]: any; // Allow for flexible additional properties
 }
 
 export interface ProjectCategory {
@@ -53,13 +71,10 @@ export interface ProjectsMetadata {
 }
 
 // Type-safe access to the metadata
-export const projectsData: ProjectsMetadata =
-  projectsMetadata as ProjectsMetadata;
+export const projectsData: ProjectsMetadata = projectsMetadata as ProjectsMetadata;
 
 // Utility functions
-export const getProjectsByType = (
-  type: 'vibe-coded' | 'standard-work'
-): Project[] => {
+export const getProjectsByType = (type: 'vibe-coded' | 'standard-work'): Project[] => {
   return projectsData.projects.filter(project => project.type === type);
 };
 
@@ -80,9 +95,7 @@ export const getProjectsByStatus = (status: Project['status']): Project[] => {
 };
 
 export const getProjectTechnologies = (): string[] => {
-  const allTechnologies = projectsData.projects.flatMap(
-    project => project.technologies
-  );
+  const allTechnologies = projectsData.projects.flatMap(project => project.technologies);
   return [...new Set(allTechnologies)].sort();
 };
 

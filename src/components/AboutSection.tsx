@@ -30,17 +30,11 @@ import {
   IconTarget,
   IconFileText,
 } from '@tabler/icons-react';
-import {
-  aboutData,
-  getSkillsByCategory,
-  getSkillColor,
-  type Skill,
-} from '@/lib/about';
+import { aboutData, getSkillsByCategory, getSkillColor, type Skill } from '@/lib/about';
 import { memo } from 'react';
 
 // Use data from metadata file
-const { personalInfo, experience, education, researchProjects, leadership } =
-  aboutData;
+const { personalInfo, experience, education, researchProjects, leadership } = aboutData;
 
 // Utility function to get icon component from string
 const getCategoryIconComponent = (category: Skill['category']) => {
@@ -121,34 +115,26 @@ const AboutSection = memo(() => {
             Technical Skills
           </Title>
           <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="xl">
-            {Object.entries(skillCategories).map(
-              ([category, categorySkills]) => (
-                <Card key={category} p="lg" withBorder radius="lg">
-                  <Group mb="md">
-                    {getCategoryIconComponent(category as Skill['category'])}
-                    <Title order={4}>
-                      {getCategoryDisplayName(category)} Skills
-                    </Title>
-                  </Group>
-                  <Stack gap="sm">
-                    {categorySkills.map(skill => (
-                      <Group key={skill.name} justify="space-between">
-                        <Text size="sm" fw={500}>
-                          {skill.name}
-                        </Text>
-                        <Badge
-                          color={getSkillColor(skill.level)}
-                          variant="light"
-                          size="sm"
-                        >
-                          {skill.level}
-                        </Badge>
-                      </Group>
-                    ))}
-                  </Stack>
-                </Card>
-              )
-            )}
+            {Object.entries(skillCategories).map(([category, categorySkills]) => (
+              <Card key={category} p="lg" withBorder radius="lg">
+                <Group mb="md">
+                  {getCategoryIconComponent(category as Skill['category'])}
+                  <Title order={4}>{getCategoryDisplayName(category)} Skills</Title>
+                </Group>
+                <Stack gap="sm">
+                  {categorySkills.map(skill => (
+                    <Group key={skill.name} justify="space-between">
+                      <Text size="sm" fw={500}>
+                        {skill.name}
+                      </Text>
+                      <Badge color={getSkillColor(skill.level)} variant="light" size="sm">
+                        {skill.level}
+                      </Badge>
+                    </Group>
+                  ))}
+                </Stack>
+              </Card>
+            ))}
           </SimpleGrid>
         </Box>
 
@@ -238,12 +224,7 @@ const AboutSection = memo(() => {
                   </Text>
                   <Group gap="xs">
                     {project.technologies.map(tech => (
-                      <Badge
-                        key={tech}
-                        size="sm"
-                        variant="outline"
-                        color="sakura"
-                      >
+                      <Badge key={tech} size="sm" variant="outline" color="sakura">
                         {tech}
                       </Badge>
                     ))}

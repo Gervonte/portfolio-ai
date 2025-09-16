@@ -82,9 +82,7 @@ export const getSkillsByCategoryAndLevel = (
   category: Skill['category'],
   level: Skill['level']
 ): Skill[] => {
-  return aboutData.skills.filter(
-    skill => skill.category === category && skill.level === level
-  );
+  return aboutData.skills.filter(skill => skill.category === category && skill.level === level);
 };
 
 export const getRecentExperience = (limit: number = 3): Experience[] => {
@@ -95,9 +93,7 @@ export const getRecentEducation = (limit: number = 2): Education[] => {
   return aboutData.education.slice(0, limit);
 };
 
-export const getRecentResearchProjects = (
-  limit: number = 2
-): ResearchProject[] => {
+export const getRecentResearchProjects = (limit: number = 2): ResearchProject[] => {
   return aboutData.researchProjects.slice(0, limit);
 };
 
