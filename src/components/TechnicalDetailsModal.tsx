@@ -1,5 +1,6 @@
 'use client';
 
+import { colorCombinations, commonColors } from '@/lib/colors';
 import { Project } from '@/lib/projects';
 import {
   Alert,
@@ -17,7 +18,6 @@ import {
   Text,
   ThemeIcon,
   Title,
-  Tooltip,
 } from '@mantine/core';
 import {
   IconAlertCircle,
@@ -29,6 +29,7 @@ import {
   IconZoomIn,
 } from '@tabler/icons-react';
 import { memo, useEffect, useMemo, useState } from 'react';
+import { MobileTooltip } from './MobileTooltip';
 
 interface TechnicalDetailsModalProps {
   project: Project;
@@ -137,7 +138,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
   if (!project.technicalDetails) {
     return (
       <Modal opened={opened} onClose={onClose} title="Technical Details" size="lg" centered>
-        <Alert icon={<IconAlertCircle size={16} />} color="blue" variant="light">
+        <Alert icon={<IconAlertCircle size={16} />} color="sakura" variant="light">
           Technical details coming soon...
         </Alert>
       </Modal>
@@ -171,7 +172,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 size="md"
                 radius="xl"
                 style={{
-                  boxShadow: '0 8px 32px rgba(244, 67, 54, 0.25)',
+                  boxShadow: `0 8px 32px ${commonColors.shadowSakura}`,
                   flexShrink: 0,
                 }}
               >
@@ -213,7 +214,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 background: 'white',
                 padding: '0',
                 margin: '0 -1rem',
-                borderBottom: '4px solid #E9ECEF',
+                borderBottom: `4px solid ${commonColors.borderPrimary}`,
                 display: 'flex',
                 justifyContent: 'center',
                 width: 'calc(100% + 2rem)',
@@ -312,9 +313,9 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   radius="lg"
                   withBorder
                   style={{
-                    background: 'white',
-                    border: '1px solid #E9ECEF',
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                    background: commonColors.backgroundCard,
+                    border: `1px solid ${commonColors.borderPrimary}`,
+                    boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
                     minHeight: '120px',
                     display: 'flex',
                     flexDirection: 'column',
@@ -354,7 +355,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     withBorder
                     style={{
                       background: 'white',
-                      border: '1px solid #E9ECEF',
+                      border: `1px solid ${commonColors.borderModal}`,
                       boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
                     }}
                   >
@@ -372,7 +373,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         <Title order={4} fw={700} c="dark">
                           Key Metrics
                         </Title>
-                        <Tooltip
+                        <MobileTooltip
                           label="Performance indicators - visitor counts, session duration, and engagement metrics."
                           multiline
                           w={300}
@@ -387,7 +388,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           >
                             ?
                           </ThemeIcon>
-                        </Tooltip>
+                        </MobileTooltip>
                       </Group>
                     </Group>
                     <SimpleGrid cols={{ base: 1, xs: 2, sm: 4 }} spacing="md">
@@ -398,8 +399,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           radius="md"
                           withBorder
                           style={{
-                            background: '#FAFBFC',
-                            border: '1px solid #E9ECEF',
+                            background: commonColors.backgroundModal,
+                            border: `1px solid ${commonColors.borderModal}`,
                             textAlign: 'center',
                             transition: 'all 0.2s ease',
                             cursor: 'default',
@@ -407,12 +408,12 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
                             e.currentTarget.style.transform = 'translateY(-2px)';
                             e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
-                            e.currentTarget.style.borderColor = '#F44336';
+                            e.currentTarget.style.borderColor = commonColors.accentPrimary;
                           }}
                           onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
                             e.currentTarget.style.transform = 'translateY(0)';
                             e.currentTarget.style.boxShadow = 'none';
-                            e.currentTarget.style.borderColor = '#E9ECEF';
+                            e.currentTarget.style.borderColor = commonColors.borderPrimary;
                           }}
                         >
                           <Text
@@ -442,7 +443,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     withBorder
                     style={{
                       background: 'white',
-                      border: '1px solid #E9ECEF',
+                      border: `1px solid ${commonColors.borderModal}`,
                       boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
                     }}
                   >
@@ -460,7 +461,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         <Title order={4} fw={700} c="dark">
                           Tools & Technologies
                         </Title>
-                        <Tooltip
+                        <MobileTooltip
                           label="Programming languages, frameworks, and tools used to build this project."
                           multiline
                           w={300}
@@ -475,7 +476,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           >
                             ?
                           </ThemeIcon>
-                        </Tooltip>
+                        </MobileTooltip>
                       </Group>
                     </Group>
                     <Group gap="sm">
@@ -489,7 +490,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           style={{
                             fontWeight: 500,
                             textTransform: 'none',
-                            border: '1px solid #FFCDD2',
+                            border: `1px solid ${commonColors.borderSecondary}`,
                           }}
                         >
                           {tool}
@@ -507,7 +508,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     withBorder
                     style={{
                       background: 'white',
-                      border: '1px solid #E9ECEF',
+                      border: `1px solid ${commonColors.borderModal}`,
                       boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
                     }}
                   >
@@ -525,7 +526,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         <Title order={4} fw={700} c="dark">
                           System Health
                         </Title>
-                        <Tooltip
+                        <MobileTooltip
                           label="Reliability metrics - uptime percentage and error rates to ensure stable operation."
                           multiline
                           w={300}
@@ -540,7 +541,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           >
                             ?
                           </ThemeIcon>
-                        </Tooltip>
+                        </MobileTooltip>
                       </Group>
                     </Group>
                     <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
@@ -550,14 +551,14 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           radius="md"
                           withBorder
                           style={{
-                            background: 'linear-gradient(135deg, #E8F5E8, #F0F8F0)',
-                            border: '1px solid #C8E6C9',
+                            background: colorCombinations.earthGradientModal,
+                            border: `1px solid ${commonColors.borderEarth}`,
                           }}
                         >
                           <Text size="sm" c="dimmed" fw={600} mb="xs">
                             Uptime
                           </Text>
-                          <Text size="xl" fw={800} c="green">
+                          <Text size="xl" fw={800} c="sakura">
                             {section.uptime}
                           </Text>
                         </Card>
@@ -568,8 +569,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           radius="md"
                           withBorder
                           style={{
-                            background: 'linear-gradient(135deg, #FFF3E0, #FFF8E1)',
-                            border: '1px solid #FFCC02',
+                            background: colorCombinations.warmGradientModal,
+                            border: `1px solid ${commonColors.borderWarm}`,
                           }}
                         >
                           <Text size="sm" c="dimmed" fw={600} mb="xs">
@@ -591,7 +592,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     withBorder
                     style={{
                       background: 'white',
-                      border: '1px solid #E9ECEF',
+                      border: `1px solid ${commonColors.borderModal}`,
                       boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
                     }}
                   >
@@ -609,7 +610,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         <Title order={4} fw={700} c="dark">
                           CI/CD Workflows
                         </Title>
-                        <Tooltip
+                        <MobileTooltip
                           label="Automated processes for testing, building, and deploying code changes without manual intervention."
                           multiline
                           w={300}
@@ -624,7 +625,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           >
                             ?
                           </ThemeIcon>
-                        </Tooltip>
+                        </MobileTooltip>
                       </Group>
                     </Group>
                     <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
@@ -635,8 +636,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           radius="md"
                           withBorder
                           style={{
-                            background: '#FAFBFC',
-                            border: '1px solid #E9ECEF',
+                            background: commonColors.backgroundModal,
+                            border: `1px solid ${commonColors.borderModal}`,
                             textAlign: 'center',
                             transition: 'all 0.2s ease',
                             cursor: 'default',
@@ -644,12 +645,12 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
                             e.currentTarget.style.transform = 'translateY(-2px)';
                             e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
-                            e.currentTarget.style.borderColor = '#F44336';
+                            e.currentTarget.style.borderColor = commonColors.accentPrimary;
                           }}
                           onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
                             e.currentTarget.style.transform = 'translateY(0)';
                             e.currentTarget.style.boxShadow = 'none';
-                            e.currentTarget.style.borderColor = '#E9ECEF';
+                            e.currentTarget.style.borderColor = commonColors.borderPrimary;
                           }}
                         >
                           <Text size="md" fw={600} c="dark">
@@ -664,10 +665,10 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 {shouldShowSection(section, 'components') && (
                   <Box
                     style={{
-                      background: 'linear-gradient(135deg, #FFF5F5, #F8F4F4)',
+                      background: colorCombinations.footerGradient,
                       padding: '1rem',
                       borderRadius: '12px',
-                      border: '1px solid #FFCDD2',
+                      border: `1px solid ${commonColors.borderSecondary}`,
                     }}
                   >
                     <Text size="md" fw={600} mb="md" c="sakura">
@@ -696,10 +697,10 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 {section.lighthouseScore && (
                   <Box
                     style={{
-                      background: 'linear-gradient(135deg, #FFF5F5, #F8F4F4)',
+                      background: colorCombinations.footerGradient,
                       padding: '1rem',
                       borderRadius: '12px',
-                      border: '1px solid #FFCDD2',
+                      border: `1px solid ${commonColors.borderSecondary}`,
                     }}
                   >
                     <Text size="md" fw={600} mb="md" c="sakura">
@@ -718,9 +719,9 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         value={section.lighthouseScore}
                         color={
                           section.lighthouseScore >= 90
-                            ? 'green'
+                            ? 'sakura'
                             : section.lighthouseScore >= 70
-                              ? 'yellow'
+                              ? 'pink'
                               : 'red'
                         }
                         size="lg"
@@ -737,10 +738,10 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 {section.coreWebVitals && (
                   <Box
                     style={{
-                      background: 'linear-gradient(135deg, #FFF5F5, #F8F4F4)',
+                      background: colorCombinations.footerGradient,
                       padding: '1rem',
                       borderRadius: '12px',
-                      border: '1px solid #FFCDD2',
+                      border: `1px solid ${commonColors.borderSecondary}`,
                     }}
                   >
                     <Text size="md" fw={600} mb="md" c="sakura">
@@ -753,7 +754,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           p="md"
                           style={{
                             background: 'rgba(255, 255, 255, 0.8)',
-                            border: '1px solid #FFCDD2',
+                            border: `1px solid ${commonColors.borderSecondary}`,
                             borderRadius: '12px',
                             textAlign: 'center',
                             transition: 'transform 0.2s ease',
@@ -787,7 +788,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     withBorder
                     style={{
                       background: 'white',
-                      border: '1px solid #E9ECEF',
+                      border: `1px solid ${commonColors.borderModal}`,
                       boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
                     }}
                   >
@@ -805,7 +806,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         <Title order={4} fw={700} c="dark">
                           Architecture & Deployment
                         </Title>
-                        <Tooltip
+                        <MobileTooltip
                           label="Technical blueprint and deployment strategy - the foundation and delivery system."
                           multiline
                           w={300}
@@ -820,7 +821,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           >
                             ?
                           </ThemeIcon>
-                        </Tooltip>
+                        </MobileTooltip>
                       </Group>
                     </Group>
                     <Stack gap="md">
@@ -840,7 +841,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                                 style={{
                                   fontWeight: 500,
                                   textTransform: 'none',
-                                  border: '1px solid #FFCDD2',
+                                  border: `1px solid ${commonColors.borderSecondary}`,
                                 }}
                               >
                                 {component}
@@ -871,7 +872,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     withBorder
                     style={{
                       background: 'white',
-                      border: '1px solid #E9ECEF',
+                      border: `1px solid ${commonColors.borderModal}`,
                       boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
                     }}
                   >
@@ -889,7 +890,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         <Title order={4} fw={700} c="dark">
                           Deployment Metrics
                         </Title>
-                        <Tooltip
+                        <MobileTooltip
                           label="Release frequency and speed metrics - how often and how quickly updates are deployed."
                           multiline
                           w={300}
@@ -904,7 +905,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           >
                             ?
                           </ThemeIcon>
-                        </Tooltip>
+                        </MobileTooltip>
                       </Group>
                     </Group>
                     <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
@@ -914,14 +915,14 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           radius="md"
                           withBorder
                           style={{
-                            background: 'linear-gradient(135deg, #E8F5E8, #F0F8F0)',
-                            border: '1px solid #C8E6C9',
+                            background: colorCombinations.earthGradientModal,
+                            border: `1px solid ${commonColors.borderEarth}`,
                           }}
                         >
                           <Text size="sm" c="dimmed" fw={600} mb="xs">
                             Deployment Frequency
                           </Text>
-                          <Text size="lg" fw={800} c="green">
+                          <Text size="lg" fw={800} c="sakura">
                             {section.deploymentFrequency}
                           </Text>
                         </Card>
@@ -932,14 +933,14 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           radius="md"
                           withBorder
                           style={{
-                            background: 'linear-gradient(135deg, #E3F2FD, #F3E5F5)',
-                            border: '1px solid #BBDEFB',
+                            background: colorCombinations.sakuraGradientModal,
+                            border: `1px solid ${commonColors.borderSakura}`,
                           }}
                         >
                           <Text size="sm" c="dimmed" fw={600} mb="xs">
                             Lead Time
                           </Text>
-                          <Text size="lg" fw={800} c="blue">
+                          <Text size="lg" fw={800} c="pink">
                             {section.leadTime}
                           </Text>
                         </Card>
@@ -956,7 +957,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     withBorder
                     style={{
                       background: 'white',
-                      border: '1px solid #E9ECEF',
+                      border: `1px solid ${commonColors.borderModal}`,
                       boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
                     }}
                   >
@@ -974,7 +975,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         <Title order={4} fw={700} c="dark">
                           Screenshots & Visuals
                         </Title>
-                        <Tooltip
+                        <MobileTooltip
                           label="Visual examples of technical systems - dashboards, monitoring tools, and behind-the-scenes interfaces."
                           multiline
                           w={300}
@@ -989,7 +990,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           >
                             ?
                           </ThemeIcon>
-                        </Tooltip>
+                        </MobileTooltip>
                       </Group>
                     </Group>
                     <SimpleGrid cols={{ base: 1, xs: 2, sm: 3, md: 4 }} spacing="md">
@@ -1002,7 +1003,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                             borderRadius: '8px',
                             overflow: 'hidden',
                             cursor: 'pointer',
-                            border: '1px solid #E9ECEF',
+                            border: `1px solid ${commonColors.borderModal}`,
                             transition: 'all 0.2s ease',
                           }}
                           onClick={() => setSelectedImage(screenshot)}

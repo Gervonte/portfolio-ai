@@ -1,5 +1,6 @@
 'use client';
 
+import { commonColors } from '@/lib/colors';
 import { useState } from 'react';
 
 export default function SkipLink() {
@@ -12,7 +13,7 @@ export default function SkipLink() {
         position: 'absolute',
         top: isVisible ? '6px' : '-40px',
         left: '6px',
-        background: '#F44336',
+        background: commonColors.accentPrimary,
         color: 'white',
         padding: '8px',
         textDecoration: 'none',

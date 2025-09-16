@@ -1,7 +1,21 @@
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
     optimizePackageImports: ['@mantine/core', '@mantine/hooks', '@tabler/icons-react'],
+  },
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
   },
   images: {
     domains: ['localhost', 'v1.screenshot.11ty.dev'],
@@ -17,16 +31,55 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   generateEtags: false,
-  // Bundle analyzer (uncomment to analyze)
-  // webpack: (config, { isServer }) => {
-  //   if (!isServer) {
-  //     config.resolve.fallback = {
-  //       ...config.resolve.fallback,
-  //       fs: false,
-  //     };
-  //   }
-  //   return config;
-  // },
+  // Build caching configuration
+  webpack: (config, { dev, isServer }) => {
+    // Enable persistent caching for faster builds
+    if (!dev && !isServer) {
+      config.cache = {
+        type: 'filesystem',
+        buildDependencies: {
+          config: [__filename],
+        },
+        cacheDirectory: join(__dirname, '.next/cache/webpack'),
+        compression: 'gzip',
+        maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+      };
+    }
+
+    // Optimize bundle splitting
+    if (!isServer) {
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        cacheGroups: {
+          default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true,
+          },
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            priority: -10,
+            chunks: 'all',
+          },
+          mantine: {
+            test: /[\\/]node_modules[\\/]@mantine[\\/]/,
+            name: 'mantine',
+            priority: 10,
+            chunks: 'all',
+          },
+          icons: {
+            test: /[\\/]node_modules[\\/]@tabler[\\/]/,
+            name: 'icons',
+            priority: 10,
+            chunks: 'all',
+          },
+        },
+      };
+    }
+
+    return config;
+  },
 };
 
 export default nextConfig;

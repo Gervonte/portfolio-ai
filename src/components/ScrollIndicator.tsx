@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Box, Progress, Text, Group, ActionIcon, Transition, Stack } from '@mantine/core';
-import { IconChevronUp, IconChevronDown } from '@tabler/icons-react';
+import { colorCombinations } from '@/lib/colors';
+import { ActionIcon, Box, Group, Progress, Stack, Text, Transition } from '@mantine/core';
+import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface ScrollIndicatorProps {
   sections?: string[];
@@ -29,6 +30,17 @@ export default function ScrollIndicator({
   const [isScrolling, setIsScrolling] = useState(false);
   const [showIndicator, setShowIndicator] = useState(false);
   const [pressedButton, setPressedButton] = useState<'up' | 'down' | null>(null);
+
+  const scrollToSection = useCallback(
+    (sectionIndex: number) => {
+      const sectionId = sections[sectionIndex];
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    },
+    [sections]
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -135,15 +147,7 @@ export default function ScrollIndicator({
       clearTimeout(scrollTimeout);
       clearTimeout(hideTimeout);
     };
-  }, [sections, currentSection]);
-
-  const scrollToSection = (sectionIndex: number) => {
-    const sectionId = sections[sectionIndex];
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  }, [sections, currentSection, scrollToSection]);
 
   const handleButtonPress = (direction: 'up' | 'down') => {
     setPressedButton(direction);
@@ -242,7 +246,7 @@ export default function ScrollIndicator({
                             transition: 'all 0.3s ease',
                             background:
                               currentSection === index
-                                ? 'linear-gradient(135deg, #F44336, #FFCDD2)'
+                                ? colorCombinations.sakuraGradient
                                 : 'rgba(255, 255, 255, 0.1)',
                             border:
                               currentSection === index
@@ -287,7 +291,7 @@ export default function ScrollIndicator({
                       style={{
                         background:
                           pressedButton === 'up'
-                            ? 'linear-gradient(135deg, #F44336, #FFCDD2)'
+                            ? colorCombinations.sakuraGradient
                             : 'rgba(255, 255, 255, 0.2)',
                         border:
                           pressedButton === 'up'
@@ -311,7 +315,7 @@ export default function ScrollIndicator({
                       style={{
                         background:
                           pressedButton === 'down'
-                            ? 'linear-gradient(135deg, #F44336, #FFCDD2)'
+                            ? colorCombinations.sakuraGradient
                             : 'rgba(255, 255, 255, 0.2)',
                         border:
                           pressedButton === 'down'
@@ -340,7 +344,7 @@ export default function ScrollIndicator({
                     height: '12px',
                     borderRadius: '50%',
                     background: isScrolling
-                      ? 'linear-gradient(135deg, #F44336, #FFCDD2)'
+                      ? colorCombinations.sakuraGradient
                       : 'rgba(255, 255, 255, 0.3)',
                     transition: 'all 0.3s ease',
                     boxShadow: isScrolling ? '0 0 8px rgba(233, 30, 99, 0.5)' : 'none',
@@ -532,7 +536,7 @@ export default function ScrollIndicator({
                   height: '16px',
                   borderRadius: '50%',
                   background: isScrolling
-                    ? 'linear-gradient(135deg, #F44336, #FFCDD2)'
+                    ? colorCombinations.sakuraGradient
                     : 'rgba(255, 255, 255, 0.3)',
                   transition: 'all 0.3s ease',
                   boxShadow: isScrolling ? '0 0 10px rgba(233, 30, 99, 0.5)' : 'none',

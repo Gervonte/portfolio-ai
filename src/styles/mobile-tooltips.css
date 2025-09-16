@@ -1,0 +1,13 @@
+/* Mobile-specific tooltip styles */
+@media (max-width: 768px) {
+  .mantine-Tooltip-tooltip {
+    font-size: 13px !important;
+    max-width: 240px !important;
+    padding: 6px 10px !important;
+  }
+
+  .mantine-ActionIcon-root {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+}

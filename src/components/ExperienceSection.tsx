@@ -1,55 +1,14 @@
 'use client';
 
-import {
-  Container,
-  Title,
-  Text,
-  Card,
-  Group,
-  Stack,
-  Badge,
-  List,
-  ThemeIcon,
-  Box,
-  Timeline,
-  //Paper,
-} from '@mantine/core';
-import {
-  IconBriefcase,
-  IconMapPin,
-  IconCode,
-  IconRocket,
-  IconUsers,
-  IconTarget,
-} from '@tabler/icons-react';
 import { aboutData } from '@/lib/about';
+import { colorCombinations } from '@/lib/colors';
+import { Box, Container, Stack, Text, Timeline, Title } from '@mantine/core';
+import { IconBriefcase, IconExternalLink, IconMapPin } from '@tabler/icons-react';
 import { memo } from 'react';
+import UnifiedCard from './UnifiedCard';
 
 const ExperienceSection = memo(() => {
   const { experience } = aboutData;
-
-  // Utility function to get icon for achievement type
-  const getAchievementIcon = (achievement: string) => {
-    if (
-      achievement.toLowerCase().includes('shipped') ||
-      achievement.toLowerCase().includes('built')
-    ) {
-      return <IconRocket size={16} />;
-    }
-    if (
-      achievement.toLowerCase().includes('refactored') ||
-      achievement.toLowerCase().includes('api')
-    ) {
-      return <IconCode size={16} />;
-    }
-    if (
-      achievement.toLowerCase().includes('collaborated') ||
-      achievement.toLowerCase().includes('team')
-    ) {
-      return <IconUsers size={16} />;
-    }
-    return <IconTarget size={16} />;
-  };
 
   return (
     <Container size="lg" py="xl">
@@ -61,7 +20,7 @@ const ExperienceSection = memo(() => {
             size="h1"
             mb="md"
             style={{
-              background: 'linear-gradient(135deg, #F44336, #FFCDD2)',
+              background: colorCombinations.sakuraGradient,
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -77,81 +36,41 @@ const ExperienceSection = memo(() => {
         {/* Experience Timeline */}
         <Timeline bulletSize={24} lineWidth={2}>
           {experience.map((exp, index) => (
-            <Timeline.Item
-              key={index}
-              bullet={
-                <ThemeIcon color="sakura" variant="filled" size={24}>
-                  <IconBriefcase size={14} />
-                </ThemeIcon>
-              }
-              title={
-                <Group gap="sm" mb="xs">
-                  <Text fw={600} size="lg">
-                    {exp.title}
-                  </Text>
-                  <Badge color="sakura" variant="light" size="sm">
-                    {exp.period}
-                  </Badge>
-                </Group>
-              }
-            >
-              <Card p="lg" withBorder radius="lg" mb="md">
-                <Stack gap="md">
-                  {/* Company and Location */}
-                  <Group gap="sm" mb="sm">
-                    <ThemeIcon color="sakura" variant="light" size="sm">
-                      <IconMapPin size={14} />
-                    </ThemeIcon>
-                    <Text fw={500} size="md" c="sakura">
-                      {exp.company}
-                    </Text>
-                  </Group>
-
-                  {/* Description */}
-                  {exp.description && (
-                    <Text size="sm" c="dimmed" mb="md">
-                      {exp.description}
-                    </Text>
-                  )}
-
-                  {/* Key Achievements */}
-                  <Box>
-                    <Text fw={600} size="sm" mb="sm" c="dark">
-                      Key Achievements:
-                    </Text>
-                    <List spacing="sm" size="sm">
-                      {exp.achievements.map((achievement, achievementIndex) => (
-                        <List.Item
-                          key={achievementIndex}
-                          icon={
-                            <ThemeIcon color="sakura" variant="light" size="sm">
-                              {getAchievementIcon(achievement)}
-                            </ThemeIcon>
-                          }
-                        >
-                          <Text size="sm">{achievement}</Text>
-                        </List.Item>
-                      ))}
-                    </List>
-                  </Box>
-
-                  {/* Technologies */}
-                  {exp.technologies && exp.technologies.length > 0 && (
-                    <Box>
-                      <Text fw={600} size="sm" mb="sm" c="dark">
-                        Technologies Used:
-                      </Text>
-                      <Group gap="xs">
-                        {exp.technologies.map((tech, techIndex) => (
-                          <Badge key={techIndex} color="sakura" variant="outline" size="sm">
-                            {tech}
-                          </Badge>
-                        ))}
-                      </Group>
-                    </Box>
-                  )}
-                </Stack>
-              </Card>
+            <Timeline.Item key={index}>
+              <UnifiedCard
+                title={exp.company}
+                subtitle={exp.title}
+                description={exp.description}
+                longDescription={exp.longDescription}
+                headerIcon={<IconBriefcase size={20} />}
+                headerIconColor="sakura"
+                timeline={exp.period}
+                metadata={[
+                  {
+                    icon: <IconMapPin size={14} />,
+                    text: 'San Francisco, California',
+                  },
+                ]}
+                secondaryAction={{
+                  label: 'Website',
+                  icon: <IconExternalLink size={14} />,
+                  href: 'https://novacredit.com',
+                  tooltip: 'Visit NovaCredit website',
+                }}
+                technologies={exp.technologies?.map(tech => ({
+                  name: tech,
+                  color: 'sakura',
+                  contextType: 'technology' as const,
+                  contextValue: tech,
+                }))}
+                achievements={exp.achievements}
+                professionalAchievements={true}
+                infoBoxDescription={true}
+                variant="default"
+                size="md"
+                interactive={false}
+                hoverable={true}
+              />
             </Timeline.Item>
           ))}
         </Timeline>

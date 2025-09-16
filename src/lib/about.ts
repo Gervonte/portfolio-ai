@@ -12,6 +12,7 @@ export interface Experience {
   company: string;
   period: string;
   description: string;
+  longDescription?: string;
   technologies: string[];
   achievements: string[];
 }
@@ -101,15 +102,15 @@ export const getRecentLeadership = (limit: number = 3): Leadership[] => {
   return aboutData.leadership.slice(0, limit);
 };
 
-// Skill level color mapping
+// Skill level color mapping (cherry blossom theme)
 export const getSkillColor = (level: Skill['level']): string => {
   switch (level) {
     case 'expert':
       return 'sakura';
     case 'advanced':
-      return 'blue';
+      return 'pink';
     case 'intermediate':
-      return 'green';
+      return 'earth';
     case 'beginner':
       return 'gray';
     default:

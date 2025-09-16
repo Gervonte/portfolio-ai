@@ -33,7 +33,7 @@ export interface TechnicalSection {
   showScreenshots?: boolean;
   screenshots: string[];
   description: string;
-  [key: string]: any; // Allow for flexible additional properties
+  [key: string]: unknown; // Allow for flexible additional properties
 }
 
 export interface ProjectCategory {

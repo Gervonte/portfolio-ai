@@ -1,8 +1,9 @@
 'use client';
 
-import { Container, Title, Text, Button, Group, Box, Stack, Grid, Card } from '@mantine/core';
 import SakuraBackground from '@/components/SakuraBackground';
 import SakuraEffect from '@/components/SakuraEffect';
+import { pink } from '@/lib/colors';
+import { Box, Button, Card, Container, Grid, Group, Stack, Text, Title } from '@mantine/core';
 import { useState } from 'react';
 
 export default function TestPage() {
@@ -107,7 +108,7 @@ export default function TestPage() {
                     petalSize={12}
                     fallSpeed={0.4}
                     windSpeed={0.3}
-                    colors={['#F8BBD9', '#FCE4EC', '#F48FB1']}
+                    colors={[pink[1] ?? '#F8BBD9', pink[0] ?? '#FCE4EC', pink[2] ?? '#F48FB1']}
                   />
                   <Box
                     style={{

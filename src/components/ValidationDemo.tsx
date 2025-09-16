@@ -1,29 +1,39 @@
 'use client';
 
-import { useState } from 'react';
+import { sampleExperience, sampleProjects } from '@/data/sample-data';
+import { useContactFormValidation } from '@/hooks/useFormValidation';
+import { validateExperienceData, validateProjectData } from '@/lib/validation';
 import {
-  Container,
-  Title,
-  Text,
+  Alert,
   Button,
+  Code,
+  Container,
+  Divider,
+  Group,
+  Paper,
+  Stack,
+  Text,
   TextInput,
   Textarea,
-  Group,
-  Stack,
-  Alert,
-  Paper,
-  Code,
-  Divider,
+  Title,
 } from '@mantine/core';
-import { IconCheck, IconX, IconInfoCircle } from '@tabler/icons-react';
-import { useContactFormValidation } from '@/hooks/useFormValidation';
-import { validateProjectData, validateExperienceData } from '@/lib/validation';
-import { sampleProjects, sampleExperience } from '@/data/sample-data';
+import { IconCheck, IconInfoCircle, IconX } from '@tabler/icons-react';
+import { useState } from 'react';
+
+interface ValidationResult {
+  success: boolean;
+  data?: {
+    title?: string;
+    company?: string;
+    [key: string]: unknown;
+  };
+  errorMessage?: string;
+}
 
 export default function ValidationDemo() {
   const [validationResults, setValidationResults] = useState<{
-    project: any;
-    experience: any;
+    project: ValidationResult | null;
+    experience: ValidationResult | null;
   }>({
     project: null,
     experience: null,
@@ -82,7 +92,7 @@ export default function ValidationDemo() {
                 icon={
                   validationResults.project.success ? <IconCheck size={16} /> : <IconX size={16} />
                 }
-                color={validationResults.project.success ? 'green' : 'red'}
+                color={validationResults.project.success ? 'sakura' : 'red'}
                 title="Project Validation"
               >
                 {validationResults.project.success ? (
@@ -98,23 +108,23 @@ export default function ValidationDemo() {
 
               <Alert
                 icon={
-                  validationResults.experience.success ? (
+                  validationResults.experience?.success ? (
                     <IconCheck size={16} />
                   ) : (
                     <IconX size={16} />
                   )
                 }
-                color={validationResults.experience.success ? 'green' : 'red'}
+                color={validationResults.experience?.success ? 'sakura' : 'red'}
                 title="Experience Validation"
               >
-                {validationResults.experience.success ? (
+                {validationResults.experience?.success ? (
                   <Text size="sm">
                     ✅ Experience data is valid! Company:{' '}
                     {validationResults.experience.data?.company}
                   </Text>
                 ) : (
                   <Text size="sm">
-                    ❌ Experience validation failed: {validationResults.experience.errorMessage}
+                    ❌ Experience validation failed: {validationResults.experience?.errorMessage}
                   </Text>
                 )}
               </Alert>
@@ -188,7 +198,7 @@ export default function ValidationDemo() {
               </Button>
             </Group>
 
-            <Alert icon={<IconInfoCircle size={16} />} color="blue" title="Form Status">
+            <Alert icon={<IconInfoCircle size={16} />} color="sakura" title="Form Status">
               <Text size="sm">
                 Form is {contactForm.isFormValid ? 'valid' : 'invalid'} •
                 {contactForm.isFormTouched ? ' Touched' : ' Untouched'}

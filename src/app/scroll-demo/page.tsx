@@ -1,7 +1,8 @@
 'use client';
 
-import { Container, Title, Text, Box, Stack, Button, Group } from '@mantine/core';
 import ScrollIndicator from '@/components/ScrollIndicator';
+import { colorCombinations, commonColors } from '@/lib/colors';
+import { Box, Button, Container, Group, Stack, Text, Title } from '@mantine/core';
 
 export default function ScrollDemoPage() {
   const scrollToSection = (sectionId: string) => {
@@ -36,7 +37,7 @@ export default function ScrollDemoPage() {
             style={{
               minHeight: '100vh',
               padding: '4rem 0',
-              background: '#F8F9FA',
+              background: commonColors.backgroundSecondary,
             }}
           >
             <Container size="lg">
@@ -55,7 +56,7 @@ export default function ScrollDemoPage() {
             style={{
               minHeight: '100vh',
               padding: '4rem 0',
-              background: '#E3F2FD',
+              background: colorCombinations.sakuraGradientLight,
             }}
           >
             <Container size="lg">
@@ -74,7 +75,7 @@ export default function ScrollDemoPage() {
             style={{
               minHeight: '100vh',
               padding: '4rem 0',
-              background: '#F3E5F5',
+              background: colorCombinations.pinkGradientLight,
             }}
           >
             <Container size="lg">

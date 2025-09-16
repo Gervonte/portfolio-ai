@@ -1,22 +1,23 @@
 'use client';
 
+import { colorCombinations, commonColors } from '@/lib/colors';
 import {
-  Container,
-  Group,
-  Text,
   Anchor,
-  Stack,
   Box,
+  Container,
   Divider,
-  Title,
+  Group,
   SimpleGrid,
+  Stack,
+  Text,
+  Title,
 } from '@mantine/core';
 import {
   IconBrandGithub,
   IconBrandLinkedin,
-  IconMail,
   IconCode,
   IconHeart,
+  IconMail,
   IconMapPin,
 } from '@tabler/icons-react';
 
@@ -27,12 +28,12 @@ export default function Footer() {
     <Box
       component="footer"
       style={{
-        background: 'linear-gradient(135deg, #FFF5F5, #F8F4F4)',
+        background: colorCombinations.footerGradient,
         padding: '4rem 0 2rem',
         marginTop: '4rem',
         position: 'relative',
         overflow: 'hidden',
-        borderTop: '1px solid #FFCDD2',
+        borderTop: `1px solid ${commonColors.borderSecondary}`,
       }}
     >
       {/* Enhanced Sakura petal decoration */}
@@ -55,12 +56,12 @@ export default function Footer() {
           {/* Header Section */}
           <Box ta="center" mb="xl">
             <Group justify="center" gap="md" mb="md">
-              <IconCode size={32} style={{ color: '#F44336' }} />
+              <IconCode size={32} style={{ color: commonColors.accentPrimary }} />
               <Title
                 order={2}
                 size="h2"
                 style={{
-                  background: 'linear-gradient(135deg, #F44336, #FFCDD2)',
+                  background: colorCombinations.sakuraGradient,
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -78,7 +79,7 @@ export default function Footer() {
           <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="xl">
             {/* About Section */}
             <Stack gap="md">
-              <Title order={4} size="h5" c="#2C2C2C">
+              <Title order={4} size="h5" c={commonColors.textPrimary}>
                 About
               </Title>
               <Text size="sm" c="dimmed" lh={1.6}>
@@ -86,7 +87,7 @@ export default function Footer() {
                 a touch of mono no aware aesthetics.
               </Text>
               <Group gap="xs">
-                <IconMapPin size={16} style={{ color: '#F44336' }} />
+                <IconMapPin size={16} style={{ color: commonColors.accentPrimary }} />
                 <Text size="sm" c="dimmed">
                   Available for opportunities
                 </Text>
@@ -95,7 +96,7 @@ export default function Footer() {
 
             {/* Quick Links */}
             <Stack gap="md">
-              <Title order={4} size="h5" c="#2C2C2C">
+              <Title order={4} size="h5" c={commonColors.textPrimary}>
                 Navigation
               </Title>
               <Stack gap="xs">
@@ -109,16 +110,16 @@ export default function Footer() {
                     key={link.label}
                     href={link.href}
                     size="sm"
-                    c="#666666"
+                    c={commonColors.textSecondary}
                     style={{
                       textDecoration: 'none',
                       transition: 'color 0.3s ease',
                     }}
                     onMouseEnter={e => {
-                      e.currentTarget.style.color = '#F44336';
+                      e.currentTarget.style.color = commonColors.accentPrimary;
                     }}
                     onMouseLeave={e => {
-                      e.currentTarget.style.color = '#666666';
+                      e.currentTarget.style.color = commonColors.textSecondary;
                     }}
                   >
                     {link.label}
@@ -129,7 +130,7 @@ export default function Footer() {
 
             {/* Connect Section */}
             <Stack gap="md">
-              <Title order={4} size="h5" c="#2C2C2C">
+              <Title order={4} size="h5" c={commonColors.textPrimary}>
                 Connect
               </Title>
               <Stack gap="sm">
@@ -138,7 +139,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    color: '#666666',
+                    color: commonColors.textSecondary,
                     transition: 'color 0.3s ease',
                     display: 'flex',
                     alignItems: 'center',
@@ -146,10 +147,10 @@ export default function Footer() {
                     textDecoration: 'none',
                   }}
                   onMouseEnter={e => {
-                    e.currentTarget.style.color = '#F44336';
+                    e.currentTarget.style.color = commonColors.accentPrimary;
                   }}
                   onMouseLeave={e => {
-                    e.currentTarget.style.color = '#666666';
+                    e.currentTarget.style.color = commonColors.textSecondary;
                   }}
                 >
                   <IconBrandGithub size={18} />
@@ -160,7 +161,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    color: '#666666',
+                    color: commonColors.textSecondary,
                     transition: 'color 0.3s ease',
                     display: 'flex',
                     alignItems: 'center',
@@ -168,10 +169,10 @@ export default function Footer() {
                     textDecoration: 'none',
                   }}
                   onMouseEnter={e => {
-                    e.currentTarget.style.color = '#F44336';
+                    e.currentTarget.style.color = commonColors.accentPrimary;
                   }}
                   onMouseLeave={e => {
-                    e.currentTarget.style.color = '#666666';
+                    e.currentTarget.style.color = commonColors.textSecondary;
                   }}
                 >
                   <IconBrandLinkedin size={18} />
@@ -180,7 +181,7 @@ export default function Footer() {
                 <Anchor
                   href="mailto:gervontefowler.dev@outlook.com"
                   style={{
-                    color: '#666666',
+                    color: commonColors.textSecondary,
                     transition: 'color 0.3s ease',
                     display: 'flex',
                     alignItems: 'center',
@@ -188,10 +189,10 @@ export default function Footer() {
                     textDecoration: 'none',
                   }}
                   onMouseEnter={e => {
-                    e.currentTarget.style.color = '#F44336';
+                    e.currentTarget.style.color = commonColors.accentPrimary;
                   }}
                   onMouseLeave={e => {
-                    e.currentTarget.style.color = '#666666';
+                    e.currentTarget.style.color = commonColors.textSecondary;
                   }}
                 >
                   <IconMail size={18} />
@@ -202,14 +203,14 @@ export default function Footer() {
 
             {/* Tech Stack */}
             <Stack gap="md">
-              <Title order={4} size="h5" c="#2C2C2C">
+              <Title order={4} size="h5" c={commonColors.textPrimary}>
                 Built With
               </Title>
               <Text size="sm" c="dimmed" lh={1.6}>
                 Next.js, TypeScript, Mantine UI, and sakura.js for a modern, responsive experience.
               </Text>
               <Group gap="xs">
-                <IconHeart size={16} style={{ color: '#F44336' }} />
+                <IconHeart size={16} style={{ color: commonColors.accentPrimary }} />
                 <Text size="xs" c="dimmed">
                   Made with passion and sakura petals
                 </Text>

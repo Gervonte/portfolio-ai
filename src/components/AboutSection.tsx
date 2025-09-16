@@ -1,40 +1,47 @@
 'use client';
 
+import { aboutData, getSkillColor, getSkillsByCategory, type Skill } from '@/lib/about';
+import { colorCombinations } from '@/lib/colors';
 import {
-  Container,
-  Title,
-  Text,
-  Grid,
-  Card,
   Badge,
-  Group,
-  Stack,
-  Timeline,
   Box,
+  Container,
   Divider,
-  Paper,
-  ThemeIcon,
-  List,
+  Grid,
+  Group,
   SimpleGrid,
+  Stack,
+  Text,
+  ThemeIcon,
+  Title,
 } from '@mantine/core';
 import {
+  IconApi,
+  IconBrandCss3,
+  IconBrandGit,
+  IconBrandGithub,
+  IconBrandGraphql,
+  IconBrandHtml5,
+  IconBrandJavascript,
+  IconBrandNodejs,
+  IconBrandPython,
+  IconBrandReact,
+  IconBrandTypescript,
+  IconCloud,
   IconCode,
   IconDatabase,
-  IconCloud,
-  IconTools,
-  IconSchool,
-  IconBriefcase,
-  // IconHeart,
-  IconRocket,
-  IconUsers,
-  IconTarget,
   IconFileText,
+  IconSchool,
+  IconTarget,
+  IconTools,
+  IconUsers,
 } from '@tabler/icons-react';
-import { aboutData, getSkillsByCategory, getSkillColor, type Skill } from '@/lib/about';
 import { memo } from 'react';
+import BadgeWithTooltip from './BadgeWithTooltip';
+import UnifiedCard from './UnifiedCard';
 
 // Use data from metadata file
-const { personalInfo, experience, education, researchProjects, leadership } = aboutData;
+const { personalInfo, education, researchProjects, leadership } = aboutData;
 
 // Utility function to get icon component from string
 const getCategoryIconComponent = (category: Skill['category']) => {
@@ -72,6 +79,52 @@ const getCategoryDisplayName = (category: string) => {
   }
 };
 
+// Utility function to get skill icon component
+const getSkillIconComponent = (skillName: string) => {
+  const skillLower = skillName.toLowerCase();
+
+  switch (skillLower) {
+    // Frontend Technologies
+    case 'react':
+      return <IconBrandReact size={16} />;
+    case 'typescript':
+      return <IconBrandTypescript size={16} />;
+    case 'javascript':
+      return <IconBrandJavascript size={16} />;
+    case 'html':
+      return <IconBrandHtml5 size={16} />;
+    case 'css':
+      return <IconBrandCss3 size={16} />;
+
+    // Backend Technologies
+    case 'python':
+      return <IconBrandPython size={16} />;
+    case 'node.js':
+    case 'nodejs':
+      return <IconBrandNodejs size={16} />;
+    case 'express':
+      return <IconCode size={16} />; // Express uses generic code icon
+    case 'rest apis':
+      return <IconApi size={16} />;
+    case 'graphql':
+      return <IconBrandGraphql size={16} />;
+
+    // Database
+    case 'postgresql':
+      return <IconDatabase size={16} />;
+
+    // DevOps & Tools
+    case 'git':
+      return <IconBrandGit size={16} />;
+    case 'github actions':
+      return <IconBrandGithub size={16} />;
+
+    // Default fallback
+    default:
+      return <IconCode size={16} />;
+  }
+};
+
 const AboutSection = memo(() => {
   const skillCategories = getSkillsByCategory();
 
@@ -96,7 +149,7 @@ const AboutSection = memo(() => {
             size="h1"
             mb="md"
             style={{
-              background: 'linear-gradient(135deg, #F44336, #FFCDD2)',
+              background: colorCombinations.sakuraGradient,
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -104,7 +157,7 @@ const AboutSection = memo(() => {
           >
             About Me
           </Title>
-          <Text size="xl" c="dimmed" maw={800} mx="auto">
+          <Text size="xl" c="gray.6" maw={800} mx="auto">
             {personalInfo.summary}
           </Text>
         </Box>
@@ -116,24 +169,45 @@ const AboutSection = memo(() => {
           </Title>
           <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="xl">
             {Object.entries(skillCategories).map(([category, categorySkills]) => (
-              <Card key={category} p="lg" withBorder radius="lg">
-                <Group mb="md">
-                  {getCategoryIconComponent(category as Skill['category'])}
-                  <Title order={4}>{getCategoryDisplayName(category)} Skills</Title>
-                </Group>
+              <UnifiedCard
+                key={category}
+                title={`${getCategoryDisplayName(category)} Skills`}
+                headerIcon={getCategoryIconComponent(category as Skill['category'])}
+                headerIconColor="sakura"
+                variant="outlined"
+                size="md"
+                interactive={false}
+                hoverable={true}
+              >
                 <Stack gap="sm">
                   {categorySkills.map(skill => (
-                    <Group key={skill.name} justify="space-between">
-                      <Text size="sm" fw={500}>
-                        {skill.name}
-                      </Text>
-                      <Badge color={getSkillColor(skill.level)} variant="light" size="sm">
+                    <Group key={skill.name} justify="space-between" align="center">
+                      <Group gap="xs" align="center">
+                        <ThemeIcon
+                          color={getSkillColor(skill.level)}
+                          variant="light"
+                          size="sm"
+                          radius="sm"
+                        >
+                          {getSkillIconComponent(skill.name)}
+                        </ThemeIcon>
+                        <Text size="sm" fw={500}>
+                          {skill.name}
+                        </Text>
+                      </Group>
+                      <BadgeWithTooltip
+                        contextType="skill"
+                        contextValue={skill.level}
+                        color={getSkillColor(skill.level)}
+                        variant="light"
+                        size="sm"
+                      >
                         {skill.level}
-                      </Badge>
+                      </BadgeWithTooltip>
                     </Group>
                   ))}
                 </Stack>
-              </Card>
+              </UnifiedCard>
             ))}
           </SimpleGrid>
         </Box>
@@ -166,7 +240,7 @@ const AboutSection = memo(() => {
                 <Text fw={500} c="sakura" size="md" mb="xs">
                   {exp.company}
                 </Text>
-                <Text mb="md" c="dimmed">
+                <Text mb="md" c="gray.6">
                   {exp.description}
                 </Text>
                 <Group mb="sm">
@@ -203,39 +277,25 @@ const AboutSection = memo(() => {
           </Title>
           <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="xl">
             {researchProjects.map((project, index) => (
-              <Card key={index} p="lg" withBorder radius="lg" h="100%">
-                <Group mb="md">
-                  <ThemeIcon color="sakura" variant="light">
-                    <IconTarget size={20} />
-                  </ThemeIcon>
-                  <Box>
-                    <Title order={4}>{project.title}</Title>
-                    <Text size="sm" c="sakura">
-                      {project.period}
-                    </Text>
-                  </Box>
-                </Group>
-                <Text mb="md" c="dimmed">
-                  {project.description}
-                </Text>
-                <Group mb="md">
-                  <Text size="sm" fw={500}>
-                    Highlights:
-                  </Text>
-                  <Group gap="xs">
-                    {project.technologies.map(tech => (
-                      <Badge key={tech} size="sm" variant="outline" color="sakura">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </Group>
-                </Group>
-                <List size="sm" spacing="xs">
-                  {project.achievements.map((achievement, idx) => (
-                    <List.Item key={idx}>{achievement}</List.Item>
-                  ))}
-                </List>
-              </Card>
+              <UnifiedCard
+                key={index}
+                title={project.title}
+                subtitle={project.period}
+                description={project.description}
+                headerIcon={<IconTarget size={20} />}
+                headerIconColor="sakura"
+                technologies={project.technologies.map(tech => ({
+                  name: tech,
+                  color: 'sakura',
+                  contextType: 'technology' as const,
+                  contextValue: tech,
+                }))}
+                achievements={project.achievements}
+                variant="default"
+                size="lg"
+                interactive={false}
+                hoverable={true}
+              />
             ))}
           </SimpleGrid>
         </Box>
@@ -243,61 +303,69 @@ const AboutSection = memo(() => {
         {/* Education & Certifications */}
         <Grid>
           <Grid.Col span={{ base: 12, md: 6 }}>
-            <Card p="lg" withBorder radius="lg" h="100%">
-              <Group mb="md">
-                <ThemeIcon color="sakura" variant="light">
-                  <IconSchool size={20} />
-                </ThemeIcon>
-                <Title order={3}>Education</Title>
-              </Group>
+            <UnifiedCard
+              title="Education"
+              headerIcon={<IconSchool size={20} />}
+              headerIconColor="sakura"
+              variant="outlined"
+              size="md"
+              interactive={false}
+              hoverable={true}
+            >
               <Stack gap="md">
                 {education.map((edu, index) => (
                   <Box key={index}>
-                    <Text fw={600} size="md">
-                      {edu.degree}
-                    </Text>
-                    <Text c="sakura" size="sm" mb="xs">
-                      {edu.institution} • {edu.year}
-                    </Text>
-                    {edu.description && (
-                      <Text size="sm" c="dimmed">
-                        {edu.description}
+                    <Box style={{ flex: 1 }}>
+                      <Text fw={600} size="md">
+                        {edu.degree}
                       </Text>
-                    )}
+                      <Text c="sakura" size="sm" mb="xs">
+                        {edu.institution} • {edu.year}
+                      </Text>
+                      {edu.description && (
+                        <Text size="sm" c="gray.6">
+                          {edu.description}
+                        </Text>
+                      )}
+                    </Box>
                     {index < education.length - 1 && <Divider my="md" />}
                   </Box>
                 ))}
               </Stack>
-            </Card>
+            </UnifiedCard>
           </Grid.Col>
 
           <Grid.Col span={{ base: 12, md: 6 }}>
-            <Card p="lg" withBorder radius="lg" h="100%">
-              <Group mb="md">
-                <ThemeIcon color="sakura" variant="light">
-                  <IconUsers size={20} />
-                </ThemeIcon>
-                <Title order={3}>Leadership</Title>
-              </Group>
+            <UnifiedCard
+              title="Leadership"
+              headerIcon={<IconUsers size={20} />}
+              headerIconColor="sakura"
+              variant="outlined"
+              size="md"
+              interactive={false}
+              hoverable={true}
+            >
               <Stack gap="md">
                 {leadership.map((role, index) => (
                   <Box key={index}>
-                    <Text fw={600} size="md">
-                      {role.name}
-                    </Text>
-                    <Text c="sakura" size="sm" mb="xs">
-                      {role.organization} • {role.year}
-                    </Text>
-                    {role.description && (
-                      <Text size="sm" c="dimmed">
-                        {role.description}
+                    <Box style={{ flex: 1 }}>
+                      <Text fw={600} size="md">
+                        {role.name}
                       </Text>
-                    )}
+                      <Text c="sakura" size="sm" mb="xs">
+                        {role.organization} • {role.year}
+                      </Text>
+                      {role.description && (
+                        <Text size="sm" c="gray.6">
+                          {role.description}
+                        </Text>
+                      )}
+                    </Box>
                     {index < leadership.length - 1 && <Divider my="md" />}
                   </Box>
                 ))}
               </Stack>
-            </Card>
+            </UnifiedCard>
           </Grid.Col>
         </Grid>
       </Stack>

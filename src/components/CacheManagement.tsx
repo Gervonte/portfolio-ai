@@ -1,20 +1,20 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import {
-  Card,
-  Title,
-  Text,
-  Group,
-  Button,
-  Stack,
-  Progress,
-  Badge,
   Alert,
-  LoadingOverlay,
+  Badge,
+  Button,
+  Card,
   Divider,
+  Group,
+  LoadingOverlay,
+  Progress,
+  Stack,
+  Text,
+  Title,
 } from '@mantine/core';
-import { IconTrash, IconRefresh, IconInfoCircle } from '@tabler/icons-react';
+import { IconInfoCircle, IconRefresh, IconTrash } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
 
 interface CacheStats {
   totalEntries: number;
@@ -40,7 +40,7 @@ export default function CacheManagement() {
       } else {
         setMessage('Failed to fetch cache statistics');
       }
-    } catch (error) {
+    } catch {
       setMessage('Error fetching cache statistics');
     } finally {
       setLoading(false);
@@ -59,7 +59,7 @@ export default function CacheManagement() {
       } else {
         setMessage('Failed to clear cache');
       }
-    } catch (error) {
+    } catch {
       setMessage('Error clearing cache');
     } finally {
       setLoading(false);
@@ -85,8 +85,8 @@ export default function CacheManagement() {
 
   const getUsageColor = (): string => {
     const percentage = getUsagePercentage();
-    if (percentage < 50) return 'green';
-    if (percentage < 80) return 'yellow';
+    if (percentage < 50) return 'sakura';
+    if (percentage < 80) return 'pink';
     return 'red';
   };
 
@@ -121,7 +121,7 @@ export default function CacheManagement() {
         {message && (
           <Alert
             icon={<IconInfoCircle size={16} />}
-            color={message.includes('success') ? 'green' : 'red'}
+            color={message.includes('success') ? 'sakura' : 'red'}
             onClose={() => setMessage(null)}
             withCloseButton
           >
@@ -172,7 +172,7 @@ export default function CacheManagement() {
                 <Text size="sm" c="dimmed">
                   Hit Rate
                 </Text>
-                <Badge color="blue" variant="light">
+                <Badge color="sakura" variant="light">
                   {(stats.hitRate * 100).toFixed(1)}%
                 </Badge>
               </Group>
@@ -180,7 +180,7 @@ export default function CacheManagement() {
           </Stack>
         )}
 
-        <Alert icon={<IconInfoCircle size={16} />} color="blue" title="Cache Information">
+        <Alert icon={<IconInfoCircle size={16} />} color="sakura" title="Cache Information">
           <Text size="sm">
             Screenshots are cached for 7 days to improve performance. The cache automatically cleans
             up expired entries and manages size limits.
