@@ -1,6 +1,6 @@
+import crypto from 'crypto';
 import { promises as fs } from 'fs';
 import path from 'path';
-import crypto from 'crypto';
 
 interface CacheEntry {
   url: string;
@@ -51,8 +51,8 @@ function getCacheMetadataPath(): string {
 async function ensureCacheDir(): Promise<void> {
   try {
     await fs.mkdir(CACHE_CONFIG.cacheDir, { recursive: true });
-  } catch (error) {
-    console.error('Failed to create cache directory:', error);
+  } catch {
+    console.error('Failed to create cache directory');
   }
 }
 
@@ -64,7 +64,7 @@ async function loadCacheMetadata(): Promise<Record<string, CacheEntry>> {
     const metadataPath = getCacheMetadataPath();
     const data = await fs.readFile(metadataPath, 'utf-8');
     return JSON.parse(data);
-  } catch (error) {
+  } catch {
     return {};
   }
 }
@@ -76,8 +76,8 @@ async function saveCacheMetadata(metadata: Record<string, CacheEntry>): Promise<
   try {
     const metadataPath = getCacheMetadataPath();
     await fs.writeFile(metadataPath, JSON.stringify(metadata, null, 2));
-  } catch (error) {
-    console.error('Failed to save cache metadata:', error);
+  } catch {
+    console.error('Failed to save cache metadata');
   }
 }
 
@@ -94,7 +94,6 @@ function isCacheEntryValid(entry: CacheEntry): boolean {
 async function cleanupExpiredCache(): Promise<void> {
   try {
     const metadata = await loadCacheMetadata();
-    const now = Date.now();
     const validEntries: Record<string, CacheEntry> = {};
 
     for (const [key, entry] of Object.entries(metadata)) {
@@ -104,15 +103,15 @@ async function cleanupExpiredCache(): Promise<void> {
         // Remove expired file
         try {
           await fs.unlink(getCacheFilePath(entry.filename));
-        } catch (error) {
+        } catch {
           // File might not exist, ignore error
         }
       }
     }
 
     await saveCacheMetadata(validEntries);
-  } catch (error) {
-    console.error('Failed to cleanup expired cache:', error);
+  } catch {
+    console.error('Failed to cleanup expired cache');
   }
 }
 
@@ -128,13 +127,13 @@ async function getCacheSize(): Promise<number> {
       try {
         const stats = await fs.stat(getCacheFilePath(entry.filename));
         totalSize += stats.size;
-      } catch (error) {
+      } catch {
         // File might not exist, ignore
       }
     }
 
     return totalSize;
-  } catch (error) {
+  } catch {
     return 0;
   }
 }
@@ -162,7 +161,7 @@ async function cleanupCacheIfNeeded(): Promise<void> {
           const stats = await fs.stat(getCacheFilePath(entry.filename));
           sizeToRemove -= stats.size;
           entriesToRemove.push(entry.key);
-        } catch (error) {
+        } catch {
           // File might not exist, ignore
         }
       }
@@ -174,15 +173,15 @@ async function cleanupCacheIfNeeded(): Promise<void> {
           try {
             await fs.unlink(getCacheFilePath(entry.filename));
             delete metadata[key];
-          } catch (error) {
+          } catch {
             // File might not exist, ignore
           }
         }
       }
 
       await saveCacheMetadata(metadata);
-    } catch (error) {
-      console.error('Failed to cleanup cache:', error);
+    } catch {
+      console.error('Failed to cleanup cache');
     }
   }
 }
@@ -210,8 +209,8 @@ export async function getCachedScreenshot(
     }
 
     return null;
-  } catch (error) {
-    console.error('Failed to get cached screenshot:', error);
+  } catch {
+    console.error('Failed to get cached screenshot');
     return null;
   }
 }
@@ -248,8 +247,8 @@ export async function cacheScreenshot(
     };
 
     await saveCacheMetadata(metadata);
-  } catch (error) {
-    console.error('Failed to cache screenshot:', error);
+  } catch {
+    console.error('Failed to cache screenshot');
   }
 }
 
@@ -271,7 +270,7 @@ export async function getCacheStats(): Promise<{
       totalSize,
       maxSize: CACHE_CONFIG.maxSize,
     };
-  } catch (error) {
+  } catch {
     return {
       totalEntries: 0,
       totalSize: 0,
@@ -291,14 +290,14 @@ export async function clearCache(): Promise<void> {
     for (const entry of Object.values(metadata)) {
       try {
         await fs.unlink(getCacheFilePath(entry.filename));
-      } catch (error) {
+      } catch {
         // File might not exist, ignore
       }
     }
 
     // Clear metadata
     await saveCacheMetadata({});
-  } catch (error) {
-    console.error('Failed to clear cache:', error);
+  } catch {
+    console.error('Failed to clear cache');
   }
 }

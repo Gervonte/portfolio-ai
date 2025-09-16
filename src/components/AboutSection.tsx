@@ -1,40 +1,35 @@
 'use client';
 
+import { aboutData, getSkillColor, getSkillsByCategory, type Skill } from '@/lib/about';
 import {
-  Container,
-  Title,
-  Text,
-  Grid,
-  Card,
   Badge,
-  Group,
-  Stack,
-  Timeline,
   Box,
+  Card,
+  Container,
   Divider,
-  Paper,
-  ThemeIcon,
+  Grid,
+  Group,
   List,
   SimpleGrid,
+  Stack,
+  Text,
+  ThemeIcon,
+  Title,
 } from '@mantine/core';
 import {
+  IconCloud,
   IconCode,
   IconDatabase,
-  IconCloud,
-  IconTools,
-  IconSchool,
-  IconBriefcase,
-  // IconHeart,
-  IconRocket,
-  IconUsers,
-  IconTarget,
   IconFileText,
+  IconSchool,
+  IconTarget,
+  IconTools,
+  IconUsers,
 } from '@tabler/icons-react';
-import { aboutData, getSkillsByCategory, getSkillColor, type Skill } from '@/lib/about';
 import { memo } from 'react';
 
 // Use data from metadata file
-const { personalInfo, experience, education, researchProjects, leadership } = aboutData;
+const { personalInfo, education, researchProjects, leadership } = aboutData;
 
 // Utility function to get icon component from string
 const getCategoryIconComponent = (category: Skill['category']) => {

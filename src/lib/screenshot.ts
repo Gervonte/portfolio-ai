@@ -90,7 +90,7 @@ export async function isScreenshotCached(
       { method: 'HEAD' }
     );
     return response.headers.get('X-Cache') === 'HIT';
-  } catch (error) {
+  } catch {
     return false;
   }
 }

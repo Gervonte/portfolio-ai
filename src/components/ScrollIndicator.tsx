@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Box, Progress, Text, Group, ActionIcon, Transition, Stack } from '@mantine/core';
-import { IconChevronUp, IconChevronDown } from '@tabler/icons-react';
+import { ActionIcon, Box, Group, Progress, Stack, Text, Transition } from '@mantine/core';
+import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface ScrollIndicatorProps {
   sections?: string[];
@@ -29,6 +29,17 @@ export default function ScrollIndicator({
   const [isScrolling, setIsScrolling] = useState(false);
   const [showIndicator, setShowIndicator] = useState(false);
   const [pressedButton, setPressedButton] = useState<'up' | 'down' | null>(null);
+
+  const scrollToSection = useCallback(
+    (sectionIndex: number) => {
+      const sectionId = sections[sectionIndex];
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    },
+    [sections]
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -135,15 +146,7 @@ export default function ScrollIndicator({
       clearTimeout(scrollTimeout);
       clearTimeout(hideTimeout);
     };
-  }, [sections, currentSection]);
-
-  const scrollToSection = (sectionIndex: number) => {
-    const sectionId = sections[sectionIndex];
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  }, [sections, currentSection, scrollToSection]);
 
   const handleButtonPress = (direction: 'up' | 'down') => {
     setPressedButton(direction);

@@ -116,14 +116,15 @@ export const ParallaxProvider: React.FC<ParallaxProviderProps> = ({ children }) 
   // Cleanup all instances on unmount
   useEffect(() => {
     return () => {
-      rellaxInstances.current.forEach(instance => {
+      const instances = rellaxInstances.current;
+      instances.forEach(instance => {
         try {
           instance.destroy();
         } catch (error) {
           console.warn('Error destroying Rellax instance:', error);
         }
       });
-      rellaxInstances.current.clear();
+      instances.clear();
     };
   }, []);
 

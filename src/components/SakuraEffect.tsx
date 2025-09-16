@@ -26,7 +26,7 @@ export default function SakuraEffect({
 
     // Load sakura-js as a script since it doesn't have proper ES module support
     const loadSakura = async () => {
-      if (!(window as any).Sakura) {
+      if (!(window as { Sakura?: unknown }).Sakura) {
         await new Promise((resolve, reject) => {
           const script = document.createElement('script');
           script.src = '/js/sakura-fixed.js';
@@ -38,7 +38,7 @@ export default function SakuraEffect({
           document.head.appendChild(script);
         });
       }
-      const Sakura = (window as any).Sakura;
+      const Sakura = (window as { Sakura?: unknown }).Sakura;
       if (!Sakura || typeof Sakura !== 'function') {
         throw new Error('Sakura library not loaded properly');
       }
@@ -70,7 +70,7 @@ export default function SakuraEffect({
         containerRef.current.appendChild(sakuraContainer);
 
         // Wait for the element to be in the DOM before initializing sakura
-        let sakuraInstance: any = null;
+        let sakuraInstance: { destroy?: () => void } | null = null;
         setTimeout(() => {
           const element = document.getElementById(containerId);
           if (element) {
@@ -107,8 +107,9 @@ export default function SakuraEffect({
 
     return () => {
       // Cleanup on unmount
-      if (containerRef.current) {
-        const sakuraContainer = containerRef.current.querySelector('.sakura-container');
+      const currentContainer = containerRef.current;
+      if (currentContainer) {
+        const sakuraContainer = currentContainer.querySelector('.sakura-container');
         if (sakuraContainer) {
           sakuraContainer.remove();
         }

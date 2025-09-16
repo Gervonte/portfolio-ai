@@ -1,20 +1,20 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import {
-  Card,
-  Title,
-  Text,
-  Group,
-  Button,
-  Stack,
-  Progress,
-  Badge,
   Alert,
-  LoadingOverlay,
+  Badge,
+  Button,
+  Card,
   Divider,
+  Group,
+  LoadingOverlay,
+  Progress,
+  Stack,
+  Text,
+  Title,
 } from '@mantine/core';
-import { IconTrash, IconRefresh, IconInfoCircle } from '@tabler/icons-react';
+import { IconInfoCircle, IconRefresh, IconTrash } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
 
 interface CacheStats {
   totalEntries: number;
@@ -40,7 +40,7 @@ export default function CacheManagement() {
       } else {
         setMessage('Failed to fetch cache statistics');
       }
-    } catch (error) {
+    } catch {
       setMessage('Error fetching cache statistics');
     } finally {
       setLoading(false);
@@ -59,7 +59,7 @@ export default function CacheManagement() {
       } else {
         setMessage('Failed to clear cache');
       }
-    } catch (error) {
+    } catch {
       setMessage('Error clearing cache');
     } finally {
       setLoading(false);

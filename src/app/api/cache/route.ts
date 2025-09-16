@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getCacheStats, clearCache } from '@/lib/screenshot-cache';
+import { clearCache, getCacheStats } from '@/lib/screenshot-cache';
+import { NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const stats = await getCacheStats();
 
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-export async function DELETE(request: NextRequest) {
+export async function DELETE() {
   try {
     await clearCache();
 

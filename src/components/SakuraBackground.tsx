@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
 import { Box } from '@mantine/core';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface SakuraBackgroundProps {
   intensity?: 'subtle' | 'moderate' | 'intense';
@@ -20,7 +20,7 @@ export default function SakuraBackground({
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Configuration based on intensity and variant
-  const getConfig = () => {
+  const getConfig = useCallback(() => {
     const baseConfig = {
       subtle: { petalSize: 12, fallSpeed: 0.3, delay: 500 },
       moderate: { petalSize: 15, fallSpeed: 0.5, delay: 300 },
@@ -49,7 +49,7 @@ export default function SakuraBackground({
         gradientColorDegree: 120,
       })),
     };
-  };
+  }, [intensity, variant]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -57,17 +57,20 @@ export default function SakuraBackground({
     const initSakura = async () => {
       try {
         // Load sakura-js as a script since it doesn't have proper ES module support
-        if (!(window as any).Sakura) {
+        if (!(window as { Sakura?: unknown }).Sakura) {
           await new Promise((resolve, reject) => {
             const script = document.createElement('script');
             script.src = '/js/sakura-fixed.js';
             script.onload = () => {
               console.log('Script loaded, checking for Sakura...');
-              console.log('window.Sakura:', (window as any).Sakura);
-              console.log('typeof window.Sakura:', typeof (window as any).Sakura);
+              console.log('window.Sakura:', (window as { Sakura?: unknown }).Sakura);
+              console.log('typeof window.Sakura:', typeof (window as { Sakura?: unknown }).Sakura);
               // Wait a bit more to ensure the library is fully loaded
               setTimeout(() => {
-                console.log('After timeout - window.Sakura:', (window as any).Sakura);
+                console.log(
+                  'After timeout - window.Sakura:',
+                  (window as { Sakura?: unknown }).Sakura
+                );
                 resolve(undefined);
               }, 200);
             };
@@ -79,7 +82,7 @@ export default function SakuraBackground({
           });
         }
 
-        const Sakura = (window as any).Sakura;
+        const Sakura = (window as { Sakura?: unknown }).Sakura;
         console.log('Sakura loaded:', typeof Sakura, Sakura);
         console.log(
           'Window object keys:',
@@ -119,7 +122,7 @@ export default function SakuraBackground({
           containerRef.current.appendChild(sakuraContainer);
 
           // Wait for the element to be in the DOM before initializing sakura
-          let sakuraInstance: any = null;
+          let sakuraInstance: { destroy?: () => void } | null = null;
           setTimeout(() => {
             const element = document.getElementById(containerId);
             if (element) {
@@ -151,14 +154,15 @@ export default function SakuraBackground({
     initSakura();
 
     return () => {
-      if (containerRef.current) {
-        const sakuraContainer = containerRef.current.querySelector('.sakura-container');
+      const currentContainer = containerRef.current;
+      if (currentContainer) {
+        const sakuraContainer = currentContainer.querySelector('.sakura-container');
         if (sakuraContainer) {
           sakuraContainer.remove();
         }
       }
     };
-  }, [intensity, variant]);
+  }, [intensity, variant, getConfig]);
 
   return (
     <Box

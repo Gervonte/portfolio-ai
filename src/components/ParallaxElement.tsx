@@ -1,18 +1,8 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { Box } from '@mantine/core';
 import { useParallax } from '@/lib/parallax-context';
-
-type RellaxInstance =
-  | {
-      destroy: () => void;
-      refresh: () => void;
-      start: () => void;
-      stop: () => void;
-      burst?: () => void;
-    }
-  | any;
+import { Box } from '@mantine/core';
+import { useEffect, useRef } from 'react';
 
 interface ParallaxElementProps {
   speed?: number;
@@ -32,7 +22,12 @@ export default function ParallaxElement({
   style = {},
 }: ParallaxElementProps) {
   const elementRef = useRef<HTMLDivElement>(null);
-  const instanceRef = useRef<RellaxInstance | null>(null);
+  const instanceRef =
+    useRef<
+      ReturnType<typeof useParallax>['createRellaxInstance'] extends (...args: any[]) => infer R
+        ? R
+        : never | null
+    >(null);
   const { createRellaxInstance, destroyRellaxInstance, isReducedMotion, globalSpeedMultiplier } =
     useParallax();
 
