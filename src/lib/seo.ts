@@ -2,9 +2,9 @@ import { Metadata } from 'next';
 
 // SEO Configuration
 export const seoConfig = {
-  title: 'Gervonte Fowler - Full-Stack Software Engineer & AI Researcher',
+  title: 'Gervonte Fowler - M.S. Computer Science | AI-Enhanced Developer',
   description:
-    'Professional portfolio showcasing AI-assisted and traditional development work. Full-stack engineer specializing in React, Node.js, and AI/ML research with experience at fintech startups.',
+    'M.S. Computer Science graduate with 2+ years of Series B fintech startup experience. Professional portfolio showcasing AI-assisted and traditional development work with modern web technologies.',
   keywords: [
     'Gervonte Fowler',
     'Full-Stack Developer',
@@ -98,7 +98,7 @@ export function generateStructuredData() {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Gervonte Fowler',
-    jobTitle: 'Full-Stack Software Engineer & AI Researcher',
+    jobTitle: 'M.S. Computer Science Graduate | AI-Enhanced Developer',
     description: seoConfig.description,
     url: seoConfig.url,
     image: seoConfig.image,
