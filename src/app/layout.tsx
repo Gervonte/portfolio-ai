@@ -1,15 +1,16 @@
-import React from 'react';
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import SkipLink from '@/components/SkipLink';
+import { generatePageMetadata, generateStructuredData } from '@/lib/seo';
+import { theme } from '@/lib/theme';
+import { MantineProvider } from '@mantine/core';
+import '@mantine/core/styles.css';
+import { Notifications } from '@mantine/notifications';
+import '@mantine/notifications/styles.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { MantineProvider } from '@mantine/core';
-import { Notifications } from '@mantine/notifications';
-import { theme } from '@/lib/theme';
-import { generatePageMetadata, generateStructuredData } from '@/lib/seo';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import SkipLink from '@/components/SkipLink';
-import '@mantine/core/styles.css';
-import '@mantine/notifications/styles.css';
+import React from 'react';
+import '../styles/mobile-tooltips.css';
 import '../styles/sakura.css';
 
 const inter = Inter({

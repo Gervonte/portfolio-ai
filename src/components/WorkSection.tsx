@@ -14,9 +14,8 @@ import {
   List,
   SimpleGrid,
   Tabs,
-  ActionIcon,
-  Tooltip,
 } from '@mantine/core';
+import { TouchActionIcon } from './TouchActionIcon';
 import {
   IconCode,
   IconExternalLink,
@@ -292,32 +291,30 @@ const WorkSection = memo(() => {
                       </Group>
                       <Group gap="xs">
                         {project.liveUrl && (
-                          <Tooltip label="View Live Demo">
-                            <ActionIcon
-                              component="a"
-                              href={project.liveUrl}
-                              target="_blank"
-                              color="sakura"
-                              variant="light"
-                              size="sm"
-                            >
-                              <IconExternalLink size={16} />
-                            </ActionIcon>
-                          </Tooltip>
+                          <TouchActionIcon
+                            tooltip="View Live Demo"
+                            href={project.liveUrl}
+                            target="_blank"
+                            color="sakura"
+                            variant="light"
+                            size="sm"
+                            aria-label="View Live Demo"
+                          >
+                            <IconExternalLink size={16} />
+                          </TouchActionIcon>
                         )}
                         {project.githubUrl && (
-                          <Tooltip label="View Source Code">
-                            <ActionIcon
-                              component="a"
-                              href={project.githubUrl}
-                              target="_blank"
-                              color="sakura"
-                              variant="light"
-                              size="sm"
-                            >
-                              <IconBrandGithub size={16} />
-                            </ActionIcon>
-                          </Tooltip>
+                          <TouchActionIcon
+                            tooltip="View Source Code"
+                            href={project.githubUrl}
+                            target="_blank"
+                            color="sakura"
+                            variant="light"
+                            size="sm"
+                            aria-label="View Source Code"
+                          >
+                            <IconBrandGithub size={16} />
+                          </TouchActionIcon>
                         )}
                       </Group>
                     </Group>

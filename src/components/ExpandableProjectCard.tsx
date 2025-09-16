@@ -8,12 +8,11 @@ import {
   Stack,
   Box,
   ThemeIcon,
-  ActionIcon,
-  Tooltip,
   Button,
   Image,
   Center,
 } from '@mantine/core';
+import { TouchActionIcon } from './TouchActionIcon';
 import {
   IconCode,
   IconExternalLink,
@@ -204,32 +203,30 @@ const ExpandableProjectCard = memo(({ project, type }: ExpandableProjectCardProp
             </Text>
             <Group gap="xs">
               {project.liveUrl && (
-                <Tooltip label="View Live Site">
-                  <ActionIcon
-                    component="a"
-                    href={project.liveUrl}
-                    target="_blank"
-                    color={type === 'vibe-coded' ? 'sakura' : 'blue'}
-                    variant="light"
-                    size="sm"
-                  >
-                    <IconExternalLink size={14} />
-                  </ActionIcon>
-                </Tooltip>
+                <TouchActionIcon
+                  tooltip="View Live Site"
+                  href={project.liveUrl}
+                  target="_blank"
+                  color={type === 'vibe-coded' ? 'sakura' : 'blue'}
+                  variant="light"
+                  size="sm"
+                  aria-label="View Live Site"
+                >
+                  <IconExternalLink size={14} />
+                </TouchActionIcon>
               )}
               {project.githubUrl && (
-                <Tooltip label="View Source Code">
-                  <ActionIcon
-                    component="a"
-                    href={project.githubUrl}
-                    target="_blank"
-                    color={type === 'vibe-coded' ? 'sakura' : 'blue'}
-                    variant="light"
-                    size="sm"
-                  >
-                    <IconBrandGithub size={14} />
-                  </ActionIcon>
-                </Tooltip>
+                <TouchActionIcon
+                  tooltip="View Source Code"
+                  href={project.githubUrl}
+                  target="_blank"
+                  color={type === 'vibe-coded' ? 'sakura' : 'blue'}
+                  variant="light"
+                  size="sm"
+                  aria-label="View Source Code"
+                >
+                  <IconBrandGithub size={14} />
+                </TouchActionIcon>
               )}
             </Group>
           </Group>

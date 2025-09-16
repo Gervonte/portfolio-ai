@@ -75,4 +75,36 @@ export const theme = createTheme({
     lg: '74em',
     xl: '90em',
   },
+  components: {
+    Tooltip: {
+      defaultProps: {
+        multiline: true,
+        withArrow: true,
+        withinPortal: true,
+        zIndex: 1000,
+      },
+      styles: {
+        tooltip: {
+          fontSize: '14px',
+          maxWidth: '280px',
+          padding: '8px 12px',
+          borderRadius: '8px',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+          zIndex: 1000,
+        },
+        arrow: {
+          zIndex: 1001,
+        },
+      },
+    },
+    ActionIcon: {
+      styles: {
+        root: {
+          // Ensure minimum touch target size on mobile
+          minHeight: '44px',
+          minWidth: '44px',
+        },
+      },
+    },
+  },
 });

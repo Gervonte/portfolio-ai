@@ -17,8 +17,8 @@ import {
   Text,
   ThemeIcon,
   Title,
-  Tooltip,
 } from '@mantine/core';
+import { MobileTooltip } from './MobileTooltip';
 import {
   IconAlertCircle,
   IconBuilding,
@@ -372,7 +372,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         <Title order={4} fw={700} c="dark">
                           Key Metrics
                         </Title>
-                        <Tooltip
+                        <MobileTooltip
                           label="Performance indicators - visitor counts, session duration, and engagement metrics."
                           multiline
                           w={300}
@@ -387,7 +387,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           >
                             ?
                           </ThemeIcon>
-                        </Tooltip>
+                        </MobileTooltip>
                       </Group>
                     </Group>
                     <SimpleGrid cols={{ base: 1, xs: 2, sm: 4 }} spacing="md">
@@ -460,7 +460,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         <Title order={4} fw={700} c="dark">
                           Tools & Technologies
                         </Title>
-                        <Tooltip
+                        <MobileTooltip
                           label="Programming languages, frameworks, and tools used to build this project."
                           multiline
                           w={300}
@@ -475,7 +475,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           >
                             ?
                           </ThemeIcon>
-                        </Tooltip>
+                        </MobileTooltip>
                       </Group>
                     </Group>
                     <Group gap="sm">
@@ -525,7 +525,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         <Title order={4} fw={700} c="dark">
                           System Health
                         </Title>
-                        <Tooltip
+                        <MobileTooltip
                           label="Reliability metrics - uptime percentage and error rates to ensure stable operation."
                           multiline
                           w={300}
@@ -540,7 +540,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           >
                             ?
                           </ThemeIcon>
-                        </Tooltip>
+                        </MobileTooltip>
                       </Group>
                     </Group>
                     <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
@@ -609,7 +609,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         <Title order={4} fw={700} c="dark">
                           CI/CD Workflows
                         </Title>
-                        <Tooltip
+                        <MobileTooltip
                           label="Automated processes for testing, building, and deploying code changes without manual intervention."
                           multiline
                           w={300}
@@ -624,7 +624,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           >
                             ?
                           </ThemeIcon>
-                        </Tooltip>
+                        </MobileTooltip>
                       </Group>
                     </Group>
                     <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
@@ -805,7 +805,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         <Title order={4} fw={700} c="dark">
                           Architecture & Deployment
                         </Title>
-                        <Tooltip
+                        <MobileTooltip
                           label="Technical blueprint and deployment strategy - the foundation and delivery system."
                           multiline
                           w={300}
@@ -820,7 +820,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           >
                             ?
                           </ThemeIcon>
-                        </Tooltip>
+                        </MobileTooltip>
                       </Group>
                     </Group>
                     <Stack gap="md">
@@ -889,7 +889,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         <Title order={4} fw={700} c="dark">
                           Deployment Metrics
                         </Title>
-                        <Tooltip
+                        <MobileTooltip
                           label="Release frequency and speed metrics - how often and how quickly updates are deployed."
                           multiline
                           w={300}
@@ -904,7 +904,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           >
                             ?
                           </ThemeIcon>
-                        </Tooltip>
+                        </MobileTooltip>
                       </Group>
                     </Group>
                     <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
@@ -974,7 +974,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         <Title order={4} fw={700} c="dark">
                           Screenshots & Visuals
                         </Title>
-                        <Tooltip
+                        <MobileTooltip
                           label="Visual examples of technical systems - dashboards, monitoring tools, and behind-the-scenes interfaces."
                           multiline
                           w={300}
@@ -989,7 +989,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           >
                             ?
                           </ThemeIcon>
-                        </Tooltip>
+                        </MobileTooltip>
                       </Group>
                     </Group>
                     <SimpleGrid cols={{ base: 1, xs: 2, sm: 3, md: 4 }} spacing="md">
