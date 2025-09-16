@@ -12,6 +12,7 @@ export interface Experience {
   company: string;
   period: string;
   description: string;
+  longDescription?: string;
   technologies: string[];
   achievements: string[];
 }

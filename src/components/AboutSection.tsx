@@ -5,12 +5,10 @@ import { colorCombinations } from '@/lib/colors';
 import {
   Badge,
   Box,
-  Card,
   Container,
   Divider,
   Grid,
   Group,
-  List,
   SimpleGrid,
   Stack,
   Text,
@@ -40,6 +38,7 @@ import {
 } from '@tabler/icons-react';
 import { memo } from 'react';
 import BadgeWithTooltip from './BadgeWithTooltip';
+import UnifiedCard from './UnifiedCard';
 
 // Use data from metadata file
 const { personalInfo, education, researchProjects, leadership } = aboutData;
@@ -170,11 +169,16 @@ const AboutSection = memo(() => {
           </Title>
           <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="xl">
             {Object.entries(skillCategories).map(([category, categorySkills]) => (
-              <Card key={category} p="lg" withBorder radius="lg">
-                <Group mb="md">
-                  {getCategoryIconComponent(category as Skill['category'])}
-                  <Title order={4}>{getCategoryDisplayName(category)} Skills</Title>
-                </Group>
+              <UnifiedCard
+                key={category}
+                title={`${getCategoryDisplayName(category)} Skills`}
+                headerIcon={getCategoryIconComponent(category as Skill['category'])}
+                headerIconColor="sakura"
+                variant="outlined"
+                size="md"
+                interactive={false}
+                hoverable={true}
+              >
                 <Stack gap="sm">
                   {categorySkills.map(skill => (
                     <Group key={skill.name} justify="space-between" align="center">
@@ -203,7 +207,7 @@ const AboutSection = memo(() => {
                     </Group>
                   ))}
                 </Stack>
-              </Card>
+              </UnifiedCard>
             ))}
           </SimpleGrid>
         </Box>
@@ -273,39 +277,25 @@ const AboutSection = memo(() => {
           </Title>
           <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="xl">
             {researchProjects.map((project, index) => (
-              <Card key={index} p="lg" withBorder radius="lg" h="100%">
-                <Group mb="md">
-                  <ThemeIcon color="sakura" variant="light">
-                    <IconTarget size={20} />
-                  </ThemeIcon>
-                  <Box>
-                    <Title order={4}>{project.title}</Title>
-                    <Text size="sm" c="sakura">
-                      {project.period}
-                    </Text>
-                  </Box>
-                </Group>
-                <Text mb="md" c="dimmed">
-                  {project.description}
-                </Text>
-                <Group mb="md">
-                  <Text size="sm" fw={500}>
-                    Highlights:
-                  </Text>
-                  <Group gap="xs">
-                    {project.technologies.map(tech => (
-                      <Badge key={tech} size="sm" variant="outline" color="sakura">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </Group>
-                </Group>
-                <List size="sm" spacing="xs">
-                  {project.achievements.map((achievement, idx) => (
-                    <List.Item key={idx}>{achievement}</List.Item>
-                  ))}
-                </List>
-              </Card>
+              <UnifiedCard
+                key={index}
+                title={project.title}
+                subtitle={project.period}
+                description={project.description}
+                headerIcon={<IconTarget size={20} />}
+                headerIconColor="sakura"
+                technologies={project.technologies.map(tech => ({
+                  name: tech,
+                  color: 'sakura',
+                  contextType: 'technology' as const,
+                  contextValue: tech,
+                }))}
+                achievements={project.achievements}
+                variant="default"
+                size="lg"
+                interactive={false}
+                hoverable={true}
+              />
             ))}
           </SimpleGrid>
         </Box>
@@ -313,13 +303,15 @@ const AboutSection = memo(() => {
         {/* Education & Certifications */}
         <Grid>
           <Grid.Col span={{ base: 12, md: 6 }}>
-            <Card p="lg" withBorder radius="lg" h="100%">
-              <Group mb="md">
-                <ThemeIcon color="sakura" variant="light">
-                  <IconSchool size={20} />
-                </ThemeIcon>
-                <Title order={3}>Education</Title>
-              </Group>
+            <UnifiedCard
+              title="Education"
+              headerIcon={<IconSchool size={20} />}
+              headerIconColor="sakura"
+              variant="outlined"
+              size="md"
+              interactive={false}
+              hoverable={true}
+            >
               <Stack gap="md">
                 {education.map((edu, index) => (
                   <Box key={index}>
@@ -340,17 +332,19 @@ const AboutSection = memo(() => {
                   </Box>
                 ))}
               </Stack>
-            </Card>
+            </UnifiedCard>
           </Grid.Col>
 
           <Grid.Col span={{ base: 12, md: 6 }}>
-            <Card p="lg" withBorder radius="lg" h="100%">
-              <Group mb="md">
-                <ThemeIcon color="sakura" variant="light">
-                  <IconUsers size={20} />
-                </ThemeIcon>
-                <Title order={3}>Leadership</Title>
-              </Group>
+            <UnifiedCard
+              title="Leadership"
+              headerIcon={<IconUsers size={20} />}
+              headerIconColor="sakura"
+              variant="outlined"
+              size="md"
+              interactive={false}
+              hoverable={true}
+            >
               <Stack gap="md">
                 {leadership.map((role, index) => (
                   <Box key={index}>
@@ -371,7 +365,7 @@ const AboutSection = memo(() => {
                   </Box>
                 ))}
               </Stack>
-            </Card>
+            </UnifiedCard>
           </Grid.Col>
         </Grid>
       </Stack>
