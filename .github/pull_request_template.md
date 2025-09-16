@@ -1,5 +1,15 @@
 # Pull Request
 
+## 📝 Title Format
+
+`[type-issue#]: Brief description`
+
+**Examples:**
+
+- `feat-123: Add user authentication system`
+- `fix-456: Resolve modal header layout issues`
+- `refactor-789: Update CI/CD workflow automation`
+
 ## 🎯 Summary
 
 Brief description of what this PR accomplishes.
