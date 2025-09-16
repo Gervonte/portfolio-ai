@@ -1,6 +1,7 @@
 'use client';
 
 import { aboutData, getSkillColor, getSkillsByCategory, type Skill } from '@/lib/about';
+import { colorCombinations } from '@/lib/colors';
 import {
   Badge,
   Box,
@@ -91,7 +92,7 @@ const AboutSection = memo(() => {
             size="h1"
             mb="md"
             style={{
-              background: 'linear-gradient(135deg, #F44336, #FFCDD2)',
+              background: colorCombinations.sakuraGradient,
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',

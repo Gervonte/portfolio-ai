@@ -92,7 +92,7 @@ export default function ValidationDemo() {
                 icon={
                   validationResults.project.success ? <IconCheck size={16} /> : <IconX size={16} />
                 }
-                color={validationResults.project.success ? 'green' : 'red'}
+                color={validationResults.project.success ? 'sakura' : 'red'}
                 title="Project Validation"
               >
                 {validationResults.project.success ? (
@@ -114,7 +114,7 @@ export default function ValidationDemo() {
                     <IconX size={16} />
                   )
                 }
-                color={validationResults.experience?.success ? 'green' : 'red'}
+                color={validationResults.experience?.success ? 'sakura' : 'red'}
                 title="Experience Validation"
               >
                 {validationResults.experience?.success ? (
@@ -198,7 +198,7 @@ export default function ValidationDemo() {
               </Button>
             </Group>
 
-            <Alert icon={<IconInfoCircle size={16} />} color="blue" title="Form Status">
+            <Alert icon={<IconInfoCircle size={16} />} color="sakura" title="Form Status">
               <Text size="sm">
                 Form is {contactForm.isFormValid ? 'valid' : 'invalid'} •
                 {contactForm.isFormTouched ? ' Touched' : ' Untouched'}

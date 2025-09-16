@@ -1,5 +1,6 @@
 'use client';
 
+import { sakura } from '@/lib/colors';
 import { useEffect, useRef } from 'react';
 
 interface SakuraEffectProps {
@@ -17,7 +18,12 @@ export default function SakuraEffect({
   petalSize = 15,
   fallSpeed = 0.5,
   windSpeed = 0.5,
-  colors = ['#FFCDD2', '#FFEBEE', '#EF9A9A', '#F44336'],
+  colors = [
+    sakura[1] ?? '#FFCDD2',
+    sakura[0] ?? '#FFEBEE',
+    sakura[2] ?? '#EF9A9A',
+    sakura[3] ?? '#F44336',
+  ],
 }: SakuraEffectProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 

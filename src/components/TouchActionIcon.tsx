@@ -23,7 +23,6 @@ export function TouchActionIcon({
   href,
   target = '_blank',
   onClick,
-  'aria-label': ariaLabel,
   size = 'md',
   ...props
 }: TouchActionIconProps) {

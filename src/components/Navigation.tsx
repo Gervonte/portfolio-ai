@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Group, Stack, Anchor } from '@mantine/core';
+import { colorCombinations, commonColors, pink } from '@/lib/colors';
+import { Anchor, Group, Stack } from '@mantine/core';
+import { useEffect, useState } from 'react';
 
 export interface NavLink {
   label: string;
@@ -76,13 +77,13 @@ export default function Navigation({
       case 'header':
         return {
           ...baseStyles,
-          color: scrolled ? '#2C2C2C' : '#FEFEFE',
+          color: scrolled ? commonColors.textPrimary : commonColors.textInverse,
           fontSize: '0.875rem',
           '&:hover': {
-            color: '#E91E63',
+            color: pink[3],
           },
           ...(isActive && {
-            color: '#E91E63',
+            color: pink[3],
             '&::after': {
               content: '""',
               position: 'absolute',
@@ -90,7 +91,7 @@ export default function Navigation({
               left: 0,
               right: 0,
               height: '2px',
-              background: 'linear-gradient(135deg, #E91E63, #F8BBD9)',
+              background: colorCombinations.pinkGradient,
               borderRadius: '1px',
             },
           }),
@@ -99,26 +100,26 @@ export default function Navigation({
       case 'footer':
         return {
           ...baseStyles,
-          color: '#666666',
+          color: commonColors.textSecondary,
           fontSize: '0.875rem',
           '&:hover': {
-            color: '#E91E63',
+            color: pink[3],
           },
         };
 
       case 'mobile':
         return {
           ...baseStyles,
-          color: '#2C2C2C',
+          color: commonColors.textPrimary,
           fontSize: '1rem',
           '&:hover': {
-            color: '#E91E63',
+            color: pink[3],
             paddingLeft: '0.5rem',
           },
           ...(isActive && {
-            color: '#E91E63',
+            color: pink[3],
             paddingLeft: '0.5rem',
-            borderLeft: '3px solid #E91E63',
+            borderLeft: `3px solid ${pink[3]}`,
           }),
         };
 

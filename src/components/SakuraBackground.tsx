@@ -1,5 +1,6 @@
 'use client';
 
+import { pink, sakura } from '@/lib/colors';
 import { Box } from '@mantine/core';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -28,9 +29,9 @@ export default function SakuraBackground({
     };
 
     const variantConfig = {
-      falling: { colors: ['#FFCDD2', '#FFEBEE', '#EF9A9A', '#F44336'] },
-      floating: { colors: ['#FFEBEE', '#FFCDD2', '#EF9A9A'] },
-      gentle: { colors: ['#FFEBEE', '#FFCDD2'] },
+      falling: { colors: [sakura[1], sakura[0], sakura[2], sakura[3]] },
+      floating: { colors: [sakura[0], sakura[1], sakura[2]] },
+      gentle: { colors: [sakura[0], sakura[1]] },
     };
 
     const config = {
@@ -185,7 +186,7 @@ export default function SakuraBackground({
             transform: 'translate(-50%, -50%)',
             opacity: 0.3,
             fontSize: '14px',
-            color: '#F8BBD9',
+            color: pink[1],
           }}
         >
           Loading sakura effect...

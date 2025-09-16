@@ -1,28 +1,28 @@
 'use client';
 
+import { aboutData } from '@/lib/about';
+import { colorCombinations } from '@/lib/colors';
 import {
-  Container,
-  Title,
-  Text,
-  Card,
-  Group,
-  Stack,
   Badge,
-  List,
-  ThemeIcon,
   Box,
+  Card,
+  Container,
+  Group,
+  List,
+  Stack,
+  Text,
+  ThemeIcon,
   Timeline,
-  //Paper,
+  Title,
 } from '@mantine/core';
 import {
   IconBriefcase,
-  IconMapPin,
   IconCode,
+  IconMapPin,
   IconRocket,
-  IconUsers,
   IconTarget,
+  IconUsers,
 } from '@tabler/icons-react';
-import { aboutData } from '@/lib/about';
 import { memo } from 'react';
 
 const ExperienceSection = memo(() => {
@@ -61,7 +61,7 @@ const ExperienceSection = memo(() => {
             size="h1"
             mb="md"
             style={{
-              background: 'linear-gradient(135deg, #F44336, #FFCDD2)',
+              background: colorCombinations.sakuraGradient,
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',

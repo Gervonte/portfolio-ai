@@ -1,33 +1,34 @@
 'use client';
 
+import { aboutData } from '@/lib/about';
+import { colorCombinations } from '@/lib/colors';
 import {
-  Container,
-  Title,
-  Text,
-  Card,
-  Group,
-  Stack,
+  Alert,
+  Anchor,
+  Box,
   Button,
+  Card,
+  Container,
+  Group,
+  Paper,
+  SimpleGrid,
+  Stack,
+  Text,
   TextInput,
   Textarea,
-  Box,
-  SimpleGrid,
   ThemeIcon,
-  Anchor,
-  Paper,
-  Alert,
+  Title,
 } from '@mantine/core';
 import {
+  IconAlertCircle,
+  IconBrandGithub,
+  IconBrandLinkedin,
+  IconCheck,
   IconMail,
   IconMapPin,
-  IconBrandLinkedin,
-  IconBrandGithub,
   IconSend,
-  IconCheck,
-  IconAlertCircle,
 } from '@tabler/icons-react';
-import { aboutData } from '@/lib/about';
-import { useState, useEffect, memo } from 'react';
+import { memo, useEffect, useState } from 'react';
 
 const ContactSection = memo(() => {
   const { personalInfo } = aboutData;
@@ -122,7 +123,7 @@ const ContactSection = memo(() => {
             size="h1"
             mb="md"
             style={{
-              background: 'linear-gradient(135deg, #F44336, #FFCDD2)',
+              background: colorCombinations.sakuraGradient,
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -179,11 +180,11 @@ const ContactSection = memo(() => {
             {/* Availability Status */}
             <Paper p="md" withBorder radius="lg" bg="sakura.0">
               <Group gap="sm">
-                <ThemeIcon color="green" variant="light" size="sm">
+                <ThemeIcon color="sakura" variant="light" size="sm">
                   <IconCheck size={16} />
                 </ThemeIcon>
                 <Box>
-                  <Text fw={600} size="sm" c="green">
+                  <Text fw={600} size="sm" c="sakura">
                     Available for Opportunities
                   </Text>
                   <Text size="xs" c="dimmed">
@@ -250,7 +251,7 @@ const ContactSection = memo(() => {
                     <Alert
                       icon={<IconCheck size={16} />}
                       title="Message sent!"
-                      color="green"
+                      color="sakura"
                       variant="light"
                     >
                       Thanks for reaching out! I&apos;ll get back to you soon.

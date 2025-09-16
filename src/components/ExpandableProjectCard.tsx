@@ -1,30 +1,31 @@
 'use client';
 
-import {
-  Card,
-  Text,
-  Badge,
-  Group,
-  Stack,
-  Box,
-  ThemeIcon,
-  Button,
-  Image,
-  Center,
-} from '@mantine/core';
-import { TouchActionIcon } from './TouchActionIcon';
-import {
-  IconCode,
-  IconExternalLink,
-  IconBrandGithub,
-  IconBrain,
-  IconCalendar,
-  IconSettings,
-} from '@tabler/icons-react';
-import { useState, memo } from 'react';
+import { commonColors, earth, sakura, warm } from '@/lib/colors';
 import { Project } from '@/lib/projects';
 import { getProjectScreenshots } from '@/lib/screenshot';
+import {
+  Badge,
+  Box,
+  Button,
+  Card,
+  Center,
+  Group,
+  Image,
+  Stack,
+  Text,
+  ThemeIcon,
+} from '@mantine/core';
+import {
+  IconBrain,
+  IconBrandGithub,
+  IconCalendar,
+  IconCode,
+  IconExternalLink,
+  IconSettings,
+} from '@tabler/icons-react';
+import { memo, useState } from 'react';
 import TechnicalDetailsModal from './TechnicalDetailsModal';
+import { TouchActionIcon } from './TouchActionIcon';
 
 interface ExpandableProjectCardProps {
   project: Project;
@@ -38,11 +39,11 @@ const getProjectIcon = (type: Project['type']) => {
 const getStatusColor = (status: Project['status']) => {
   switch (status) {
     case 'completed':
-      return 'green';
+      return 'sakura';
     case 'in-progress':
-      return 'yellow';
+      return 'pink';
     case 'planned':
-      return 'blue';
+      return 'gray';
     default:
       return 'gray';
   }
@@ -52,8 +53,8 @@ const ExpandableProjectCard = memo(({ project, type }: ExpandableProjectCardProp
   const [modalOpened, setModalOpened] = useState(false);
   const screenshots = getProjectScreenshots(project);
 
-  const cardColor = type === 'vibe-coded' ? '#F8F4F4' : '#F5F5F5';
-  const accentColor = type === 'vibe-coded' ? '#F44336' : '#228BE6';
+  const cardColor = type === 'vibe-coded' ? sakura[0] : warm[1];
+  const accentColor = type === 'vibe-coded' ? commonColors.accentPrimary : earth[3]; // Brown for traditional work
 
   return (
     <>
@@ -80,7 +81,7 @@ const ExpandableProjectCard = memo(({ project, type }: ExpandableProjectCardProp
           {/* Project Header */}
           <Group justify="space-between" align="flex-start">
             <Group gap="sm">
-              <ThemeIcon color={type === 'vibe-coded' ? 'sakura' : 'blue'} variant="light">
+              <ThemeIcon color={type === 'vibe-coded' ? 'sakura' : 'earth'} variant="light">
                 {getProjectIcon(type)}
               </ThemeIcon>
               <Box>
@@ -153,7 +154,7 @@ const ExpandableProjectCard = memo(({ project, type }: ExpandableProjectCardProp
                 key={tech}
                 size="sm"
                 variant="outline"
-                color={type === 'vibe-coded' ? 'sakura' : 'blue'}
+                color={type === 'vibe-coded' ? 'sakura' : 'earth'}
               >
                 {tech}
               </Badge>
@@ -207,7 +208,7 @@ const ExpandableProjectCard = memo(({ project, type }: ExpandableProjectCardProp
                   tooltip="View Live Site"
                   href={project.liveUrl}
                   target="_blank"
-                  color={type === 'vibe-coded' ? 'sakura' : 'blue'}
+                  color={type === 'vibe-coded' ? 'sakura' : 'earth'}
                   variant="light"
                   size="sm"
                   aria-label="View Live Site"
@@ -220,7 +221,7 @@ const ExpandableProjectCard = memo(({ project, type }: ExpandableProjectCardProp
                   tooltip="View Source Code"
                   href={project.githubUrl}
                   target="_blank"
-                  color={type === 'vibe-coded' ? 'sakura' : 'blue'}
+                  color={type === 'vibe-coded' ? 'sakura' : 'earth'}
                   variant="light"
                   size="sm"
                   aria-label="View Source Code"

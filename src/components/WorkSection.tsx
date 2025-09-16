@@ -1,37 +1,38 @@
 'use client';
 
+import { colorCombinations } from '@/lib/colors';
+import { getFeaturedProjects, getProjectsByType, projectsData, type Project } from '@/lib/projects';
+import { getProjectScreenshots } from '@/lib/screenshot';
 import {
-  Container,
-  Title,
-  Text,
-  Card,
   Badge,
-  Group,
-  Stack,
   Box,
-  //Paper,
-  ThemeIcon,
+  Card,
+  Container,
+  Group,
+  Image,
   List,
   SimpleGrid,
+  Stack,
   Tabs,
+  Text,
+  //Paper,
+  ThemeIcon,
+  Title,
 } from '@mantine/core';
-import { TouchActionIcon } from './TouchActionIcon';
 import {
-  IconCode,
-  IconExternalLink,
-  IconBrandGithub,
   IconBrain,
-  IconTools,
+  IconBrandGithub,
   //IconStar,
   IconCalendar,
+  IconCode,
+  IconExternalLink,
   //IconHeart,
   IconSparkles,
+  IconTools,
 } from '@tabler/icons-react';
-import { projectsData, getProjectsByType, getFeaturedProjects, type Project } from '@/lib/projects';
-import { getProjectScreenshots } from '@/lib/screenshot';
 import { memo, useMemo } from 'react';
-import { Image } from '@mantine/core';
 import ExpandableProjectCard from './ExpandableProjectCard';
+import { TouchActionIcon } from './TouchActionIcon';
 
 // Get projects from metadata file
 
@@ -42,9 +43,9 @@ const getProjectIcon = (type: Project['type']) => {
 const getStatusColor = (status: Project['status']) => {
   switch (status) {
     case 'completed':
-      return 'green';
+      return 'sakura';
     case 'in-progress':
-      return 'blue';
+      return 'pink';
     case 'planned':
       return 'gray';
     default:
@@ -53,7 +54,7 @@ const getStatusColor = (status: Project['status']) => {
 };
 
 const getTypeColor = (type: Project['type']) => {
-  return type === 'vibe-coded' ? 'sakura' : 'blue';
+  return type === 'vibe-coded' ? 'sakura' : 'earth';
 };
 
 const WorkSection = memo(() => {
@@ -71,7 +72,7 @@ const WorkSection = memo(() => {
             size="h1"
             mb="md"
             style={{
-              background: 'linear-gradient(135deg, #F44336, #FFCDD2)',
+              background: colorCombinations.sakuraGradient,
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -118,7 +119,7 @@ const WorkSection = memo(() => {
                         height: '200px',
                         borderRadius: '8px',
                         overflow: 'hidden',
-                        background: 'linear-gradient(135deg, #F44336, #FFCDD2)',
+                        background: colorCombinations.sakuraGradient,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -165,7 +166,7 @@ const WorkSection = memo(() => {
                           display: 'none',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          background: 'linear-gradient(135deg, #F44336, #FFCDD2)',
+                          background: colorCombinations.sakuraGradient,
                           position: 'absolute',
                           top: 0,
                           left: 0,
@@ -371,7 +372,7 @@ const WorkSection = memo(() => {
                 </Title>
                 <Badge
                   leftSection={<IconTools size={14} />}
-                  color="blue"
+                  color="earth"
                   variant="light"
                   size="lg"
                   radius="xl"
