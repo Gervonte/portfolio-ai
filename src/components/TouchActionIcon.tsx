@@ -24,6 +24,7 @@ export function TouchActionIcon({
   target = '_blank',
   onClick,
   size = 'md',
+  'aria-label': ariaLabel,
   ...props
 }: TouchActionIconProps) {
   // Ensure minimum touch target size on mobile
@@ -44,7 +45,7 @@ export function TouchActionIcon({
   };
 
   const actionIcon = (
-    <ActionIcon {...actionIconProps} onClick={onClick}>
+    <ActionIcon {...actionIconProps} onClick={onClick} aria-label={ariaLabel || tooltip}>
       {children}
     </ActionIcon>
   );

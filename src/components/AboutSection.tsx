@@ -157,7 +157,7 @@ const AboutSection = memo(() => {
           >
             About Me
           </Title>
-          <Text size="xl" c="dimmed" maw={800} mx="auto">
+          <Text size="xl" c="gray.6" maw={800} mx="auto">
             {personalInfo.summary}
           </Text>
         </Box>
@@ -240,7 +240,7 @@ const AboutSection = memo(() => {
                 <Text fw={500} c="sakura" size="md" mb="xs">
                   {exp.company}
                 </Text>
-                <Text mb="md" c="dimmed">
+                <Text mb="md" c="gray.6">
                   {exp.description}
                 </Text>
                 <Group mb="sm">
@@ -323,7 +323,7 @@ const AboutSection = memo(() => {
                         {edu.institution} • {edu.year}
                       </Text>
                       {edu.description && (
-                        <Text size="sm" c="dimmed">
+                        <Text size="sm" c="gray.6">
                           {edu.description}
                         </Text>
                       )}
@@ -356,7 +356,7 @@ const AboutSection = memo(() => {
                         {role.organization} • {role.year}
                       </Text>
                       {role.description && (
-                        <Text size="sm" c="dimmed">
+                        <Text size="sm" c="gray.6">
                           {role.description}
                         </Text>
                       )}

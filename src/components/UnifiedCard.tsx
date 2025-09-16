@@ -387,7 +387,7 @@ const UnifiedCard = ({
                       <Box style={{ flex: 1, minWidth: 0 }}>
                         <Group align="flex-start" gap="md" mb="xs">
                           <Title
-                            order={3}
+                            order={4}
                             size="h4"
                             c="dark"
                             style={{
@@ -417,7 +417,7 @@ const UnifiedCard = ({
                             <Text
                               size="sm"
                               lh={1.6}
-                              c="dimmed"
+                              c="gray.6"
                               fs="italic"
                               style={{
                                 letterSpacing: '0.01em',
@@ -457,7 +457,7 @@ const UnifiedCard = ({
                       )}
                       <Box style={{ flex: 1, minWidth: 0 }}>
                         <Title
-                          order={3}
+                          order={4}
                           size="h4"
                           c="dark"
                           style={{
@@ -488,7 +488,7 @@ const UnifiedCard = ({
                   <Text
                     size="sm"
                     lh={1.6}
-                    c="dimmed"
+                    c="gray.6"
                     mb="md"
                     style={{
                       fontStyle: 'italic',
@@ -518,7 +518,7 @@ const UnifiedCard = ({
                 {(achievements.length > 0 ? achievements : highlights)
                   .slice(0, 3)
                   .map((item, idx) => (
-                    <Text key={idx} size="sm" lh={1.5} c="dimmed" fs="italic">
+                    <Text key={idx} size="sm" lh={1.5} c="gray.6" fs="italic">
                       {item}
                     </Text>
                   ))}
@@ -682,7 +682,7 @@ const UnifiedCard = ({
               return (
                 <Group key={index} gap="xs">
                   {meta.icon}
-                  <Text size="sm" c="dimmed">
+                  <Text size="sm" c="gray.6">
                     {meta.text}
                   </Text>
                 </Group>
