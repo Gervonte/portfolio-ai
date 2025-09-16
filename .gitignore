@@ -41,3 +41,8 @@ next-env.d.ts
 .eslintcache
 node_modules/.cache/
 *.cache
+
+# lighthouse reports
+lighthouse-report.json
+lighthouse-report.html
+*.lighthouse-report.*
