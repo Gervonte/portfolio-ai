@@ -19,7 +19,6 @@ const inter = Inter({
   preload: true,
   fallback: ['system-ui', 'arial'],
   variable: '--font-inter',
-  weight: ['400', '500', '600', '700'],
 });
 
 // Navigation links
