@@ -384,13 +384,29 @@ const UnifiedCard = ({
                           {headerIcon}
                         </ThemeIcon>
                       )}
-                      <Box>
-                        <Group align="center" gap="md" mb="xs">
-                          <Title order={3} size="h4" c="dark">
+                      <Box style={{ flex: 1, minWidth: 0 }}>
+                        <Group align="flex-start" gap="md" mb="xs">
+                          <Title
+                            order={3}
+                            size="h4"
+                            c="dark"
+                            style={{
+                              wordBreak: 'break-word',
+                              lineHeight: 1.2,
+                            }}
+                          >
                             {title}
                           </Title>
                           {subtitle && (
-                            <Text size="md" c="sakura" fw={400}>
+                            <Text
+                              size="md"
+                              c="sakura"
+                              fw={400}
+                              style={{
+                                wordBreak: 'break-word',
+                                lineHeight: 1.3,
+                              }}
+                            >
                               {subtitle}
                             </Text>
                           )}
@@ -433,18 +449,33 @@ const UnifiedCard = ({
                     </Group>
                   ) : (
                     // Project card layout - simple title and subtitle
-                    <Group align="center" gap="md">
+                    <Group align="flex-start" gap="md">
                       {headerIcon && (
                         <ThemeIcon color={headerIconColor} variant="light" size="lg">
                           {headerIcon}
                         </ThemeIcon>
                       )}
-                      <Box>
-                        <Title order={3} size="h4" c="dark">
+                      <Box style={{ flex: 1, minWidth: 0 }}>
+                        <Title
+                          order={3}
+                          size="h4"
+                          c="dark"
+                          style={{
+                            wordBreak: 'break-word',
+                            lineHeight: 1.2,
+                          }}
+                        >
                           {title}
                         </Title>
                         {subtitle && (
-                          <Text size="sm" c="sakura">
+                          <Text
+                            size="sm"
+                            c="sakura"
+                            style={{
+                              wordBreak: 'break-word',
+                              lineHeight: 1.3,
+                            }}
+                          >
                             {subtitle}
                           </Text>
                         )}
