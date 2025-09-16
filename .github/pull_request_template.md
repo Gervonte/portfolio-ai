@@ -41,6 +41,13 @@ npm run build && npm run dev
 - [ ] Responsive design works
 - [ ] Cross-browser compatibility
 
+### Preview Deployment Testing
+
+- [ ] Preview deployment is accessible and working
+- [ ] All new features function correctly on preview
+- [ ] No regressions in existing functionality
+- [ ] Performance is acceptable on preview environment
+
 ### Specific to this PR
 
 <!-- Add 2-3 specific test steps for this PR -->
