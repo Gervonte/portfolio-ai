@@ -48,11 +48,30 @@ jobs:
                 state: 'open'
               });
 
-              const approvedPRs = prs.filter(pr => 
-                pr.title.includes('Auto-deploy: Preview → Main') &&
-                pr.mergeable === true &&
-                (pr.mergeable_state === 'clean' || pr.mergeable_state === 'behind')
+              const candidatePRs = prs.filter(pr => 
+                pr.title.includes('Auto-deploy: Preview → Main')
               );
+
+              console.log(`Found ${candidatePRs.length} candidate PRs with matching title`);
+
+              // Check each PR individually for mergeability
+              const approvedPRs = [];
+              for (const pr of candidatePRs) {
+                try {
+                  const { data: prDetails } = await github.rest.pulls.get({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    pull_number: pr.number
+                  });
+
+                  if (prDetails.mergeable === true && 
+                      (prDetails.mergeable_state === 'clean' || prDetails.mergeable_state === 'behind')) {
+                    approvedPRs.push(prDetails);
+                  }
+                } catch (error) {
+                  console.log(`Failed to get details for PR #${pr.number}:`, error.message);
+                }
+              }
 
               console.log(`Found ${approvedPRs.length} approved PRs ready for merge`);
 
