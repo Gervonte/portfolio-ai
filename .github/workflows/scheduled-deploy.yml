@@ -141,7 +141,7 @@ jobs:
 
       - name: Wait for deployment
         if: steps.check-prs.outputs.result != 'no-prs'
-        run: sleep 30
+        run: sleep 60
 
       - name: Merge main back to preview
         if: steps.check-prs.outputs.result != 'no-prs'
@@ -149,15 +149,25 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action" 
 
+          # Ensure we have the latest main branch
+          git fetch origin main
+          
           # Switch to preview branch
           git checkout preview
           git pull origin preview
 
-          # Merge main into preview
-          git merge origin/main --no-ff -m "Sync preview with main after deployment"
-
-          # Push updated preview
-          git push origin preview
+          # Check if there are differences between preview and main
+          if git diff --quiet preview origin/main; then
+            echo "Preview and main are already in sync"
+          else
+            echo "Merging main into preview..."
+            # Merge main into preview
+            git merge origin/main --no-ff -m "Sync preview with main after deployment"
+            
+            # Push updated preview
+            git push origin preview
+            echo "Successfully synced preview with main"
+          fi
 
       - name: Comment on merged PRs
         if: steps.check-prs.outputs.result != 'no-prs'
