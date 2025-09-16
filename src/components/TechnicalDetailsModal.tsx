@@ -1,34 +1,34 @@
 'use client';
 
+import { Project } from '@/lib/projects';
 import {
-  Modal,
-  Text,
-  Badge,
-  Group,
-  Stack,
-  Box,
-  ThemeIcon,
-  List,
-  SimpleGrid,
-  Tabs,
-  Image,
   Alert,
-  Progress,
-  Title,
+  Badge,
+  Box,
   Card,
+  Group,
+  Image,
+  List,
+  Modal,
+  Progress,
+  SimpleGrid,
+  Stack,
+  Tabs,
+  Text,
+  ThemeIcon,
+  Title,
   Tooltip,
 } from '@mantine/core';
 import {
-  IconChartBar,
-  IconShield,
-  IconRocket,
-  IconGauge,
-  IconBuilding,
-  IconZoomIn,
   IconAlertCircle,
+  IconBuilding,
+  IconChartBar,
+  IconGauge,
+  IconRocket,
+  IconShield,
+  IconZoomIn,
 } from '@tabler/icons-react';
-import { useState, memo, useEffect, useMemo } from 'react';
-import { Project } from '@/lib/projects';
+import { memo, useEffect, useMemo, useState } from 'react';
 
 interface TechnicalDetailsModalProps {
   project: Project;
@@ -222,10 +222,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none',
                 WebkitOverflowScrolling: 'touch',
-                '&::-webkit-scrollbar': {
-                  display: 'none',
-                },
               }}
+              className="hide-scrollbar"
             >
               {technicalSections.map(({ key, icon }) => (
                 <Box
