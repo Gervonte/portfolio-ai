@@ -39,6 +39,7 @@ import {
   IconUsers,
 } from '@tabler/icons-react';
 import { memo } from 'react';
+import BadgeWithTooltip from './BadgeWithTooltip';
 
 // Use data from metadata file
 const { personalInfo, education, researchProjects, leadership } = aboutData;
@@ -190,9 +191,15 @@ const AboutSection = memo(() => {
                           {skill.name}
                         </Text>
                       </Group>
-                      <Badge color={getSkillColor(skill.level)} variant="light" size="sm">
+                      <BadgeWithTooltip
+                        contextType="skill"
+                        contextValue={skill.level}
+                        color={getSkillColor(skill.level)}
+                        variant="light"
+                        size="sm"
+                      >
                         {skill.level}
-                      </Badge>
+                      </BadgeWithTooltip>
                     </Group>
                   ))}
                 </Stack>

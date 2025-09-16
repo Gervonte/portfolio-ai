@@ -9,6 +9,7 @@ import {
   Button,
   Card,
   Center,
+  Flex,
   Group,
   Image,
   Stack,
@@ -24,6 +25,8 @@ import {
   IconSettings,
 } from '@tabler/icons-react';
 import { memo, useState } from 'react';
+import BadgeWithTooltip from './BadgeWithTooltip';
+import { MobileTooltip } from './MobileTooltip';
 import TechnicalDetailsModal from './TechnicalDetailsModal';
 import { TouchActionIcon } from './TouchActionIcon';
 
@@ -93,9 +96,14 @@ const ExpandableProjectCard = memo(({ project, type }: ExpandableProjectCardProp
                 </Text>
               </Box>
             </Group>
-            <Badge color={getStatusColor(project.status)} size="sm">
+            <BadgeWithTooltip
+              contextType="status"
+              contextValue={project.status}
+              color={getStatusColor(project.status)}
+              size="sm"
+            >
               {project.status}
-            </Badge>
+            </BadgeWithTooltip>
           </Group>
 
           {/* Project Thumbnail */}
@@ -127,7 +135,22 @@ const ExpandableProjectCard = memo(({ project, type }: ExpandableProjectCardProp
             }}
           >
             {screenshots.thumbnail ? (
-              <Image src={screenshots.thumbnail} alt={project.title} height={120} />
+              <Image
+                src={screenshots.thumbnail}
+                alt={project.title}
+                height={120}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'center top',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                }}
+              />
             ) : (
               <Center h={120} c="white">
                 <Stack align="center" gap="xs">
@@ -148,23 +171,46 @@ const ExpandableProjectCard = memo(({ project, type }: ExpandableProjectCardProp
           </Text>
 
           {/* Technologies */}
-          <Group gap="xs" wrap="wrap">
-            {project.technologies.slice(0, 4).map(tech => (
-              <Badge
-                key={tech}
-                size="sm"
-                variant="outline"
-                color={type === 'vibe-coded' ? 'sakura' : 'earth'}
-              >
-                {tech}
-              </Badge>
-            ))}
-            {project.technologies.length > 4 && (
-              <Badge size="sm" variant="light" color="gray">
-                +{project.technologies.length - 4} more
-              </Badge>
-            )}
-          </Group>
+          <Box>
+            <Text size="xs" c="dimmed" mb="xs">
+              Technologies:
+            </Text>
+            <Flex gap="xs" wrap="wrap" style={{ rowGap: '4px' }}>
+              {project.technologies.slice(0, 4).map(tech => (
+                <BadgeWithTooltip
+                  key={tech}
+                  contextType="technology"
+                  contextValue={tech}
+                  size="sm"
+                  variant="outline"
+                  color={type === 'vibe-coded' ? 'sakura' : 'earth'}
+                >
+                  {tech}
+                </BadgeWithTooltip>
+              ))}
+              {project.technologies.length > 4 && (
+                <MobileTooltip
+                  label={`Additional technologies: ${project.technologies.slice(4).join(', ')}`}
+                  multiline
+                  withArrow
+                  withinPortal
+                >
+                  <Badge
+                    size="sm"
+                    variant="filled"
+                    color={type === 'vibe-coded' ? 'sakura' : 'earth'}
+                    style={{
+                      cursor: 'pointer',
+                      fontWeight: 600,
+                      opacity: 0.8,
+                    }}
+                  >
+                    +{project.technologies.length - 4} more
+                  </Badge>
+                </MobileTooltip>
+              )}
+            </Flex>
+          </Box>
 
           {/* AI Tools (for vibe-coded projects) */}
           {type === 'vibe-coded' && project.aiTools && (
@@ -172,13 +218,20 @@ const ExpandableProjectCard = memo(({ project, type }: ExpandableProjectCardProp
               <Text size="xs" c="dimmed" mb="xs">
                 AI Tools Used:
               </Text>
-              <Group gap="xs">
+              <Flex gap="xs" wrap="wrap" style={{ rowGap: '4px' }}>
                 {project.aiTools.map(tool => (
-                  <Badge key={tool} size="xs" variant="filled" color="sakura">
+                  <BadgeWithTooltip
+                    key={tool}
+                    contextType="aiTool"
+                    contextValue={tool}
+                    size="xs"
+                    variant="filled"
+                    color="sakura"
+                  >
                     {tool}
-                  </Badge>
+                  </BadgeWithTooltip>
                 ))}
-              </Group>
+              </Flex>
             </Box>
           )}
 

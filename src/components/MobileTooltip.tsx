@@ -6,7 +6,7 @@ import { ReactNode } from 'react';
 
 interface MobileTooltipProps extends Omit<TooltipProps, 'opened' | 'onOpen' | 'onClose'> {
   children: ReactNode;
-  label: string;
+  label: string | ReactNode;
   delay?: number;
   disabled?: boolean;
   trigger?: 'hover' | 'click' | 'both';

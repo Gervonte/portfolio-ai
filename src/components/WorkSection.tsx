@@ -31,6 +31,7 @@ import {
   IconTools,
 } from '@tabler/icons-react';
 import { memo, useMemo } from 'react';
+import BadgeWithTooltip from './BadgeWithTooltip';
 import ExpandableProjectCard from './ExpandableProjectCard';
 import { TouchActionIcon } from './TouchActionIcon';
 
@@ -145,6 +146,11 @@ const WorkSection = memo(() => {
                           objectFit: 'cover',
                           objectPosition: 'center top',
                           transition: 'transform 0.3s ease',
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
                         }}
                         onMouseEnter={e => {
                           e.currentTarget.style.transform = 'scale(1.05)';
@@ -201,7 +207,9 @@ const WorkSection = memo(() => {
                       >
                         <IconExternalLink size={16} color="white" />
                       </Box>
-                      <Badge
+                      <BadgeWithTooltip
+                        contextType="projectType"
+                        contextValue={project.type}
                         color={getTypeColor(project.type)}
                         variant="filled"
                         size="sm"
@@ -212,7 +220,7 @@ const WorkSection = memo(() => {
                         }}
                       >
                         {project.type === 'vibe-coded' ? 'AI-Assisted' : 'Traditional'}
-                      </Badge>
+                      </BadgeWithTooltip>
                     </Box>
 
                     <Group justify="space-between" align="flex-start">
@@ -229,9 +237,15 @@ const WorkSection = memo(() => {
                           </Text>
                         </Box>
                       </Group>
-                      <Badge color={getStatusColor(project.status)} variant="light" size="sm">
+                      <BadgeWithTooltip
+                        contextType="status"
+                        contextValue={project.status}
+                        color={getStatusColor(project.status)}
+                        variant="light"
+                        size="sm"
+                      >
                         {project.status}
-                      </Badge>
+                      </BadgeWithTooltip>
                     </Group>
 
                     <Text size="md" lh={1.6}>
@@ -244,14 +258,16 @@ const WorkSection = memo(() => {
                       </Text>
                       <Group gap="xs">
                         {project.technologies.map(tech => (
-                          <Badge
+                          <BadgeWithTooltip
                             key={tech}
+                            contextType="technology"
+                            contextValue={tech}
                             size="sm"
                             variant="outline"
                             color={getTypeColor(project.type)}
                           >
                             {tech}
-                          </Badge>
+                          </BadgeWithTooltip>
                         ))}
                       </Group>
                     </Box>
@@ -263,15 +279,17 @@ const WorkSection = memo(() => {
                         </Text>
                         <Group gap="xs">
                           {project.aiTools.map(tool => (
-                            <Badge
+                            <BadgeWithTooltip
                               key={tool}
+                              contextType="aiTool"
+                              contextValue={tool}
                               size="sm"
                               variant="filled"
                               color="sakura"
                               leftSection={<IconSparkles size={12} />}
                             >
                               {tool}
-                            </Badge>
+                            </BadgeWithTooltip>
                           ))}
                         </Group>
                       </Box>
