@@ -3,10 +3,22 @@
     {
       "id": "portfolio-ai",
       "title": "Portfolio AI",
-      "description": "My personal portfolio website with sakura theme and modern animations built using Cursor and Next.js for SEO.",
-      "longDescription": "A comprehensive portfolio website built with Next.js, TypeScript, and Mantine UI, featuring AI-assisted development throughout the process. The project showcases both traditional development skills and AI collaboration, with a beautiful sakura theme inspired by mono no aware aesthetics.",
+      "description": "My personal portfolio website with sakura theme, modern animations, and advanced CI/CD pipeline built using Cursor and Next.js for SEO.",
+      "longDescription": "A comprehensive portfolio website built with Next.js, TypeScript, and Mantine UI, featuring AI-assisted development throughout the process. The project showcases both traditional development skills and AI collaboration, with a beautiful sakura theme inspired by mono no aware aesthetics. Includes advanced CI/CD pipeline with scheduled deployments, automated PR management, and technical deep-dive modals showcasing behind-the-scenes development processes.",
       "type": "vibe-coded",
-      "technologies": ["Next.js", "Mantine UI", "Sakura.js", "Vercel"],
+      "technologies": [
+        "Next.js",
+        "TypeScript",
+        "Mantine UI",
+        "Sakura.js",
+        "Vercel",
+        "GitHub Actions",
+        "Framer Motion",
+        "Zod",
+        "Rellax",
+        "Resend",
+        "Tabler Icons"
+      ],
       "status": "completed",
       "featured": false,
       "liveUrl": "https://portfolio-ai-xi.vercel.app/",
@@ -18,11 +30,77 @@
         "Responsive design with Mantine UI components",
         "Comprehensive data validation with Zod schemas",
         "Advanced scroll indicator with keyboard navigation",
-        "Resume data extraction and structured display"
+        "Resume data extraction and structured display",
+        "Advanced CI/CD pipeline with scheduled deployments",
+        "Automated PR management and branch protection",
+        "Technical deep-dive modals with behind-the-scenes details",
+        "Comprehensive error handling and conflict resolution"
       ],
-      "aiTools": ["Claude AI", "GitHub Copilot", "ChatGPT"],
-      "timeline": "2 weeks",
-      "category": "Full Stack Web Development"
+      "aiTools": ["Claude AI", "GitHub Copilot", "ChatGPT", "Cursor"],
+      "timeline": "3 weeks",
+      "category": "Full Stack Web Development",
+      "enableTechnicalDetails": true,
+      "technicalDetails": {
+        "analytics": {
+          "enabled": false,
+          "showScreenshots": false,
+          "screenshots": ["analytics-dashboard.svg", "user-metrics.svg"],
+          "description": "User behavior tracking - like a store's security cameras showing what customers look at, how long they stay, and what they buy. Tracks page views, session duration, and engagement patterns to understand user preferences.",
+          "metrics": {
+            "pageViews": "1,200+",
+            "bounceRate": "45%",
+            "avgSessionDuration": "2m 30s",
+            "topPages": ["/", "/#work", "/#about"]
+          }
+        },
+        "monitoring": {
+          "enabled": false,
+          "showScreenshots": false,
+          "screenshots": ["error-tracking.svg", "system-health.svg", "uptime-monitor.svg"],
+          "description": "System health monitoring - like a car's dashboard showing fuel level, engine temperature, and warning lights. Tracks uptime, error rates, and performance to ensure everything runs smoothly.",
+          "tools": ["Vercel Analytics", "GitHub Actions", "ESLint"],
+          "uptime": "99.9%",
+          "errorRate": "< 0.1%"
+        },
+        "cicd": {
+          "enabled": true,
+          "showScreenshots": false,
+          "screenshots": ["github-actions.svg", "deployment-pipeline.svg", "security-scan.svg"],
+          "description": "Automated code pipeline - like an assembly line that tests, builds, and ships products automatically. Runs daily deployments with automated testing, security scanning, and branch protection.",
+          "workflows": [
+            "Scheduled Daily Deploy (2:00 PM UTC / 9:00 AM EST)",
+            "Feature Branch → Preview → Main Pipeline",
+            "Automated PR Creation & Management",
+            "Security Scanning & Performance Monitoring",
+            "Branch Protection & Merge Automation"
+          ],
+          "deploymentFrequency": "Daily at 9:00 AM EST",
+          "leadTime": "Batch deployment with 30s processing time",
+          "branchStrategy": "Feature branches → Preview → Main (scheduled)",
+          "automation": [
+            "Auto-create PRs from preview to main",
+            "Scheduled batch deployments",
+            "Automatic preview branch sync",
+            "Comprehensive error handling"
+          ]
+        },
+        "architecture": {
+          "enabled": true,
+          "showScreenshots": false,
+          "screenshots": [],
+          "description": "Technical foundation - like the blueprint and foundation of a building, showing the frameworks, tools, and systems that power the project with scheduled deployments and comprehensive CI/CD.",
+          "components": [
+            "Next.js 15+ with App Router",
+            "Mantine UI Component Library",
+            "TypeScript with strict validation",
+            "GitHub Actions for CI/CD",
+            "Vercel for hosting and deployment",
+            "Sakura.js for custom animations"
+          ],
+          "deployment": "Vercel with CDN + Scheduled GitHub Actions",
+          "workflow": "Feature Branch → Preview → Scheduled Main Deploy → Auto-sync Preview"
+        }
+      }
     },
     {
       "id": "audio-key-bpm-analyzer-ai",
@@ -30,7 +108,7 @@
       "description": "KIRO/AI generated music tool that helps new (or not so new!) music producers by analyzing the key and BPM of an instrumental file. Useful for autotune applications.",
       "longDescription": "This tool is comparable in output to Tunebat.com's key and bpm analyzer. The waveform display was inspired by Soundcloud and the algorithm behind the analysis uses essentia.js. It's main use case is for analyzing instrumental music files as a music producer with a lack of music theory knowledge.",
       "type": "vibe-coded",
-      "technologies": ["Vite", "TypeScript", "Chakra UI", "Sentry"],
+      "technologies": ["Vite", "TypeScript", "Essentia.js", "Chakra UI", "Sentry", "Web Audio API"],
       "status": "completed",
       "featured": true,
       "liveUrl": "https://audio-key-bpm-analyzer-kiro.vercel.app/",
@@ -44,7 +122,53 @@
       ],
       "aiTools": ["Claude AI", "Kiro (AWS)", "ChatGPT"],
       "timeline": "1 week",
-      "category": "Full Stack Web Development"
+      "category": "Full Stack Web Development",
+      "enableTechnicalDetails": true,
+      "technicalDetails": {
+        "analytics": {
+          "enabled": false,
+          "showScreenshots": false,
+          "screenshots": ["audio-analytics.svg", "processing-metrics.svg"],
+          "description": "User engagement and audio processing metrics - like a music studio's recording booth showing how many songs were recorded, how long sessions lasted, and which instruments were used most.",
+          "metrics": {
+            "pageViews": "800+",
+            "bounceRate": "35%",
+            "avgSessionDuration": "3m 45s",
+            "filesProcessed": "150+"
+          }
+        },
+        "monitoring": {
+          "enabled": true,
+          "showScreenshots": false,
+          "screenshots": ["audio-error-tracking.svg", "processing-health.svg"],
+          "description": "Error tracking and audio processing monitoring - like a sound engineer's mixing board showing signal levels, distortion warnings, and equipment status to ensure clean audio output.",
+          "tools": ["Sentry", "Vercel Analytics", "Console Logging"],
+          "uptime": "99.8%",
+          "errorRate": "< 0.2%"
+        },
+        "cicd": {
+          "enabled": true,
+          "showScreenshots": false,
+          "screenshots": ["audio-tests.svg", "deployment-pipeline.svg"],
+          "description": "Automated testing and deployment pipeline - like a music production line that automatically checks quality, mixes tracks, and ships finished albums without human intervention.",
+          "workflows": ["Build & Test", "Deploy to Vercel", "Dependency Updates"],
+          "deploymentFrequency": "On every push",
+          "leadTime": "< 3 minutes"
+        },
+        "architecture": {
+          "enabled": true,
+          "showScreenshots": false,
+          "screenshots": [],
+          "description": "Audio processing architecture and algorithms - like the technical blueprint of a recording studio, showing the equipment, software, and signal flow that makes music analysis possible.",
+          "components": [
+            "Vite Build System",
+            "Chakra UI Components",
+            "Essentia.js Audio Analysis",
+            "Web Audio API Integration"
+          ],
+          "deployment": "Vercel with Edge Functions"
+        }
+      }
     }
   ],
   "categories": {

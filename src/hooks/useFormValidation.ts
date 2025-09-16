@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useCallback, useMemo } from 'react';
-import { z } from 'zod';
 import { validateFormField, ValidationResult } from '@/lib/validation';
+import React, { useCallback, useMemo, useState } from 'react';
+import { z } from 'zod';
 
 export interface FormFieldState {
   value: string;
@@ -22,7 +22,7 @@ export interface UseFormValidationOptions<T> {
   validateOnBlur?: boolean;
 }
 
-export function useFormValidation<T extends Record<string, any>>({
+export function useFormValidation<T extends Record<string, unknown>>({
   schema,
   initialValues,
   validateOnChange = true,
@@ -54,10 +54,12 @@ export function useFormValidation<T extends Record<string, any>>({
 
         // Validate on change if enabled
         if (validateOnChange) {
-          const fieldSchema = (schema as any).shape?.[fieldName];
-          if (fieldSchema) {
+          const fieldSchema = (schema as { shape?: Record<string, unknown> }).shape?.[
+            fieldName as string
+          ];
+          if (fieldSchema && typeof fieldSchema === 'object' && 'safeParse' in fieldSchema) {
             const validation = validateFormField(
-              fieldSchema,
+              fieldSchema as z.ZodSchema<unknown>,
               value,
               fieldName as string
             );
@@ -84,10 +86,12 @@ export function useFormValidation<T extends Record<string, any>>({
 
         // Validate on blur if enabled
         if (validateOnBlur && touched) {
-          const fieldSchema = (schema as any).shape?.[fieldName];
-          if (fieldSchema) {
+          const fieldSchema = (schema as { shape?: Record<string, unknown> }).shape?.[
+            fieldName as string
+          ];
+          if (fieldSchema && typeof fieldSchema === 'object' && 'safeParse' in fieldSchema) {
             const validation = validateFormField(
-              fieldSchema,
+              fieldSchema as z.ZodSchema<unknown>,
               fieldState.value,
               fieldName as string
             );
@@ -106,10 +110,13 @@ export function useFormValidation<T extends Record<string, any>>({
   // Validate entire form
   const validateForm = useCallback((): ValidationResult<T> => {
     try {
-      const formData = Object.keys(formState).reduce((acc, key) => {
-        acc[key] = formState[key].value;
-        return acc;
-      }, {} as any);
+      const formData = Object.keys(formState).reduce(
+        (acc, key) => {
+          acc[key] = formState[key].value;
+          return acc;
+        },
+        {} as Record<string, unknown>
+      );
 
       const result = schema.safeParse(formData);
 
@@ -147,8 +154,7 @@ export function useFormValidation<T extends Record<string, any>>({
     } catch (error) {
       return {
         success: false,
-        errorMessage:
-          error instanceof Error ? error.message : 'Validation error',
+        errorMessage: error instanceof Error ? error.message : 'Validation error',
       };
     }
   }, [formState, schema]);
@@ -213,7 +219,7 @@ export function useFormValidation<T extends Record<string, any>>({
   const getFormData = useCallback((): Partial<T> => {
     const formData: Partial<T> = {};
     Object.keys(formState).forEach(key => {
-      formData[key as keyof T] = formState[key].value as any;
+      formData[key as keyof T] = formState[key].value as T[keyof T];
     });
     return formData;
   }, [formState]);

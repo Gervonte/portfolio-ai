@@ -1,12 +1,6 @@
 'use client';
 
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import Rellax from 'rellax';
 
 // Type definitions for Rellax
@@ -32,9 +26,7 @@ interface ParallaxContextType {
   setGlobalSpeedMultiplier: (multiplier: number) => void;
 }
 
-const ParallaxContext = createContext<ParallaxContextType | undefined>(
-  undefined
-);
+const ParallaxContext = createContext<ParallaxContextType | undefined>(undefined);
 
 export const useParallax = () => {
   const context = useContext(ParallaxContext);
@@ -48,9 +40,7 @@ interface ParallaxProviderProps {
   children: React.ReactNode;
 }
 
-export const ParallaxProvider: React.FC<ParallaxProviderProps> = ({
-  children,
-}) => {
+export const ParallaxProvider: React.FC<ParallaxProviderProps> = ({ children }) => {
   const [isReducedMotion, setIsReducedMotion] = useState(false);
   const [globalSpeedMultiplier, setGlobalSpeedMultiplier] = useState(2.0);
   const rellaxInstances = useRef<Set<RellaxInstance>>(new Set());
@@ -77,9 +67,7 @@ export const ParallaxProvider: React.FC<ParallaxProviderProps> = ({
     options: { center?: boolean; horizontal?: boolean } = {}
   ): RellaxInstance | null => {
     if (isReducedMotion || typeof window === 'undefined') {
-      console.log(
-        'ParallaxContext: Skipping Rellax creation - reduced motion or SSR'
-      );
+      console.log('ParallaxContext: Skipping Rellax creation - reduced motion or SSR');
       return null;
     }
 
@@ -128,14 +116,15 @@ export const ParallaxProvider: React.FC<ParallaxProviderProps> = ({
   // Cleanup all instances on unmount
   useEffect(() => {
     return () => {
-      rellaxInstances.current.forEach(instance => {
+      const instances = rellaxInstances.current;
+      instances.forEach(instance => {
         try {
           instance.destroy();
         } catch (error) {
           console.warn('Error destroying Rellax instance:', error);
         }
       });
-      rellaxInstances.current.clear();
+      instances.clear();
     };
   }, []);
 
@@ -147,9 +136,5 @@ export const ParallaxProvider: React.FC<ParallaxProviderProps> = ({
     setGlobalSpeedMultiplier,
   };
 
-  return (
-    <ParallaxContext.Provider value={value}>
-      {children}
-    </ParallaxContext.Provider>
-  );
+  return <ParallaxContext.Provider value={value}>{children}</ParallaxContext.Provider>;
 };

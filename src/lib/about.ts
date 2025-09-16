@@ -12,6 +12,7 @@ export interface Experience {
   company: string;
   period: string;
   description: string;
+  longDescription?: string;
   technologies: string[];
   achievements: string[];
 }
@@ -82,9 +83,7 @@ export const getSkillsByCategoryAndLevel = (
   category: Skill['category'],
   level: Skill['level']
 ): Skill[] => {
-  return aboutData.skills.filter(
-    skill => skill.category === category && skill.level === level
-  );
+  return aboutData.skills.filter(skill => skill.category === category && skill.level === level);
 };
 
 export const getRecentExperience = (limit: number = 3): Experience[] => {
@@ -95,9 +94,7 @@ export const getRecentEducation = (limit: number = 2): Education[] => {
   return aboutData.education.slice(0, limit);
 };
 
-export const getRecentResearchProjects = (
-  limit: number = 2
-): ResearchProject[] => {
+export const getRecentResearchProjects = (limit: number = 2): ResearchProject[] => {
   return aboutData.researchProjects.slice(0, limit);
 };
 
@@ -105,15 +102,15 @@ export const getRecentLeadership = (limit: number = 3): Leadership[] => {
   return aboutData.leadership.slice(0, limit);
 };
 
-// Skill level color mapping
+// Skill level color mapping (cherry blossom theme)
 export const getSkillColor = (level: Skill['level']): string => {
   switch (level) {
     case 'expert':
       return 'sakura';
     case 'advanced':
-      return 'blue';
+      return 'pink';
     case 'intermediate':
-      return 'green';
+      return 'earth';
     case 'beginner':
       return 'gray';
     default:

@@ -165,21 +165,12 @@ export const theme = createTheme({
       '#2C0B1A',
       '#1A070F',
     ],
-    warm: [
-      '#FDFCFB',
-      '#F5F5F5',
-      '#E8E8E8',
-      '#999999',
-      '#666666',
-      '#2C2C2C',
-      '#1A1A1A',
-    ],
+    warm: ['#FDFCFB', '#F5F5F5', '#E8E8E8', '#999999', '#666666', '#2C2C2C', '#1A1A1A'],
     earth: ['#FDF4E3', '#F4E4BC', '#D4A574', '#8B4513', '#654321'],
   },
   primaryColor: 'sakura',
   primaryShade: 3,
-  fontFamily:
-    'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
+  fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
   headings: { fontFamily: 'Inter, sans-serif', fontWeight: '600' },
   spacing: { xs: 4, sm: 8, md: 16, lg: 24, xl: 32 },
   radius: { xs: 4, sm: 8, md: 12, lg: 16, xl: 20 },
@@ -513,8 +504,7 @@ const useIntersectionObserver = (
 // src/lib/metadata.ts
 export const siteConfig = {
   name: 'Gervonte Fowler - Developer Portfolio',
-  description:
-    'Professional portfolio showcasing AI-assisted and traditional development work',
+  description: 'Professional portfolio showcasing AI-assisted and traditional development work',
   url: 'https://portfolio-ai-xi.vercel.app/',
   ogImage: '/images/og-image.jpg',
   links: {
@@ -524,11 +514,7 @@ export const siteConfig = {
 };
 
 // Page-level metadata
-export const generateMetadata = async ({
-  params,
-}: {
-  params: { slug: string };
-}) => {
+export const generateMetadata = async ({ params }: { params: { slug: string } }) => {
   return {
     title: `${siteConfig.name} - ${params.slug}`,
     description: siteConfig.description,
@@ -626,18 +612,11 @@ export const personStructuredData = {
     'https://linkedin.com/in/yourusername',
     'https://twitter.com/yourusername',
   ],
-  knowsAbout: [
-    'React',
-    'Next.js',
-    'TypeScript',
-    'AI Development',
-    'Web Development',
-  ],
+  knowsAbout: ['React', 'Next.js', 'TypeScript', 'AI Development', 'Web Development'],
   hasOccupation: {
     '@type': 'Occupation',
     name: 'Software Developer',
-    description:
-      'Creating modern web applications with AI assistance and traditional coding',
+    description: 'Creating modern web applications with AI assistance and traditional coding',
   },
 };
 ```

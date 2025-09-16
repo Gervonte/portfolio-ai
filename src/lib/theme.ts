@@ -32,17 +32,29 @@ export const theme = createTheme({
       '#D4A574', // earth[2] - medium brown
       '#8B4513', // earth[3] - saddle brown
       '#654321', // earth[4] - dark brown
-      '#654321', // earth[5] - duplicate for 10 elements
-      '#654321', // earth[6] - duplicate for 10 elements
-      '#654321', // earth[7] - duplicate for 10 elements
-      '#654321', // earth[8] - duplicate for 10 elements
-      '#654321', // earth[9] - duplicate for 10 elements
+      '#4A2C17', // earth[5] - darker brown
+      '#3D2314', // earth[6] - very dark brown
+      '#2F1B0F', // earth[7] - ultra dark brown
+      '#1F1209', // earth[8] - near black brown
+      '#0F0905', // earth[9] - black brown
+    ],
+    // Pink colors for sakura effects
+    pink: [
+      '#FCE4EC', // pink[0] - lightest pink
+      '#F8BBD9', // pink[1] - light pink
+      '#F48FB1', // pink[2] - medium pink
+      '#F06292', // pink[3] - deep pink
+      '#EC407A', // pink[4] - darker pink
+      '#E91E63', // pink[5] - darkest pink
+      '#D81B60', // pink[6] - very dark pink
+      '#C2185B', // pink[7] - ultra dark pink
+      '#AD1457', // pink[8] - near black pink
+      '#880E4F', // pink[9] - black pink
     ],
   },
   primaryColor: 'sakura',
   primaryShade: 3, // Use sakura[3] as primary
-  fontFamily:
-    'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
+  fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
   fontFamilyMonospace: 'JetBrains Mono, Fira Code, Consolas, monospace',
   headings: {
     fontFamily: 'Inter, sans-serif',
@@ -75,5 +87,37 @@ export const theme = createTheme({
     md: '64em',
     lg: '74em',
     xl: '90em',
+  },
+  components: {
+    Tooltip: {
+      defaultProps: {
+        multiline: true,
+        withArrow: true,
+        withinPortal: true,
+        zIndex: 1000,
+      },
+      styles: {
+        tooltip: {
+          fontSize: '14px',
+          maxWidth: '280px',
+          padding: '8px 12px',
+          borderRadius: '8px',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+          zIndex: 1000,
+        },
+        arrow: {
+          zIndex: 1001,
+        },
+      },
+    },
+    ActionIcon: {
+      styles: {
+        root: {
+          // Ensure minimum touch target size on mobile
+          minHeight: '44px',
+          minWidth: '44px',
+        },
+      },
+    },
   },
 });

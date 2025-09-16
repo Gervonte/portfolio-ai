@@ -114,8 +114,7 @@ const theme = {
   },
   primaryColor: 'sakura',
   primaryShade: 3, // Use sakura[3] as primary
-  fontFamily:
-    'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
+  fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
   fontFamilyMonospace: 'JetBrains Mono, Fira Code, Consolas, monospace',
   headings: {
     fontFamily: 'Inter, sans-serif',

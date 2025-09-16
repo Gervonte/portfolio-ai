@@ -77,16 +77,30 @@
   ],
   "experience": [
     {
-      "title": "Software Engineer, Full Stack",
-      "company": "NovaCredit (Fintech Startup)",
+      "title": "Full Stack Software Engineer",
+      "company": "NovaCredit",
       "period": "August 2020 - June 2022",
-      "description": "",
-      "technologies": [],
+      "description": "Fintech startup building credit access for newcomers to America",
+      "longDescription": "NovaCredit bridges the gap between international credit history and US financial systems, helping immigrants and international students establish creditworthiness when traditional lenders can't see their financial track record.",
+      "technologies": [
+        "TypeScript",
+        "JavaScript",
+        "React",
+        "Node.js",
+        "Express",
+        "HTML",
+        "CSS",
+        "REST APIs",
+        "PostgreSQL",
+        "GraphQL",
+        "Git",
+        "GitHub Actions"
+      ],
       "achievements": [
-        "Shipped production-ready full-stack features using React, Node.js, and PostgreSQL, exposing real-time credit data through secure, scalable REST APIs.",
-        "Refactored internal APIs into developer-facing public endpoints, complete with API documentation, onboarding flows, and test sandboxes.",
-        "Collaborated on testing, deployment, and monitoring pipelines to ensure reliability and traceability across internal and partner-facing systems.",
-        "Built modular React (TypeScript) components to support iterative product experiments and rapid A/B testing."
+        "Built full-stack features that securely exposed real-time credit data to partner banks and lenders through REST APIs.",
+        "Transformed internal APIs into public developer tools with comprehensive documentation and sandbox environments for easy integration.",
+        "Set up automated testing and deployment pipelines to catch issues early and ensure smooth releases across all systems.",
+        "Created reusable React components that enabled the product team to quickly test new features and user flows."
       ]
     }
   ],
@@ -108,8 +122,16 @@
     {
       "title": "AI-Assisted User Story Generation",
       "period": "Spring 2025",
-      "description": "",
-      "technologies": [],
+      "description": "Research project exploring how AI can improve Agile development workflows",
+      "technologies": [
+        "Python",
+        "OpenAI API",
+        "Gemini API",
+        "QWEN",
+        "Jupyter",
+        "Pandas",
+        "Scikit-learn"
+      ],
       "achievements": [
         "Evaluated LLMs (ChatGPT, Gemini, QWEN) for generating Agile user stories using structured metrics such as coherence, completeness, and relevance.",
         "Developed a lightweight framework for integrating LLM outputs into real-world Agile workflows to improve clarity and delivery speed.",
@@ -119,12 +141,21 @@
     {
       "title": "Enhancing Fake News Detection with Explainability",
       "period": "Spring 2025",
-      "description": "",
-      "technologies": [],
+      "description": "Machine learning research focused on making AI decisions more transparent and trustworthy",
+      "technologies": [
+        "Python",
+        "LIME",
+        "Scikit-learn",
+        "Pandas",
+        "Matplotlib",
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
       "achievements": [
         "Added LIME-based explainability to a high-accuracy classification model for fake news detection, improving transparency for non-technical stakeholders.",
         "Built interactive HTML visualizations of model decisions to simulate user-facing explainability tools.",
-        "Analyzed the system’s robustness and generalizability to mimic production-ready ML pipelines."
+        "Analyzed the system's robustness and generalizability to mimic production-ready ML pipelines."
       ]
     }
   ],

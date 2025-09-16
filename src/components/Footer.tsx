@@ -1,20 +1,24 @@
 'use client';
 
+import { colorCombinations, commonColors } from '@/lib/colors';
 import {
-  Container,
-  Group,
-  Text,
   Anchor,
-  Stack,
   Box,
+  Container,
   Divider,
+  Group,
+  SimpleGrid,
+  Stack,
+  Text,
+  Title,
 } from '@mantine/core';
 import {
   IconBrandGithub,
   IconBrandLinkedin,
-  IconMail,
   IconCode,
   IconHeart,
+  IconMail,
+  IconMapPin,
 } from '@tabler/icons-react';
 
 export default function Footer() {
@@ -24,14 +28,15 @@ export default function Footer() {
     <Box
       component="footer"
       style={{
-        background: 'linear-gradient(135deg, #FFEBEE, #FFCDD2)',
-        padding: '3rem 0 2rem',
+        background: colorCombinations.footerGradient,
+        padding: '4rem 0 2rem',
         marginTop: '4rem',
         position: 'relative',
         overflow: 'hidden',
+        borderTop: `1px solid ${commonColors.borderSecondary}`,
       }}
     >
-      {/* Sakura petal decoration */}
+      {/* Enhanced Sakura petal decoration */}
       <Box
         style={{
           position: 'absolute',
@@ -40,71 +45,81 @@ export default function Footer() {
           right: 0,
           height: '100%',
           background:
-            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0L60 40L100 50L60 60L50 100L40 60L0 50L40 40Z' fill='%23F8BBD9' opacity='0.1'/%3E%3C/svg%3E\")",
-          backgroundSize: '50px 50px',
+            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0L60 40L100 50L60 60L50 100L40 60L0 50L40 40Z' fill='%23F8BBD9' opacity='0.08'/%3E%3C/svg%3E\")",
+          backgroundSize: '60px 60px',
           pointerEvents: 'none',
         }}
       />
 
-      <Container size="lg" style={{ position: 'relative', zIndex: 1 }}>
+      <Container size="xl" style={{ position: 'relative', zIndex: 1 }}>
         <Stack gap="xl">
+          {/* Header Section */}
+          <Box ta="center" mb="xl">
+            <Group justify="center" gap="md" mb="md">
+              <IconCode size={32} style={{ color: commonColors.accentPrimary }} />
+              <Title
+                order={2}
+                size="h2"
+                style={{
+                  background: colorCombinations.sakuraGradient,
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                Gervonte&apos;s Portfolio
+              </Title>
+            </Group>
+            <Text size="lg" c="dimmed" maw={600} mx="auto" mb="md">
+              2025 M.S. Computer Science Graduate | 2 Years of Series B Fintech Startup Experience
+            </Text>
+          </Box>
+
           {/* Main Footer Content */}
-          <Group justify="space-between" align="flex-start" wrap="wrap">
-            {/* Brand Section */}
-            <Stack gap="md" style={{ flex: 1, minWidth: '250px' }}>
-              <Group gap="xs">
-                <IconCode size={24} style={{ color: '#F44336' }} />
-                <Text
-                  size="lg"
-                  fw={700}
-                  style={{
-                    background: 'linear-gradient(135deg, #F44336, #FFCDD2)',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                  }}
-                >
-                  Portfolio
-                </Text>
-              </Group>
-              <Text size="sm" c="dimmed" style={{ maxWidth: '300px' }}>
-                Professional portfolio showcasing AI-assisted and traditional
-                development work with a touch of mono no aware.
+          <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="xl">
+            {/* About Section */}
+            <Stack gap="md">
+              <Title order={4} size="h5" c={commonColors.textPrimary}>
+                About
+              </Title>
+              <Text size="sm" c="dimmed" lh={1.6}>
+                Professional portfolio showcasing AI-assisted and traditional development work with
+                a touch of mono no aware aesthetics.
               </Text>
               <Group gap="xs">
-                <IconHeart size={16} style={{ color: '#F44336' }} />
-                <Text size="xs" c="dimmed">
-                  Built with Next.js, Mantine, and sakura.js
+                <IconMapPin size={16} style={{ color: commonColors.accentPrimary }} />
+                <Text size="sm" c="dimmed">
+                  Available for opportunities
                 </Text>
               </Group>
             </Stack>
 
             {/* Quick Links */}
-            <Stack gap="md" style={{ minWidth: '150px' }}>
-              <Text fw={600} size="sm" c="#2C2C2C">
-                Quick Links
-              </Text>
+            <Stack gap="md">
+              <Title order={4} size="h5" c={commonColors.textPrimary}>
+                Navigation
+              </Title>
               <Stack gap="xs">
                 {[
-                  { label: 'Work', href: '#work' },
+                  { label: 'Work & Projects', href: '#work' },
                   { label: 'Experience', href: '#experience' },
-                  { label: 'About', href: '#about' },
+                  { label: 'About Me', href: '#about' },
                   { label: 'Contact', href: '#contact' },
                 ].map(link => (
                   <Anchor
                     key={link.label}
                     href={link.href}
                     size="sm"
-                    c="#666666"
+                    c={commonColors.textSecondary}
                     style={{
                       textDecoration: 'none',
                       transition: 'color 0.3s ease',
                     }}
                     onMouseEnter={e => {
-                      e.currentTarget.style.color = '#F44336';
+                      e.currentTarget.style.color = commonColors.accentPrimary;
                     }}
                     onMouseLeave={e => {
-                      e.currentTarget.style.color = '#666666';
+                      e.currentTarget.style.color = commonColors.textSecondary;
                     }}
                   >
                     {link.label}
@@ -113,70 +128,102 @@ export default function Footer() {
               </Stack>
             </Stack>
 
-            {/* Social Links */}
-            <Stack gap="md" style={{ minWidth: '150px' }}>
-              <Text fw={600} size="sm" c="#2C2C2C">
+            {/* Connect Section */}
+            <Stack gap="md">
+              <Title order={4} size="h5" c={commonColors.textPrimary}>
                 Connect
-              </Text>
-              <Group gap="md">
+              </Title>
+              <Stack gap="sm">
                 <Anchor
                   href="https://github.com/gervonte"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ color: '#666666', transition: 'color 0.3s ease' }}
+                  style={{
+                    color: commonColors.textSecondary,
+                    transition: 'color 0.3s ease',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    textDecoration: 'none',
+                  }}
                   onMouseEnter={e => {
-                    e.currentTarget.style.color = '#F44336';
+                    e.currentTarget.style.color = commonColors.accentPrimary;
                   }}
                   onMouseLeave={e => {
-                    e.currentTarget.style.color = '#666666';
+                    e.currentTarget.style.color = commonColors.textSecondary;
                   }}
                 >
-                  <IconBrandGithub size={20} />
+                  <IconBrandGithub size={18} />
+                  GitHub
                 </Anchor>
                 <Anchor
                   href="https://www.linkedin.com/in/gervonte-fowler-5a7781158"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ color: '#666666', transition: 'color 0.3s ease' }}
+                  style={{
+                    color: commonColors.textSecondary,
+                    transition: 'color 0.3s ease',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    textDecoration: 'none',
+                  }}
                   onMouseEnter={e => {
-                    e.currentTarget.style.color = '#F44336';
+                    e.currentTarget.style.color = commonColors.accentPrimary;
                   }}
                   onMouseLeave={e => {
-                    e.currentTarget.style.color = '#666666';
+                    e.currentTarget.style.color = commonColors.textSecondary;
                   }}
                 >
-                  <IconBrandLinkedin size={20} />
+                  <IconBrandLinkedin size={18} />
+                  LinkedIn
                 </Anchor>
                 <Anchor
                   href="mailto:gervontefowler.dev@outlook.com"
-                  style={{ color: '#666666', transition: 'color 0.3s ease' }}
+                  style={{
+                    color: commonColors.textSecondary,
+                    transition: 'color 0.3s ease',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    textDecoration: 'none',
+                  }}
                   onMouseEnter={e => {
-                    e.currentTarget.style.color = '#F44336';
+                    e.currentTarget.style.color = commonColors.accentPrimary;
                   }}
                   onMouseLeave={e => {
-                    e.currentTarget.style.color = '#666666';
+                    e.currentTarget.style.color = commonColors.textSecondary;
                   }}
                 >
-                  <IconMail size={20} />
+                  <IconMail size={18} />
+                  Email
                 </Anchor>
+              </Stack>
+            </Stack>
+
+            {/* Tech Stack */}
+            <Stack gap="md">
+              <Title order={4} size="h5" c={commonColors.textPrimary}>
+                Built With
+              </Title>
+              <Text size="sm" c="dimmed" lh={1.6}>
+                Next.js, TypeScript, Mantine UI, and sakura.js for a modern, responsive experience.
+              </Text>
+              <Group gap="xs">
+                <IconHeart size={16} style={{ color: commonColors.accentPrimary }} />
+                <Text size="xs" c="dimmed">
+                  Made with passion and sakura petals
+                </Text>
               </Group>
             </Stack>
-          </Group>
+          </SimpleGrid>
 
-          <Divider color="rgba(248, 187, 217, 0.3)" />
+          <Divider color="rgba(248, 187, 217, 0.4)" />
 
           {/* Copyright */}
-          <Group justify="space-between" align="center" wrap="wrap">
-            <Text size="xs" c="dimmed">
-              © {currentYear} Portfolio. All rights reserved.
-            </Text>
-            <Text size="xs" c="dimmed">
-              Made with{' '}
-              <IconHeart
-                size={12}
-                style={{ color: '#F44336', verticalAlign: 'middle' }}
-              />{' '}
-              and sakura petals
+          <Group justify="center" align="center">
+            <Text size="sm" c="dimmed">
+              © {currentYear} Gervonte Fowler. All rights reserved.
             </Text>
           </Group>
         </Stack>

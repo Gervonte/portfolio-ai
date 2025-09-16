@@ -15,6 +15,7 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconCode, IconHeart } from '@tabler/icons-react';
+import { commonColors, colorCombinations, sakura } from '@/lib/colors';
 
 const HEADER_HEIGHT = 60;
 
@@ -43,7 +44,7 @@ export default function Header({ links }: HeaderProps) {
       aria-label={`Navigate to ${link.label} section`}
       style={{
         textDecoration: 'none',
-        color: scrolled ? '#2C2C2C' : '#FEFEFE',
+        color: scrolled ? commonColors.textPrimary : commonColors.textInverse,
         fontWeight: 500,
         transition: 'color 0.3s ease',
         position: 'relative',
@@ -70,12 +71,9 @@ export default function Header({ links }: HeaderProps) {
         top: 0,
         left: 0,
         right: 0,
-        zIndex: 1000,
+        zIndex: 100,
         transition: 'all 0.3s ease',
-        background: scrolled
-          ? 'rgba(254, 254, 254, 0.95)'
-          : 'rgba(254, 254, 254, 0.1)',
-        backdropFilter: 'blur(10px)',
+        background: scrolled ? 'rgba(254, 254, 254, 0.95)' : 'rgba(254, 254, 254, 0.1)',
         borderBottom: scrolled ? '1px solid rgba(248, 187, 217, 0.2)' : 'none',
       }}
     >
@@ -87,7 +85,7 @@ export default function Header({ links }: HeaderProps) {
               size={28}
               aria-hidden="true"
               style={{
-                color: scrolled ? '#F44336' : '#FFCDD2',
+                color: scrolled ? commonColors.accentPrimary : commonColors.accentSecondary,
                 transition: 'color 0.3s ease',
               }}
             />
@@ -96,8 +94,8 @@ export default function Header({ links }: HeaderProps) {
               fw={700}
               style={{
                 backgroundImage: scrolled
-                  ? 'linear-gradient(135deg, #F44336, #FFCDD2)'
-                  : 'linear-gradient(135deg, #FFCDD2, #FFEBEE)',
+                  ? colorCombinations.sakuraGradient
+                  : `linear-gradient(135deg, ${commonColors.accentSecondary}, ${sakura[0]})`,
                 backgroundSize: '100% 100%',
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
@@ -110,12 +108,7 @@ export default function Header({ links }: HeaderProps) {
           </Group>
 
           {/* Desktop Navigation */}
-          <Group
-            gap="xl"
-            visibleFrom="sm"
-            role="navigation"
-            aria-label="Main navigation"
-          >
+          <Group gap="xl" visibleFrom="sm" role="navigation" aria-label="Main navigation">
             {items}
             <Button
               size="sm"
@@ -124,13 +117,11 @@ export default function Header({ links }: HeaderProps) {
               leftSection={<IconHeart size={16} aria-hidden="true" />}
               aria-label="Connect with me for opportunities"
               onClick={() => {
-                document
-                  .getElementById('contact')
-                  ?.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
               }}
               style={{
-                borderColor: scrolled ? '#F44336' : '#FFCDD2',
-                color: scrolled ? '#F44336' : '#FFCDD2',
+                borderColor: scrolled ? commonColors.accentPrimary : commonColors.accentSecondary,
+                color: scrolled ? commonColors.accentPrimary : commonColors.accentSecondary,
                 background: 'transparent',
                 transition: 'all 0.3s ease',
               }}
@@ -144,7 +135,7 @@ export default function Header({ links }: HeaderProps) {
             opened={opened}
             onClick={toggle}
             size="sm"
-            color={scrolled ? '#2C2C2C' : '#FEFEFE'}
+            color={scrolled ? commonColors.textPrimary : commonColors.textInverse}
             hiddenFrom="sm"
             aria-label="Toggle mobile menu"
             aria-expanded={opened}
@@ -181,14 +172,12 @@ export default function Header({ links }: HeaderProps) {
                   leftSection={<IconHeart size={16} aria-hidden="true" />}
                   aria-label="Connect with me for opportunities"
                   onClick={() => {
-                    document
-                      .getElementById('contact')
-                      ?.scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                     toggle(); // Close mobile menu
                   }}
                   style={{
-                    borderColor: '#F44336',
-                    color: '#F44336',
+                    borderColor: commonColors.accentPrimary,
+                    color: commonColors.accentPrimary,
                     background: 'transparent',
                   }}
                 >

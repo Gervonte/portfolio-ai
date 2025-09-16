@@ -1,15 +1,8 @@
 'use client';
 
-import {
-  Container,
-  Title,
-  Text,
-  Box,
-  Stack,
-  Button,
-  Group,
-} from '@mantine/core';
 import ScrollIndicator from '@/components/ScrollIndicator';
+import { colorCombinations, commonColors } from '@/lib/colors';
+import { Box, Button, Container, Group, Stack, Text, Title } from '@mantine/core';
 
 export default function ScrollDemoPage() {
   const scrollToSection = (sectionId: string) => {
@@ -28,20 +21,14 @@ export default function ScrollDemoPage() {
           </Title>
 
           <Text ta="center" c="dimmed" size="lg">
-            This page demonstrates the scroll indicator component with different
-            variants and configurations.
+            This page demonstrates the scroll indicator component with different variants and
+            configurations.
           </Text>
 
           <Group justify="center" gap="md">
-            <Button onClick={() => scrollToSection('section1')}>
-              Go to Section 1
-            </Button>
-            <Button onClick={() => scrollToSection('section2')}>
-              Go to Section 2
-            </Button>
-            <Button onClick={() => scrollToSection('section3')}>
-              Go to Section 3
-            </Button>
+            <Button onClick={() => scrollToSection('section1')}>Go to Section 1</Button>
+            <Button onClick={() => scrollToSection('section2')}>Go to Section 2</Button>
+            <Button onClick={() => scrollToSection('section3')}>Go to Section 3</Button>
           </Group>
 
           {/* Demo Sections */}
@@ -50,7 +37,7 @@ export default function ScrollDemoPage() {
             style={{
               minHeight: '100vh',
               padding: '4rem 0',
-              background: '#F8F9FA',
+              background: commonColors.backgroundSecondary,
             }}
           >
             <Container size="lg">
@@ -58,8 +45,8 @@ export default function ScrollDemoPage() {
                 Section 1 - Minimal Scroll Indicator
               </Title>
               <Text ta="center" c="dimmed" size="lg">
-                This section demonstrates the minimal scroll indicator variant.
-                Notice the simple progress bar on the left side.
+                This section demonstrates the minimal scroll indicator variant. Notice the simple
+                progress bar on the left side.
               </Text>
             </Container>
           </Box>
@@ -69,7 +56,7 @@ export default function ScrollDemoPage() {
             style={{
               minHeight: '100vh',
               padding: '4rem 0',
-              background: '#E3F2FD',
+              background: colorCombinations.sakuraGradientLight,
             }}
           >
             <Container size="lg">
@@ -77,8 +64,8 @@ export default function ScrollDemoPage() {
                 Section 2 - Detailed Scroll Indicator
               </Title>
               <Text ta="center" c="dimmed" size="lg">
-                This section shows the detailed scroll indicator with progress
-                percentage, section navigation, and quick action buttons.
+                This section shows the detailed scroll indicator with progress percentage, section
+                navigation, and quick action buttons.
               </Text>
             </Container>
           </Box>
@@ -88,7 +75,7 @@ export default function ScrollDemoPage() {
             style={{
               minHeight: '100vh',
               padding: '4rem 0',
-              background: '#F3E5F5',
+              background: colorCombinations.pinkGradientLight,
             }}
           >
             <Container size="lg">
@@ -96,8 +83,8 @@ export default function ScrollDemoPage() {
                 Section 3 - Scroll Features
               </Title>
               <Text ta="center" c="dimmed" size="lg">
-                Scroll up and down to see the scroll indicator in action. Try
-                clicking on different sections or using the navigation buttons.
+                Scroll up and down to see the scroll indicator in action. Try clicking on different
+                sections or using the navigation buttons.
               </Text>
             </Container>
           </Box>

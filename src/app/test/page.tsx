@@ -1,27 +1,16 @@
 'use client';
 
-import {
-  Container,
-  Title,
-  Text,
-  Button,
-  Group,
-  Box,
-  Stack,
-  Grid,
-  Card,
-} from '@mantine/core';
 import SakuraBackground from '@/components/SakuraBackground';
 import SakuraEffect from '@/components/SakuraEffect';
+import { pink } from '@/lib/colors';
+import { Box, Button, Card, Container, Grid, Group, Stack, Text, Title } from '@mantine/core';
 import { useState } from 'react';
 
 export default function TestPage() {
-  const [currentEffect, setCurrentEffect] = useState<
-    'falling' | 'floating' | 'gentle'
-  >('falling');
-  const [currentIntensity, setCurrentIntensity] = useState<
-    'subtle' | 'moderate' | 'intense'
-  >('moderate');
+  const [currentEffect, setCurrentEffect] = useState<'falling' | 'floating' | 'gentle'>('falling');
+  const [currentIntensity, setCurrentIntensity] = useState<'subtle' | 'moderate' | 'intense'>(
+    'moderate'
+  );
 
   return (
     <SakuraBackground intensity={currentIntensity} variant={currentEffect}>
@@ -50,27 +39,21 @@ export default function TestPage() {
                     <Title order={3}>Effect Variants</Title>
                     <Group>
                       <Button
-                        variant={
-                          currentEffect === 'falling' ? 'filled' : 'outline'
-                        }
+                        variant={currentEffect === 'falling' ? 'filled' : 'outline'}
                         color="sakura"
                         onClick={() => setCurrentEffect('falling')}
                       >
                         Falling
                       </Button>
                       <Button
-                        variant={
-                          currentEffect === 'floating' ? 'filled' : 'outline'
-                        }
+                        variant={currentEffect === 'floating' ? 'filled' : 'outline'}
                         color="sakura"
                         onClick={() => setCurrentEffect('floating')}
                       >
                         Floating
                       </Button>
                       <Button
-                        variant={
-                          currentEffect === 'gentle' ? 'filled' : 'outline'
-                        }
+                        variant={currentEffect === 'gentle' ? 'filled' : 'outline'}
                         color="sakura"
                         onClick={() => setCurrentEffect('gentle')}
                       >
@@ -87,27 +70,21 @@ export default function TestPage() {
                     <Title order={3}>Intensity Levels</Title>
                     <Group>
                       <Button
-                        variant={
-                          currentIntensity === 'subtle' ? 'filled' : 'outline'
-                        }
+                        variant={currentIntensity === 'subtle' ? 'filled' : 'outline'}
                         color="sakura"
                         onClick={() => setCurrentIntensity('subtle')}
                       >
                         Subtle
                       </Button>
                       <Button
-                        variant={
-                          currentIntensity === 'moderate' ? 'filled' : 'outline'
-                        }
+                        variant={currentIntensity === 'moderate' ? 'filled' : 'outline'}
                         color="sakura"
                         onClick={() => setCurrentIntensity('moderate')}
                       >
                         Moderate
                       </Button>
                       <Button
-                        variant={
-                          currentIntensity === 'intense' ? 'filled' : 'outline'
-                        }
+                        variant={currentIntensity === 'intense' ? 'filled' : 'outline'}
                         color="sakura"
                         onClick={() => setCurrentIntensity('intense')}
                       >
@@ -123,8 +100,7 @@ export default function TestPage() {
               <Stack gap="md">
                 <Title order={3}>Individual Sakura Effect</Title>
                 <Text size="sm" c="dimmed">
-                  This is a separate sakura effect component that can be used
-                  independently
+                  This is a separate sakura effect component that can be used independently
                 </Text>
                 <Box style={{ height: '200px', position: 'relative' }}>
                   <SakuraEffect
@@ -132,7 +108,7 @@ export default function TestPage() {
                     petalSize={12}
                     fallSpeed={0.4}
                     windSpeed={0.3}
-                    colors={['#F8BBD9', '#FCE4EC', '#F48FB1']}
+                    colors={[pink[1] ?? '#F8BBD9', pink[0] ?? '#FCE4EC', pink[2] ?? '#F48FB1']}
                   />
                   <Box
                     style={{

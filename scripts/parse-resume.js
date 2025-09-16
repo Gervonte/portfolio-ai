@@ -33,23 +33,8 @@ const outputPath = path.join(__dirname, '../src/data/about-metadata.json');
 // Skill category mapping
 const skillCategoryMap = {
   frontend: ['react', 'typescript', 'javascript', 'html', 'css', 'ui', 'ux'],
-  backend: [
-    'python',
-    'node.js',
-    'express',
-    'postgresql',
-    'graphql',
-    'api',
-    'rest',
-  ],
-  devops: [
-    'docker',
-    'ci/cd',
-    'github actions',
-    'pipelines',
-    'deployment',
-    'git',
-  ],
+  backend: ['python', 'node.js', 'express', 'postgresql', 'graphql', 'api', 'rest'],
+  devops: ['docker', 'ci/cd', 'github actions', 'pipelines', 'deployment', 'git'],
   tools: ['testing', 'documentation', 'agile', 'llm', 'prompt', 'lime'],
   soft: ['product', 'leadership', 'communication', 'budget', 'planning'],
 };
@@ -102,9 +87,7 @@ function extractPersonalInfo(lines) {
 
   // Extract phone and email
   // const phoneMatch = secondLine.match(/\([0-9]{3}\)[0-9]{3}-[0-9]{4}/);
-  const emailMatch = secondLine.match(
-    /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/
-  );
+  const emailMatch = secondLine.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
   const githubMatch = secondLine.match(/github\.com\/[a-zA-Z0-9-]+/);
 
   return {
@@ -113,9 +96,7 @@ function extractPersonalInfo(lines) {
     location: location || 'Lakeland, FL',
     email: emailMatch ? emailMatch[0] : 'gervontefowler.dev@outlook.com',
     linkedin: 'https://www.linkedin.com/in/gervonte-fowler-5a7781158', // Not in resume, using placeholder
-    github: githubMatch
-      ? `https://${githubMatch[0]}`
-      : 'https://github.com/gervonte',
+    github: githubMatch ? `https://${githubMatch[0]}` : 'https://github.com/gervonte',
     summary:
       'Passionate full-stack software engineer with expertise in React, Node.js, and AI/ML research. Currently pursuing MS in Computer Science with focus on LLM evaluation and explainable AI systems. Proven track record of shipping production-ready features and leading technical initiatives at fintech startups.',
   };
@@ -156,12 +137,7 @@ function extractSkills(lines) {
       }
 
       // Accumulate skill lines (they might be split across multiple lines)
-      if (
-        line &&
-        !line.includes('&') &&
-        !line.includes('EXPERIENCE') &&
-        currentCategory
-      ) {
+      if (line && !line.includes('&') && !line.includes('EXPERIENCE') && currentCategory) {
         if (skillLineBuffer) {
           skillLineBuffer += ' ' + line;
         } else {
@@ -288,25 +264,17 @@ function determineSkillCategory(skillName, currentCategory) {
 
   // Check category based on current section
   if (currentCategory.includes('LANGUAGES & TOOLS')) {
-    if (
-      skillCategoryMap.frontend.some(keyword => skillLower.includes(keyword))
-    ) {
+    if (skillCategoryMap.frontend.some(keyword => skillLower.includes(keyword))) {
       return 'frontend';
-    } else if (
-      skillCategoryMap.backend.some(keyword => skillLower.includes(keyword))
-    ) {
+    } else if (skillCategoryMap.backend.some(keyword => skillLower.includes(keyword))) {
       return 'backend';
-    } else if (
-      skillCategoryMap.tools.some(keyword => skillLower.includes(keyword))
-    ) {
+    } else if (skillCategoryMap.tools.some(keyword => skillLower.includes(keyword))) {
       return 'tools';
     }
   } else if (currentCategory.includes('DATA & INFRASTRUCTURE')) {
     if (skillCategoryMap.devops.some(keyword => skillLower.includes(keyword))) {
       return 'devops';
-    } else if (
-      skillCategoryMap.tools.some(keyword => skillLower.includes(keyword))
-    ) {
+    } else if (skillCategoryMap.tools.some(keyword => skillLower.includes(keyword))) {
       return 'tools';
     }
   } else if (currentCategory.includes('PRODUCT EXPERIENCE')) {
@@ -435,10 +403,7 @@ function extractExperience(lines) {
         };
       }
       // Check if this is a date line
-      else if (
-        currentExperience &&
-        line.match(/^[A-Za-z]+ \d{4} - [A-Za-z]+ \d{4}$/)
-      ) {
+      else if (currentExperience && line.match(/^[A-Za-z]+ \d{4} - [A-Za-z]+ \d{4}$/)) {
         currentExperience.period = line;
       }
       // Check if this is an achievement (starts with *)
@@ -478,9 +443,7 @@ function extractEducation(lines) {
 
       // Extract institution and location
       const institutionMatch = institutionPart.match(/^([^,]+),/);
-      const institution = institutionMatch
-        ? institutionMatch[1]
-        : institutionPart;
+      const institution = institutionMatch ? institutionMatch[1] : institutionPart;
 
       // Extract degree and year
       const degreeMatch = degreePart.match(/^([^|]+)\|/);

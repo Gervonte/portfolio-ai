@@ -1,19 +1,12 @@
 'use client';
 
-import {
-  Container,
-  Title,
-  Text,
-  Button,
-  Group,
-  Box,
-  Stack,
-} from '@mantine/core';
-import { Suspense, lazy, memo } from 'react';
+import ParallaxElement from '@/components/ParallaxElement';
 import SakuraBackground from '@/components/SakuraBackground';
 import ScrollIndicator from '@/components/ScrollIndicator';
-import ParallaxElement from '@/components/ParallaxElement';
+import { colorCombinations, commonColors } from '@/lib/colors';
 import { ParallaxProvider } from '@/lib/parallax-context';
+import { Box, Button, Container, Group, Stack, Text, Title } from '@mantine/core';
+import { Suspense, lazy, memo } from 'react';
 
 // Lazy load heavy components
 const AboutSection = lazy(() => import('@/components/AboutSection'));
@@ -64,7 +57,7 @@ const HomePage = memo(() => {
                   ta="center"
                   mb="md"
                   style={{
-                    background: 'linear-gradient(135deg, #F44336, #FFCDD2)',
+                    background: colorCombinations.sakuraGradient,
                     backgroundClip: 'text',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
@@ -88,8 +81,8 @@ const HomePage = memo(() => {
                     lineHeight: 1.6,
                   }}
                 >
-                  2025 M.S. Computer Science Graduate | 2 Years of Series B
-                  Fintech Startup Experience
+                  2025 M.S. Computer Science Graduate | 2 Years of Series B Fintech Startup
+                  Experience
                 </Text>
               </ParallaxElement>
               {/* <Text
@@ -113,14 +106,12 @@ const HomePage = memo(() => {
                     color="sakura"
                     aria-label="View my work projects"
                     style={{
-                      background: 'linear-gradient(135deg, #F44336, #EF9A9A)',
+                      background: colorCombinations.sakuraGradient,
                       border: 'none',
-                      boxShadow: '0 4px 15px rgba(244, 67, 54, 0.3)',
+                      boxShadow: `0 4px 15px ${commonColors.shadowSakura}`,
                     }}
                     onClick={() => {
-                      document
-                        .getElementById('work')
-                        ?.scrollIntoView({ behavior: 'smooth' });
+                      document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
                     }}
                   >
                     View My Work
@@ -131,14 +122,12 @@ const HomePage = memo(() => {
                     color="sakura"
                     aria-label="Contact me for opportunities"
                     style={{
-                      borderColor: '#F44336',
-                      color: '#F44336',
-                      background: 'rgba(255, 205, 210, 0.1)',
+                      borderColor: commonColors.accentPrimary,
+                      color: commonColors.accentPrimary,
+                      background: commonColors.accentSecondary + '1A',
                     }}
                     onClick={() => {
-                      document
-                        .getElementById('contact')
-                        ?.scrollIntoView({ behavior: 'smooth' });
+                      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                     }}
                   >
                     Contact Me
@@ -158,7 +147,7 @@ const HomePage = memo(() => {
           style={{
             minHeight: '100vh',
             padding: '4rem 0',
-            background: '#FDFCFB',
+            background: commonColors.backgroundPrimary,
           }}
         >
           <Suspense fallback={<SectionLoader />}>
@@ -182,11 +171,7 @@ const HomePage = memo(() => {
 
       {/* About Section */}
       <ParallaxElement speed={-0.8} center={true}>
-        <Box
-          id="about"
-          role="main"
-          style={{ minHeight: '100vh', padding: '4rem 0' }}
-        >
+        <Box id="about" role="main" style={{ minHeight: '100vh', padding: '4rem 0' }}>
           <Suspense fallback={<SectionLoader />}>
             <AboutSection />
           </Suspense>
@@ -201,7 +186,7 @@ const HomePage = memo(() => {
           style={{
             minHeight: '100vh',
             padding: '4rem 0',
-            background: '#FDFCFB',
+            background: commonColors.backgroundPrimary,
           }}
         >
           <Suspense fallback={<SectionLoader />}>

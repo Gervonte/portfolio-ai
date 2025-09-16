@@ -90,7 +90,7 @@ export async function isScreenshotCached(
       { method: 'HEAD' }
     );
     return response.headers.get('X-Cache') === 'HIT';
-  } catch (error) {
+  } catch {
     return false;
   }
 }
@@ -98,9 +98,7 @@ export async function isScreenshotCached(
 /**
  * Preload screenshots for better performance
  */
-export async function preloadScreenshots(
-  projects: Array<{ liveUrl?: string }>
-): Promise<void> {
+export async function preloadScreenshots(projects: Array<{ liveUrl?: string }>): Promise<void> {
   const preloadPromises = projects
     .filter(project => project.liveUrl)
     .map(project =>

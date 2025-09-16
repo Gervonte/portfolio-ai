@@ -1,16 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import {
-  Box,
-  Progress,
-  Text,
-  Group,
-  ActionIcon,
-  Transition,
-  Stack,
-} from '@mantine/core';
-import { IconChevronUp, IconChevronDown } from '@tabler/icons-react';
+import { colorCombinations } from '@/lib/colors';
+import { ActionIcon, Box, Group, Progress, Stack, Text, Transition } from '@mantine/core';
+import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface ScrollIndicatorProps {
   sections?: string[];
@@ -36,15 +29,23 @@ export default function ScrollIndicator({
   const [isVisible, setIsVisible] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
   const [showIndicator, setShowIndicator] = useState(false);
-  const [pressedButton, setPressedButton] = useState<'up' | 'down' | null>(
-    null
+  const [pressedButton, setPressedButton] = useState<'up' | 'down' | null>(null);
+
+  const scrollToSection = useCallback(
+    (sectionIndex: number) => {
+      const sectionId = sections[sectionIndex];
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    },
+    [sections]
   );
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
-      const docHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = (scrollTop / docHeight) * 100;
 
       setScrollProgress(Math.min(100, Math.max(0, progress)));
@@ -60,10 +61,7 @@ export default function ScrollIndicator({
         const element = sectionElements[i];
         if (element) {
           const rect = element.getBoundingClientRect();
-          if (
-            rect.top <= window.innerHeight / 2 &&
-            rect.bottom >= window.innerHeight / 2
-          ) {
+          if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
             activeSection = i;
             break;
           }
@@ -149,15 +147,7 @@ export default function ScrollIndicator({
       clearTimeout(scrollTimeout);
       clearTimeout(hideTimeout);
     };
-  }, [sections, currentSection]);
-
-  const scrollToSection = (sectionIndex: number) => {
-    const sectionId = sections[sectionIndex];
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  }, [sections, currentSection, scrollToSection]);
 
   const handleButtonPress = (direction: 'up' | 'down') => {
     setPressedButton(direction);
@@ -222,8 +212,7 @@ export default function ScrollIndicator({
                   borderRadius: '20px',
                   padding: '16px 24px',
                   minWidth: '400px',
-                  boxShadow:
-                    '0 12px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(233, 30, 99, 0.2)',
+                  boxShadow: '0 12px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(233, 30, 99, 0.2)',
                 }}
               >
                 <Group justify="center" gap="md">
@@ -257,7 +246,7 @@ export default function ScrollIndicator({
                             transition: 'all 0.3s ease',
                             background:
                               currentSection === index
-                                ? 'linear-gradient(135deg, #F44336, #FFCDD2)'
+                                ? colorCombinations.sakuraGradient
                                 : 'rgba(255, 255, 255, 0.1)',
                             border:
                               currentSection === index
@@ -271,8 +260,7 @@ export default function ScrollIndicator({
                           onClick={() => scrollToSection(index)}
                           onMouseEnter={e => {
                             if (currentSection !== index) {
-                              e.currentTarget.style.background =
-                                'rgba(255, 255, 255, 0.1)';
+                              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
                             }
                           }}
                           onMouseLeave={e => {
@@ -283,11 +271,7 @@ export default function ScrollIndicator({
                         >
                           <Text
                             size="sm"
-                            c={
-                              currentSection === index
-                                ? 'white'
-                                : 'rgba(255, 255, 255, 0.8)'
-                            }
+                            c={currentSection === index ? 'white' : 'rgba(255, 255, 255, 0.8)'}
                             fw={currentSection === index ? 700 : 500}
                           >
                             {getSectionName(index)}
@@ -307,7 +291,7 @@ export default function ScrollIndicator({
                       style={{
                         background:
                           pressedButton === 'up'
-                            ? 'linear-gradient(135deg, #F44336, #FFCDD2)'
+                            ? colorCombinations.sakuraGradient
                             : 'rgba(255, 255, 255, 0.2)',
                         border:
                           pressedButton === 'up'
@@ -317,8 +301,7 @@ export default function ScrollIndicator({
                           pressedButton === 'up'
                             ? '0 4px 15px rgba(233, 30, 99, 0.4), 0 0 10px rgba(233, 30, 99, 0.3)'
                             : '0 2px 8px rgba(0, 0, 0, 0.2)',
-                        transform:
-                          pressedButton === 'up' ? 'scale(0.95)' : 'scale(1)',
+                        transform: pressedButton === 'up' ? 'scale(0.95)' : 'scale(1)',
                         transition: 'all 0.2s ease',
                       }}
                     >
@@ -332,7 +315,7 @@ export default function ScrollIndicator({
                       style={{
                         background:
                           pressedButton === 'down'
-                            ? 'linear-gradient(135deg, #F44336, #FFCDD2)'
+                            ? colorCombinations.sakuraGradient
                             : 'rgba(255, 255, 255, 0.2)',
                         border:
                           pressedButton === 'down'
@@ -342,8 +325,7 @@ export default function ScrollIndicator({
                           pressedButton === 'down'
                             ? '0 4px 15px rgba(233, 30, 99, 0.4), 0 0 10px rgba(233, 30, 99, 0.3)'
                             : '0 2px 8px rgba(0, 0, 0, 0.2)',
-                        transform:
-                          pressedButton === 'down' ? 'scale(0.95)' : 'scale(1)',
+                        transform: pressedButton === 'down' ? 'scale(0.95)' : 'scale(1)',
                         transition: 'all 0.2s ease',
                       }}
                     >
@@ -362,12 +344,10 @@ export default function ScrollIndicator({
                     height: '12px',
                     borderRadius: '50%',
                     background: isScrolling
-                      ? 'linear-gradient(135deg, #F44336, #FFCDD2)'
+                      ? colorCombinations.sakuraGradient
                       : 'rgba(255, 255, 255, 0.3)',
                     transition: 'all 0.3s ease',
-                    boxShadow: isScrolling
-                      ? '0 0 8px rgba(233, 30, 99, 0.5)'
-                      : 'none',
+                    boxShadow: isScrolling ? '0 0 8px rgba(233, 30, 99, 0.5)' : 'none',
                   }}
                 />
               </Box>
@@ -487,9 +467,7 @@ export default function ScrollIndicator({
                           cursor: 'pointer',
                           transition: 'all 0.2s ease',
                           background:
-                            currentSection === index
-                              ? 'rgba(233, 30, 99, 0.2)'
-                              : 'transparent',
+                            currentSection === index ? 'rgba(233, 30, 99, 0.2)' : 'transparent',
                           border:
                             currentSection === index
                               ? '1px solid rgba(233, 30, 99, 0.3)'
@@ -498,8 +476,7 @@ export default function ScrollIndicator({
                         onClick={() => scrollToSection(index)}
                         onMouseEnter={e => {
                           if (currentSection !== index) {
-                            e.currentTarget.style.background =
-                              'rgba(255, 255, 255, 0.1)';
+                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
                           }
                         }}
                         onMouseLeave={e => {
@@ -559,12 +536,10 @@ export default function ScrollIndicator({
                   height: '16px',
                   borderRadius: '50%',
                   background: isScrolling
-                    ? 'linear-gradient(135deg, #F44336, #FFCDD2)'
+                    ? colorCombinations.sakuraGradient
                     : 'rgba(255, 255, 255, 0.3)',
                   transition: 'all 0.3s ease',
-                  boxShadow: isScrolling
-                    ? '0 0 10px rgba(233, 30, 99, 0.5)'
-                    : 'none',
+                  boxShadow: isScrolling ? '0 0 10px rgba(233, 30, 99, 0.5)' : 'none',
                 }}
               />
             </Box>
