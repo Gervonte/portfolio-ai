@@ -2,8 +2,8 @@ name: Auto Create PR from Preview
 
 on:
   push:
-    branches: [ preview ]  # Change this to your preview branch name
-  workflow_dispatch:  # Allows manual triggering
+    branches: [preview] # Change this to your preview branch name
+  workflow_dispatch: # Allows manual triggering
 
 permissions:
   contents: write
@@ -14,7 +14,7 @@ permissions:
 jobs:
   create-pr:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

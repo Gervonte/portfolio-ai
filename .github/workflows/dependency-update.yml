@@ -53,14 +53,14 @@ jobs:
           title: 'chore: update dependencies'
           body: |
             ## Dependency Updates
-            
+
             This PR updates project dependencies to their latest versions.
-            
+
             ### Changes:
             - Updated all dependencies to latest compatible versions
             - Fixed any security vulnerabilities
             - Verified all tests pass
-            
+
             ### Checklist:
             - [ ] All tests pass
             - [ ] No breaking changes

@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, preview ]
+    branches: [main, preview]
   pull_request:
-    branches: [ main, preview ]
+    branches: [main, preview]
 
 env:
   NODE_VERSION: '18'
@@ -58,7 +58,7 @@ jobs:
         run: npm run build
         env:
           NODE_ENV: production
-          RESEND_API_KEY: "dummy_key_for_build"
+          RESEND_API_KEY: 'dummy_key_for_build'
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4

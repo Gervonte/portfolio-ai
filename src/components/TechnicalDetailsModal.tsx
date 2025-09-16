@@ -163,24 +163,44 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
         }}
         title={
           <Box>
-            <Group gap="lg" align="flex-start" mb="md">
+            <Group gap="sm" align="flex-start" mb="md" wrap="wrap">
               <ThemeIcon
                 color="sakura"
                 variant="gradient"
                 gradient={{ from: 'pink', to: 'red' }}
-                size="xl"
+                size="md"
                 radius="xl"
                 style={{
                   boxShadow: '0 8px 32px rgba(244, 67, 54, 0.25)',
+                  flexShrink: 0,
                 }}
               >
                 {getTechnicalIcon(activeTab || 'analytics')}
               </ThemeIcon>
-              <Box style={{ flex: 1 }}>
-                <Title order={1} c="dark" fw={800} mb="xs" size="h2">
+              <Box style={{ flex: 1, minWidth: '0', overflow: 'hidden' }}>
+                <Title
+                  order={1}
+                  c="dark"
+                  fw={800}
+                  mb="xs"
+                  size="h3"
+                  style={{
+                    fontSize: 'clamp(1.2rem, 4vw, 1.5rem)',
+                    lineHeight: 1.2,
+                    wordBreak: 'break-word',
+                  }}
+                >
                   {project.title}
                 </Title>
-                <Text size="lg" c="dimmed" fw={500}>
+                <Text
+                  size="sm"
+                  c="dimmed"
+                  fw={500}
+                  style={{
+                    fontSize: 'clamp(0.8rem, 3vw, 1rem)',
+                    lineHeight: 1.3,
+                  }}
+                >
                   Technical Deep Dive & Behind the Scenes
                 </Text>
               </Box>
@@ -190,11 +210,16 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
               style={{
                 background: 'white',
                 padding: '0',
-                margin: '0 -2.5rem',
+                margin: '0 -1rem',
                 borderBottom: '4px solid #E9ECEF',
                 display: 'flex',
-                width: '100%',
-                minHeight: '60px',
+                justifyContent: 'center',
+                width: 'calc(100% + 2rem)',
+                minHeight: '44px',
+                overflowX: 'auto',
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
+                WebkitScrollbar: 'none',
               }}
             >
               {technicalSections.map(({ key, icon }) => (
@@ -204,28 +229,29 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   style={{
                     fontWeight: 600,
                     transition: 'all 0.2s ease',
-                    padding: '20px 0',
-                    fontSize: '14px',
+                    padding: '8px 12px',
+                    fontSize: '11px',
                     color: activeTab === key ? '#F44336' : '#6C757D',
-                    background: activeTab === key ? 'rgba(244, 67, 54, 0.05)' : 'transparent',
-                    flex: 1,
-                    minWidth: '120px',
+                    background: activeTab === key ? 'rgba(244, 67, 54, 0.1)' : 'transparent',
+                    flex: '1 1 0',
+                    minWidth: '0',
                     textAlign: 'center',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    borderTop: activeTab === key ? '1px solid #E9ECEF' : '1px solid transparent',
-                    borderLeft: activeTab === key ? '1px solid #E9ECEF' : '1px solid transparent',
-                    borderRight: activeTab === key ? '1px solid #E9ECEF' : '1px solid transparent',
+                    borderTop: activeTab === key ? '2px solid #F44336' : '2px solid transparent',
+                    borderLeft: '1px solid #E9ECEF',
+                    borderRight: '1px solid #E9ECEF',
                     borderBottom: 'none',
                     cursor: 'pointer',
                     height: '100%',
-                    minHeight: '60px',
+                    minHeight: '44px',
+                    whiteSpace: 'nowrap',
                   }}
                 >
-                  <Group gap="xs" align="center">
+                  <Group gap="xs" align="center" wrap="nowrap">
                     {icon}
-                    <Text size="sm" fw={600}>
+                    <Text size="11px" fw={600}>
                       {key === 'cicd' ? 'CI/CD' : key.charAt(0).toUpperCase() + key.slice(1)}
                     </Text>
                   </Group>
@@ -240,15 +266,17 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
           header: {
             background: 'white',
             borderBottom: 'none',
-            padding: '2.5rem 2.5rem 0 2.5rem',
+            padding: '2rem 1rem 0 1rem',
             marginBottom: 0,
             position: 'relative',
             zIndex: 100,
+            overflow: 'hidden',
           },
           body: {
-            padding: '1rem 2.5rem 2.5rem 2.5rem',
+            padding: '1rem',
             background: '#FAFBFC',
             maxHeight: '70vh',
+            minHeight: '400px',
             overflowY: 'auto',
           },
           content: {
@@ -277,6 +305,10 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     background: 'white',
                     border: '1px solid #E9ECEF',
                     boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                    minHeight: '120px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
                   }}
                 >
                   <Group gap="lg" mb="md">
@@ -348,7 +380,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         </Tooltip>
                       </Group>
                     </Group>
-                    <SimpleGrid cols={{ base: 2, sm: 4 }} spacing="md">
+                    <SimpleGrid cols={{ base: 1, xs: 2, sm: 4 }} spacing="md">
                       {Object.entries(section.metrics).map(([metricKey, value]) => (
                         <Card
                           key={metricKey}
@@ -704,7 +736,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     <Text size="md" fw={600} mb="md" c="sakura">
                       ⚡ Core Web Vitals
                     </Text>
-                    <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="md">
+                    <SimpleGrid cols={{ base: 1, xs: 2, sm: 3 }} spacing="md">
                       {Object.entries(section.coreWebVitals).map(([vital, value]) => (
                         <Box
                           key={vital}
@@ -950,7 +982,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         </Tooltip>
                       </Group>
                     </Group>
-                    <SimpleGrid cols={{ base: 2, sm: 3, md: 4 }} spacing="md">
+                    <SimpleGrid cols={{ base: 1, xs: 2, sm: 3, md: 4 }} spacing="md">
                       {section.screenshots.map((screenshot: string, index: number) => (
                         <Box
                           key={index}
