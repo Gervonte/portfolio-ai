@@ -25,19 +25,44 @@
 ### Mantine UI Integration
 
 - **Component Library**: Mantine UI for consistent, accessible components
-- **Theme System**: Custom Mantine theme with sakura color palette
+- **Theme System**: Dynamic theme system with sakura and ocean variants
 - **Typography**: Mantine's typography system with custom font configurations
 - **Spacing**: Mantine's spacing scale adapted for cherry blossom aesthetic
 - **Accessibility**: Built-in accessibility features from Mantine components
 
+### Dynamic Theme System
+
+The portfolio now features a comprehensive theme system that allows users to switch between two distinct visual experiences:
+
+#### Theme Architecture
+
+- **Theme-Aware Hooks**: Custom React hooks for dynamic color access
+- **Context-Based Switching**: React Context for theme state management
+- **Component Integration**: All components automatically adapt to current theme
+- **Fallback System**: Sakura theme as default with graceful degradation
+
+#### Theme Variants
+
+1. **Sakura Theme (Default)**: Cherry blossom aesthetic with warm reds and pinks
+2. **Ocean Theme (Alternative)**: Ocean mist aesthetic with cool teals and aquas
+
+#### Theme Switching
+
+- **Toggle Component**: User-friendly theme switcher in header
+- **Persistent State**: Theme preference saved in localStorage
+- **Smooth Transitions**: Seamless switching between themes
+- **System Integration**: Respects user's system theme preferences
+
 ### Design Tokens
 
-- **Colors**: Mantine theme colors mapped to sakura palette
+- **Colors**: Dynamic theme-aware color system with sakura and ocean palettes
 - **Typography**: Mantine font families with custom sizing
 - **Spacing**: Mantine spacing scale (4px base unit)
-- **Shadows**: Custom shadow system for depth and elevation
+- **Shadows**: Theme-aware shadow system for depth and elevation
 - **Border Radius**: Consistent border radius values
 - **Breakpoints**: Mantine responsive breakpoints
+- **Gradients**: Dynamic gradient system that adapts to current theme
+- **Effects**: Theme-aware visual effects (sakura petals, ocean mist)
 
 ## Visual Identity
 
@@ -59,19 +84,14 @@
 
 _This alternative maintains the same delicate, transient beauty while evoking the calm, contemplative nature of ocean mist - perfect for the Mono No Aware philosophy._
 
-#### Secondary Colors
+#### Neutral Colors (Consistent Across Themes)
 
 - **Warm White**: `#FEFEFE` - Pure, clean white for main backgrounds
 - **Soft Gray**: `#F5F5F5` - Gentle gray for section backgrounds
 - **Charcoal**: `#2C2C2C` - Deep charcoal for primary text
 - **Midnight**: `#1A1A1A` - Near black for strong contrast
-
-#### Neutral Colors
-
-- **Text Primary**: `#2C2C2C` - Charcoal for main text content
 - **Text Secondary**: `#666666` - Medium gray for supporting text
 - **Text Muted**: `#999999` - Light gray for placeholders and subtle text
-- **Background White**: `#FEFEFE` - Pure white main background
 - **Background Cream**: `#FDFCFB` - Warm off-white for section backgrounds
 - **Border Light**: `#E8E8E8` - Subtle borders and dividers
 
@@ -93,6 +113,36 @@ _This alternative maintains the same delicate, transient beauty while evoking th
 - **Mist Droplet**: `#B8E6E6` - Main droplet color
 - **Mist Light**: `#F0FDFA` - Light droplet for subtle effects
 - **Mist Dark**: `#0891B2` - Dark droplet for depth and shadow
+
+### Theme-Aware Color System
+
+The portfolio implements a sophisticated theme-aware color system that provides dynamic color access across all components:
+
+#### Color Hooks
+
+- **useColorCombinations()**: Provides theme-specific gradient combinations
+- **useCommonColors()**: Supplies semantic color tokens (text, background, borders)
+- **usePrimaryColors()**: Returns the primary color palette for current theme
+- **useEffectColors()**: Provides effect colors (pink for sakura, mist for ocean)
+- **useWarmColors()**: Supplies neutral warm colors (consistent across themes)
+- **useEarthColors()**: Provides earth tones (consistent across themes)
+
+#### Semantic Color Mapping
+
+| Purpose            | Sakura Theme          | Ocean Theme          | Description         |
+| ------------------ | --------------------- | -------------------- | ------------------- |
+| **Primary**        | `sakura[3]` (#F44336) | `ocean[3]` (#0891B2) | Main brand color    |
+| **Effect**         | `pink[3]` (#F06292)   | `mist[3]` (#5EEAD4)  | Accent/effect color |
+| **Text Primary**   | `warm[5]` (#2C2C2C)   | `warm[5]` (#2C2C2C)  | Main text color     |
+| **Text Secondary** | `warm[4]` (#666666)   | `warm[4]` (#666666)  | Secondary text      |
+| **Background**     | `warm[0]` (#FDFCFB)   | `warm[0]` (#FDFCFB)  | Main background     |
+
+#### Gradient System
+
+- **Primary Gradient**: `linear-gradient(135deg, primary[3], primary[1])`
+- **Effect Gradient**: `linear-gradient(135deg, effect[3], effect[1])`
+- **Footer Gradient**: `linear-gradient(135deg, primary[0], warm[1])`
+- **Modal Gradients**: Theme-specific gradients for technical details
 
 ### Mantine Theme Configuration
 
@@ -352,31 +402,12 @@ const oceanTheme = {
 
 #### Theme Selection Rationale
 
-**Sakura Theme (Current)**
+**Theme Philosophy & Use Cases**
 
-- **Philosophy**: Cherry blossom aesthetic - delicate, fleeting beauty
-- **Emotional Tone**: Warm, romantic, contemplative
-- **Best For**: Creative portfolios, artistic presentations, personal branding
-- **Accessibility**: High contrast reds ensure excellent readability
-
-**Ocean Mist Theme (Alternative)**
-
-- **Philosophy**: Ocean mist aesthetic - calm, ethereal, contemplative
-- **Emotional Tone**: Professional, serene, trustworthy
-- **Best For**: Technical portfolios, corporate presentations, professional services
-- **Accessibility**: Teal/cyan colors provide excellent contrast and are colorblind-friendly
-
-#### Theme Switching Implementation
-
-```typescript
-// Theme selection utility
-export const getTheme = (themeName: 'sakura' | 'ocean') => {
-  return themeName === 'sakura' ? sakuraTheme : oceanTheme;
-};
-
-// Usage in your app
-const currentTheme = getTheme('ocean'); // Switch to ocean theme
-```
+| Theme                        | Philosophy                                           | Emotional Tone                    | Best For                                                             | Accessibility                                                           |
+| ---------------------------- | ---------------------------------------------------- | --------------------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| **Sakura (Default)**         | Cherry blossom aesthetic - delicate, fleeting beauty | Warm, romantic, contemplative     | Creative portfolios, artistic presentations, personal branding       | High contrast reds ensure excellent readability                         |
+| **Ocean Mist (Alternative)** | Ocean mist aesthetic - calm, ethereal, contemplative | Professional, serene, trustworthy | Technical portfolios, corporate presentations, professional services | Teal/cyan colors provide excellent contrast and are colorblind-friendly |
 
 ### Typography
 
@@ -440,16 +471,6 @@ const currentTheme = getTheme('ocean'); // Switch to ocean theme
 - **Feedback**: Mantine Alert, Notification, LoadingOverlay, Skeleton
 - **Overlays**: Mantine Tooltip, Modal, Popover, Drawer
 - **Custom Components**: SakuraPetal, ProjectCard, WorkSectionHeader
-
-#### Card-Based Design System
-
-- **Universal Card Container**: All interactive elements wrapped in consistent card styling
-- **Card Hierarchy**:
-  - **Primary Cards**: Main content containers (projects, experience, skills)
-  - **Secondary Cards**: Supporting elements (badges, icons, buttons)
-  - **Decorative Cards**: Visual elements (sakura petals, status indicators)
-- **Card Interactions**: Consistent hover, focus, and active states across all card types
-- **Card Accessibility**: Proper focus management and keyboard navigation
 
 #### Atomic Design Principles
 
@@ -848,14 +869,52 @@ const currentTheme = getTheme('ocean'); // Switch to ocean theme
 - **Profile Photo**: Professional headshot, 400x400px minimum
 - **Project Screenshots**: High-resolution, consistent aspect ratios
 - **Background Images**: Subtle, non-distracting patterns
-- **Optimization**: WebP format with fallbacks
 
-### Illustrations
+## Recent Improvements & Updates
 
-- **Custom Graphics**: For empty states and loading
-- **Decorative Elements**: Subtle patterns and shapes
-- **Work Section Graphics**: AI and coding-themed illustrations
-- **Consistent Style**: Matching visual language
+### Theme System Implementation (Latest)
+
+#### Dynamic Theme Switching
+
+- **User Control**: Theme toggle in header for instant switching
+- **Persistent Preferences**: Theme choice saved in localStorage
+- **System Integration**: Respects user's system theme preferences
+- **Smooth Transitions**: Seamless switching between sakura and ocean themes
+
+#### Enhanced Visual Effects
+
+- **Improved Parallax**: More dramatic scrolling effects for better visual impact
+- **Sakura Effects**: Optimized loading and performance for background effects
+- **Color Consistency**: Fixed color flashes and layout shifts on initial load
+- **Gradient Text**: Enhanced gradient text effects with proper CSS properties
+
+#### Technical Improvements
+
+- **CSS Property Conflicts**: Resolved background vs backgroundClip conflicts
+- **Layout Stability**: Fixed hero section layout shifts during parallax initialization
+- **Theme-Aware Components**: All components now use dynamic color system
+- **Performance Optimization**: Improved loading times and reduced layout shifts
+
+#### Component Updates
+
+- **Skill Badges**: Updated to use theme-aware color system
+- **Footer Text**: Fixed gradient text visibility across themes
+- **Navigation**: Enhanced with theme-aware colors and effects
+- **Modal Components**: Updated technical details modals for theme compatibility
+
+### Accessibility Enhancements
+
+- **Color Contrast**: Improved contrast ratios for both themes
+- **Theme Fallbacks**: Sakura theme as default with graceful degradation
+- **Screen Reader Support**: Maintained accessibility features across theme changes
+- **Keyboard Navigation**: Theme toggle accessible via keyboard
+
+### Performance Optimizations
+
+- **Lazy Loading**: Maintained lazy loading for heavy components
+- **Effect Loading**: Improved sakura effect loading with better error handling
+- **Parallax Timing**: Optimized parallax element initialization
+- **Color Loading**: Fixed color flash issues on initial page load
 
 ## Design Validation
 
