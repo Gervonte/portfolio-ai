@@ -81,7 +81,7 @@
       "company": "NovaCredit",
       "period": "August 2020 - June 2022",
       "description": "Fintech startup building credit access for newcomers to America",
-      "longDescription": "NovaCredit bridges the gap between international credit history and US financial systems, helping immigrants and international students establish creditworthiness when traditional lenders can't see their financial track record.",
+      "longDescription": "NovaCredit bridges the gap between international credit history and US financial systems, helping immigrants and international students establish creditworthiness when traditional lenders can't see their financial track record.\n\nI worked on Credit Passport®, their flagship product that translates foreign credit histories into US-equivalent scores.\n\nThe company also offers Cash Atlas™, Income Navigator, and a unified platform for comprehensive credit solutions.",
       "technologies": [
         "TypeScript",
         "JavaScript",

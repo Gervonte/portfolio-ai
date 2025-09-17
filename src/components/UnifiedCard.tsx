@@ -443,7 +443,26 @@ const UnifiedCard = ({
                               {description}
                               {longDescription && (
                                 <MobileTooltip
-                                  label={longDescription}
+                                  label={
+                                    <Stack gap="xs">
+                                      <Text c="sakura" fw={600} size="sm">
+                                        About NovaCredit
+                                      </Text>
+                                      {longDescription.split('\n\n').map((paragraph, index) => (
+                                        <Text
+                                          key={index}
+                                          size="sm"
+                                          mb={
+                                            index < longDescription.split('\n\n').length - 1
+                                              ? 'xs'
+                                              : 0
+                                          }
+                                        >
+                                          {paragraph}
+                                        </Text>
+                                      ))}
+                                    </Stack>
+                                  }
                                   multiline
                                   w={300}
                                   withArrow
@@ -452,7 +471,6 @@ const UnifiedCard = ({
                                   <ThemeIcon
                                     size="xs"
                                     variant="light"
-                                    color="gray"
                                     style={{
                                       cursor: 'help',
                                       display: 'inline-flex',
