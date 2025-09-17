@@ -109,9 +109,18 @@ const HomePage = memo(() => {
                       background: colorCombinations.sakuraGradient,
                       border: 'none',
                       boxShadow: `0 4px 15px ${commonColors.shadowSakura}`,
+                      transition: 'all 0.3s ease',
                     }}
                     onClick={() => {
                       document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = `0 6px 20px ${commonColors.shadowSakura}`;
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = `0 4px 15px ${commonColors.shadowSakura}`;
                     }}
                   >
                     View My Work
@@ -127,9 +136,18 @@ const HomePage = memo(() => {
                       border: 'none',
                       boxShadow: `0 4px 15px ${commonColors.shadowMedium}`,
                       borderColor: commonColors.accentPrimary,
+                      transition: 'all 0.3s ease',
                     }}
                     onClick={() => {
                       document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = `0 6px 20px ${commonColors.shadowMedium}`;
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = `0 4px 15px ${commonColors.shadowMedium}`;
                     }}
                   >
                     Contact Me

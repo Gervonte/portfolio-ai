@@ -74,6 +74,18 @@ export const projectTypeContexts: Record<string, BadgeContext> = {
     ],
     capabilitiesLabel: 'How It Works:',
   },
+  'resume-parsed': {
+    title: 'AI-Parsed Resume Content',
+    description:
+      'This content was automatically extracted and structured from my resume using AI parsing technology',
+    capabilities: [
+      'Automated extraction of skills, experience, and achievements',
+      'Intelligent categorization and organization of information',
+      'Consistent formatting and structure across all sections',
+      'Real-time updates when resume content changes',
+    ],
+    capabilitiesLabel: 'How It Works:',
+  },
 };
 
 // Project status contexts

@@ -3,7 +3,6 @@
 import { aboutData, getSkillColor, getSkillsByCategory, type Skill } from '@/lib/about';
 import { colorCombinations } from '@/lib/colors';
 import {
-  Badge,
   Box,
   Container,
   Divider,
@@ -134,7 +133,9 @@ const AboutSection = memo(() => {
         {/* Hero Section */}
         <Box ta="center" mb="xl">
           <Group justify="center" mb="md">
-            <Badge
+            <BadgeWithTooltip
+              contextType="projectType"
+              contextValue="resume-parsed"
               leftSection={<IconFileText size={14} />}
               color="sakura"
               variant="light"
@@ -142,7 +143,7 @@ const AboutSection = memo(() => {
               radius="xl"
             >
               Generated from Resume
-            </Badge>
+            </BadgeWithTooltip>
           </Group>
           <Title
             order={1}
@@ -188,6 +189,18 @@ const AboutSection = memo(() => {
                           variant="light"
                           size="sm"
                           radius="sm"
+                          style={{
+                            cursor: 'default',
+                            transition: 'all 0.2s ease',
+                          }}
+                          onMouseEnter={e => {
+                            e.currentTarget.style.transform = 'scale(1.1)';
+                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                          }}
+                          onMouseLeave={e => {
+                            e.currentTarget.style.transform = 'scale(1)';
+                            e.currentTarget.style.boxShadow = 'none';
+                          }}
                         >
                           {getSkillIconComponent(skill.name)}
                         </ThemeIcon>

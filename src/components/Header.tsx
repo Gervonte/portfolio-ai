@@ -1,21 +1,20 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { colorCombinations, commonColors, sakura } from '@/lib/colors';
 import {
+  Anchor,
+  Box,
+  Burger,
   Container,
   Group,
-  Stack,
-  Burger,
   Paper,
-  Transition,
+  Stack,
   Text,
-  Button,
-  Box,
-  Anchor,
+  Transition,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconCode, IconHeart } from '@tabler/icons-react';
-import { commonColors, colorCombinations, sakura } from '@/lib/colors';
+import { IconCode } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
 
 const HEADER_HEIGHT = 60;
 
@@ -110,24 +109,6 @@ export default function Header({ links }: HeaderProps) {
           {/* Desktop Navigation */}
           <Group gap="xl" visibleFrom="sm" role="navigation" aria-label="Main navigation">
             {items}
-            <Button
-              size="sm"
-              color="sakura"
-              variant="outline"
-              leftSection={<IconHeart size={16} aria-hidden="true" />}
-              aria-label="Connect with me for opportunities"
-              onClick={() => {
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              style={{
-                borderColor: scrolled ? commonColors.accentPrimary : commonColors.accentSecondary,
-                color: scrolled ? commonColors.accentPrimary : commonColors.accentSecondary,
-                background: 'transparent',
-                transition: 'all 0.3s ease',
-              }}
-            >
-              Let&apos;s Connect
-            </Button>
           </Group>
 
           {/* Mobile Menu Button */}
@@ -163,27 +144,7 @@ export default function Header({ links }: HeaderProps) {
             hiddenFrom="sm"
           >
             <Container py="md">
-              <Stack gap="md">
-                {items}
-                <Button
-                  fullWidth
-                  color="sakura"
-                  variant="outline"
-                  leftSection={<IconHeart size={16} aria-hidden="true" />}
-                  aria-label="Connect with me for opportunities"
-                  onClick={() => {
-                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                    toggle(); // Close mobile menu
-                  }}
-                  style={{
-                    borderColor: commonColors.accentPrimary,
-                    color: commonColors.accentPrimary,
-                    background: 'transparent',
-                  }}
-                >
-                  Let&apos;s Connect
-                </Button>
-              </Stack>
+              <Stack gap="md">{items}</Stack>
             </Container>
           </Paper>
         )}
