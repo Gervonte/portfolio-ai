@@ -10,7 +10,6 @@ import {
   Card,
   Container,
   Group,
-  Paper,
   SimpleGrid,
   Stack,
   Text,
@@ -110,8 +109,8 @@ const ContactSection = memo(() => {
       icon: <IconMapPin size={24} />,
       title: 'Location',
       value: personalInfo.location,
-      href: '#',
-      description: 'Based in Lakeland, FL',
+      href: undefined,
+      description: 'Based in Florida, open to relocation',
     },
   ];
 
@@ -171,38 +170,72 @@ const ContactSection = memo(() => {
                   }}
                 >
                   <Group gap="md">
-                    <ThemeIcon
-                      color="sakura"
-                      variant="light"
-                      size="lg"
-                      style={{
-                        cursor: 'default',
-                        transition: 'all 0.2s ease',
-                      }}
-                      onMouseEnter={e => {
-                        e.currentTarget.style.transform = 'scale(1.1)';
-                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-                      }}
-                      onMouseLeave={e => {
-                        e.currentTarget.style.transform = 'scale(1)';
-                        e.currentTarget.style.boxShadow = 'none';
-                      }}
-                    >
-                      {method.icon}
-                    </ThemeIcon>
+                    {method.href ? (
+                      <Anchor
+                        href={method.href}
+                        target={method.href.startsWith('http') ? '_blank' : undefined}
+                        style={{ textDecoration: 'none' }}
+                      >
+                        <ThemeIcon
+                          color="sakura"
+                          variant="light"
+                          size="lg"
+                          style={{
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease',
+                          }}
+                          onMouseEnter={e => {
+                            e.currentTarget.style.transform = 'scale(1.1)';
+                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                          }}
+                          onMouseLeave={e => {
+                            e.currentTarget.style.transform = 'scale(1)';
+                            e.currentTarget.style.boxShadow = 'none';
+                          }}
+                        >
+                          {method.icon}
+                        </ThemeIcon>
+                      </Anchor>
+                    ) : (
+                      <ThemeIcon
+                        color="sakura"
+                        variant="light"
+                        size="lg"
+                        style={{
+                          cursor: 'default',
+                          transition: 'all 0.2s ease',
+                        }}
+                        onMouseEnter={e => {
+                          e.currentTarget.style.transform = 'scale(1.1)';
+                          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                          e.currentTarget.style.boxShadow = 'none';
+                        }}
+                      >
+                        {method.icon}
+                      </ThemeIcon>
+                    )}
                     <Box style={{ flex: 1 }}>
                       <Text fw={600} size="md" mb="xs">
                         {method.title}
                       </Text>
-                      <Anchor
-                        href={method.href}
-                        target={method.href.startsWith('http') ? '_blank' : undefined}
-                        c="sakura"
-                        size="sm"
-                        style={{ textDecoration: 'none' }}
-                      >
-                        {method.value}
-                      </Anchor>
+                      {method.href ? (
+                        <Anchor
+                          href={method.href}
+                          target={method.href.startsWith('http') ? '_blank' : undefined}
+                          c="sakura"
+                          size="sm"
+                          style={{ textDecoration: 'none' }}
+                        >
+                          {method.value}
+                        </Anchor>
+                      ) : (
+                        <Text c="sakura" size="sm">
+                          {method.value}
+                        </Text>
+                      )}
                       <Text size="xs" c="dimmed" mt="xs">
                         {method.description}
                       </Text>
@@ -211,45 +244,12 @@ const ContactSection = memo(() => {
                 </Card>
               ))}
             </Stack>
-
-            {/* Availability Status */}
-            <Paper p="md" withBorder radius="lg" bg="sakura.0">
-              <Group gap="sm">
-                <ThemeIcon
-                  color="sakura"
-                  variant="light"
-                  size="sm"
-                  style={{
-                    cursor: 'default',
-                    transition: 'all 0.2s ease',
-                  }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.transform = 'scale(1.1)';
-                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.transform = 'scale(1)';
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}
-                >
-                  <IconCheck size={16} />
-                </ThemeIcon>
-                <Box>
-                  <Text fw={600} size="sm" c="sakura">
-                    Available for Opportunities
-                  </Text>
-                  <Text size="xs" c="dimmed">
-                    Open to full-time, contract, and freelance work
-                  </Text>
-                </Box>
-              </Group>
-            </Paper>
           </Stack>
 
           {/* Contact Form */}
           <Stack gap="lg">
             <Group align="center" gap="xs" mb="md">
-              <Title order={3}>Send a Message</Title>
+              <Title order={3}>Send a Quick Message</Title>
               <MobileTooltip
                 label={
                   <Stack gap="xs">
@@ -420,64 +420,6 @@ const ContactSection = memo(() => {
             )}
           </Stack>
         </SimpleGrid>
-
-        {/* Footer CTA */}
-        <Paper p="xl" withBorder radius="lg" ta="center" mt="xl">
-          <Stack gap="md">
-            <Title order={3} c="sakura">
-              Ready to Build Something Amazing Together?
-            </Title>
-            <Text size="md" c="dimmed" maw={600} mx="auto">
-              Whether you&apos;re looking for a full-stack developer, AI researcher, or technical
-              consultant, I&apos;m here to help bring your ideas to life.
-            </Text>
-            <Group justify="center" gap="md" mt="md">
-              <Button
-                component="a"
-                href={`mailto:${personalInfo.email}`}
-                size="lg"
-                color="sakura"
-                variant="filled"
-                leftSection={<IconMail size={16} />}
-                style={{
-                  transition: 'all 0.3s ease',
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-              >
-                Start a Conversation
-              </Button>
-              <Button
-                component="a"
-                href={personalInfo.linkedin}
-                target="_blank"
-                size="lg"
-                variant="outline"
-                color="sakura"
-                leftSection={<IconBrandLinkedin size={16} />}
-                style={{
-                  transition: 'all 0.3s ease',
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-              >
-                Connect on LinkedIn
-              </Button>
-            </Group>
-          </Stack>
-        </Paper>
       </Stack>
     </Container>
   );

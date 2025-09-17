@@ -33,11 +33,53 @@ const ExperienceSection = memo(() => {
           </Text>
         </Box>
 
-        {/* Experience Timeline */}
-        <Timeline bulletSize={24} lineWidth={2}>
-          {experience.map((exp, index) => (
-            <Timeline.Item key={index}>
+        {/* Experience Timeline or Single Card */}
+        {experience.length > 1 ? (
+          <Timeline bulletSize={24} lineWidth={2}>
+            {experience.map((exp, index) => (
+              <Timeline.Item key={index}>
+                <UnifiedCard
+                  title={exp.company}
+                  subtitle={exp.title}
+                  description={exp.description}
+                  longDescription={exp.longDescription}
+                  headerIcon={<IconBriefcase size={20} />}
+                  headerIconColor="sakura"
+                  timeline={exp.period}
+                  metadata={[
+                    {
+                      icon: <IconMapPin size={14} />,
+                      text: 'San Francisco, California',
+                    },
+                  ]}
+                  secondaryAction={{
+                    label: 'Website',
+                    icon: <IconExternalLink size={14} />,
+                    href: 'https://novacredit.com',
+                    tooltip: 'Visit NovaCredit website',
+                  }}
+                  technologies={exp.technologies?.map(tech => ({
+                    name: tech,
+                    color: 'sakura',
+                    contextType: 'technology' as const,
+                    contextValue: tech,
+                  }))}
+                  achievements={exp.achievements}
+                  professionalAchievements={true}
+                  infoBoxDescription={true}
+                  variant="default"
+                  size="md"
+                  interactive={false}
+                  hoverable={true}
+                />
+              </Timeline.Item>
+            ))}
+          </Timeline>
+        ) : (
+          <Stack gap="md">
+            {experience.map((exp, index) => (
               <UnifiedCard
+                key={index}
                 title={exp.company}
                 subtitle={exp.title}
                 description={exp.description}
@@ -71,9 +113,9 @@ const ExperienceSection = memo(() => {
                 interactive={false}
                 hoverable={true}
               />
-            </Timeline.Item>
-          ))}
-        </Timeline>
+            ))}
+          </Stack>
+        )}
       </Stack>
     </Container>
   );
