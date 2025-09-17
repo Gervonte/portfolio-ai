@@ -64,7 +64,10 @@ jobs:
             echo "Attempting to fetch and retry..."
             git fetch origin
             git reset --hard origin/main
-            git push origin preview --force-with-lease
+            if ! git push origin preview --force-with-lease; then
+              echo "Error: Second force push failed. Aborting cleanup."
+              exit 1
+            fi
           fi
           
           echo "Preview branch has been safely reset to match main"
