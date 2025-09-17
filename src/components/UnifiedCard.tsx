@@ -431,6 +431,7 @@ const UnifiedCard = ({
                         {(description || longDescription) && (
                           <Group align="center" gap="xs">
                             <Text
+                              component="span"
                               size="sm"
                               lh={1.6}
                               c="gray.6"
