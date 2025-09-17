@@ -1,0 +1,65 @@
+name: Cleanup Preview Branch After Merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  cleanup-preview:
+    runs-on: ubuntu-latest
+    if: |
+      github.event.pull_request.merged == true && 
+      github.event.pull_request.title == 'Auto-deploy: Preview → Main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Reset preview branch to main
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Switch to preview branch
+          git checkout preview
+          
+          # Reset preview to match main exactly
+          git reset --hard origin/main
+          
+          # Force push the clean preview branch
+          git push origin preview --force
+          
+          echo "Preview branch has been reset to match main"
+
+      - name: Comment on merged PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: `## 🧹 Preview Branch Cleanup Complete
+
+              The preview branch has been automatically reset to match \`main\` after successful merge.
+
+              **What happened:**
+              - Preview branch was reset to match main exactly
+              - All old merge commits were removed
+              - Preview branch is now clean and ready for new features
+
+              **Next steps:**
+              - Create new feature branches from \`preview\`
+              - Preview branch will stay clean for future deployments
+
+              ---
+              *This cleanup was performed automatically by GitHub Actions*`
+            });
