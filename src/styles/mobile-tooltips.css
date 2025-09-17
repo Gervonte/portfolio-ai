@@ -10,4 +10,9 @@
     min-height: 44px !important;
     min-width: 44px !important;
   }
+
+  /* Responsive touch targets for mobile tooltip wrapper */
+  .mobile-tooltip-wrapper {
+    min-height: 25px !important;
+  }
 }

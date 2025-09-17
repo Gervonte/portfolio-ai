@@ -424,25 +424,30 @@ const UnifiedCard = ({
                               }}
                             >
                               {description}
-                            </Text>
-                            {longDescription && (
-                              <MobileTooltip
-                                label={longDescription}
-                                multiline
-                                w={300}
-                                withArrow
-                                withinPortal
-                              >
-                                <ThemeIcon
-                                  size="xs"
-                                  variant="light"
-                                  color="gray"
-                                  style={{ cursor: 'help' }}
+                              {longDescription && (
+                                <MobileTooltip
+                                  label={longDescription}
+                                  multiline
+                                  w={300}
+                                  withArrow
+                                  withinPortal
                                 >
-                                  ?
-                                </ThemeIcon>
-                              </MobileTooltip>
-                            )}
+                                  <ThemeIcon
+                                    size="xs"
+                                    variant="light"
+                                    color="gray"
+                                    style={{
+                                      cursor: 'help',
+                                      display: 'inline-flex',
+                                      verticalAlign: 'middle',
+                                      marginLeft: '4px',
+                                    }}
+                                  >
+                                    ?
+                                  </ThemeIcon>
+                                </MobileTooltip>
+                              )}
+                            </Text>
                           </Group>
                         )}
                       </Box>

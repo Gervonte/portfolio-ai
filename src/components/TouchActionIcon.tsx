@@ -33,9 +33,9 @@ export function TouchActionIcon({
   const actionIconProps: ActionIconProps = {
     ...props,
     size: touchSize,
-    // Ensure proper touch targets
+    // Responsive touch targets: 5px on desktop, 44px on mobile
     style: {
-      minHeight: '44px',
+      minHeight: '5px',
       minWidth: '44px',
       display: 'flex',
       alignItems: 'center',
