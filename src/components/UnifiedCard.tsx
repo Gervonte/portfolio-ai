@@ -1,5 +1,6 @@
 'use client';
 
+import { getBadgeContext, getDefaultContext } from '@/lib/badge-contexts';
 import { colorCombinations } from '@/lib/colors';
 import {
   Badge,
@@ -13,6 +14,7 @@ import {
   Text,
   ThemeIcon,
   Title,
+  Tooltip,
 } from '@mantine/core';
 import { IconExternalLink, IconSettings } from '@tabler/icons-react';
 import { ReactNode } from 'react';
@@ -251,6 +253,11 @@ const UnifiedCard = ({
                 ? (e: React.MouseEvent<HTMLElement>) => {
                     e.currentTarget.style.transform = 'translateY(-2px)';
                     e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
+                    // Show click indicator
+                    const clickIndicator = e.currentTarget.querySelector(
+                      '[data-click-indicator]'
+                    ) as HTMLElement;
+                    if (clickIndicator) clickIndicator.style.opacity = '1';
                   }
                 : undefined
             }
@@ -259,6 +266,11 @@ const UnifiedCard = ({
                 ? (e: React.MouseEvent<HTMLElement>) => {
                     e.currentTarget.style.transform = 'translateY(0)';
                     e.currentTarget.style.boxShadow = 'none';
+                    // Hide click indicator
+                    const clickIndicator = e.currentTarget.querySelector(
+                      '[data-click-indicator]'
+                    ) as HTMLElement;
+                    if (clickIndicator) clickIndicator.style.opacity = '0';
                   }
                 : undefined
             }
@@ -326,10 +338,11 @@ const UnifiedCard = ({
             {/* Click indicator overlay */}
             {interactive && thumbnail.src && (
               <Box
+                data-click-indicator
                 style={{
                   position: 'absolute',
-                  top: '12px',
-                  right: '12px',
+                  bottom: '12px',
+                  left: '12px',
                   background: 'rgba(0, 0, 0, 0.7)',
                   borderRadius: '50%',
                   padding: '8px',
@@ -338,12 +351,7 @@ const UnifiedCard = ({
                   justifyContent: 'center',
                   opacity: 0,
                   transition: 'opacity 0.2s ease',
-                }}
-                onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
-                  e.currentTarget.style.opacity = '1';
-                }}
-                onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
-                  e.currentTarget.style.opacity = '0';
+                  pointerEvents: 'none',
                 }}
               >
                 <IconExternalLink size={16} color="white" />
@@ -352,20 +360,73 @@ const UnifiedCard = ({
 
             {/* Status badge overlay */}
             {statusBadge && (
-              <BadgeWithTooltip
-                contextType={statusBadge.contextType || 'status'}
-                contextValue={statusBadge.contextValue || statusBadge.text}
-                color={statusBadge.color}
-                variant="filled"
-                size="sm"
+              <Box
                 style={{
                   position: 'absolute',
                   top: '12px',
                   right: '12px',
                 }}
               >
-                {statusBadge.text}
-              </BadgeWithTooltip>
+                <Tooltip
+                  label={(() => {
+                    const contextType = statusBadge.contextType || 'status';
+                    const contextValue = statusBadge.contextValue || statusBadge.text;
+                    const context =
+                      getBadgeContext(contextType, contextValue) ||
+                      getDefaultContext(contextType, contextValue);
+
+                    return (
+                      <Stack gap="xs" style={{ maxWidth: 300 }}>
+                        <Title order={6} size="sm" fw={600}>
+                          {context.title}
+                        </Title>
+                        <Text size="sm" c="dimmed">
+                          {context.description}
+                        </Text>
+                        {context.capabilities && context.capabilities.length > 0 && (
+                          <Stack gap="xs">
+                            <Text size="xs" fw={500} c="sakura">
+                              {context.capabilitiesLabel || 'What I Can Do:'}
+                            </Text>
+                            <List size="xs" spacing="xs">
+                              {context.capabilities.map((capability, index) => (
+                                <List.Item key={index}>
+                                  <Text size="xs">{capability}</Text>
+                                </List.Item>
+                              ))}
+                            </List>
+                          </Stack>
+                        )}
+                      </Stack>
+                    );
+                  })()}
+                  multiline
+                  position="bottom"
+                  withArrow
+                  offset={8}
+                  w={300}
+                >
+                  <Badge
+                    color={statusBadge.color}
+                    variant="filled"
+                    size="sm"
+                    style={{
+                      cursor: 'help',
+                      transition: 'all 0.2s ease',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = 'scale(1.05)';
+                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = 'scale(1)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  >
+                    {statusBadge.text}
+                  </Badge>
+                </Tooltip>
+              </Box>
             )}
           </Box>
         )}
@@ -644,6 +705,15 @@ const UnifiedCard = ({
                       cursor: 'pointer',
                       fontWeight: 600,
                       opacity: 0.8,
+                      transition: 'all 0.2s ease',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = 'scale(1.05)';
+                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = 'scale(1)';
+                      e.currentTarget.style.boxShadow = 'none';
                     }}
                   >
                     +{technologies.length - 4} more

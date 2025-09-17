@@ -98,7 +98,7 @@ export const projectStatusContexts: Record<string, BadgeContext> = {
       'Achieved performance and quality targets',
       'Maintained active user engagement',
     ],
-    capabilitiesLabel: 'What Was Delivered:',
+    capabilitiesLabel: 'What Was Done:',
   },
   'in-progress': {
     title: 'In Active Development',

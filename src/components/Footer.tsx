@@ -207,7 +207,8 @@ export default function Footer() {
                 Built With
               </Title>
               <Text size="sm" c="dimmed" lh={1.6}>
-                Next.js, TypeScript, Mantine UI, and sakura.js for a modern, responsive experience.
+                Built with Cursor AI, Next.js, TypeScript, Mantine UI, and sakura.js for a modern,
+                responsive experience.
               </Text>
               <Group gap="xs">
                 <IconHeart size={16} style={{ color: commonColors.accentPrimary }} />
