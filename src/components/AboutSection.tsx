@@ -1,7 +1,7 @@
 'use client';
 
 import { aboutData, getSkillColor, getSkillsByCategory, type Skill } from '@/lib/about';
-import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
+import { useColorCombinations } from '@/lib/theme-aware-colors';
 import {
   Box,
   Container,
@@ -126,7 +126,6 @@ const getSkillIconComponent = (skillName: string) => {
 
 const AboutSection = memo(() => {
   const colorCombinations = useColorCombinations();
-  const commonColors = useCommonColors();
   const skillCategories = getSkillsByCategory();
 
   return (

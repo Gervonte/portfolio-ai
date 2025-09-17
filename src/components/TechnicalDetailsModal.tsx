@@ -174,7 +174,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 size="md"
                 radius="xl"
                 style={{
-                  boxShadow: `0 8px 32px ${commonColors.shadowSakura}`,
+                  boxShadow: `0 8px 32px ${commonColors.shadowPrimary}`,
                   flexShrink: 0,
                 }}
               >
@@ -936,7 +936,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           withBorder
                           style={{
                             background: colorCombinations.sakuraGradientModal,
-                            border: `1px solid ${commonColors.borderSakura}`,
+                            border: `1px solid ${commonColors.borderPrimaryColor}`,
                           }}
                         >
                           <Text size="sm" c="dimmed" fw={600} mb="xs">

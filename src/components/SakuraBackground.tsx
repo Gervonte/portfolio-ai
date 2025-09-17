@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffectColors, usePrimaryColors } from '@/lib/theme-aware-colors';
+import { usePrimaryColors } from '@/lib/theme-aware-colors';
 import { Box } from '@mantine/core';
 import { useCallback, useEffect, useRef } from 'react';
 
@@ -18,7 +18,6 @@ export default function SakuraBackground({
   children,
 }: SakuraBackgroundProps) {
   const primaryColors = usePrimaryColors();
-  const effectColors = useEffectColors();
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Configuration based on intensity and variant
