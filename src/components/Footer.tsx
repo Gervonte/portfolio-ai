@@ -30,7 +30,7 @@ export default function Footer() {
       style={{
         background: colorCombinations.footerGradient,
         padding: '4rem 0 2rem',
-        marginTop: '4rem',
+        marginTop: '1rem',
         position: 'relative',
         overflow: 'hidden',
         borderTop: `1px solid ${commonColors.borderSecondary}`,

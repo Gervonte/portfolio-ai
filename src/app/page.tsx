@@ -191,7 +191,15 @@ const HomePage = memo(() => {
 
       {/* About Section */}
       <ParallaxElement speed={-0.8} center={true}>
-        <Box id="about" role="main" style={{ minHeight: '100vh', padding: '4rem 0' }}>
+        <Box
+          id="about"
+          role="main"
+          style={{
+            minHeight: '100vh',
+            padding: '4rem 0',
+            background: commonColors.backgroundPrimary,
+          }}
+        >
           <Suspense fallback={<SectionLoader />}>
             <AboutSection />
           </Suspense>
@@ -204,9 +212,7 @@ const HomePage = memo(() => {
           role="region"
           aria-label="Contact information"
           style={{
-            minHeight: '100vh',
-            padding: '4rem 0',
-            background: commonColors.backgroundPrimary,
+            padding: '4rem 0 2rem',
           }}
         >
           <Suspense fallback={<SectionLoader />}>

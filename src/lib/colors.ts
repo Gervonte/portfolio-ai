@@ -45,6 +45,9 @@ export const commonColors = {
   backgroundPrimary: warm[0] ?? '#FDFCFB',
   backgroundSecondary: warm[1] ?? '#F5F5F5',
   backgroundCard: warm[0] ?? '#FDFCFB',
+  backgroundHero: `linear-gradient(135deg, ${warm[0]}, ${sakura[0]})`,
+  backgroundWork: earth[0] ?? '#F9F7F4',
+  backgroundContact: sakura[0] ?? '#FFF8F8',
 
   // Border colors
   borderPrimary: warm[2] ?? '#E8E8E8',
