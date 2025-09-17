@@ -1,0 +1,98 @@
+name: Cleanup Preview Branch After Merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  cleanup-preview:
+    runs-on: ubuntu-latest
+    if: |
+      github.event.pull_request.merged == true && 
+      github.event.pull_request.title == 'Auto-deploy: Preview → Main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Verify preview branch exists
+        run: |
+          if ! git show-ref --verify --quiet refs/remotes/origin/preview; then
+            echo "Error: Preview branch does not exist on remote"
+            exit 1
+          fi
+          echo "Preview branch exists, proceeding with cleanup"
+
+      - name: Reset preview branch to main
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Fetch latest changes to ensure we have current state
+          git fetch origin
+          
+          # Switch to preview branch (create local tracking branch if needed)
+          git checkout -b preview origin/preview
+          
+          # Verify we're on the correct branch
+          if [ "$(git branch --show-current)" != "preview" ]; then
+            echo "Error: Failed to checkout preview branch"
+            exit 1
+          fi
+          
+          # Check if preview and main are already in sync
+          if git diff --quiet origin/main...HEAD; then
+            echo "Preview branch is already in sync with main, no reset needed"
+            exit 0
+          fi
+          
+          # Reset preview to match main exactly
+          git reset --hard origin/main
+          
+          # Use --force-with-lease for safer force push
+          # This ensures no one else has pushed changes since we last fetched
+          if ! git push origin preview --force-with-lease; then
+            echo "Error: Force push failed. This may indicate concurrent changes."
+            echo "Attempting to fetch and retry..."
+            git fetch origin
+            git reset --hard origin/main
+            if ! git push origin preview --force-with-lease; then
+              echo "Error: Second force push failed. Aborting cleanup."
+              exit 1
+            fi
+          fi
+          
+          echo "Preview branch has been safely reset to match main"
+
+      - name: Comment on merged PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: `## 🧹 Preview Branch Cleanup Complete
+
+              The preview branch has been automatically reset to match \`main\` after successful merge.
+
+              **What happened:**
+              - Preview branch was reset to match main exactly
+              - All old merge commits were removed
+              - Preview branch is now clean and ready for new features
+
+              **Next steps:**
+              - Create new feature branches from \`preview\`
+              - Preview branch will stay clean for future deployments
+
+              ---
+              *This cleanup was performed automatically by GitHub Actions*`
+            });
