@@ -49,7 +49,7 @@ jobs:
           fi
           
           # Check if preview and main are already in sync
-          if git diff --quiet origin/main..HEAD; then
+          if git diff --quiet origin/main...HEAD; then
             echo "Preview branch is already in sync with main, no reset needed"
             exit 0
           fi
