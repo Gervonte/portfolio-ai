@@ -102,17 +102,18 @@ export const getRecentLeadership = (limit: number = 3): Leadership[] => {
   return aboutData.leadership.slice(0, limit);
 };
 
-// Skill level color mapping (cherry blossom theme)
+// Skill level color mapping (theme-aware)
+// Note: This function returns color names that work with both sakura and ocean themes
 export const getSkillColor = (level: Skill['level']): string => {
   switch (level) {
     case 'expert':
-      return 'sakura';
+      return 'sakura'; // Primary theme color (sakura in sakura theme, ocean in ocean theme)
     case 'advanced':
-      return 'pink';
+      return 'pink'; // Effect color (pink in sakura theme, mist in ocean theme)
     case 'intermediate':
-      return 'earth';
+      return 'earth'; // Earth color (consistent across themes)
     case 'beginner':
-      return 'gray';
+      return 'gray'; // Neutral color
     default:
       return 'gray';
   }

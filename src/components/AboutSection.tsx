@@ -1,7 +1,7 @@
 'use client';
 
 import { aboutData, getSkillColor, getSkillsByCategory, type Skill } from '@/lib/about';
-import { colorCombinations } from '@/lib/colors';
+import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
 import {
   Box,
   Container,
@@ -125,6 +125,8 @@ const getSkillIconComponent = (skillName: string) => {
 };
 
 const AboutSection = memo(() => {
+  const colorCombinations = useColorCombinations();
+  const commonColors = useCommonColors();
   const skillCategories = getSkillsByCategory();
 
   return (
@@ -150,7 +152,8 @@ const AboutSection = memo(() => {
             size="h1"
             mb="md"
             style={{
-              background: colorCombinations.sakuraGradient,
+              backgroundImage: colorCombinations.primaryGradient,
+              backgroundSize: '100% 100%',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',

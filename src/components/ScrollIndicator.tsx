@@ -1,6 +1,6 @@
 'use client';
 
-import { colorCombinations } from '@/lib/colors';
+import { useColorCombinations } from '@/lib/theme-aware-colors';
 import { ActionIcon, Box, Group, Progress, Stack, Text, Transition } from '@mantine/core';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 import { useCallback, useEffect, useState } from 'react';
@@ -24,6 +24,7 @@ export default function ScrollIndicator({
   orientation = 'vertical',
   className = '',
 }: ScrollIndicatorProps) {
+  const colorCombinations = useColorCombinations();
   const [scrollProgress, setScrollProgress] = useState(0);
   const [currentSection, setCurrentSection] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -246,7 +247,7 @@ export default function ScrollIndicator({
                             transition: 'all 0.3s ease',
                             background:
                               currentSection === index
-                                ? colorCombinations.sakuraGradient
+                                ? colorCombinations.primaryGradient
                                 : 'rgba(255, 255, 255, 0.1)',
                             border:
                               currentSection === index
@@ -291,7 +292,7 @@ export default function ScrollIndicator({
                       style={{
                         background:
                           pressedButton === 'up'
-                            ? colorCombinations.sakuraGradient
+                            ? colorCombinations.primaryGradient
                             : 'rgba(255, 255, 255, 0.2)',
                         border:
                           pressedButton === 'up'
@@ -315,7 +316,7 @@ export default function ScrollIndicator({
                       style={{
                         background:
                           pressedButton === 'down'
-                            ? colorCombinations.sakuraGradient
+                            ? colorCombinations.primaryGradient
                             : 'rgba(255, 255, 255, 0.2)',
                         border:
                           pressedButton === 'down'
@@ -344,7 +345,7 @@ export default function ScrollIndicator({
                     height: '12px',
                     borderRadius: '50%',
                     background: isScrolling
-                      ? colorCombinations.sakuraGradient
+                      ? colorCombinations.primaryGradient
                       : 'rgba(255, 255, 255, 0.3)',
                     transition: 'all 0.3s ease',
                     boxShadow: isScrolling ? '0 0 8px rgba(233, 30, 99, 0.5)' : 'none',
@@ -536,7 +537,7 @@ export default function ScrollIndicator({
                   height: '16px',
                   borderRadius: '50%',
                   background: isScrolling
-                    ? colorCombinations.sakuraGradient
+                    ? colorCombinations.primaryGradient
                     : 'rgba(255, 255, 255, 0.3)',
                   transition: 'all 0.3s ease',
                   boxShadow: isScrolling ? '0 0 10px rgba(233, 30, 99, 0.5)' : 'none',

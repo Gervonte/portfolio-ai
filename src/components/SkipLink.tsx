@@ -1,9 +1,10 @@
 'use client';
 
-import { commonColors } from '@/lib/colors';
+import { useCommonColors } from '@/lib/theme-aware-colors';
 import { useState } from 'react';
 
 export default function SkipLink() {
+  const commonColors = useCommonColors();
   const [isVisible, setIsVisible] = useState(false);
 
   return (

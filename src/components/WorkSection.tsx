@@ -1,8 +1,8 @@
 'use client';
 
-import { colorCombinations } from '@/lib/colors';
 import { getFeaturedProjects, getProjectsByType, projectsData, type Project } from '@/lib/projects';
 import { getProjectScreenshots } from '@/lib/screenshot';
+import { useColorCombinations } from '@/lib/theme-aware-colors';
 import { Badge, Box, Container, Group, SimpleGrid, Stack, Tabs, Text, Title } from '@mantine/core';
 import {
   IconBrain,
@@ -28,6 +28,7 @@ const getTypeColor = (type: Project['type']) => {
 };
 
 const WorkSection = memo(() => {
+  const colorCombinations = useColorCombinations();
   const vibeCodedProjects = useMemo(() => getProjectsByType('vibe-coded'), []);
   const standardWorkProjects = useMemo(() => getProjectsByType('standard-work'), []);
   const featuredProjects = useMemo(() => getFeaturedProjects(), []);
@@ -42,7 +43,8 @@ const WorkSection = memo(() => {
             size="h1"
             mb="md"
             style={{
-              background: colorCombinations.sakuraGradient,
+              backgroundImage: colorCombinations.primaryGradient,
+              backgroundSize: '100% 100%',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',

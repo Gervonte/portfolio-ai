@@ -7,6 +7,8 @@
 - **Mono No Aware**: Embracing the beauty of transience and impermanence through delicate, fleeting visual elements
 - **Cherry Blossom Aesthetic**: Soft, organic design inspired by sakura petals and spring renewal
 - **Professional Elegance**: Clean, sophisticated design that conveys competence while maintaining warmth
+- **Card-Based Interactivity**: All interactive elements encased in consistent card containers for unified user experience
+- **Living Interface**: Non-text elements respond to user interaction with hover effects, bringing the page to life
 - **Subtle Animation**: Gentle, contemplative movements that reflect the ephemeral nature of beauty
 - **Accessibility First**: Inclusive design that works for all users
 - **Performance-Driven**: Visual choices that support fast loading and smooth interactions
@@ -41,12 +43,21 @@
 
 ### Color Palette
 
-#### Primary Colors (Cherry Blossom Inspired - Red Variant)
+#### Current Palette: Cherry Blossom Inspired (Red Variant)
 
 - **Sakura Red**: `#FFCDD2` - Soft, delicate red for primary elements
 - **Sakura Deep**: `#F44336` - Deeper red for emphasis and CTAs
 - **Sakura Light**: `#FFEBEE` - Very light red for backgrounds and highlights
 - **Sakura Accent**: `#EF9A9A` - Medium red for secondary elements
+
+#### Alternative Palette: Ocean Mist (Blue-Green Variant)
+
+- **Ocean Mist**: `#B8E6E6` - Soft, ethereal blue-green for primary elements
+- **Ocean Deep**: `#0891B2` - Deeper teal for emphasis and CTAs
+- **Ocean Light**: `#F0FDFA` - Very light aqua for backgrounds and highlights
+- **Ocean Accent**: `#67E8F9` - Medium cyan for secondary elements
+
+_This alternative maintains the same delicate, transient beauty while evoking the calm, contemplative nature of ocean mist - perfect for the Mono No Aware philosophy._
 
 #### Secondary Colors
 
@@ -71,17 +82,25 @@
 - **Vibe Coded Background**: `#FFEBEE` with sakura red tint
 - **Standard Work Background**: `#FDF4E3` with warm brown tint
 
-#### Sakura Petal Colors
+#### Sakura Petal Colors (Sakura Theme)
 
 - **Petal Red**: `#FFCDD2` - Main petal color
 - **Petal Light**: `#FFEBEE` - Light petal for subtle effects
 - **Petal Dark**: `#F44336` - Dark petal for depth and shadow
 
+#### Ocean Mist Effects (Ocean Theme)
+
+- **Mist Droplet**: `#B8E6E6` - Main droplet color
+- **Mist Light**: `#F0FDFA` - Light droplet for subtle effects
+- **Mist Dark**: `#0891B2` - Dark droplet for depth and shadow
+
 ### Mantine Theme Configuration
+
+#### Current Theme: Sakura (Cherry Blossom)
 
 ```typescript
 // Mantine theme with sakura color palette
-const theme = {
+const sakuraTheme = {
   colors: {
     sakura: [
       '#FFEBEE', // sakura[0] - lightest red
@@ -103,6 +122,9 @@ const theme = {
       '#666666', // warm[4] - secondary text
       '#2C2C2C', // warm[5] - primary text
       '#1A1A1A', // warm[6] - near black
+      '#1A1A1A', // warm[7] - duplicate for 10 elements
+      '#1A1A1A', // warm[8] - duplicate for 10 elements
+      '#1A1A1A', // warm[9] - duplicate for 10 elements
     ],
     earth: [
       '#FDF4E3', // earth[0] - light brown
@@ -110,6 +132,24 @@ const theme = {
       '#D4A574', // earth[2] - medium brown
       '#8B4513', // earth[3] - saddle brown
       '#654321', // earth[4] - dark brown
+      '#4A2C17', // earth[5] - darker brown
+      '#3D2314', // earth[6] - very dark brown
+      '#2F1B0F', // earth[7] - ultra dark brown
+      '#1F1209', // earth[8] - near black brown
+      '#0F0905', // earth[9] - black brown
+    ],
+    // Pink colors for sakura effects
+    pink: [
+      '#FCE4EC', // pink[0] - lightest pink
+      '#F8BBD9', // pink[1] - light pink
+      '#F48FB1', // pink[2] - medium pink
+      '#F06292', // pink[3] - deep pink
+      '#EC407A', // pink[4] - darker pink
+      '#E91E63', // pink[5] - darkest pink
+      '#D81B60', // pink[6] - very dark pink
+      '#C2185B', // pink[7] - ultra dark pink
+      '#AD1457', // pink[8] - near black pink
+      '#880E4F', // pink[9] - black pink
     ],
   },
   primaryColor: 'sakura',
@@ -121,18 +161,18 @@ const theme = {
     fontWeight: '600',
   },
   spacing: {
-    xs: 4,
-    sm: 8,
-    md: 16,
-    lg: 24,
-    xl: 32,
+    xs: '4px',
+    sm: '8px',
+    md: '16px',
+    lg: '24px',
+    xl: '32px',
   },
   radius: {
-    xs: 4,
-    sm: 8,
-    md: 12,
-    lg: 16,
-    xl: 20,
+    xs: '4px',
+    sm: '8px',
+    md: '12px',
+    lg: '16px',
+    xl: '20px',
   },
   shadows: {
     xs: '0 1px 3px rgba(0, 0, 0, 0.05)',
@@ -141,7 +181,201 @@ const theme = {
     lg: '0 10px 15px rgba(0, 0, 0, 0.1)',
     xl: '0 20px 25px rgba(0, 0, 0, 0.1)',
   },
+  breakpoints: {
+    xs: '30em',
+    sm: '48em',
+    md: '64em',
+    lg: '74em',
+    xl: '90em',
+  },
+  components: {
+    Tooltip: {
+      defaultProps: {
+        multiline: true,
+        withArrow: true,
+        withinPortal: true,
+        zIndex: 1000,
+      },
+      styles: {
+        tooltip: {
+          fontSize: '14px',
+          maxWidth: '280px',
+          padding: '8px 12px',
+          borderRadius: '8px',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+          zIndex: 1000,
+        },
+        arrow: {
+          zIndex: 1001,
+        },
+      },
+    },
+    ActionIcon: {
+      styles: {
+        root: {
+          // Ensure minimum touch target size on mobile
+          minHeight: '44px',
+          minWidth: '44px',
+        },
+      },
+    },
+  },
 };
+```
+
+#### Alternative Theme: Ocean Mist
+
+```typescript
+// Mantine theme with ocean mist color palette
+const oceanTheme = {
+  colors: {
+    ocean: [
+      '#F0FDFA', // ocean[0] - lightest aqua
+      '#B8E6E6', // ocean[1] - light aqua
+      '#67E8F9', // ocean[2] - medium cyan
+      '#0891B2', // ocean[3] - deep teal
+      '#0E7490', // ocean[4] - darker teal
+      '#155E75', // ocean[5] - darkest teal
+      '#164E63', // ocean[6] - very dark teal
+      '#134E4A', // ocean[7] - ultra dark teal
+      '#0F766E', // ocean[8] - near black teal
+      '#0A4A42', // ocean[9] - black teal
+    ],
+    warm: [
+      '#FDFCFB', // warm[0] - cream white
+      '#F5F5F5', // warm[1] - light gray
+      '#E8E8E8', // warm[2] - border gray
+      '#999999', // warm[3] - muted text
+      '#666666', // warm[4] - secondary text
+      '#2C2C2C', // warm[5] - primary text
+      '#1A1A1A', // warm[6] - near black
+      '#1A1A1A', // warm[7] - duplicate for 10 elements
+      '#1A1A1A', // warm[8] - duplicate for 10 elements
+      '#1A1A1A', // warm[9] - duplicate for 10 elements
+    ],
+    earth: [
+      '#FDF4E3', // earth[0] - light brown
+      '#F4E4BC', // earth[1] - warm beige
+      '#D4A574', // earth[2] - medium brown
+      '#8B4513', // earth[3] - saddle brown
+      '#654321', // earth[4] - dark brown
+      '#4A2C17', // earth[5] - darker brown
+      '#3D2314', // earth[6] - very dark brown
+      '#2F1B0F', // earth[7] - ultra dark brown
+      '#1F1209', // earth[8] - near black brown
+      '#0F0905', // earth[9] - black brown
+    ],
+    // Mist colors for ocean effects
+    mist: [
+      '#F0FDFA', // mist[0] - lightest aqua
+      '#CCFBF1', // mist[1] - light aqua
+      '#99F6E4', // mist[2] - medium aqua
+      '#5EEAD4', // mist[3] - deep aqua
+      '#2DD4BF', // mist[4] - darker aqua
+      '#14B8A6', // mist[5] - darkest aqua
+      '#0D9488', // mist[6] - very dark aqua
+      '#0F766E', // mist[7] - ultra dark aqua
+      '#115E59', // mist[8] - near black aqua
+      '#134E4A', // mist[9] - black aqua
+    ],
+  },
+  primaryColor: 'ocean',
+  primaryShade: 3, // Use ocean[3] as primary
+  fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
+  fontFamilyMonospace: 'JetBrains Mono, Fira Code, Consolas, monospace',
+  headings: {
+    fontFamily: 'Inter, sans-serif',
+    fontWeight: '600',
+  },
+  spacing: {
+    xs: '4px',
+    sm: '8px',
+    md: '16px',
+    lg: '24px',
+    xl: '32px',
+  },
+  radius: {
+    xs: '4px',
+    sm: '8px',
+    md: '12px',
+    lg: '16px',
+    xl: '20px',
+  },
+  shadows: {
+    xs: '0 1px 3px rgba(0, 0, 0, 0.05)',
+    sm: '0 1px 3px rgba(0, 0, 0, 0.1)',
+    md: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    lg: '0 10px 15px rgba(0, 0, 0, 0.1)',
+    xl: '0 20px 25px rgba(0, 0, 0, 0.1)',
+  },
+  breakpoints: {
+    xs: '30em',
+    sm: '48em',
+    md: '64em',
+    lg: '74em',
+    xl: '90em',
+  },
+  components: {
+    Tooltip: {
+      defaultProps: {
+        multiline: true,
+        withArrow: true,
+        withinPortal: true,
+        zIndex: 1000,
+      },
+      styles: {
+        tooltip: {
+          fontSize: '14px',
+          maxWidth: '280px',
+          padding: '8px 12px',
+          borderRadius: '8px',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+          zIndex: 1000,
+        },
+        arrow: {
+          zIndex: 1001,
+        },
+      },
+    },
+    ActionIcon: {
+      styles: {
+        root: {
+          // Ensure minimum touch target size on mobile
+          minHeight: '44px',
+          minWidth: '44px',
+        },
+      },
+    },
+  },
+};
+```
+
+#### Theme Selection Rationale
+
+**Sakura Theme (Current)**
+
+- **Philosophy**: Cherry blossom aesthetic - delicate, fleeting beauty
+- **Emotional Tone**: Warm, romantic, contemplative
+- **Best For**: Creative portfolios, artistic presentations, personal branding
+- **Accessibility**: High contrast reds ensure excellent readability
+
+**Ocean Mist Theme (Alternative)**
+
+- **Philosophy**: Ocean mist aesthetic - calm, ethereal, contemplative
+- **Emotional Tone**: Professional, serene, trustworthy
+- **Best For**: Technical portfolios, corporate presentations, professional services
+- **Accessibility**: Teal/cyan colors provide excellent contrast and are colorblind-friendly
+
+#### Theme Switching Implementation
+
+```typescript
+// Theme selection utility
+export const getTheme = (themeName: 'sakura' | 'ocean') => {
+  return themeName === 'sakura' ? sakuraTheme : oceanTheme;
+};
+
+// Usage in your app
+const currentTheme = getTheme('ocean'); // Switch to ocean theme
 ```
 
 ### Typography
@@ -204,15 +438,26 @@ const theme = {
 - **Navigation**: Mantine Navbar, Burger, Anchor, Breadcrumbs
 - **Data Display**: Mantine Badge, Avatar, Timeline, List, Table
 - **Feedback**: Mantine Alert, Notification, LoadingOverlay, Skeleton
+- **Overlays**: Mantine Tooltip, Modal, Popover, Drawer
 - **Custom Components**: SakuraPetal, ProjectCard, WorkSectionHeader
+
+#### Card-Based Design System
+
+- **Universal Card Container**: All interactive elements wrapped in consistent card styling
+- **Card Hierarchy**:
+  - **Primary Cards**: Main content containers (projects, experience, skills)
+  - **Secondary Cards**: Supporting elements (badges, icons, buttons)
+  - **Decorative Cards**: Visual elements (sakura petals, status indicators)
+- **Card Interactions**: Consistent hover, focus, and active states across all card types
+- **Card Accessibility**: Proper focus management and keyboard navigation
 
 #### Atomic Design Principles
 
-- **Atoms**: Mantine Button, Input, Icon + Custom SakuraPetal
-- **Molecules**: Mantine Card + Custom ProjectCard, SkillBadge, ContactItem
-- **Organisms**: Custom WorkSection, ExperienceTimeline + Mantine Navbar
-- **Templates**: Mantine Container + Custom PageLayout, SectionLayout
-- **Pages**: Home, About, Work, Contact using Mantine components
+- **Atoms**: Mantine Button, Input, Icon + Custom SakuraPetal + Card Wrappers
+- **Molecules**: Mantine Card + Custom ProjectCard, SkillBadge, ContactItem + Interactive Cards
+- **Organisms**: Custom WorkSection, ExperienceTimeline + Mantine Navbar + Card Grids
+- **Templates**: Mantine Container + Custom PageLayout, SectionLayout + Card Layouts
+- **Pages**: Home, About, Work, Contact using Mantine components + Card-based interactions
 
 ### Navigation
 
@@ -346,6 +591,78 @@ const theme = {
 
 ## Interactive Elements
 
+### Card-Based Design System
+
+#### Universal Card Container
+
+- **All Interactive Elements**: Encased in subtle card containers with consistent styling
+- **Card Properties**:
+  - Rounded corners (12px border radius)
+  - Subtle shadow (0 2px 8px rgba(0, 0, 0, 0.08))
+  - Smooth transitions (0.2s ease-in-out)
+  - Hover elevation increase
+- **Card Types**:
+  - **Content Cards**: Project cards, skill cards, experience cards
+  - **Interactive Cards**: Buttons, links, form elements
+  - **Decorative Cards**: Icons, badges, status indicators
+
+#### Card Interaction Patterns
+
+- **Hover State**:
+  - Scale transform (1.02x)
+  - Shadow increase (0 4px 16px rgba(0, 0, 0, 0.12))
+  - Subtle color shift
+  - Smooth 0.2s transition
+- **Active State**:
+  - Scale down (0.98x)
+  - Shadow reduction
+  - Color intensification
+- **Focus State**:
+  - Outline ring (2px, primary color)
+  - Accessibility-compliant focus indicators
+
+### Comprehensive Hover Effects
+
+#### Non-Text Element Hover System
+
+- **Icons**:
+  - Scale animation (1.1x)
+  - Color transition to primary color
+  - Subtle rotation (2-3 degrees)
+  - Glow effect on hover
+- **Images**:
+  - Gentle zoom (1.05x)
+  - Overlay with subtle color tint
+  - Smooth transition (0.3s ease-out)
+- **Cards**:
+  - Lift effect with increased shadow
+  - Border color transition
+  - Background color shift
+  - Content subtle movement
+- **Buttons**:
+  - Background color transition
+  - Scale effect (1.02x)
+  - Shadow enhancement
+  - Icon animation (if present)
+
+#### Advanced Hover Interactions
+
+- **Project Cards**:
+  - Image overlay with project details
+  - Tech stack badges appear
+  - Action buttons slide up
+  - Subtle sakura petal animation
+- **Skill Badges**:
+  - Color intensity increase
+  - Subtle bounce animation
+  - Tooltip with proficiency level
+  - Glow effect matching skill category
+- **Navigation Items**:
+  - Underline animation from left to right
+  - Background color fade-in
+  - Icon rotation (if present)
+  - Smooth color transition
+
 ### Animations
 
 #### Page Transitions
@@ -353,6 +670,7 @@ const theme = {
 - **Fade In**: 0.3s ease-out for page load
 - **Slide Up**: 0.4s ease-out for section reveals
 - **Stagger**: 0.1s delay between card animations
+- **Card Cascade**: Sequential card appearance with 0.1s intervals
 
 #### Hover Effects
 
@@ -360,12 +678,15 @@ const theme = {
 - **Buttons**: Color transition and slight scale
 - **Links**: Underline animation from left to right
 - **Images**: Subtle zoom effect
+- **Icons**: Scale and color transition
+- **Interactive Elements**: Universal hover feedback
 
 #### Loading States
 
 - **Skeleton Screens**: For content loading
 - **Spinner**: For form submissions
 - **Progress Bar**: For page transitions
+- **Card Loading**: Shimmer effect on card containers
 
 ### Micro-Interactions
 
@@ -375,6 +696,7 @@ const theme = {
 - **Hover**: Darker shade with increased shadow
 - **Active**: Pressed state with reduced shadow
 - **Disabled**: Muted color with no interaction
+- **Loading**: Spinner with disabled state
 
 #### Form Interactions
 
@@ -382,6 +704,62 @@ const theme = {
 - **Error**: Red border with shake animation
 - **Success**: Green border with checkmark
 - **Loading**: Spinner with disabled state
+
+#### Card-Specific Interactions
+
+- **Project Cards**:
+  - Hover: Image overlay, tech stack reveal
+  - Click: Smooth transition to detail view
+  - Focus: Keyboard navigation support
+- **Skill Cards**:
+  - Hover: Proficiency level tooltip
+  - Click: Filter projects by skill
+  - Focus: Clear focus indicators
+- **Experience Cards**:
+  - Hover: Timeline connection highlight
+  - Click: Expand for detailed information
+  - Focus: Keyboard accessible navigation
+
+### Tooltip System
+
+#### Tooltip Design Specifications
+
+- **Appearance**:
+  - Background: Semi-transparent dark overlay (#1A1A1A with 0.9 opacity)
+  - Text Color: White (#FFFFFF)
+  - Border Radius: 8px
+  - Font Size: 14px
+  - Max Width: 280px
+  - Padding: 8px 12px
+  - Box Shadow: 0 4px 12px rgba(0, 0, 0, 0.15)
+  - Z-Index: 1000
+
+#### Tooltip Behavior
+
+- **Trigger**: Hover on interactive elements
+- **Delay**: 500ms before showing
+- **Duration**: 200ms fade-in/out transition
+- **Positioning**: Smart positioning to avoid viewport edges
+- **Arrow**: Small triangular pointer (z-index: 1001)
+- **Multiline Support**: Automatic text wrapping for longer content
+- **Portal Rendering**: Rendered outside component tree to avoid clipping
+
+#### Tooltip Content Types
+
+- **Skill Proficiency**: "Advanced", "Intermediate", "Expert" levels
+- **Technology Details**: Brief descriptions of tools and frameworks
+- **Project Information**: Quick project stats, tech stack, or key features
+- **Navigation Hints**: Helpful context for navigation items
+- **Status Indicators**: Current state or availability information
+- **Accessibility Info**: Screen reader friendly descriptions
+
+#### Tooltip Accessibility
+
+- **Keyboard Navigation**: Tooltips appear on focus for keyboard users
+- **Screen Reader Support**: Proper ARIA labels and descriptions
+- **Focus Management**: Tooltips don't interfere with tab order
+- **Dismissal**: Tooltips disappear when focus moves or element is no longer hovered
+- **High Contrast**: Meets WCAG contrast requirements
 
 ## Responsive Design
 

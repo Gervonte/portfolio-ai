@@ -1,6 +1,6 @@
 'use client';
 
-import { colorCombinations, commonColors, pink } from '@/lib/colors';
+import { useColorCombinations, useCommonColors, usePrimaryColors } from '@/lib/theme-aware-colors';
 import { Anchor, Group, Stack } from '@mantine/core';
 import { useEffect, useState } from 'react';
 
@@ -23,6 +23,9 @@ export default function Navigation({
   variant = 'header',
   scrolled = false,
 }: NavigationProps) {
+  const colorCombinations = useColorCombinations();
+  const commonColors = useCommonColors();
+  const primaryColors = usePrimaryColors();
   const [activeLink, setActiveLink] = useState('');
 
   useEffect(() => {
@@ -80,10 +83,10 @@ export default function Navigation({
           color: scrolled ? commonColors.textPrimary : commonColors.textInverse,
           fontSize: '0.875rem',
           '&:hover': {
-            color: pink[3],
+            color: primaryColors[3],
           },
           ...(isActive && {
-            color: pink[3],
+            color: primaryColors[3],
             '&::after': {
               content: '""',
               position: 'absolute',
@@ -91,7 +94,7 @@ export default function Navigation({
               left: 0,
               right: 0,
               height: '2px',
-              background: colorCombinations.pinkGradient,
+              background: colorCombinations.effectGradient,
               borderRadius: '1px',
             },
           }),
@@ -103,7 +106,7 @@ export default function Navigation({
           color: commonColors.textSecondary,
           fontSize: '0.875rem',
           '&:hover': {
-            color: pink[3],
+            color: primaryColors[3],
           },
         };
 
@@ -113,13 +116,13 @@ export default function Navigation({
           color: commonColors.textPrimary,
           fontSize: '1rem',
           '&:hover': {
-            color: pink[3],
+            color: primaryColors[3],
             paddingLeft: '0.5rem',
           },
           ...(isActive && {
-            color: pink[3],
+            color: primaryColors[3],
             paddingLeft: '0.5rem',
-            borderLeft: `3px solid ${pink[3]}`,
+            borderLeft: `3px solid ${primaryColors[3]}`,
           }),
         };
 

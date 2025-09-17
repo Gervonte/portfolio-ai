@@ -1,6 +1,6 @@
 'use client';
 
-import { sakura } from '@/lib/colors';
+import { usePrimaryColors } from '@/lib/theme-aware-colors';
 import { useEffect, useRef } from 'react';
 
 interface SakuraEffectProps {
@@ -18,14 +18,18 @@ export default function SakuraEffect({
   petalSize = 15,
   fallSpeed = 0.5,
   windSpeed = 0.5,
-  colors = [
-    sakura[1] ?? '#FFCDD2',
-    sakura[0] ?? '#FFEBEE',
-    sakura[2] ?? '#EF9A9A',
-    sakura[3] ?? '#F44336',
-  ],
+  colors,
 }: SakuraEffectProps) {
+  const primaryColors = usePrimaryColors();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Default colors using theme-aware primary colors
+  const defaultColors = colors || [
+    primaryColors[1] ?? '#FFCDD2',
+    primaryColors[0] ?? '#FFEBEE',
+    primaryColors[2] ?? '#EF9A9A',
+    primaryColors[3] ?? '#F44336',
+  ];
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -87,7 +91,7 @@ export default function SakuraEffect({
                 maxSize: petalSize + 5,
                 minSize: petalSize - 5,
                 delay: 300,
-                colors: colors.map(color => ({
+                colors: defaultColors.map(color => ({
                   gradientColorStart: color,
                   gradientColorEnd: color,
                   gradientColorDegree: 120,
@@ -121,7 +125,7 @@ export default function SakuraEffect({
         }
       }
     };
-  }, [petalCount, petalSize, fallSpeed, windSpeed, colors]);
+  }, [petalCount, petalSize, fallSpeed, windSpeed, defaultColors]);
 
   return (
     <div

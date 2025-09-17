@@ -1,6 +1,6 @@
 'use client';
 
-import { colorCombinations, commonColors } from '@/lib/colors';
+import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
 import {
   Anchor,
   Box,
@@ -23,6 +23,10 @@ import {
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+
+  // Theme-aware colors
+  const colorCombinations = useColorCombinations();
+  const commonColors = useCommonColors();
 
   return (
     <Box
@@ -61,7 +65,8 @@ export default function Footer() {
                 order={2}
                 size="h2"
                 style={{
-                  background: colorCombinations.sakuraGradient,
+                  backgroundImage: colorCombinations.primaryGradient,
+                  backgroundSize: '100% 100%',
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',

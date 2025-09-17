@@ -1,6 +1,7 @@
 'use client';
 
 import { getBadgeContext, getDefaultContext } from '@/lib/badge-contexts';
+import { useCommonColors } from '@/lib/theme-aware-colors';
 import { Badge, BadgeProps, List, Stack, Text, Title } from '@mantine/core';
 import { memo } from 'react';
 import { MobileTooltip } from './MobileTooltip';
@@ -19,6 +20,7 @@ const BadgeWithTooltip = memo(
     children,
     ...badgeProps
   }: BadgeWithTooltipProps) => {
+    const commonColors = useCommonColors();
     const context =
       getBadgeContext(contextType, contextValue) || getDefaultContext(contextType, contextValue);
 
@@ -33,7 +35,7 @@ const BadgeWithTooltip = memo(
 
         {showCapabilities && context.capabilities && context.capabilities.length > 0 && (
           <Stack gap="xs">
-            <Text size="xs" fw={500} c="sakura">
+            <Text size="xs" fw={500} c={commonColors.accentPrimary}>
               {context.capabilitiesLabel || 'What I Can Do:'}
             </Text>
             <List size="xs" spacing="xs">

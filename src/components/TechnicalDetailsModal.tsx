@@ -1,7 +1,7 @@
 'use client';
 
-import { colorCombinations, commonColors } from '@/lib/colors';
 import { Project } from '@/lib/projects';
+import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
 import {
   Alert,
   Badge,
@@ -55,6 +55,8 @@ const getTechnicalIcon = (section: string) => {
 };
 
 const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetailsModalProps) => {
+  const colorCombinations = useColorCombinations();
+  const commonColors = useCommonColors();
   const [activeTab, setActiveTab] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 

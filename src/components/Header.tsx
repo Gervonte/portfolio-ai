@@ -1,6 +1,11 @@
 'use client';
 
-import { colorCombinations, commonColors, sakura } from '@/lib/colors';
+import {
+  useColorCombinations,
+  useCommonColors,
+  usePrimaryColors,
+  useWithOpacity,
+} from '@/lib/theme-aware-colors';
 import {
   Anchor,
   Box,
@@ -15,6 +20,7 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import { IconCode } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
+import ThemeToggle from './ThemeToggle';
 
 const HEADER_HEIGHT = 60;
 
@@ -25,6 +31,12 @@ interface HeaderProps {
 export default function Header({ links }: HeaderProps) {
   const [opened, { toggle, close }] = useDisclosure(false);
   const [scrolled, setScrolled] = useState(false);
+
+  // Theme-aware colors
+  const colorCombinations = useColorCombinations();
+  const commonColors = useCommonColors();
+  const primaryColors = usePrimaryColors();
+  const withOpacity = useWithOpacity;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,7 +85,9 @@ export default function Header({ links }: HeaderProps) {
         zIndex: 100,
         transition: 'all 0.3s ease',
         background: scrolled ? 'rgba(254, 254, 254, 0.95)' : 'rgba(254, 254, 254, 0.1)',
-        borderBottom: scrolled ? '1px solid rgba(248, 187, 217, 0.2)' : 'none',
+        borderBottom: scrolled
+          ? `1px solid ${withOpacity(primaryColors[1] || '#FFCDD2', 0.2)}`
+          : 'none',
       }}
     >
       <Container size="lg" style={{ height: HEADER_HEIGHT }}>
@@ -93,8 +107,8 @@ export default function Header({ links }: HeaderProps) {
               fw={700}
               style={{
                 backgroundImage: scrolled
-                  ? colorCombinations.sakuraGradient
-                  : `linear-gradient(135deg, ${commonColors.accentSecondary}, ${sakura[0]})`,
+                  ? colorCombinations.primaryGradient
+                  : `linear-gradient(135deg, ${commonColors.accentSecondary}, ${primaryColors[0]})`,
                 backgroundSize: '100% 100%',
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
@@ -109,6 +123,7 @@ export default function Header({ links }: HeaderProps) {
           {/* Desktop Navigation */}
           <Group gap="xl" visibleFrom="sm" role="navigation" aria-label="Main navigation">
             {items}
+            <ThemeToggle />
           </Group>
 
           {/* Mobile Menu Button */}
@@ -139,12 +154,17 @@ export default function Header({ links }: HeaderProps) {
               zIndex: 0,
               background: 'rgba(254, 254, 254, 0.98)',
               backdropFilter: 'blur(10px)',
-              borderTop: '1px solid rgba(248, 187, 217, 0.2)',
+              borderTop: `1px solid ${withOpacity(primaryColors[1] || '#FFCDD2', 0.2)}`,
             }}
             hiddenFrom="sm"
           >
             <Container py="md">
-              <Stack gap="md">{items}</Stack>
+              <Stack gap="md">
+                {items}
+                <Group justify="center" mt="md">
+                  <ThemeToggle />
+                </Group>
+              </Stack>
             </Container>
           </Paper>
         )}
