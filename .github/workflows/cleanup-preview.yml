@@ -23,21 +23,51 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
+      - name: Verify preview branch exists
+        run: |
+          if ! git show-ref --verify --quiet refs/remotes/origin/preview; then
+            echo "Error: Preview branch does not exist on remote"
+            exit 1
+          fi
+          echo "Preview branch exists, proceeding with cleanup"
+
       - name: Reset preview branch to main
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
+          # Fetch latest changes to ensure we have current state
+          git fetch origin
+          
           # Switch to preview branch
           git checkout preview
+          
+          # Verify we're on the correct branch
+          if [ "$(git branch --show-current)" != "preview" ]; then
+            echo "Error: Failed to checkout preview branch"
+            exit 1
+          fi
+          
+          # Check if preview and main are already in sync
+          if git diff --quiet origin/main..HEAD; then
+            echo "Preview branch is already in sync with main, no reset needed"
+            exit 0
+          fi
           
           # Reset preview to match main exactly
           git reset --hard origin/main
           
-          # Force push the clean preview branch
-          git push origin preview --force
+          # Use --force-with-lease for safer force push
+          # This ensures no one else has pushed changes since we last fetched
+          if ! git push origin preview --force-with-lease; then
+            echo "Error: Force push failed. This may indicate concurrent changes."
+            echo "Attempting to fetch and retry..."
+            git fetch origin
+            git reset --hard origin/main
+            git push origin preview --force-with-lease
+          fi
           
-          echo "Preview branch has been reset to match main"
+          echo "Preview branch has been safely reset to match main"
 
       - name: Comment on merged PR
         uses: actions/github-script@v7
