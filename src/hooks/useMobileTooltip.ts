@@ -104,7 +104,7 @@ export function useMobileTooltip({
   // Handle click outside to close tooltip
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-      if (opened && ref.current && !ref.current.contains(event.target as Node)) {
+      if (opened && ref.current && event.target && !ref.current.contains(event.target as Node)) {
         closeTooltip();
       }
     };
