@@ -39,8 +39,8 @@ jobs:
           # Fetch latest changes to ensure we have current state
           git fetch origin
           
-          # Switch to preview branch
-          git checkout preview
+          # Switch to preview branch (create local tracking branch if needed)
+          git checkout -b preview origin/preview
           
           # Verify we're on the correct branch
           if [ "$(git branch --show-current)" != "preview" ]; then
