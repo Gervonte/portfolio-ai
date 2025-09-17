@@ -133,7 +133,22 @@ export default function CacheManagement() {
           <Stack gap="md">
             <Group justify="space-between">
               <Text fw={500}>Cache Usage</Text>
-              <Badge color={getUsageColor()} variant="light">
+              <Badge
+                color={getUsageColor()}
+                variant="light"
+                style={{
+                  cursor: 'default',
+                  transition: 'all 0.2s ease',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.transform = 'scale(1.05)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
                 {formatBytes(stats.totalSize)} / {formatBytes(stats.maxSize)}
               </Badge>
             </Group>
@@ -172,7 +187,22 @@ export default function CacheManagement() {
                 <Text size="sm" c="dimmed">
                   Hit Rate
                 </Text>
-                <Badge color="sakura" variant="light">
+                <Badge
+                  color="sakura"
+                  variant="light"
+                  style={{
+                    cursor: 'default',
+                    transition: 'all 0.2s ease',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.transform = 'scale(1.05)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                >
                   {(stats.hitRate * 100).toFixed(1)}%
                 </Badge>
               </Group>

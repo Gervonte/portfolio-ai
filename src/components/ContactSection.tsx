@@ -152,7 +152,23 @@ const ContactSection = memo(() => {
               {contactMethods.map((method, index) => (
                 <Card key={index} p="md" withBorder radius="lg" style={{ cursor: 'pointer' }}>
                   <Group gap="md">
-                    <ThemeIcon color="sakura" variant="light" size="lg">
+                    <ThemeIcon
+                      color="sakura"
+                      variant="light"
+                      size="lg"
+                      style={{
+                        cursor: 'default',
+                        transition: 'all 0.2s ease',
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.transform = 'scale(1.1)';
+                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.transform = 'scale(1)';
+                        e.currentTarget.style.boxShadow = 'none';
+                      }}
+                    >
                       {method.icon}
                     </ThemeIcon>
                     <Box style={{ flex: 1 }}>
@@ -180,7 +196,23 @@ const ContactSection = memo(() => {
             {/* Availability Status */}
             <Paper p="md" withBorder radius="lg" bg="sakura.0">
               <Group gap="sm">
-                <ThemeIcon color="sakura" variant="light" size="sm">
+                <ThemeIcon
+                  color="sakura"
+                  variant="light"
+                  size="sm"
+                  style={{
+                    cursor: 'default',
+                    transition: 'all 0.2s ease',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.transform = 'scale(1.1)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                >
                   <IconCheck size={16} />
                 </ThemeIcon>
                 <Box>

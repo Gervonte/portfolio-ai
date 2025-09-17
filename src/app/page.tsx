@@ -118,13 +118,15 @@ const HomePage = memo(() => {
                   </Button>
                   <Button
                     size="lg"
-                    variant="outline"
+                    variant="filled"
                     color="sakura"
                     aria-label="Contact me for opportunities"
                     style={{
-                      borderColor: commonColors.accentPrimary,
-                      color: commonColors.accentPrimary,
                       background: commonColors.accentSecondary + '1A',
+                      color: commonColors.accentPrimary,
+                      border: 'none',
+                      boxShadow: `0 4px 15px ${commonColors.shadowMedium}`,
+                      borderColor: commonColors.accentPrimary,
                     }}
                     onClick={() => {
                       document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });

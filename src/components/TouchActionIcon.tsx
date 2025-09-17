@@ -40,12 +40,25 @@ export function TouchActionIcon({
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+      transition: 'all 0.2s ease',
       ...props.style,
     },
   };
 
   const actionIcon = (
-    <ActionIcon {...actionIconProps} onClick={onClick} aria-label={ariaLabel || tooltip}>
+    <ActionIcon
+      {...actionIconProps}
+      onClick={onClick}
+      aria-label={ariaLabel || tooltip}
+      onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+        e.currentTarget.style.transform = 'scale(1.1)';
+        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+      }}
+      onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+        e.currentTarget.style.transform = 'scale(1)';
+        e.currentTarget.style.boxShadow = 'none';
+      }}
+    >
       {children}
     </ActionIcon>
   );

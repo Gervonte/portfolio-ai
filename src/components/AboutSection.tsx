@@ -231,7 +231,22 @@ const AboutSection = memo(() => {
                     <Text fw={600} size="lg">
                       {exp.title}
                     </Text>
-                    <Badge color="sakura" variant="light">
+                    <Badge 
+                      color="sakura" 
+                      variant="light"
+                      style={{
+                        cursor: 'default',
+                        transition: 'all 0.2s ease',
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.transform = 'scale(1.05)';
+                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.transform = 'scale(1)';
+                        e.currentTarget.style.boxShadow = 'none';
+                      }}
+                    >
                       {exp.period}
                     </Badge>
                   </Group>
