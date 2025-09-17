@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface UseMobileTooltipOptions {
   delay?: number;
@@ -16,6 +16,7 @@ interface UseMobileTooltipReturn {
     onTouchEnd: () => void;
     onClick: () => void;
   };
+  ref: React.RefObject<HTMLElement | null>;
 }
 
 /**
@@ -29,6 +30,7 @@ export function useMobileTooltip({
 }: UseMobileTooltipOptions = {}): UseMobileTooltipReturn {
   const [opened, setOpened] = useState(false);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  const ref = useRef<HTMLElement>(null);
 
   // Note: Hover detection removed as it's not currently used
   // but can be re-added if needed for future enhancements
@@ -99,6 +101,26 @@ export function useMobileTooltip({
     }
   }, [trigger, toggleTooltip]);
 
+  // Handle click outside to close tooltip
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      if (opened && ref.current && event.target && !ref.current.contains(event.target as Node)) {
+        closeTooltip();
+      }
+    };
+
+    if (opened) {
+      // Add event listeners for both mouse and touch events
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [opened, closeTooltip]);
+
   // Cleanup timeout on unmount
   useEffect(() => {
     return () => {
@@ -116,5 +138,6 @@ export function useMobileTooltip({
       onTouchEnd: handleTouchEnd,
       onClick: handleClick,
     },
+    ref,
   };
 }

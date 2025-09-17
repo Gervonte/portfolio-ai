@@ -30,7 +30,7 @@ export function MobileTooltip({
   offset = 8,
   ...props
 }: MobileTooltipProps) {
-  const { opened, handlers } = useMobileTooltip({
+  const { opened, handlers, ref } = useMobileTooltip({
     delay,
     disabled,
     trigger,
@@ -69,6 +69,7 @@ export function MobileTooltip({
   return (
     <Tooltip {...tooltipProps}>
       <span
+        ref={ref}
         {...handlers}
         className="mobile-tooltip-wrapper"
         style={{
