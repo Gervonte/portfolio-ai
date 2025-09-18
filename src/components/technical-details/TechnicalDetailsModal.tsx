@@ -63,7 +63,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
     if (technicalSections.length > 0 && !activeTab) {
       setActiveTab(technicalSections[0].key);
     }
-  }, [technicalSections, activeTab]);
+  }, [technicalSections]);
 
   const modalStyles = {
     content: {

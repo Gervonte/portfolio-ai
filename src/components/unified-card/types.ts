@@ -56,6 +56,10 @@ export interface UnifiedCardProps {
   headerIcon?: ReactNode;
   headerIconColor?: string;
   statusBadge?: StatusBadgeProps;
+  /** Heading order for the title (1-6). Defaults to 3. Should align with document hierarchy. */
+  titleHeadingOrder?: 1 | 2 | 3 | 4 | 5 | 6;
+  /** Heading order for the subtitle (1-6). Defaults to 4. Should align with document hierarchy. */
+  subtitleHeadingOrder?: 1 | 2 | 3 | 4 | 5 | 6;
 
   // Content sections
   technologies?: TechnologyProps[];
@@ -114,6 +118,10 @@ export interface HeaderSectionProps {
   headerIcon?: ReactNode;
   headerIconColor: string;
   infoBoxDescription: boolean;
+  /** Heading order for the title (1-6). Defaults to 3. Should align with document hierarchy. */
+  titleHeadingOrder?: 1 | 2 | 3 | 4 | 5 | 6;
+  /** Heading order for the subtitle (1-6). Defaults to 4. Should align with document hierarchy. */
+  subtitleHeadingOrder?: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
 export interface StatusBadgeSectionProps {

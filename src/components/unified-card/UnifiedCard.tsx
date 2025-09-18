@@ -23,6 +23,8 @@ const UnifiedCard = memo(
     headerIcon,
     headerIconColor = 'sakura',
     statusBadge,
+    titleHeadingOrder,
+    subtitleHeadingOrder,
     technologies = [],
     aiTools = [],
     achievements = [],
@@ -94,6 +96,8 @@ const UnifiedCard = memo(
             headerIcon={headerIcon}
             headerIconColor={headerIconColor}
             infoBoxDescription={infoBoxDescription}
+            titleHeadingOrder={titleHeadingOrder}
+            subtitleHeadingOrder={subtitleHeadingOrder}
           />
 
           {/* Timeline badge for work experience only */}

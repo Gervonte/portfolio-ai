@@ -1,4 +1,18 @@
 /* Technical Details Modal Responsive Styles */
+:root {
+  --modal-header-height: 100px;
+  --modal-mobile-header-height: 120px;
+  --modal-small-mobile-header-height: 100px;
+
+  /* Touch-friendly sizing */
+  --modal-tab-mobile-height: 48px;
+  --modal-tab-mobile-padding: 12px 16px;
+  --modal-tab-mobile-font-size: 14px;
+  --modal-tab-small-mobile-height: 44px;
+  --modal-tab-small-mobile-padding: 10px 12px;
+  --modal-tab-small-mobile-font-size: 13px;
+}
+
 .technical-modal-content {
   max-height: 70vh;
   height: 70vh;
@@ -19,7 +33,7 @@
   overflow-y: auto;
   flex: 1;
   min-height: 0;
-  max-height: calc(65vh - 100px);
+  max-height: calc(65vh - var(--modal-header-height));
 }
 
 /* Mobile Styles */
@@ -32,14 +46,14 @@
 
   .technical-modal-body {
     padding: var(--mantine-spacing-md);
-    max-height: calc(85vh - 120px);
+    max-height: calc(85vh - var(--modal-mobile-header-height));
   }
 
   /* Make tabs more touch-friendly on mobile */
   .technical-modal-content [role='tab'] {
-    min-height: 48px !important;
-    padding: 12px 16px !important;
-    font-size: 14px !important;
+    min-height: var(--modal-tab-mobile-height) !important;
+    padding: var(--modal-tab-mobile-padding) !important;
+    font-size: var(--modal-tab-mobile-font-size) !important;
   }
 }
 
@@ -52,13 +66,13 @@
 
   .technical-modal-body {
     padding: var(--mantine-spacing-sm);
-    max-height: calc(90vh - 100px);
+    max-height: calc(90vh - var(--modal-small-mobile-header-height));
   }
 
   /* Even more touch-friendly for small screens */
   .technical-modal-content [role='tab'] {
-    min-height: 44px !important;
-    padding: 10px 12px !important;
-    font-size: 13px !important;
+    min-height: var(--modal-tab-small-mobile-height) !important;
+    padding: var(--modal-tab-small-mobile-padding) !important;
+    font-size: var(--modal-tab-small-mobile-font-size) !important;
   }
 }

@@ -14,6 +14,8 @@ const HeaderSection = memo(
     headerIcon,
     headerIconColor,
     infoBoxDescription,
+    titleHeadingOrder = 3,
+    subtitleHeadingOrder = 4,
   }: HeaderSectionProps) => {
     return (
       <Group justify="space-between" align="flex-start" mb="sm">
@@ -48,7 +50,7 @@ const HeaderSection = memo(
                     <Box style={{ flex: 1, minWidth: 0 }}>
                       <Group align="flex-start" gap="md" mb="xs">
                         <Title
-                          order={3}
+                          order={titleHeadingOrder}
                           size="h3"
                           c="dark"
                           style={{
@@ -158,7 +160,7 @@ const HeaderSection = memo(
                     )}
                     <Box style={{ flex: 1, minWidth: 0 }}>
                       <Title
-                        order={4}
+                        order={titleHeadingOrder}
                         size="h4"
                         c="dark"
                         style={{

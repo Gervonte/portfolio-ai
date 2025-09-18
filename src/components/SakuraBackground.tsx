@@ -73,9 +73,9 @@ export default function SakuraBackground({
     // Use requestIdleCallback for better performance, fallback to setTimeout
     const scheduleInit = (callback: () => void) => {
       if ('requestIdleCallback' in window) {
-        requestIdleCallback(callback, { timeout: 2000 });
+        requestIdleCallback(callback, { timeout: 200 });
       } else {
-        setTimeout(callback, 1000);
+        setTimeout(callback, 100);
       }
     };
 
@@ -91,7 +91,7 @@ export default function SakuraBackground({
               script.onload = () => {
                 // Use requestIdleCallback for initialization
                 if ('requestIdleCallback' in window) {
-                  requestIdleCallback(() => resolve(undefined), { timeout: 1000 });
+                  requestIdleCallback(() => resolve(undefined), { timeout: 200 });
                 } else {
                   setTimeout(() => resolve(undefined), 100);
                 }
@@ -154,7 +154,7 @@ export default function SakuraBackground({
             };
 
             if ('requestIdleCallback' in window) {
-              requestIdleCallback(initSakuraEffect, { timeout: 1000 });
+              requestIdleCallback(initSakuraEffect, { timeout: 200 });
             } else {
               setTimeout(initSakuraEffect, 0);
             }
