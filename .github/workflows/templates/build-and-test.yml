@@ -69,13 +69,30 @@ jobs:
 
       - name: Run tests
         run: |
-          for cmd in ${{ inputs.test-commands }}; do
-            echo "Running: $cmd"
-            $cmd
+          # Split test-commands by newline and run each command safely
+          echo "${{ inputs.test-commands }}" | while IFS= read -r cmd; do
+            if [ -n "$cmd" ]; then
+              echo "Running: $cmd"
+              # Validate command contains only safe characters (alphanumeric, spaces, hyphens, underscores, dots, slashes)
+              if echo "$cmd" | grep -qE '^[a-zA-Z0-9\s\-_./]+$'; then
+                $cmd
+              else
+                echo "Error: Command contains potentially unsafe characters: $cmd"
+                exit 1
+              fi
+            fi
           done
 
       - name: Build application
-        run: ${{ inputs.build-command }}
+        run: |
+          echo "Building: ${{ inputs.build-command }}"
+          # Validate build command contains only safe characters
+          if echo "${{ inputs.build-command }}" | grep -qE '^[a-zA-Z0-9\s\-_./]+$'; then
+            ${{ inputs.build-command }}
+          else
+            echo "Error: Build command contains potentially unsafe characters: ${{ inputs.build-command }}"
+            exit 1
+          fi
         env:
           NODE_ENV: production
           RESEND_API_KEY: 'dummy_key_for_build'

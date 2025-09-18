@@ -53,9 +53,9 @@ jobs:
             .next/standalone
             .eslintcache
             .tsbuildinfo
-          key: ${{ runner.os }}-${{ inputs.node-version }}-${{ hashFiles('**/' + inputs.cache-key) }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx', '**/*.json') }}-v3
+          key: ${{ runner.os }}-${{ inputs.node-version }}-${{ hashFiles(format('**/{0}', inputs.cache-key)) }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx', '**/*.json') }}-v3
           restore-keys: |
-            ${{ runner.os }}-${{ inputs.node-version }}-${{ hashFiles('**/' + inputs.cache-key) }}-v3
+            ${{ runner.os }}-${{ inputs.node-version }}-${{ hashFiles(format('**/{0}', inputs.cache-key)) }}-v3
             ${{ runner.os }}-${{ inputs.node-version }}-v3
             ${{ runner.os }}-${{ inputs.node-version }}-
 
