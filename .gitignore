@@ -45,4 +45,5 @@ node_modules/.cache/
 # lighthouse reports
 lighthouse-report.json
 lighthouse-report.html
+lighthouse-scores.json
 *.lighthouse-report.*
