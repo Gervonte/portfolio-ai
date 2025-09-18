@@ -21,12 +21,17 @@ import {
   Title,
 } from '@mantine/core';
 import {
+  IconActivity,
   IconAlertCircle,
   IconBuilding,
   IconChartBar,
+  IconCode,
   IconGauge,
+  IconPhoto,
   IconRocket,
+  IconSettings,
   IconShield,
+  IconTools,
   IconZoomIn,
 } from '@tabler/icons-react';
 import { memo, useEffect, useMemo, useState } from 'react';
@@ -145,7 +150,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
         onClose={onClose}
         title="Technical Details"
         centered
-        size="50%"
+        size="22%"
         classNames={{
           content: 'technical-modal-content',
           body: 'technical-modal-body',
@@ -189,7 +194,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
         centered
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
-        size="40%"
+        size="22%"
         classNames={{
           content: 'technical-modal-content',
           body: 'technical-modal-body',
@@ -202,7 +207,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
           },
           body: {
             background: commonColors.backgroundCard,
-            maxHeight: '60vh',
+            maxHeight: '40vh',
             minHeight: '300px',
             overflowY: 'auto',
             padding: '2rem',
@@ -230,13 +235,21 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
             <Group gap="sm" align="flex-start" mb="md" wrap="wrap">
               <ThemeIcon
                 color={commonColors.accentPrimary}
-                variant="gradient"
-                gradient={{ from: commonColors.accentSecondary, to: commonColors.accentPrimary }}
-                size="md"
-                radius="xl"
+                variant="light"
+                size="xl"
                 style={{
-                  boxShadow: `0 8px 32px ${commonColors.shadowPrimary}`,
+                  cursor: 'default',
                   flexShrink: 0,
+                  transition: 'all 0.2s ease-in-out',
+                  transform: 'scale(1)',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.transform = 'scale(1.1)';
+                  e.currentTarget.style.boxShadow = `0 4px 12px ${commonColors.shadowMedium}`;
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow = 'none';
                 }}
               >
                 {getTechnicalIcon(activeTab || 'analytics')}
@@ -407,15 +420,20 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   <Group gap="lg" mb="md">
                     <ThemeIcon
                       color={commonColors.accentPrimary}
-                      variant="gradient"
-                      gradient={{
-                        from: commonColors.accentSecondary,
-                        to: commonColors.accentPrimary,
-                      }}
-                      size="lg"
-                      radius="xl"
+                      variant="light"
+                      size="xl"
                       style={{
-                        boxShadow: `0 4px 16px ${commonColors.shadowPrimary}`,
+                        cursor: 'default',
+                        transition: 'all 0.2s ease-in-out',
+                        transform: 'scale(1)',
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.transform = 'scale(1.1)';
+                        e.currentTarget.style.boxShadow = `0 4px 12px ${commonColors.shadowMedium}`;
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.transform = 'scale(1)';
+                        e.currentTarget.style.boxShadow = 'none';
                       }}
                     >
                       {getTechnicalIcon(key)}
@@ -457,15 +475,23 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     <Group gap="md" mb="lg">
                       <ThemeIcon
                         color={commonColors.accentPrimary}
-                        variant="gradient"
-                        gradient={{
-                          from: commonColors.accentSecondary,
-                          to: commonColors.accentPrimary,
+                        variant="light"
+                        size="lg"
+                        style={{
+                          cursor: 'default',
+                          transition: 'all 0.2s ease-in-out',
+                          transform: 'scale(1)',
                         }}
-                        size="md"
-                        radius="xl"
+                        onMouseEnter={e => {
+                          e.currentTarget.style.transform = 'scale(1.1)';
+                          e.currentTarget.style.boxShadow = `0 4px 12px ${commonColors.shadowMedium}`;
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                          e.currentTarget.style.boxShadow = 'none';
+                        }}
                       >
-                        📊
+                        <IconChartBar size={24} />
                       </ThemeIcon>
                       <Group gap="xs" align="center">
                         <Title order={4} fw={700} c={commonColors.textPrimary}>
@@ -559,15 +585,23 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     <Group gap="md" mb="md">
                       <ThemeIcon
                         color={commonColors.accentPrimary}
-                        variant="gradient"
-                        gradient={{
-                          from: commonColors.accentSecondary,
-                          to: commonColors.accentPrimary,
+                        variant="light"
+                        size="lg"
+                        style={{
+                          cursor: 'default',
+                          transition: 'all 0.2s ease-in-out',
+                          transform: 'scale(1)',
                         }}
-                        size="md"
-                        radius="xl"
+                        onMouseEnter={e => {
+                          e.currentTarget.style.transform = 'scale(1.1)';
+                          e.currentTarget.style.boxShadow = `0 4px 12px ${commonColors.shadowMedium}`;
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                          e.currentTarget.style.boxShadow = 'none';
+                        }}
                       >
-                        🛠️
+                        <IconTools size={24} />
                       </ThemeIcon>
                       <Group gap="xs" align="center">
                         <Title order={4} fw={700} c={commonColors.textPrimary}>
@@ -650,15 +684,23 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     <Group gap="md" mb="md">
                       <ThemeIcon
                         color={commonColors.accentPrimary}
-                        variant="gradient"
-                        gradient={{
-                          from: commonColors.accentSecondary,
-                          to: commonColors.accentPrimary,
+                        variant="light"
+                        size="lg"
+                        style={{
+                          cursor: 'default',
+                          transition: 'all 0.2s ease-in-out',
+                          transform: 'scale(1)',
                         }}
-                        size="md"
-                        radius="xl"
+                        onMouseEnter={e => {
+                          e.currentTarget.style.transform = 'scale(1.1)';
+                          e.currentTarget.style.boxShadow = `0 4px 12px ${commonColors.shadowMedium}`;
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                          e.currentTarget.style.boxShadow = 'none';
+                        }}
                       >
-                        📊
+                        <IconChartBar size={24} />
                       </ThemeIcon>
                       <Group gap="xs" align="center">
                         <Title order={4} fw={700} c={commonColors.textPrimary}>
@@ -747,15 +789,23 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     <Group gap="md" mb="lg">
                       <ThemeIcon
                         color={commonColors.accentPrimary}
-                        variant="gradient"
-                        gradient={{
-                          from: commonColors.accentSecondary,
-                          to: commonColors.accentPrimary,
+                        variant="light"
+                        size="lg"
+                        style={{
+                          cursor: 'default',
+                          transition: 'all 0.2s ease-in-out',
+                          transform: 'scale(1)',
                         }}
-                        size="md"
-                        radius="xl"
+                        onMouseEnter={e => {
+                          e.currentTarget.style.transform = 'scale(1.1)';
+                          e.currentTarget.style.boxShadow = `0 4px 12px ${commonColors.shadowMedium}`;
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                          e.currentTarget.style.boxShadow = 'none';
+                        }}
                       >
-                        ⚡
+                        <IconSettings size={24} />
                       </ThemeIcon>
                       <Group gap="xs" align="center">
                         <Title order={4} fw={700} c={commonColors.textPrimary}>
@@ -834,9 +884,49 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
-                    <Text size="md" fw={600} mb="md" c={commonColors.accentPrimary}>
-                      🏗️ Components
-                    </Text>
+                    <Group gap="md" mb="md">
+                      <ThemeIcon
+                        color={commonColors.accentPrimary}
+                        variant="light"
+                        size="lg"
+                        style={{
+                          cursor: 'default',
+                          transition: 'all 0.2s ease-in-out',
+                          transform: 'scale(1)',
+                        }}
+                        onMouseEnter={e => {
+                          e.currentTarget.style.transform = 'scale(1.1)';
+                          e.currentTarget.style.boxShadow = `0 4px 12px ${commonColors.shadowMedium}`;
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                          e.currentTarget.style.boxShadow = 'none';
+                        }}
+                      >
+                        <IconBuilding size={24} />
+                      </ThemeIcon>
+                      <Group gap="xs" align="center">
+                        <Title order={4} fw={700} c={commonColors.textPrimary}>
+                          Components
+                        </Title>
+                        <MobileTooltip
+                          label="Technical building blocks and modules that make up the system architecture."
+                          multiline
+                          w={300}
+                          withArrow
+                        >
+                          <ThemeIcon
+                            color={commonColors.textSecondary}
+                            variant="light"
+                            size="sm"
+                            radius="xl"
+                            style={{ cursor: 'help' }}
+                          >
+                            ?
+                          </ThemeIcon>
+                        </MobileTooltip>
+                      </Group>
+                    </Group>
                     <List size="md" spacing="sm">
                       {section.components.map((component: string, index: number) => (
                         <List.Item
@@ -878,9 +968,49 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
-                    <Text size="md" fw={600} mb="md" c={commonColors.accentPrimary}>
-                      🚀 Performance Metrics
-                    </Text>
+                    <Group gap="md" mb="md">
+                      <ThemeIcon
+                        color={commonColors.accentPrimary}
+                        variant="light"
+                        size="lg"
+                        style={{
+                          cursor: 'default',
+                          transition: 'all 0.2s ease-in-out',
+                          transform: 'scale(1)',
+                        }}
+                        onMouseEnter={e => {
+                          e.currentTarget.style.transform = 'scale(1.1)';
+                          e.currentTarget.style.boxShadow = `0 4px 12px ${commonColors.shadowMedium}`;
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                          e.currentTarget.style.boxShadow = 'none';
+                        }}
+                      >
+                        <IconRocket size={24} />
+                      </ThemeIcon>
+                      <Group gap="xs" align="center">
+                        <Title order={4} fw={700} c={commonColors.textPrimary}>
+                          Performance Metrics
+                        </Title>
+                        <MobileTooltip
+                          label="Performance indicators and optimization metrics for the application."
+                          multiline
+                          w={300}
+                          withArrow
+                        >
+                          <ThemeIcon
+                            color={commonColors.textSecondary}
+                            variant="light"
+                            size="sm"
+                            radius="xl"
+                            style={{ cursor: 'help' }}
+                          >
+                            ?
+                          </ThemeIcon>
+                        </MobileTooltip>
+                      </Group>
+                    </Group>
                     <Box>
                       <Group justify="space-between" mb="sm">
                         <Text size="sm" fw={500}>
@@ -931,9 +1061,49 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
-                    <Text size="md" fw={600} mb="md" c={commonColors.accentPrimary}>
-                      ⚡ Core Web Vitals
-                    </Text>
+                    <Group gap="md" mb="md">
+                      <ThemeIcon
+                        color={commonColors.accentPrimary}
+                        variant="light"
+                        size="lg"
+                        style={{
+                          cursor: 'default',
+                          transition: 'all 0.2s ease-in-out',
+                          transform: 'scale(1)',
+                        }}
+                        onMouseEnter={e => {
+                          e.currentTarget.style.transform = 'scale(1.1)';
+                          e.currentTarget.style.boxShadow = `0 4px 12px ${commonColors.shadowMedium}`;
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                          e.currentTarget.style.boxShadow = 'none';
+                        }}
+                      >
+                        <IconActivity size={24} />
+                      </ThemeIcon>
+                      <Group gap="xs" align="center">
+                        <Title order={4} fw={700} c={commonColors.textPrimary}>
+                          Core Web Vitals
+                        </Title>
+                        <MobileTooltip
+                          label="Google's Core Web Vitals metrics measuring user experience and performance."
+                          multiline
+                          w={300}
+                          withArrow
+                        >
+                          <ThemeIcon
+                            color={commonColors.textSecondary}
+                            variant="light"
+                            size="sm"
+                            radius="xl"
+                            style={{ cursor: 'help' }}
+                          >
+                            ?
+                          </ThemeIcon>
+                        </MobileTooltip>
+                      </Group>
+                    </Group>
                     <SimpleGrid cols={{ base: 1, xs: 2, sm: 3 }} spacing="md">
                       {Object.entries(section.coreWebVitals).map(([vital, value]) => (
                         <Box
@@ -999,15 +1169,23 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     <Group gap="md" mb="lg">
                       <ThemeIcon
                         color={commonColors.accentPrimary}
-                        variant="gradient"
-                        gradient={{
-                          from: commonColors.accentSecondary,
-                          to: commonColors.accentPrimary,
+                        variant="light"
+                        size="lg"
+                        style={{
+                          cursor: 'default',
+                          transition: 'all 0.2s ease-in-out',
+                          transform: 'scale(1)',
                         }}
-                        size="md"
-                        radius="xl"
+                        onMouseEnter={e => {
+                          e.currentTarget.style.transform = 'scale(1.1)';
+                          e.currentTarget.style.boxShadow = `0 4px 12px ${commonColors.shadowMedium}`;
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                          e.currentTarget.style.boxShadow = 'none';
+                        }}
                       >
-                        🏗️
+                        <IconBuilding size={24} />
                       </ThemeIcon>
                       <Group gap="xs" align="center">
                         <Title order={4} fw={700} c={commonColors.textPrimary}>
@@ -1121,15 +1299,23 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     <Group gap="md" mb="lg">
                       <ThemeIcon
                         color={commonColors.accentPrimary}
-                        variant="gradient"
-                        gradient={{
-                          from: commonColors.accentSecondary,
-                          to: commonColors.accentPrimary,
+                        variant="light"
+                        size="lg"
+                        style={{
+                          cursor: 'default',
+                          transition: 'all 0.2s ease-in-out',
+                          transform: 'scale(1)',
                         }}
-                        size="md"
-                        radius="xl"
+                        onMouseEnter={e => {
+                          e.currentTarget.style.transform = 'scale(1.1)';
+                          e.currentTarget.style.boxShadow = `0 4px 12px ${commonColors.shadowMedium}`;
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                          e.currentTarget.style.boxShadow = 'none';
+                        }}
                       >
-                        🚀
+                        <IconCode size={24} />
                       </ThemeIcon>
                       <Group gap="xs" align="center">
                         <Title order={4} fw={700} c={commonColors.textPrimary}>
@@ -1160,8 +1346,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           radius="md"
                           withBorder
                           style={{
-                            background: colorCombinations.earthGradientModal,
-                            border: `1px solid ${commonColors.borderEarth}`,
+                            background: commonColors.backgroundCard,
+                            border: `1px solid ${commonColors.borderPrimary}`,
                           }}
                         >
                           <Text size="sm" c={commonColors.textSecondary} fw={600} mb="xs">
@@ -1178,14 +1364,14 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           radius="md"
                           withBorder
                           style={{
-                            background: colorCombinations.primaryGradientModal,
-                            border: `1px solid ${commonColors.borderPrimaryColor}`,
+                            background: commonColors.backgroundCard,
+                            border: `1px solid ${commonColors.borderPrimary}`,
                           }}
                         >
                           <Text size="sm" c={commonColors.textSecondary} fw={600} mb="xs">
                             Lead Time
                           </Text>
-                          <Text size="lg" fw={800} c="pink">
+                          <Text size="lg" fw={800} c={commonColors.accentPrimary}>
                             {section.leadTime}
                           </Text>
                         </Card>
@@ -1219,15 +1405,23 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     <Group gap="md" mb="lg">
                       <ThemeIcon
                         color={commonColors.accentPrimary}
-                        variant="gradient"
-                        gradient={{
-                          from: commonColors.accentSecondary,
-                          to: commonColors.accentPrimary,
+                        variant="light"
+                        size="lg"
+                        style={{
+                          cursor: 'default',
+                          transition: 'all 0.2s ease-in-out',
+                          transform: 'scale(1)',
                         }}
-                        size="md"
-                        radius="xl"
+                        onMouseEnter={e => {
+                          e.currentTarget.style.transform = 'scale(1.1)';
+                          e.currentTarget.style.boxShadow = `0 4px 12px ${commonColors.shadowMedium}`;
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                          e.currentTarget.style.boxShadow = 'none';
+                        }}
                       >
-                        📸
+                        <IconPhoto size={24} />
                       </ThemeIcon>
                       <Group gap="xs" align="center">
                         <Title order={4} fw={700} c={commonColors.textPrimary}>
@@ -1324,7 +1518,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
       <Modal
         opened={!!selectedImage}
         onClose={() => setSelectedImage(null)}
-        size="50%"
+        size="22%"
         centered
         title="Technical Screenshot"
         styles={{
