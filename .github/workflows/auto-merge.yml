@@ -41,7 +41,7 @@ jobs:
           version: '8'
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Run final build check
         run: pnpm run build
