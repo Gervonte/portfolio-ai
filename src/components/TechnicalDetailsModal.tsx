@@ -2,6 +2,7 @@
 
 import { Project } from '@/lib/projects';
 import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
+import '@/styles/technical-modal.css';
 import {
   Alert,
   Badge,
@@ -139,8 +140,36 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
 
   if (!project.technicalDetails) {
     return (
-      <Modal opened={opened} onClose={onClose} title="Technical Details" size="lg" centered>
-        <Alert icon={<IconAlertCircle size={16} />} color="sakura" variant="light">
+      <Modal
+        opened={opened}
+        onClose={onClose}
+        title="Technical Details"
+        centered
+        size="50%"
+        classNames={{
+          content: 'technical-modal-content',
+          body: 'technical-modal-body',
+        }}
+        styles={{
+          content: {
+            background: commonColors.backgroundModal,
+            border: `1px solid ${commonColors.borderModal}`,
+            boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
+          },
+          body: {
+            background: commonColors.backgroundCard,
+          },
+          header: {
+            background: commonColors.backgroundCard,
+            borderBottom: `1px solid ${commonColors.borderPrimary}`,
+          },
+        }}
+      >
+        <Alert
+          icon={<IconAlertCircle size={16} />}
+          color={commonColors.accentPrimary}
+          variant="light"
+        >
           Technical details coming soon...
         </Alert>
       </Modal>
@@ -157,9 +186,41 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
         closeOnEscape={true}
         trapFocus={true}
         returnFocus={true}
+        centered
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+        size="40%"
+        classNames={{
+          content: 'technical-modal-content',
+          body: 'technical-modal-body',
+        }}
+        styles={{
+          content: {
+            background: commonColors.backgroundModal,
+            border: `1px solid ${commonColors.borderModal}`,
+            boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
+          },
+          body: {
+            background: commonColors.backgroundCard,
+            maxHeight: '60vh',
+            minHeight: '300px',
+            overflowY: 'auto',
+            padding: '2rem',
+          },
+          header: {
+            background: commonColors.backgroundCard,
+            borderBottom: `1px solid ${commonColors.borderPrimary}`,
+            padding:
+              'var(--mantine-spacing-xl) var(--mantine-spacing-md) 0 var(--mantine-spacing-md)',
+            marginBottom: 0,
+            position: 'relative',
+            zIndex: 100,
+            overflow: 'hidden',
+          },
+        }}
         overlayProps={{
           style: {
-            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            backgroundColor: commonColors.shadowHeavy,
             backdropFilter: 'blur(4px)',
             WebkitBackdropFilter: 'blur(4px)',
           },
@@ -168,9 +229,9 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
           <Box>
             <Group gap="sm" align="flex-start" mb="md" wrap="wrap">
               <ThemeIcon
-                color="sakura"
+                color={commonColors.accentPrimary}
                 variant="gradient"
-                gradient={{ from: 'pink', to: 'red' }}
+                gradient={{ from: commonColors.accentSecondary, to: commonColors.accentPrimary }}
                 size="md"
                 radius="xl"
                 style={{
@@ -182,8 +243,9 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
               </ThemeIcon>
               <Box style={{ flex: 1, minWidth: '0', overflow: 'hidden' }}>
                 <Title
+                  id="modal-title"
                   order={1}
-                  c="dark"
+                  c={commonColors.textPrimary}
                   fw={800}
                   mb="xs"
                   size="h3"
@@ -197,8 +259,9 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   {project.title}
                 </Title>
                 <Text
+                  id="modal-description"
                   size="sm"
-                  c="dimmed"
+                  c={commonColors.textSecondary}
                   fw={500}
                   style={{
                     fontSize:
@@ -213,7 +276,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
             {/* Tabs Navigation */}
             <Box
               style={{
-                background: 'white',
+                background: commonColors.backgroundCard,
                 padding: '0',
                 margin: '0 -1rem',
                 borderBottom: `4px solid ${commonColors.borderPrimary}`,
@@ -231,17 +294,26 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
               {technicalSections.map(({ key, icon }) => (
                 <Box
                   key={key}
+                  id={`tab-${key}`}
                   onClick={() => setActiveTab(key)}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setActiveTab(key);
+                    }
+                  }}
+                  tabIndex={0}
+                  role="tab"
+                  aria-selected={activeTab === key}
+                  aria-controls={`tabpanel-${key}`}
                   style={{
                     fontWeight: 600,
-                    transition: 'all 0.2s ease',
+                    transition: 'all 0.2s ease-in-out',
                     padding: 'var(--mantine-spacing-xs) var(--mantine-spacing-sm)',
                     fontSize: 'var(--mantine-font-size-xs)',
                     color:
-                      activeTab === key
-                        ? 'var(--mantine-color-sakura-3)'
-                        : 'var(--mantine-color-gray-6)',
-                    background: activeTab === key ? 'var(--mantine-color-sakura-0)' : 'transparent',
+                      activeTab === key ? commonColors.accentPrimary : commonColors.textSecondary,
+                    background: activeTab === key ? commonColors.accentSecondary : 'transparent',
                     flex: '1 1 0',
                     minWidth: '0',
                     textAlign: 'center',
@@ -250,15 +322,33 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     justifyContent: 'center',
                     borderTop:
                       activeTab === key
-                        ? '2px solid var(--mantine-color-sakura-3)'
+                        ? `2px solid ${commonColors.accentPrimary}`
                         : '2px solid transparent',
-                    borderLeft: '1px solid var(--mantine-color-gray-2)',
-                    borderRight: '1px solid var(--mantine-color-gray-2)',
+                    borderLeft: `1px solid ${commonColors.borderPrimary}`,
+                    borderRight: `1px solid ${commonColors.borderPrimary}`,
                     borderBottom: 'none',
                     cursor: 'pointer',
                     height: '100%',
                     minHeight: '44px',
                     whiteSpace: 'nowrap',
+                    transform: 'scale(1)',
+                    boxShadow: 'none',
+                  }}
+                  onMouseEnter={e => {
+                    if (activeTab !== key) {
+                      e.currentTarget.style.transform = 'scale(1.02)';
+                      e.currentTarget.style.boxShadow = `0 4px 16px ${commonColors.shadowMedium}`;
+                      e.currentTarget.style.background = commonColors.accentSecondary;
+                      e.currentTarget.style.color = commonColors.accentPrimary;
+                    }
+                  }}
+                  onMouseLeave={e => {
+                    if (activeTab !== key) {
+                      e.currentTarget.style.transform = 'scale(1)';
+                      e.currentTarget.style.boxShadow = 'none';
+                      e.currentTarget.style.background = 'transparent';
+                      e.currentTarget.style.color = commonColors.textSecondary;
+                    }
                   }}
                 >
                   <Group gap="xs" align="center" wrap="nowrap">
@@ -272,47 +362,27 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
             </Box>
           </Box>
         }
-        size="xl"
-        centered
-        styles={{
-          header: {
-            background: 'white',
-            borderBottom: 'none',
-            padding:
-              'var(--mantine-spacing-xl) var(--mantine-spacing-md) 0 var(--mantine-spacing-md)',
-            marginBottom: 0,
-            position: 'relative',
-            zIndex: 100,
-            overflow: 'hidden',
-          },
-          body: {
-            padding: 'var(--mantine-spacing-md)',
-            background: 'var(--mantine-color-gray-0)',
-            maxHeight: '70vh',
-            minHeight: '400px',
-            overflowY: 'auto',
-          },
-          content: {
-            borderRadius: 'var(--mantine-radius-lg)',
-            overflow: 'hidden',
-            boxShadow: 'var(--mantine-shadow-xl)',
-            border: '1px solid var(--mantine-color-gray-2)',
-            maxHeight: '90vh',
-            display: 'flex',
-            flexDirection: 'column',
-            zIndex: 1000,
-            position: 'relative',
-          },
-        }}
       >
-        <Tabs value={activeTab} onChange={setActiveTab} variant="pills" color="sakura">
+        <Tabs
+          value={activeTab}
+          onChange={setActiveTab}
+          variant="pills"
+          color={commonColors.accentPrimary}
+        >
           {technicalSections.map(({ key, section }) => (
-            <Tabs.Panel key={key} value={key} pt="xl">
+            <Tabs.Panel
+              key={key}
+              value={key}
+              pt="xl"
+              id={`tabpanel-${key}`}
+              role="tabpanel"
+              aria-labelledby={`tab-${key}`}
+            >
               <Stack gap="xl">
                 {/* Overview Card */}
                 <Card
                   padding="xl"
-                  radius="lg"
+                  radius="md"
                   withBorder
                   style={{
                     background: commonColors.backgroundCard,
@@ -322,27 +392,40 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
+                    transition: 'all 0.2s ease-in-out',
+                    transform: 'scale(1)',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.transform = 'scale(1.02)';
+                    e.currentTarget.style.boxShadow = `0 4px 16px ${commonColors.shadowMedium}`;
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                   }}
                 >
                   <Group gap="lg" mb="md">
                     <ThemeIcon
-                      color="sakura"
+                      color={commonColors.accentPrimary}
                       variant="gradient"
-                      gradient={{ from: 'pink', to: 'red' }}
+                      gradient={{
+                        from: commonColors.accentSecondary,
+                        to: commonColors.accentPrimary,
+                      }}
                       size="lg"
                       radius="xl"
                       style={{
-                        boxShadow: '0 4px 16px rgba(244, 67, 54, 0.2)',
+                        boxShadow: `0 4px 16px ${commonColors.shadowPrimary}`,
                       }}
                     >
                       {getTechnicalIcon(key)}
                     </ThemeIcon>
                     <Box style={{ flex: 1 }}>
-                      <Title order={3} c="dark" fw={700} mb="xs">
+                      <Title order={3} c={commonColors.textPrimary} fw={700} mb="xs">
                         {key === 'cicd' ? 'CI/CD' : key.charAt(0).toUpperCase() + key.slice(1)}{' '}
                         Overview
                       </Title>
-                      <Text size="md" c="dimmed" lh={1.6}>
+                      <Text size="md" c={commonColors.textSecondary} lh={1.6}>
                         {section.description}
                       </Text>
                     </Box>
@@ -353,26 +436,39 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 {shouldShowSection(section, 'metrics') && (
                   <Card
                     padding="xl"
-                    radius="lg"
+                    radius="md"
                     withBorder
                     style={{
-                      background: 'white',
-                      border: `1px solid ${commonColors.borderModal}`,
-                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                      background: commonColors.backgroundCard,
+                      border: `1px solid ${commonColors.borderPrimary}`,
+                      boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
+                      transition: 'all 0.2s ease-in-out',
+                      transform: 'scale(1)',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = 'scale(1.02)';
+                      e.currentTarget.style.boxShadow = `0 4px 16px ${commonColors.shadowMedium}`;
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = 'scale(1)';
+                      e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
                     <Group gap="md" mb="lg">
                       <ThemeIcon
-                        color="sakura"
+                        color={commonColors.accentPrimary}
                         variant="gradient"
-                        gradient={{ from: 'pink', to: 'red' }}
+                        gradient={{
+                          from: commonColors.accentSecondary,
+                          to: commonColors.accentPrimary,
+                        }}
                         size="md"
                         radius="xl"
                       >
                         📊
                       </ThemeIcon>
                       <Group gap="xs" align="center">
-                        <Title order={4} fw={700} c="dark">
+                        <Title order={4} fw={700} c={commonColors.textPrimary}>
                           Key Metrics
                         </Title>
                         <MobileTooltip
@@ -382,7 +478,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           withArrow
                         >
                           <ThemeIcon
-                            color="gray"
+                            color={commonColors.textSecondary}
                             variant="light"
                             size="sm"
                             radius="xl"
@@ -401,11 +497,12 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           radius="md"
                           withBorder
                           style={{
-                            background: commonColors.backgroundModal,
-                            border: `1px solid ${commonColors.borderModal}`,
+                            background: commonColors.backgroundCard,
+                            border: `1px solid ${commonColors.borderPrimary}`,
                             textAlign: 'center',
-                            transition: 'all 0.2s ease',
+                            transition: 'all 0.2s ease-in-out',
                             cursor: 'default',
+                            transform: 'scale(1)',
                           }}
                           onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
                             e.currentTarget.style.transform = 'translateY(-2px)';
@@ -420,7 +517,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         >
                           <Text
                             size="xs"
-                            c="dimmed"
+                            c={commonColors.textSecondary}
                             tt="uppercase"
                             fw={600}
                             mb="xs"
@@ -428,7 +525,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           >
                             {metricKey.replace(/([A-Z])/g, ' $1').trim()}
                           </Text>
-                          <Text size="xl" fw={800} c="sakura">
+                          <Text size="xl" fw={800} c={commonColors.accentPrimary}>
                             {String(value)}
                           </Text>
                         </Card>
@@ -441,26 +538,39 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 {shouldShowSection(section, 'tools') && (
                   <Card
                     padding="xl"
-                    radius="lg"
+                    radius="md"
                     withBorder
                     style={{
-                      background: 'white',
-                      border: `1px solid ${commonColors.borderModal}`,
-                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                      background: commonColors.backgroundCard,
+                      border: `1px solid ${commonColors.borderPrimary}`,
+                      boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
+                      transition: 'all 0.2s ease-in-out',
+                      transform: 'scale(1)',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = 'scale(1.02)';
+                      e.currentTarget.style.boxShadow = `0 4px 16px ${commonColors.shadowMedium}`;
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = 'scale(1)';
+                      e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
                     <Group gap="md" mb="md">
                       <ThemeIcon
-                        color="sakura"
+                        color={commonColors.accentPrimary}
                         variant="gradient"
-                        gradient={{ from: 'pink', to: 'red' }}
+                        gradient={{
+                          from: commonColors.accentSecondary,
+                          to: commonColors.accentPrimary,
+                        }}
                         size="md"
                         radius="xl"
                       >
                         🛠️
                       </ThemeIcon>
                       <Group gap="xs" align="center">
-                        <Title order={4} fw={700} c="dark">
+                        <Title order={4} fw={700} c={commonColors.textPrimary}>
                           Tools & Technologies
                         </Title>
                         <MobileTooltip
@@ -470,7 +580,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           withArrow
                         >
                           <ThemeIcon
-                            color="gray"
+                            color={commonColors.textSecondary}
                             variant="light"
                             size="sm"
                             radius="xl"
@@ -487,12 +597,25 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           key={tool}
                           size="md"
                           variant="light"
-                          color="sakura"
+                          color={commonColors.accentPrimary}
                           radius="xl"
                           style={{
-                            fontWeight: 500,
+                            fontWeight: 600,
                             textTransform: 'none',
-                            border: `1px solid ${commonColors.borderSecondary}`,
+                            background: commonColors.accentSecondary,
+                            color: commonColors.accentPrimary,
+                            border: `1px solid ${commonColors.accentPrimary}`,
+                            transition: 'all 0.2s ease-in-out',
+                          }}
+                          onMouseEnter={e => {
+                            e.currentTarget.style.transform = 'scale(1.05)';
+                            e.currentTarget.style.background = commonColors.accentPrimary;
+                            e.currentTarget.style.color = commonColors.backgroundCard;
+                          }}
+                          onMouseLeave={e => {
+                            e.currentTarget.style.transform = 'scale(1)';
+                            e.currentTarget.style.background = commonColors.accentSecondary;
+                            e.currentTarget.style.color = commonColors.accentPrimary;
                           }}
                         >
                           {tool}
@@ -506,26 +629,39 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 {shouldShowSection(section, 'monitoring') && (
                   <Card
                     padding="xl"
-                    radius="lg"
+                    radius="md"
                     withBorder
                     style={{
-                      background: 'white',
-                      border: `1px solid ${commonColors.borderModal}`,
-                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                      background: commonColors.backgroundCard,
+                      border: `1px solid ${commonColors.borderPrimary}`,
+                      boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
+                      transition: 'all 0.2s ease-in-out',
+                      transform: 'scale(1)',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = 'scale(1.02)';
+                      e.currentTarget.style.boxShadow = `0 4px 16px ${commonColors.shadowMedium}`;
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = 'scale(1)';
+                      e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
                     <Group gap="md" mb="md">
                       <ThemeIcon
-                        color="sakura"
+                        color={commonColors.accentPrimary}
                         variant="gradient"
-                        gradient={{ from: 'pink', to: 'red' }}
+                        gradient={{
+                          from: commonColors.accentSecondary,
+                          to: commonColors.accentPrimary,
+                        }}
                         size="md"
                         radius="xl"
                       >
                         📊
                       </ThemeIcon>
                       <Group gap="xs" align="center">
-                        <Title order={4} fw={700} c="dark">
+                        <Title order={4} fw={700} c={commonColors.textPrimary}>
                           System Health
                         </Title>
                         <MobileTooltip
@@ -535,7 +671,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           withArrow
                         >
                           <ThemeIcon
-                            color="gray"
+                            color={commonColors.textSecondary}
                             variant="light"
                             size="sm"
                             radius="xl"
@@ -557,10 +693,10 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                             border: `1px solid ${commonColors.borderEarth}`,
                           }}
                         >
-                          <Text size="sm" c="dimmed" fw={600} mb="xs">
+                          <Text size="sm" c={commonColors.textSecondary} fw={600} mb="xs">
                             Uptime
                           </Text>
-                          <Text size="xl" fw={800} c="sakura">
+                          <Text size="xl" fw={800} c={commonColors.accentPrimary}>
                             {section.uptime}
                           </Text>
                         </Card>
@@ -575,10 +711,10 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                             border: `1px solid ${commonColors.borderWarm}`,
                           }}
                         >
-                          <Text size="sm" c="dimmed" fw={600} mb="xs">
+                          <Text size="sm" c={commonColors.textSecondary} fw={600} mb="xs">
                             Error Rate
                           </Text>
-                          <Text size="xl" fw={800} c="orange">
+                          <Text size="xl" fw={800} c={commonColors.textSecondary}>
                             {section.errorRate}
                           </Text>
                         </Card>
@@ -590,26 +726,39 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 {shouldShowSection(section, 'workflows') && (
                   <Card
                     padding="xl"
-                    radius="lg"
+                    radius="md"
                     withBorder
                     style={{
-                      background: 'white',
-                      border: `1px solid ${commonColors.borderModal}`,
-                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                      background: commonColors.backgroundCard,
+                      border: `1px solid ${commonColors.borderPrimary}`,
+                      boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
+                      transition: 'all 0.2s ease-in-out',
+                      transform: 'scale(1)',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = 'scale(1.02)';
+                      e.currentTarget.style.boxShadow = `0 4px 16px ${commonColors.shadowMedium}`;
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = 'scale(1)';
+                      e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
                     <Group gap="md" mb="lg">
                       <ThemeIcon
-                        color="sakura"
+                        color={commonColors.accentPrimary}
                         variant="gradient"
-                        gradient={{ from: 'pink', to: 'red' }}
+                        gradient={{
+                          from: commonColors.accentSecondary,
+                          to: commonColors.accentPrimary,
+                        }}
                         size="md"
                         radius="xl"
                       >
                         ⚡
                       </ThemeIcon>
                       <Group gap="xs" align="center">
-                        <Title order={4} fw={700} c="dark">
+                        <Title order={4} fw={700} c={commonColors.textPrimary}>
                           CI/CD Workflows
                         </Title>
                         <MobileTooltip
@@ -619,7 +768,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           withArrow
                         >
                           <ThemeIcon
-                            color="gray"
+                            color={commonColors.textSecondary}
                             variant="light"
                             size="sm"
                             radius="xl"
@@ -655,7 +804,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                             e.currentTarget.style.borderColor = commonColors.borderPrimary;
                           }}
                         >
-                          <Text size="md" fw={600} c="dark">
+                          <Text size="md" fw={600} c={commonColors.textPrimary}>
                             {workflow}
                           </Text>
                         </Card>
@@ -665,15 +814,27 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 )}
 
                 {shouldShowSection(section, 'components') && (
-                  <Box
+                  <Card
+                    padding="lg"
+                    radius="md"
+                    withBorder
                     style={{
-                      background: colorCombinations.footerGradient,
-                      padding: '1rem',
-                      borderRadius: '12px',
-                      border: `1px solid ${commonColors.borderSecondary}`,
+                      background: commonColors.backgroundCard,
+                      border: `1px solid ${commonColors.borderPrimary}`,
+                      boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
+                      transition: 'all 0.2s ease-in-out',
+                      transform: 'scale(1)',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = 'scale(1.02)';
+                      e.currentTarget.style.boxShadow = `0 4px 16px ${commonColors.shadowMedium}`;
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = 'scale(1)';
+                      e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
-                    <Text size="md" fw={600} mb="md" c="sakura">
+                    <Text size="md" fw={600} mb="md" c={commonColors.accentPrimary}>
                       🏗️ Components
                     </Text>
                     <List size="md" spacing="sm">
@@ -692,20 +853,32 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         </List.Item>
                       ))}
                     </List>
-                  </Box>
+                  </Card>
                 )}
 
                 {/* Performance Metrics */}
                 {section.lighthouseScore && (
-                  <Box
+                  <Card
+                    padding="lg"
+                    radius="md"
+                    withBorder
                     style={{
-                      background: colorCombinations.footerGradient,
-                      padding: '1rem',
-                      borderRadius: '12px',
-                      border: `1px solid ${commonColors.borderSecondary}`,
+                      background: commonColors.backgroundCard,
+                      border: `1px solid ${commonColors.borderPrimary}`,
+                      boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
+                      transition: 'all 0.2s ease-in-out',
+                      transform: 'scale(1)',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = 'scale(1.02)';
+                      e.currentTarget.style.boxShadow = `0 4px 16px ${commonColors.shadowMedium}`;
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = 'scale(1)';
+                      e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
-                    <Text size="md" fw={600} mb="md" c="sakura">
+                    <Text size="md" fw={600} mb="md" c={commonColors.accentPrimary}>
                       🚀 Performance Metrics
                     </Text>
                     <Box>
@@ -713,7 +886,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         <Text size="sm" fw={500}>
                           Lighthouse Score
                         </Text>
-                        <Text size="lg" fw={700} c="sakura">
+                        <Text size="lg" fw={700} c={commonColors.accentPrimary}>
                           {section.lighthouseScore}
                         </Text>
                       </Group>
@@ -721,10 +894,10 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         value={section.lighthouseScore}
                         color={
                           section.lighthouseScore >= 90
-                            ? 'sakura'
+                            ? commonColors.accentPrimary
                             : section.lighthouseScore >= 70
-                              ? 'pink'
-                              : 'red'
+                              ? commonColors.accentSecondary
+                              : commonColors.textSecondary
                         }
                         size="lg"
                         radius="xl"
@@ -733,20 +906,32 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         }}
                       />
                     </Box>
-                  </Box>
+                  </Card>
                 )}
 
                 {/* Core Web Vitals */}
                 {section.coreWebVitals && (
-                  <Box
+                  <Card
+                    padding="lg"
+                    radius="md"
+                    withBorder
                     style={{
-                      background: colorCombinations.footerGradient,
-                      padding: '1rem',
-                      borderRadius: '12px',
-                      border: `1px solid ${commonColors.borderSecondary}`,
+                      background: commonColors.backgroundCard,
+                      border: `1px solid ${commonColors.borderPrimary}`,
+                      boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
+                      transition: 'all 0.2s ease-in-out',
+                      transform: 'scale(1)',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = 'scale(1.02)';
+                      e.currentTarget.style.boxShadow = `0 4px 16px ${commonColors.shadowMedium}`;
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = 'scale(1)';
+                      e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
-                    <Text size="md" fw={600} mb="md" c="sakura">
+                    <Text size="md" fw={600} mb="md" c={commonColors.accentPrimary}>
                       ⚡ Core Web Vitals
                     </Text>
                     <SimpleGrid cols={{ base: 1, xs: 2, sm: 3 }} spacing="md">
@@ -755,57 +940,77 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           key={vital}
                           p="md"
                           style={{
-                            background: 'rgba(255, 255, 255, 0.8)',
-                            border: `1px solid ${commonColors.borderSecondary}`,
+                            background: commonColors.backgroundModal,
+                            border: `1px solid ${commonColors.borderPrimary}`,
                             borderRadius: '12px',
                             textAlign: 'center',
-                            transition: 'transform 0.2s ease',
+                            transition: 'all 0.2s ease-in-out',
+                            transform: 'scale(1)',
                           }}
                           onMouseEnter={e => {
-                            e.currentTarget.style.transform = 'translateY(-2px)';
-                            e.currentTarget.style.boxShadow = '0 8px 25px rgba(244, 67, 54, 0.15)';
+                            e.currentTarget.style.transform = 'scale(1.02)';
+                            e.currentTarget.style.boxShadow = `0 4px 12px ${commonColors.shadowMedium}`;
                           }}
                           onMouseLeave={e => {
-                            e.currentTarget.style.transform = 'translateY(0)';
+                            e.currentTarget.style.transform = 'scale(1)';
                             e.currentTarget.style.boxShadow = 'none';
                           }}
                         >
-                          <Text size="xs" c="dimmed" tt="uppercase" fw={600} mb="xs">
+                          <Text
+                            size="xs"
+                            c={commonColors.textSecondary}
+                            tt="uppercase"
+                            fw={600}
+                            mb="xs"
+                          >
                             {vital}
                           </Text>
-                          <Text size="xl" fw={700} c="sakura">
+                          <Text size="xl" fw={700} c={commonColors.accentPrimary}>
                             {String(value)}
                           </Text>
                         </Box>
                       ))}
                     </SimpleGrid>
-                  </Box>
+                  </Card>
                 )}
 
                 {/* Architecture Data */}
                 {shouldShowSection(section, 'architecture') && (
                   <Card
                     padding="xl"
-                    radius="lg"
+                    radius="md"
                     withBorder
                     style={{
-                      background: 'white',
-                      border: `1px solid ${commonColors.borderModal}`,
-                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                      background: commonColors.backgroundCard,
+                      border: `1px solid ${commonColors.borderPrimary}`,
+                      boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
+                      transition: 'all 0.2s ease-in-out',
+                      transform: 'scale(1)',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = 'scale(1.02)';
+                      e.currentTarget.style.boxShadow = `0 4px 16px ${commonColors.shadowMedium}`;
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = 'scale(1)';
+                      e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
                     <Group gap="md" mb="lg">
                       <ThemeIcon
-                        color="sakura"
+                        color={commonColors.accentPrimary}
                         variant="gradient"
-                        gradient={{ from: 'pink', to: 'red' }}
+                        gradient={{
+                          from: commonColors.accentSecondary,
+                          to: commonColors.accentPrimary,
+                        }}
                         size="md"
                         radius="xl"
                       >
                         🏗️
                       </ThemeIcon>
                       <Group gap="xs" align="center">
-                        <Title order={4} fw={700} c="dark">
+                        <Title order={4} fw={700} c={commonColors.textPrimary}>
                           Architecture & Deployment
                         </Title>
                         <MobileTooltip
@@ -815,7 +1020,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           withArrow
                         >
                           <ThemeIcon
-                            color="gray"
+                            color={commonColors.textSecondary}
                             variant="light"
                             size="sm"
                             radius="xl"
@@ -828,8 +1033,14 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     </Group>
                     <Stack gap="md">
                       {section.components && section.components.length > 0 && (
-                        <Box>
-                          <Text size="sm" c="dimmed" fw={600} mb="sm">
+                        <Box
+                          p="lg"
+                          style={{
+                            background: commonColors.backgroundModal,
+                            borderRadius: '12px',
+                          }}
+                        >
+                          <Text size="sm" c={commonColors.textSecondary} fw={600} mb="sm">
                             Key Components
                           </Text>
                           <Group gap="sm">
@@ -838,12 +1049,25 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                                 key={component}
                                 size="md"
                                 variant="light"
-                                color="sakura"
+                                color={commonColors.accentPrimary}
                                 radius="xl"
                                 style={{
-                                  fontWeight: 500,
+                                  fontWeight: 600,
                                   textTransform: 'none',
-                                  border: `1px solid ${commonColors.borderSecondary}`,
+                                  background: commonColors.accentSecondary,
+                                  color: commonColors.accentPrimary,
+                                  border: `1px solid ${commonColors.accentPrimary}`,
+                                  transition: 'all 0.2s ease-in-out',
+                                }}
+                                onMouseEnter={e => {
+                                  e.currentTarget.style.transform = 'scale(1.05)';
+                                  e.currentTarget.style.background = commonColors.accentPrimary;
+                                  e.currentTarget.style.color = commonColors.backgroundCard;
+                                }}
+                                onMouseLeave={e => {
+                                  e.currentTarget.style.transform = 'scale(1)';
+                                  e.currentTarget.style.background = commonColors.accentSecondary;
+                                  e.currentTarget.style.color = commonColors.accentPrimary;
                                 }}
                               >
                                 {component}
@@ -853,11 +1077,17 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         </Box>
                       )}
                       {section.deployment && (
-                        <Box>
-                          <Text size="sm" c="dimmed" fw={600} mb="sm">
+                        <Box
+                          p="lg"
+                          style={{
+                            background: commonColors.backgroundModal,
+                            borderRadius: '12px',
+                          }}
+                        >
+                          <Text size="sm" c={commonColors.textSecondary} fw={600} mb="sm">
                             Deployment
                           </Text>
-                          <Text size="md" fw={600} c="dark">
+                          <Text size="md" fw={600} c={commonColors.textPrimary}>
                             {section.deployment}
                           </Text>
                         </Box>
@@ -870,26 +1100,39 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 {key === 'cicd' && shouldShowSection(section, 'deployment') && (
                   <Card
                     padding="xl"
-                    radius="lg"
+                    radius="md"
                     withBorder
                     style={{
-                      background: 'white',
-                      border: `1px solid ${commonColors.borderModal}`,
-                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                      background: commonColors.backgroundCard,
+                      border: `1px solid ${commonColors.borderPrimary}`,
+                      boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
+                      transition: 'all 0.2s ease-in-out',
+                      transform: 'scale(1)',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = 'scale(1.02)';
+                      e.currentTarget.style.boxShadow = `0 4px 16px ${commonColors.shadowMedium}`;
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = 'scale(1)';
+                      e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
                     <Group gap="md" mb="lg">
                       <ThemeIcon
-                        color="sakura"
+                        color={commonColors.accentPrimary}
                         variant="gradient"
-                        gradient={{ from: 'pink', to: 'red' }}
+                        gradient={{
+                          from: commonColors.accentSecondary,
+                          to: commonColors.accentPrimary,
+                        }}
                         size="md"
                         radius="xl"
                       >
                         🚀
                       </ThemeIcon>
                       <Group gap="xs" align="center">
-                        <Title order={4} fw={700} c="dark">
+                        <Title order={4} fw={700} c={commonColors.textPrimary}>
                           Deployment Metrics
                         </Title>
                         <MobileTooltip
@@ -899,7 +1142,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           withArrow
                         >
                           <ThemeIcon
-                            color="gray"
+                            color={commonColors.textSecondary}
                             variant="light"
                             size="sm"
                             radius="xl"
@@ -921,10 +1164,10 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                             border: `1px solid ${commonColors.borderEarth}`,
                           }}
                         >
-                          <Text size="sm" c="dimmed" fw={600} mb="xs">
+                          <Text size="sm" c={commonColors.textSecondary} fw={600} mb="xs">
                             Deployment Frequency
                           </Text>
-                          <Text size="lg" fw={800} c="sakura">
+                          <Text size="lg" fw={800} c={commonColors.accentPrimary}>
                             {section.deploymentFrequency}
                           </Text>
                         </Card>
@@ -939,7 +1182,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                             border: `1px solid ${commonColors.borderPrimaryColor}`,
                           }}
                         >
-                          <Text size="sm" c="dimmed" fw={600} mb="xs">
+                          <Text size="sm" c={commonColors.textSecondary} fw={600} mb="xs">
                             Lead Time
                           </Text>
                           <Text size="lg" fw={800} c="pink">
@@ -955,26 +1198,39 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 {shouldShowSection(section, 'screenshots') && (
                   <Card
                     padding="xl"
-                    radius="lg"
+                    radius="md"
                     withBorder
                     style={{
-                      background: 'white',
-                      border: `1px solid ${commonColors.borderModal}`,
-                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                      background: commonColors.backgroundCard,
+                      border: `1px solid ${commonColors.borderPrimary}`,
+                      boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
+                      transition: 'all 0.2s ease-in-out',
+                      transform: 'scale(1)',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = 'scale(1.02)';
+                      e.currentTarget.style.boxShadow = `0 4px 16px ${commonColors.shadowMedium}`;
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = 'scale(1)';
+                      e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
                     <Group gap="md" mb="lg">
                       <ThemeIcon
-                        color="sakura"
+                        color={commonColors.accentPrimary}
                         variant="gradient"
-                        gradient={{ from: 'pink', to: 'red' }}
+                        gradient={{
+                          from: commonColors.accentSecondary,
+                          to: commonColors.accentPrimary,
+                        }}
                         size="md"
                         radius="xl"
                       >
                         📸
                       </ThemeIcon>
                       <Group gap="xs" align="center">
-                        <Title order={4} fw={700} c="dark">
+                        <Title order={4} fw={700} c={commonColors.textPrimary}>
                           Screenshots & Visuals
                         </Title>
                         <MobileTooltip
@@ -984,7 +1240,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           withArrow
                         >
                           <ThemeIcon
-                            color="gray"
+                            color={commonColors.textSecondary}
                             variant="light"
                             size="sm"
                             radius="xl"
@@ -1002,16 +1258,17 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           style={{
                             position: 'relative',
                             height: '120px',
-                            borderRadius: '8px',
+                            borderRadius: 'var(--mantine-radius-sm)',
                             overflow: 'hidden',
                             cursor: 'pointer',
-                            border: `1px solid ${commonColors.borderModal}`,
-                            transition: 'all 0.2s ease',
+                            border: `1px solid ${commonColors.borderPrimary}`,
+                            transition: 'all 0.2s ease-in-out',
+                            transform: 'scale(1)',
                           }}
                           onClick={() => setSelectedImage(screenshot)}
                           onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
                             e.currentTarget.style.transform = 'scale(1.05)';
-                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                            e.currentTarget.style.boxShadow = `0 4px 12px ${commonColors.shadowMedium}`;
                           }}
                           onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
                             e.currentTarget.style.transform = 'scale(1)';
@@ -1067,9 +1324,23 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
       <Modal
         opened={!!selectedImage}
         onClose={() => setSelectedImage(null)}
-        size="xl"
+        size="50%"
         centered
         title="Technical Screenshot"
+        styles={{
+          content: {
+            background: commonColors.backgroundModal,
+            border: `1px solid ${commonColors.borderModal}`,
+            boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
+          },
+          body: {
+            background: commonColors.backgroundCard,
+          },
+          header: {
+            background: commonColors.backgroundCard,
+            borderBottom: `1px solid ${commonColors.borderPrimary}`,
+          },
+        }}
       >
         {selectedImage && (
           <Image src={`/images/technical/${selectedImage}`} alt="Technical screenshot" />
