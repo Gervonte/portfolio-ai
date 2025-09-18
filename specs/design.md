@@ -684,6 +684,89 @@ const oceanTheme = {
   - Icon rotation (if present)
   - Smooth color transition
 
+#### Scroll Indicator
+
+The scroll indicator is a sophisticated navigation component that provides both visual progress feedback and interactive section navigation.
+
+##### Design Principles
+
+- **Card-Based Container**: Follows the universal card design system with 12px border radius and theme-aware styling
+- **Theme Integration**: Fully theme-aware with dynamic colors, shadows, and effects
+- **Accessibility First**: Keyboard navigation support and descriptive aria-labels
+- **Progressive Enhancement**: Graceful degradation for different screen sizes and orientations
+
+##### Visual Design
+
+- **Container Styling**:
+  - Background: Theme-aware card background with opacity (`backgroundCardCC`)
+  - Border: Theme-aware primary border color
+  - Border Radius: 12px (horizontal) / 16px (vertical)
+  - Backdrop Filter: 20px blur for glassmorphism effect
+  - Shadow: Dynamic shadow system with hover enhancement
+
+- **Hover Effects**:
+  - Scale Transform: 1.02x on hover
+  - Shadow Enhancement: Increased shadow depth and glow
+  - Border: Maintains consistent border color (no outline change)
+  - Transition: Smooth 0.3s ease-out animation
+
+##### Functional Behavior
+
+- **Visibility Management**:
+  - Auto-hide after 2 seconds of inactivity
+  - Stays visible while hovering over the component
+  - Shows on scroll, keyboard navigation, and user interaction
+  - Dynamic delay reset based on recent interactions
+
+- **Progress Tracking**:
+  - Real-time scroll progress percentage
+  - Theme-aware progress bar with primary accent color
+  - Smooth progress updates with throttled scroll detection
+
+- **Section Navigation**:
+  - Visual section indicators with current section highlighting
+  - Arrow buttons for previous/next section navigation
+  - Keyboard support (arrow keys) for section navigation
+  - Smooth scrolling to target sections
+
+##### Variants
+
+1. **Horizontal Variant (Bottom)**:
+   - Position: Fixed bottom center
+   - Layout: Horizontal progress bar with section indicators
+   - Width: Minimum 400px, responsive
+   - Use Case: Desktop and tablet landscape
+
+2. **Vertical Variant (Side)**:
+   - Position: Fixed left/right side
+   - Layout: Vertical progress bar with compact section list
+   - Width: Minimum 200px
+   - Use Case: Desktop portrait and mobile
+
+##### Theme Integration
+
+- **Color System**: Uses theme-aware color hooks for all styling
+- **Dynamic Adaptation**: Automatically adapts to sakura/ocean theme changes
+- **Consistent Styling**: Follows the same design tokens as other components
+- **Accessibility**: Maintains proper contrast ratios across all themes
+
+##### Interaction Patterns
+
+- **Hover State**:
+  - Container scale and shadow enhancement
+  - Section button hover effects with scale and color changes
+  - Smooth transitions for all interactive elements
+
+- **Active State**:
+  - Button press animations with visual feedback
+  - Current section highlighting with gradient background
+  - Progress bar color updates
+
+- **Focus State**:
+  - Keyboard navigation with visible focus indicators
+  - Accessible button labels and descriptions
+  - Screen reader friendly section announcements
+
 ### Animations
 
 #### Page Transitions
@@ -897,10 +980,19 @@ const oceanTheme = {
 
 #### Component Updates
 
-- **Skill Badges**: Updated to use theme-aware color system
+- **Skill Badges**: Updated to use theme-aware color system with better contrast
 - **Footer Text**: Fixed gradient text visibility across themes
 - **Navigation**: Enhanced with theme-aware colors and effects
 - **Modal Components**: Updated technical details modals for theme compatibility
+- **Scroll Indicator**: Complete redesign with enhanced hover effects and improved UX
+
+#### Scroll Indicator Enhancements
+
+- **Hover Effects**: Added scale transform and enhanced shadows for better interactivity
+- **Visibility Management**: Stays visible while hovering, auto-hides with smart timeout logic
+- **Theme Integration**: Fully theme-aware with dynamic colors and consistent styling
+- **Clean Design**: Removed status indicator dots for cleaner appearance
+- **Build Process**: Improved build script to auto-format before building
 
 ### Accessibility Enhancements
 
