@@ -2,18 +2,34 @@
 
 import ParallaxElement from '@/components/ParallaxElement';
 import SakuraBackground from '@/components/SakuraBackground';
-import ScrollIndicator from '@/components/ScrollIndicator';
 import { ModalProvider } from '@/lib/modal-context';
 import { ParallaxProvider } from '@/lib/parallax-context';
 import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
 import { Box, Button, Container, Group, Stack, Text, Title } from '@mantine/core';
 import { memo, useEffect } from 'react';
 
-// Import sections normally for better scroll behavior
-import AboutSection from '@/components/AboutSection';
-import ContactSection from '@/components/ContactSection';
-import ExperienceSection from '@/components/ExperienceSection';
-import WorkSection from '@/components/WorkSection';
+const ScrollIndicator = dynamic(() => import('@/components/ScrollIndicator'), {
+  ssr: false,
+});
+
+// Lazy load sections below the fold for better performance
+import dynamic from 'next/dynamic';
+
+const AboutSection = dynamic(() => import('@/components/AboutSection'), {
+  loading: () => <div className="loading-placeholder">Loading...</div>,
+});
+
+const WorkSection = dynamic(() => import('@/components/WorkSection'), {
+  loading: () => <div className="loading-placeholder">Loading...</div>,
+});
+
+const ExperienceSection = dynamic(() => import('@/components/ExperienceSection'), {
+  loading: () => <div className="loading-placeholder">Loading...</div>,
+});
+
+const ContactSection = dynamic(() => import('@/components/ContactSection'), {
+  loading: () => <div className="loading-placeholder">Loading...</div>,
+});
 
 const HomePage = memo(() => {
   // Theme-aware colors
@@ -22,9 +38,6 @@ const HomePage = memo(() => {
 
   // Ensure page starts at top on mount and refresh
   useEffect(() => {
-    console.log('Page mounted, scroll position:', window.scrollY);
-    console.log('URL hash:', window.location.hash);
-
     // Force scroll to top immediately
     window.scrollTo(0, 0);
 
