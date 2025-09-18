@@ -99,10 +99,40 @@ body {
   }
 }
 
+/* Enhanced skeleton animations */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-title {
+  background: var(
+    --skeleton-gradient,
+    linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite ease-in-out;
+}
+
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
   .loading-placeholder {
-    background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+    background: var(
+      --skeleton-gradient-dark,
+      linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%)
+    );
+    background-size: 200% 100%;
+  }
+
+  .skeleton-title {
+    background: var(
+      --skeleton-gradient-dark,
+      linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%)
+    );
     background-size: 200% 100%;
   }
 }

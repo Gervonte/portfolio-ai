@@ -2,25 +2,37 @@
 
 import dynamic from 'next/dynamic';
 import OptimizedLoadingSpinner from './OptimizedLoadingSpinner';
+import {
+  AboutSectionSkeleton,
+  ContactSectionSkeleton,
+  ExperienceSectionSkeleton,
+  HeroSectionSkeleton,
+  WorkSectionSkeleton,
+} from './skeletons';
 
-// Lazy load all heavy components with optimized loading states
+// Lazy load all heavy components with content-specific loading states
+export const LazyHeroSection = dynamic(() => import('./HeroSection'), {
+  loading: () => <HeroSectionSkeleton />,
+  ssr: false,
+});
+
 export const LazyAboutSection = dynamic(() => import('./AboutSection'), {
-  loading: () => <OptimizedLoadingSpinner aria-label="Loading about section" count={3} />,
+  loading: () => <AboutSectionSkeleton />,
   ssr: false,
 });
 
 export const LazyWorkSection = dynamic(() => import('./WorkSection'), {
-  loading: () => <OptimizedLoadingSpinner aria-label="Loading work section" count={4} />,
+  loading: () => <WorkSectionSkeleton />,
   ssr: false,
 });
 
 export const LazyExperienceSection = dynamic(() => import('./ExperienceSection'), {
-  loading: () => <OptimizedLoadingSpinner aria-label="Loading experience section" count={2} />,
+  loading: () => <ExperienceSectionSkeleton />,
   ssr: false,
 });
 
 export const LazyContactSection = dynamic(() => import('./ContactSection'), {
-  loading: () => <OptimizedLoadingSpinner aria-label="Loading contact section" count={1} />,
+  loading: () => <ContactSectionSkeleton />,
   ssr: false,
 });
 
