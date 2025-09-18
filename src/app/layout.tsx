@@ -50,7 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* Fonts are handled by Next.js Google Fonts */}
       </head>
-      <body className={inter.className}>
+      <body className={inter.className} style={{ scrollBehavior: 'auto' }}>
         <ThemeProvider>
           <ThemeWrapper>
             <SkipLink />

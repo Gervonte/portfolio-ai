@@ -5,7 +5,12 @@ import { Project } from '@/lib/projects';
 import { getProjectScreenshots } from '@/lib/screenshot';
 import { IconBrain, IconBrandGithub, IconCode, IconExternalLink } from '@tabler/icons-react';
 import { memo, useState } from 'react';
-import TechnicalDetailsModal from './TechnicalDetailsModal';
+import dynamic from 'next/dynamic';
+
+const TechnicalDetailsModal = dynamic(() => import('./TechnicalDetailsModal'), {
+  loading: () => <div>Loading...</div>,
+  ssr: false,
+});
 import UnifiedCard from './UnifiedCard';
 
 interface ExpandableProjectCardProps {

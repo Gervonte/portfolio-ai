@@ -7,36 +7,34 @@ import { ModalProvider } from '@/lib/modal-context';
 import { ParallaxProvider } from '@/lib/parallax-context';
 import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
 import { Box, Button, Container, Group, Stack, Text, Title } from '@mantine/core';
-import { Suspense, lazy, memo } from 'react';
+import { memo, useEffect } from 'react';
 
-// Lazy load heavy components
-const AboutSection = lazy(() => import('@/components/AboutSection'));
-const WorkSection = lazy(() => import('@/components/WorkSection'));
-const ExperienceSection = lazy(() => import('@/components/ExperienceSection'));
-const ContactSection = lazy(() => import('@/components/ContactSection'));
-
-// Loading component for sections
-const SectionLoader = memo(() => (
-  <Box
-    style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      minHeight: '400px',
-    }}
-  >
-    <Text size="lg" c="dimmed">
-      Loading...
-    </Text>
-  </Box>
-));
-
-SectionLoader.displayName = 'SectionLoader';
+// Import sections normally for better scroll behavior
+import AboutSection from '@/components/AboutSection';
+import ContactSection from '@/components/ContactSection';
+import ExperienceSection from '@/components/ExperienceSection';
+import WorkSection from '@/components/WorkSection';
 
 const HomePage = memo(() => {
   // Theme-aware colors
   const colorCombinations = useColorCombinations();
   const commonColors = useCommonColors();
+
+  // Ensure page starts at top on mount and refresh
+  useEffect(() => {
+    console.log('Page mounted, scroll position:', window.scrollY);
+    console.log('URL hash:', window.location.hash);
+
+    // Force scroll to top immediately
+    window.scrollTo(0, 0);
+
+    // Also try after a short delay to override any browser restoration
+    const timer = setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <ModalProvider>
@@ -176,9 +174,7 @@ const HomePage = memo(() => {
               background: commonColors.backgroundPrimary,
             }}
           >
-            <Suspense fallback={<SectionLoader />}>
-              <WorkSection />
-            </Suspense>
+            <WorkSection />
           </Box>
         </ParallaxElement>
 
@@ -189,9 +185,7 @@ const HomePage = memo(() => {
             aria-label="Professional experience"
             style={{ minHeight: '100vh', padding: '4rem 0' }}
           >
-            <Suspense fallback={<SectionLoader />}>
-              <ExperienceSection />
-            </Suspense>
+            <ExperienceSection />
           </Box>
         </ParallaxElement>
 
@@ -206,9 +200,7 @@ const HomePage = memo(() => {
               background: commonColors.backgroundPrimary,
             }}
           >
-            <Suspense fallback={<SectionLoader />}>
-              <AboutSection />
-            </Suspense>
+            <AboutSection />
           </Box>
         </ParallaxElement>
 
@@ -221,9 +213,7 @@ const HomePage = memo(() => {
               padding: '4rem 0 2rem',
             }}
           >
-            <Suspense fallback={<SectionLoader />}>
-              <ContactSection />
-            </Suspense>
+            <ContactSection />
           </Box>
         </ParallaxElement>
 
