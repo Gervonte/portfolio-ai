@@ -119,6 +119,56 @@ export const getSkillColor = (level: Skill['level']): string => {
   }
 };
 
+// Theme-aware skill color mapping for better contrast
+// This function provides better color choices for each theme without changing global mappings
+export const getThemeAwareSkillColor = (
+  level: Skill['level'],
+  theme: 'sakura' | 'ocean'
+): string => {
+  if (theme === 'ocean') {
+    switch (level) {
+      case 'expert':
+        return 'ocean'; // Use ocean color for expert in ocean theme
+      case 'advanced':
+        return 'earth'; // Use earth color for advanced in ocean theme (better contrast)
+      case 'intermediate':
+        return 'warm'; // Use warm color for intermediate in ocean theme
+      case 'beginner':
+        return 'gray'; // Keep gray for beginner
+      default:
+        return 'gray';
+    }
+  } else {
+    // Sakura theme uses the original mapping
+    return getSkillColor(level);
+  }
+};
+
+// Theme-aware skill variant mapping for better contrast
+// This function provides different variants for better visual distinction
+export const getThemeAwareSkillVariant = (
+  level: Skill['level'],
+  theme: 'sakura' | 'ocean'
+): 'light' | 'filled' | 'outline' => {
+  if (theme === 'ocean') {
+    switch (level) {
+      case 'expert':
+        return 'filled'; // Use filled variant for expert in ocean theme
+      case 'advanced':
+        return 'light'; // Use light variant for advanced in ocean theme
+      case 'intermediate':
+        return 'outline'; // Use outline variant for intermediate in ocean theme
+      case 'beginner':
+        return 'light'; // Use light variant for beginner
+      default:
+        return 'light';
+    }
+  } else {
+    // Sakura theme uses light variant for all
+    return 'light';
+  }
+};
+
 // Category icon mapping (you'll need to import the icons in your component)
 export const getCategoryIcon = (category: Skill['category']): string => {
   switch (category) {
