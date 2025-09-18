@@ -26,7 +26,6 @@ interface ScrollIndicatorProps {
   variant?: 'minimal' | 'detailed';
   orientation?: 'vertical' | 'horizontal';
   className?: string;
-  hideWhenModalOpen?: boolean;
 }
 
 export default function ScrollIndicator({
@@ -37,14 +36,12 @@ export default function ScrollIndicator({
   variant = 'detailed',
   orientation = 'vertical',
   className = '',
-  hideWhenModalOpen = false,
 }: ScrollIndicatorProps) {
   const colorCombinations = useColorCombinations();
   const commonColors = useCommonColors();
   const [scrollProgress, setScrollProgress] = useState(0);
   const [currentSection, setCurrentSection] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-  const [isScrolling, setIsScrolling] = useState(false);
   const [showIndicator, setShowIndicator] = useState(false);
   const [pressedButton, setPressedButton] = useState<'up' | 'down' | null>(null);
   const [lastInteraction, setLastInteraction] = useState<number>(0);
@@ -145,13 +142,12 @@ export default function ScrollIndicator({
     };
 
     const handleScrollStart = () => {
-      setIsScrolling(true);
       setShowIndicator(true);
       setLastInteraction(Date.now()); // Track scroll interaction
     };
 
     const handleScrollEnd = () => {
-      setTimeout(() => setIsScrolling(false), 150);
+      // Scroll ended
     };
 
     let scrollTimeout: NodeJS.Timeout;

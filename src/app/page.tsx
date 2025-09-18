@@ -235,7 +235,6 @@ const HomePage = memo(() => {
           position="bottom"
           orientation="horizontal"
           variant="detailed"
-          hideWhenModalOpen={true}
         />
       </ParallaxProvider>
     </ModalProvider>
