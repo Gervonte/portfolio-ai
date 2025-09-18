@@ -153,6 +153,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
         withCloseButton={false}
         classNames={{
           content: 'technical-modal-content',
+          header: 'technical-modal-header',
           body: 'technical-modal-body',
         }}
         styles={{
@@ -162,7 +163,6 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
             boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
             height: '45vh',
             maxHeight: '45vh',
-            overflow: 'hidden',
           },
           body: {
             background: commonColors.backgroundCard,
@@ -226,6 +226,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
         size="20%"
         classNames={{
           content: 'technical-modal-content',
+          header: 'technical-modal-header',
           body: 'technical-modal-body',
         }}
         styles={{
@@ -235,7 +236,6 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
             boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
             height: '45vh',
             maxHeight: '45vh',
-            overflow: 'hidden',
           },
           body: {
             background: commonColors.backgroundCard,
@@ -1448,7 +1448,6 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
             boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
             height: '45vh',
             maxHeight: '45vh',
-            overflow: 'hidden',
           },
           body: {
             background: commonColors.backgroundCard,

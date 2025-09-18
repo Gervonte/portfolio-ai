@@ -32,6 +32,12 @@
   padding: 16px;
 }
 
+.technical-modal-header {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+
 .technical-modal-body {
   padding: var(--mantine-spacing-sm);
   overflow-y: auto;
