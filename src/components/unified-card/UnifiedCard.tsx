@@ -1,8 +1,8 @@
 'use client';
 
+import { useColorCombinations } from '@/lib/theme-aware-colors';
 import { Card, Stack } from '@mantine/core';
 import { memo } from 'react';
-import { useColorCombinations } from '@/lib/theme-aware-colors';
 import AchievementsSection from './sections/AchievementsSection';
 import AIToolsSection from './sections/AIToolsSection';
 import FooterSection from './sections/FooterSection';
