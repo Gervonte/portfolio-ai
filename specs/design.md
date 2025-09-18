@@ -1005,7 +1005,7 @@ The technical details modal has undergone a comprehensive redesign to align with
 ##### Modal Size & Layout Improvements
 
 - **Compact Design**: Reduced modal width from 22% to 20% for more compact display
-- **Height Optimization**: Set to 45vh for better content visibility without overwhelming
+- **Height Optimization**: Set to 70vh for better content visibility and improved user experience
 - **Scroll Behavior**: Fixed header stays fixed while only body content scrolls
   - Header uses `flex-shrink: 0` to prevent shrinking
   - Body has `overflow-y: auto` and `flex: 1` for proper scrolling
@@ -1056,6 +1056,31 @@ The technical details modal has undergone a comprehensive redesign to align with
 - **Performance**: Reduced DOM complexity by removing redundant sections
 - **Theme Integration**: Full theme-aware color system integration
 - **Mobile Optimization**: Complete mobile experience overhaul with responsive design
+
+#### Modal Height Enhancement (Latest Update)
+
+The technical details modal height has been increased to improve user experience and content visibility:
+
+##### Height Optimization
+
+- **Desktop Height**: Increased from 45vh to 70vh for better content visibility
+- **Body Content Area**: Updated to `calc(65vh - 100px)` to accommodate the new modal height
+- **Image Modal**: Also updated to 70vh for consistency across all modal instances
+- **Responsive Design**: Mobile heights remain unchanged (85vh tablet, 90vh mobile) as they were already optimal
+
+##### User Experience Benefits
+
+- **Better Content Visibility**: Users can see more technical details without excessive scrolling
+- **Improved Readability**: More space for content reduces cramped feeling
+- **Enhanced Navigation**: Better visibility of tab navigation and content sections
+- **Consistent Experience**: Both main modal and image preview modal now have matching heights
+
+##### Technical Implementation
+
+- **Component Updates**: Updated `TechnicalDetailsModal.tsx` inline styles for both modal instances
+- **CSS Updates**: Modified `technical-modal.css` to reflect new height values
+- **Maintained Responsiveness**: Preserved existing mobile-optimized heights
+- **Performance**: No impact on performance as only height values were changed
 
 #### Scroll Indicator Enhancements
 

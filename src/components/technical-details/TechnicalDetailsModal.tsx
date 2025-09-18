@@ -70,8 +70,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
       background: commonColors.backgroundModal,
       border: `1px solid ${commonColors.borderModal}`,
       boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
-      height: '45vh',
-      maxHeight: '45vh',
+      height: '70vh',
+      maxHeight: '70vh',
     },
     body: {
       background: commonColors.backgroundCard,
@@ -251,8 +251,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
             background: commonColors.backgroundModal,
             border: `1px solid ${commonColors.borderModal}`,
             boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
-            height: '45vh',
-            maxHeight: '45vh',
+            height: '70vh',
+            maxHeight: '70vh',
           },
           body: {
             background: commonColors.backgroundCard,
