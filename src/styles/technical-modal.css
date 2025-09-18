@@ -3,8 +3,11 @@
   max-height: 45vh;
   max-width: 20vw;
   width: 100%;
+  height: 45vh;
   border-radius: var(--mantine-radius-lg);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .technical-modal-content-mobile {
@@ -32,6 +35,8 @@
 .technical-modal-body {
   padding: var(--mantine-spacing-sm);
   overflow-y: auto;
+  flex: 1;
+  min-height: 0;
   max-height: calc(40vh - 100px);
 }
 

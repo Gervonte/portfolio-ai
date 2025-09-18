@@ -9,7 +9,6 @@ import {
   Card,
   Group,
   Image,
-  List,
   Modal,
   Progress,
   SimpleGrid,
@@ -161,6 +160,9 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
             background: commonColors.backgroundModal,
             border: `1px solid ${commonColors.borderModal}`,
             boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
+            height: '45vh',
+            maxHeight: '45vh',
+            overflow: 'hidden',
           },
           body: {
             background: commonColors.backgroundCard,
@@ -231,10 +233,12 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
             background: commonColors.backgroundModal,
             border: `1px solid ${commonColors.borderModal}`,
             boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
+            height: '45vh',
+            maxHeight: '45vh',
+            overflow: 'hidden',
           },
           body: {
             background: commonColors.backgroundCard,
-            minHeight: '300px',
             padding: '2rem',
             marginTop: '-2px',
             position: 'relative',
@@ -895,87 +899,6 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   </Card>
                 )}
 
-                {shouldShowSection(section, 'components') && (
-                  <Card
-                    padding="lg"
-                    radius="md"
-                    style={{
-                      background: commonColors.backgroundCard,
-                      boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
-                      transition: 'all 0.2s ease-in-out',
-                      transform: 'scale(1)',
-                    }}
-                    onMouseEnter={e => {
-                      e.currentTarget.style.transform = 'scale(1.02)';
-                      e.currentTarget.style.boxShadow = `0 4px 16px ${commonColors.shadowMedium}`;
-                    }}
-                    onMouseLeave={e => {
-                      e.currentTarget.style.transform = 'scale(1)';
-                      e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
-                    }}
-                  >
-                    <Group gap="sm" mb="sm">
-                      <ThemeIcon
-                        color={commonColors.accentPrimary}
-                        variant="light"
-                        size="lg"
-                        style={{
-                          cursor: 'default',
-                          transition: 'all 0.2s ease-in-out',
-                          transform: 'scale(1)',
-                        }}
-                        onMouseEnter={e => {
-                          e.currentTarget.style.transform = 'scale(1.1)';
-                          e.currentTarget.style.boxShadow = `0 4px 12px ${commonColors.shadowMedium}`;
-                        }}
-                        onMouseLeave={e => {
-                          e.currentTarget.style.transform = 'scale(1)';
-                          e.currentTarget.style.boxShadow = 'none';
-                        }}
-                      >
-                        <IconBuilding size={24} />
-                      </ThemeIcon>
-                      <Group gap="xs" align="center">
-                        <Title order={4} fw={700} c={commonColors.textPrimary}>
-                          Components
-                        </Title>
-                        <MobileTooltip
-                          label="Technical building blocks and modules that make up the system architecture."
-                          multiline
-                          w={300}
-                          withArrow
-                        >
-                          <ThemeIcon
-                            color="sakura"
-                            variant="light"
-                            size="sm"
-                            radius="xl"
-                            style={{ cursor: 'help' }}
-                          >
-                            ?
-                          </ThemeIcon>
-                        </MobileTooltip>
-                      </Group>
-                    </Group>
-                    <List size="md" spacing="sm">
-                      {section.components.map((component: string, index: number) => (
-                        <List.Item
-                          key={index}
-                          style={{
-                            padding: '0.5rem',
-                            background: 'rgba(255, 255, 255, 0.7)',
-                            borderRadius: '8px',
-                            marginBottom: '0.5rem',
-                            fontWeight: 500,
-                          }}
-                        >
-                          {component}
-                        </List.Item>
-                      ))}
-                    </List>
-                  </Card>
-                )}
-
                 {/* Performance Metrics */}
                 {section.lighthouseScore && (
                   <Card
@@ -1523,6 +1446,9 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
             background: commonColors.backgroundModal,
             border: `1px solid ${commonColors.borderModal}`,
             boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
+            height: '45vh',
+            maxHeight: '45vh',
+            overflow: 'hidden',
           },
           body: {
             background: commonColors.backgroundCard,

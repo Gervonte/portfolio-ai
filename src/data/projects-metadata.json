@@ -43,7 +43,7 @@
       "technicalDetails": {
         "analytics": {
           "enabled": false,
-          "showScreenshots": false,
+          "showScreenshots": true,
           "screenshots": ["analytics-dashboard.svg", "user-metrics.svg"],
           "description": "User behavior tracking - like a store's security cameras showing what customers look at, how long they stay, and what they buy. Tracks page views, session duration, and engagement patterns to understand user preferences.",
           "metrics": {
