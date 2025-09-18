@@ -1,9 +1,10 @@
 /* Technical Details Modal Responsive Styles */
 .technical-modal-content {
-  max-height: 60vh;
-  max-width: 22vw;
+  max-height: 45vh;
+  max-width: 20vw;
   width: 100%;
   border-radius: var(--mantine-radius-lg);
+  overflow: hidden;
 }
 
 .technical-modal-content-mobile {
@@ -26,6 +27,12 @@
 
 .technical-modal-body-mobile {
   padding: 16px;
+}
+
+.technical-modal-body {
+  padding: var(--mantine-spacing-sm);
+  overflow-y: auto;
+  max-height: calc(35vh - 100px);
 }
 
 @media (max-width: 768px) {

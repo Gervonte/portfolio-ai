@@ -5,7 +5,6 @@ import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors'
 import '@/styles/technical-modal.css';
 import {
   Alert,
-  Badge,
   Box,
   Card,
   Group,
@@ -35,6 +34,7 @@ import {
   IconZoomIn,
 } from '@tabler/icons-react';
 import { memo, useEffect, useMemo, useState } from 'react';
+import BadgeWithTooltip from './BadgeWithTooltip';
 import { MobileTooltip } from './MobileTooltip';
 
 interface TechnicalDetailsModalProps {
@@ -150,7 +150,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
         onClose={onClose}
         title="Technical Details"
         centered
-        size="22%"
+        size="20%"
+        withCloseButton={false}
         classNames={{
           content: 'technical-modal-content',
           body: 'technical-modal-body',
@@ -167,15 +168,22 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
           header: {
             background: commonColors.backgroundCard,
             borderBottom: `1px solid ${commonColors.borderPrimary}`,
+            padding: 'var(--mantine-spacing-xl)',
+            minHeight: '80px',
+            position: 'relative',
+          },
+          title: {
+            fontSize: 'var(--mantine-font-size-xxl)',
+            fontWeight: 700,
           },
           close: {
             color: commonColors.textSecondary,
             background: 'transparent',
             border: 'none',
             borderRadius: 'var(--mantine-radius-md)',
-            padding: 'var(--mantine-spacing-xs)',
+            padding: 'var(--mantine-spacing-sm)',
+            fontSize: 'var(--mantine-font-size-lg)',
             transition: 'all 0.2s ease-in-out',
-            transform: 'scale(1)',
             '&:hover': {
               color: commonColors.accentPrimary,
               background: commonColors.accentSecondary,
@@ -205,7 +213,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
       <Modal
         opened={opened}
         onClose={onClose}
-        withCloseButton={true}
+        withCloseButton={false}
         closeOnClickOutside={true}
         closeOnEscape={true}
         trapFocus={true}
@@ -277,7 +285,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
         }}
         title={
           <Box>
-            <Group gap="sm" align="flex-start" mb="md" wrap="wrap">
+            <Group gap="sm" align="flex-start" mb="sm" wrap="wrap">
               <ThemeIcon
                 color={commonColors.accentPrimary}
                 variant="light"
@@ -341,7 +349,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 display: 'flex',
                 justifyContent: 'center',
                 width: 'calc(100% + 2rem)',
-                minHeight: '56px',
+                minHeight: '64px',
                 overflowX: 'auto',
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none',
@@ -372,8 +380,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   style={{
                     fontWeight: 600,
                     transition: 'all 0.2s ease-in-out',
-                    padding: 'var(--mantine-spacing-xs) var(--mantine-spacing-sm)',
-                    fontSize: 'var(--mantine-font-size-xs)',
+                    padding: 'var(--mantine-spacing-sm) var(--mantine-spacing-md)',
+                    fontSize: 'var(--mantine-font-size-sm)',
                     color:
                       activeTab === key ? commonColors.accentPrimary : commonColors.textSecondary,
                     background: activeTab === key ? commonColors.backgroundCard : 'transparent',
@@ -393,7 +401,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       activeTab === key ? 'none' : `2px solid ${commonColors.borderPrimary}`,
                     cursor: 'pointer',
                     height: '100%',
-                    minHeight: '48px',
+                    minHeight: '56px',
                     whiteSpace: 'nowrap',
                     transform: activeTab === key ? 'scale(1.01)' : 'scale(1)',
                     boxShadow:
@@ -427,9 +435,9 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     }
                   }}
                 >
-                  <Group gap="xs" align="center" wrap="nowrap">
+                  <Group gap="sm" align="center" wrap="nowrap">
                     {icon}
-                    <Text size="xs" fw={600}>
+                    <Text size="sm" fw={600}>
                       {key === 'cicd' ? 'CI/CD' : key.charAt(0).toUpperCase() + key.slice(1)}
                     </Text>
                   </Group>
@@ -480,7 +488,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                   }}
                 >
-                  <Group gap="lg" mb="md">
+                  <Group gap="sm" mb="sm">
                     <ThemeIcon
                       color={commonColors.accentPrimary}
                       variant="light"
@@ -535,7 +543,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
-                    <Group gap="md" mb="lg">
+                    <Group gap="sm" mb="md">
                       <ThemeIcon
                         color={commonColors.accentPrimary}
                         variant="light"
@@ -567,7 +575,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           withArrow
                         >
                           <ThemeIcon
-                            color={commonColors.textSecondary}
+                            color="sakura"
                             variant="light"
                             size="sm"
                             radius="xl"
@@ -578,7 +586,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         </MobileTooltip>
                       </Group>
                     </Group>
-                    <SimpleGrid cols={{ base: 1, xs: 2, sm: 4 }} spacing="md">
+                    <SimpleGrid cols={{ base: 1, xs: 2, sm: 4 }} spacing="sm">
                       {Object.entries(section.metrics).map(([metricKey, value]) => (
                         <Card
                           key={metricKey}
@@ -645,7 +653,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
-                    <Group gap="md" mb="md">
+                    <Group gap="sm" mb="sm">
                       <ThemeIcon
                         color={commonColors.accentPrimary}
                         variant="light"
@@ -677,7 +685,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           withArrow
                         >
                           <ThemeIcon
-                            color={commonColors.textSecondary}
+                            color="sakura"
                             variant="light"
                             size="sm"
                             radius="xl"
@@ -690,8 +698,10 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     </Group>
                     <Group gap="sm">
                       {section.tools.map((tool: string) => (
-                        <Badge
+                        <BadgeWithTooltip
                           key={tool}
+                          contextType="technology"
+                          contextValue={tool}
                           size="md"
                           variant="light"
                           color={commonColors.accentPrimary}
@@ -704,19 +714,9 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                             border: `1px solid ${commonColors.accentPrimary}`,
                             transition: 'all 0.2s ease-in-out',
                           }}
-                          onMouseEnter={e => {
-                            e.currentTarget.style.transform = 'scale(1.05)';
-                            e.currentTarget.style.background = commonColors.accentPrimary;
-                            e.currentTarget.style.color = commonColors.backgroundCard;
-                          }}
-                          onMouseLeave={e => {
-                            e.currentTarget.style.transform = 'scale(1)';
-                            e.currentTarget.style.background = commonColors.accentSecondary;
-                            e.currentTarget.style.color = commonColors.accentPrimary;
-                          }}
                         >
                           {tool}
-                        </Badge>
+                        </BadgeWithTooltip>
                       ))}
                     </Group>
                   </Card>
@@ -744,7 +744,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
-                    <Group gap="md" mb="md">
+                    <Group gap="sm" mb="sm">
                       <ThemeIcon
                         color={commonColors.accentPrimary}
                         variant="light"
@@ -776,7 +776,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           withArrow
                         >
                           <ThemeIcon
-                            color={commonColors.textSecondary}
+                            color="sakura"
                             variant="light"
                             size="sm"
                             radius="xl"
@@ -787,15 +787,13 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         </MobileTooltip>
                       </Group>
                     </Group>
-                    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
+                    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
                       {section.uptime && (
                         <Card
-                          padding="md"
+                          padding="sm"
                           radius="md"
-                          withBorder
                           style={{
-                            background: colorCombinations.earthGradientModal,
-                            border: `1px solid ${commonColors.borderEarth}`,
+                            background: commonColors.backgroundCard,
                           }}
                         >
                           <Text size="sm" c={commonColors.textSecondary} fw={600} mb="xs">
@@ -808,12 +806,12 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       )}
                       {section.errorRate && (
                         <Card
-                          padding="md"
+                          padding="sm"
                           radius="md"
                           withBorder
                           style={{
-                            background: colorCombinations.warmGradientModal,
-                            border: `1px solid ${commonColors.borderWarm}`,
+                            background: commonColors.backgroundCard,
+                            border: `1px solid ${commonColors.borderPrimary}`,
                           }}
                         >
                           <Text size="sm" c={commonColors.textSecondary} fw={600} mb="xs">
@@ -849,7 +847,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
-                    <Group gap="md" mb="lg">
+                    <Group gap="sm" mb="md">
                       <ThemeIcon
                         color={commonColors.accentPrimary}
                         variant="light"
@@ -881,7 +879,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           withArrow
                         >
                           <ThemeIcon
-                            color={commonColors.textSecondary}
+                            color="sakura"
                             variant="light"
                             size="sm"
                             radius="xl"
@@ -892,7 +890,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         </MobileTooltip>
                       </Group>
                     </Group>
-                    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
+                    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
                       {section.workflows.map((workflow: string, index: number) => (
                         <Card
                           key={index}
@@ -947,7 +945,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
-                    <Group gap="md" mb="md">
+                    <Group gap="sm" mb="sm">
                       <ThemeIcon
                         color={commonColors.accentPrimary}
                         variant="light"
@@ -979,7 +977,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           withArrow
                         >
                           <ThemeIcon
-                            color={commonColors.textSecondary}
+                            color="sakura"
                             variant="light"
                             size="sm"
                             radius="xl"
@@ -1031,7 +1029,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
-                    <Group gap="md" mb="md">
+                    <Group gap="sm" mb="sm">
                       <ThemeIcon
                         color={commonColors.accentPrimary}
                         variant="light"
@@ -1063,7 +1061,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           withArrow
                         >
                           <ThemeIcon
-                            color={commonColors.textSecondary}
+                            color="sakura"
                             variant="light"
                             size="sm"
                             radius="xl"
@@ -1124,7 +1122,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
-                    <Group gap="md" mb="md">
+                    <Group gap="sm" mb="sm">
                       <ThemeIcon
                         color={commonColors.accentPrimary}
                         variant="light"
@@ -1156,7 +1154,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           withArrow
                         >
                           <ThemeIcon
-                            color={commonColors.textSecondary}
+                            color="sakura"
                             variant="light"
                             size="sm"
                             radius="xl"
@@ -1167,11 +1165,11 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         </MobileTooltip>
                       </Group>
                     </Group>
-                    <SimpleGrid cols={{ base: 1, xs: 2, sm: 3 }} spacing="md">
+                    <SimpleGrid cols={{ base: 1, xs: 2, sm: 3 }} spacing="sm">
                       {Object.entries(section.coreWebVitals).map(([vital, value]) => (
                         <Box
                           key={vital}
-                          p="md"
+                          p="sm"
                           style={{
                             background: commonColors.backgroundModal,
                             border: `1px solid ${commonColors.borderPrimary}`,
@@ -1229,7 +1227,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
-                    <Group gap="md" mb="lg">
+                    <Group gap="sm" mb="md">
                       <ThemeIcon
                         color={commonColors.accentPrimary}
                         variant="light"
@@ -1261,7 +1259,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           withArrow
                         >
                           <ThemeIcon
-                            color={commonColors.textSecondary}
+                            color="sakura"
                             variant="light"
                             size="sm"
                             radius="xl"
@@ -1272,7 +1270,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         </MobileTooltip>
                       </Group>
                     </Group>
-                    <Stack gap="md">
+                    <Stack gap="sm">
                       {section.components && section.components.length > 0 && (
                         <Box
                           p="lg"
@@ -1286,8 +1284,10 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           </Text>
                           <Group gap="sm">
                             {section.components.map((component: string) => (
-                              <Badge
+                              <BadgeWithTooltip
                                 key={component}
+                                contextType="technology"
+                                contextValue={component}
                                 size="md"
                                 variant="light"
                                 color={commonColors.accentPrimary}
@@ -1300,19 +1300,9 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                                   border: `1px solid ${commonColors.accentPrimary}`,
                                   transition: 'all 0.2s ease-in-out',
                                 }}
-                                onMouseEnter={e => {
-                                  e.currentTarget.style.transform = 'scale(1.05)';
-                                  e.currentTarget.style.background = commonColors.accentPrimary;
-                                  e.currentTarget.style.color = commonColors.backgroundCard;
-                                }}
-                                onMouseLeave={e => {
-                                  e.currentTarget.style.transform = 'scale(1)';
-                                  e.currentTarget.style.background = commonColors.accentSecondary;
-                                  e.currentTarget.style.color = commonColors.accentPrimary;
-                                }}
                               >
                                 {component}
-                              </Badge>
+                              </BadgeWithTooltip>
                             ))}
                           </Group>
                         </Box>
@@ -1359,7 +1349,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
-                    <Group gap="md" mb="lg">
+                    <Group gap="sm" mb="md">
                       <ThemeIcon
                         color={commonColors.accentPrimary}
                         variant="light"
@@ -1391,7 +1381,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           withArrow
                         >
                           <ThemeIcon
-                            color={commonColors.textSecondary}
+                            color="sakura"
                             variant="light"
                             size="sm"
                             radius="xl"
@@ -1402,10 +1392,10 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         </MobileTooltip>
                       </Group>
                     </Group>
-                    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
+                    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
                       {section.deploymentFrequency && (
                         <Card
-                          padding="md"
+                          padding="sm"
                           radius="md"
                           withBorder
                           style={{
@@ -1423,7 +1413,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       )}
                       {section.leadTime && (
                         <Card
-                          padding="md"
+                          padding="sm"
                           radius="md"
                           withBorder
                           style={{
@@ -1465,7 +1455,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
                     }}
                   >
-                    <Group gap="md" mb="lg">
+                    <Group gap="sm" mb="md">
                       <ThemeIcon
                         color={commonColors.accentPrimary}
                         variant="light"
@@ -1497,7 +1487,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           withArrow
                         >
                           <ThemeIcon
-                            color={commonColors.textSecondary}
+                            color="sakura"
                             variant="light"
                             size="sm"
                             radius="xl"
@@ -1508,7 +1498,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         </MobileTooltip>
                       </Group>
                     </Group>
-                    <SimpleGrid cols={{ base: 1, xs: 2, sm: 3, md: 4 }} spacing="md">
+                    <SimpleGrid cols={{ base: 1, xs: 2, sm: 3, md: 4 }} spacing="sm">
                       {section.screenshots.map((screenshot: string, index: number) => (
                         <Box
                           key={index}
