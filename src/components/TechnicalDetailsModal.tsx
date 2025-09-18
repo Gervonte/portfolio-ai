@@ -149,7 +149,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
         onClose={onClose}
         title="Technical Details"
         centered
-        size="20%"
+        size="xl"
         withCloseButton={false}
         classNames={{
           content: 'technical-modal-content',
@@ -221,9 +221,9 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
         trapFocus={true}
         returnFocus={true}
         centered
+        size="xl"
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
-        size="20%"
         classNames={{
           content: 'technical-modal-content',
           header: 'technical-modal-header',
@@ -1438,7 +1438,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
       <Modal
         opened={!!selectedImage}
         onClose={() => setSelectedImage(null)}
-        size="20%"
+        size="xl"
         centered
         title="Technical Screenshot"
         styles={{
