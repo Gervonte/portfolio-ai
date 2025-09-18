@@ -1,7 +1,7 @@
 'use client';
 
 import { usePrimaryColors } from '@/lib/theme-aware-colors';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 interface SakuraEffectProps {
   className?: string;
@@ -23,13 +23,17 @@ export default function SakuraEffect({
   const primaryColors = usePrimaryColors();
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Default colors using theme-aware primary colors
-  const defaultColors = colors || [
-    primaryColors[1] ?? '#FFCDD2',
-    primaryColors[0] ?? '#FFEBEE',
-    primaryColors[2] ?? '#EF9A9A',
-    primaryColors[3] ?? '#F44336',
-  ];
+  // Default colors using theme-aware primary colors (memoized to prevent unnecessary recalculations)
+  const defaultColors = useMemo(() => {
+    return (
+      colors || [
+        primaryColors[1] ?? '#FFCDD2',
+        primaryColors[0] ?? '#FFEBEE',
+        primaryColors[2] ?? '#EF9A9A',
+        primaryColors[3] ?? '#F44336',
+      ]
+    );
+  }, [colors, primaryColors]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;

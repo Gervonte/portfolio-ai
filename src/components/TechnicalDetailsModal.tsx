@@ -935,7 +935,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           radius="md"
                           withBorder
                           style={{
-                            background: colorCombinations.sakuraGradientModal,
+                            background: colorCombinations.primaryGradientModal,
                             border: `1px solid ${commonColors.borderPrimaryColor}`,
                           }}
                         >

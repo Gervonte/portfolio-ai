@@ -23,9 +23,9 @@ export const sakuraTheme = createTheme({
       '#666666', // warm[4] - secondary text
       '#2C2C2C', // warm[5] - primary text
       '#1A1A1A', // warm[6] - near black
-      '#1A1A1A', // warm[7] - duplicate for 10 elements
-      '#1A1A1A', // warm[8] - duplicate for 10 elements
-      '#1A1A1A', // warm[9] - duplicate for 10 elements
+      '#141414', // warm[7] - very dark gray
+      '#0F0F0F', // warm[8] - ultra dark gray
+      '#0A0A0A', // warm[9] - near black
     ],
     earth: [
       '#FDF4E3', // earth[0] - light brown
@@ -146,9 +146,9 @@ export const oceanTheme = createTheme({
       '#666666', // warm[4] - secondary text
       '#2C2C2C', // warm[5] - primary text
       '#1A1A1A', // warm[6] - near black
-      '#1A1A1A', // warm[7] - duplicate for 10 elements
-      '#1A1A1A', // warm[8] - duplicate for 10 elements
-      '#1A1A1A', // warm[9] - duplicate for 10 elements
+      '#141414', // warm[7] - very dark gray
+      '#0F0F0F', // warm[8] - ultra dark gray
+      '#0A0A0A', // warm[9] - near black
     ],
     earth: [
       '#FDF4E3', // earth[0] - light brown

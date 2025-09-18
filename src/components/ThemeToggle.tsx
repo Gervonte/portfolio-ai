@@ -1,7 +1,7 @@
 'use client';
 
 import { useIsHydrated, useTheme } from '@/lib/theme-context';
-import { ActionIcon, Tooltip } from '@mantine/core';
+import { ActionIcon, Loader, Tooltip } from '@mantine/core';
 import { IconDroplet, IconPalette } from '@tabler/icons-react';
 import { useState } from 'react';
 
@@ -10,20 +10,25 @@ export default function ThemeToggle() {
   const [isHovered, setIsHovered] = useState(false);
   const isHydrated = useIsHydrated();
 
-  // Don't render until hydrated to prevent mismatch
+  // Show loading state while hydrating to prevent mismatch
   if (!isHydrated) {
     return (
-      <ActionIcon
-        variant="subtle"
-        size="lg"
-        style={{
-          minHeight: '44px',
-          minWidth: '44px',
-        }}
-        aria-label="Theme toggle"
-      >
-        <IconPalette size={20} />
-      </ActionIcon>
+      <Tooltip label="Loading theme..." position="bottom" withArrow>
+        <ActionIcon
+          variant="subtle"
+          size="lg"
+          disabled
+          style={{
+            minHeight: '44px',
+            minWidth: '44px',
+            opacity: 0.6,
+            cursor: 'not-allowed',
+          }}
+          aria-label="Theme toggle (loading)"
+        >
+          <Loader size="sm" />
+        </ActionIcon>
+      </Tooltip>
     );
   }
 

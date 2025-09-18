@@ -45,23 +45,34 @@ export function useColorCombinations() {
   const warmColors = useWarmColors();
   const earthColors = useEarthColors();
 
+  // Fallback colors (Sakura theme defaults)
+  const fallbackPrimary = ['#FFEBEE', '#FFCDD2', '#EF9A9A', '#F44336'];
+  const fallbackEffect = ['#FCE4EC', '#F8BBD9', '#F48FB1', '#F06292'];
+  const fallbackWarm = ['#FDFCFB', '#F5F5F5', '#E8E8E8', '#999999'];
+  const fallbackEarth = ['#FDF4E3', '#F4E4BC', '#D4A574', '#8B4513'];
+
+  // Safe array access with fallbacks
+  const safePrimary = primaryColors.length >= 4 ? primaryColors : fallbackPrimary;
+  const safeEffect = effectColors.length >= 4 ? effectColors : fallbackEffect;
+  const safeWarm = warmColors.length >= 2 ? warmColors : fallbackWarm;
+  const safeEarth = earthColors.length >= 2 ? earthColors : fallbackEarth;
+
   return {
     // Primary gradients
-    primaryGradient: `linear-gradient(135deg, ${primaryColors[3]}, ${primaryColors[1]})`,
-    primaryGradientLight: `linear-gradient(135deg, ${primaryColors[1]}, ${primaryColors[0]})`,
+    primaryGradient: `linear-gradient(135deg, ${safePrimary[3]}, ${safePrimary[1]})`,
+    primaryGradientLight: `linear-gradient(135deg, ${safePrimary[1]}, ${safePrimary[0]})`,
 
     // Effect gradients
-    effectGradient: `linear-gradient(135deg, ${effectColors[3]}, ${effectColors[1]})`,
-    effectGradientLight: `linear-gradient(135deg, ${effectColors[1]}, ${effectColors[0]})`,
+    effectGradient: `linear-gradient(135deg, ${safeEffect[3]}, ${safeEffect[1]})`,
+    effectGradientLight: `linear-gradient(135deg, ${safeEffect[1]}, ${safeEffect[0]})`,
 
     // Footer gradient (theme-aware subtle colors)
-    footerGradient: `linear-gradient(135deg, ${primaryColors[0]}, ${warmColors[1]})`,
+    footerGradient: `linear-gradient(135deg, ${safePrimary[0]}, ${safeWarm[1]})`,
 
     // Technical modal gradients
-    earthGradientModal: `linear-gradient(135deg, ${earthColors[0]}, ${earthColors[1]})`,
-    warmGradientModal: `linear-gradient(135deg, ${warmColors[0]}, ${warmColors[1]})`,
-    primaryGradientModal: `linear-gradient(135deg, ${primaryColors[0]}, ${primaryColors[1]})`,
-    sakuraGradientModal: `linear-gradient(135deg, ${primaryColors[0]}, ${primaryColors[1]})`, // Same as primaryGradientModal
+    earthGradientModal: `linear-gradient(135deg, ${safeEarth[0]}, ${safeEarth[1]})`,
+    warmGradientModal: `linear-gradient(135deg, ${safeWarm[0]}, ${safeWarm[1]})`,
+    primaryGradientModal: `linear-gradient(135deg, ${safePrimary[0]}, ${safePrimary[1]})`,
   };
 }
 
@@ -84,7 +95,7 @@ export function useCommonColors() {
     backgroundPrimary: warmColors[0] ?? '#FDFCFB',
     backgroundSecondary: warmColors[1] ?? '#F5F5F5',
     backgroundCard: warmColors[0] ?? '#FDFCFB',
-    backgroundHero: `linear-gradient(135deg, ${warmColors[0]}, ${primaryColors[0]})`,
+    backgroundHero: `linear-gradient(135deg, ${warmColors[0] ?? '#FDFCFB'}, ${primaryColors[0] ?? '#FFEBEE'})`,
     backgroundWork: earthColors[0] ?? '#FDF4E3',
     backgroundContact: primaryColors[0] ?? '#FFEBEE', // sakura[0]
     backgroundPrimaryLight: primaryColors[0] ?? '#FFEBEE', // Light primary background (sakura[0])

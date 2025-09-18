@@ -29,9 +29,24 @@ export default function SakuraBackground({
     };
 
     const variantConfig = {
-      falling: { colors: [primaryColors[1], primaryColors[0], primaryColors[2], primaryColors[3]] },
-      floating: { colors: [primaryColors[0], primaryColors[1], primaryColors[2]] },
-      gentle: { colors: [primaryColors[0], primaryColors[1]] },
+      falling: {
+        colors: [
+          primaryColors[1] ?? '#FFCDD2',
+          primaryColors[0] ?? '#FFEBEE',
+          primaryColors[2] ?? '#EF9A9A',
+          primaryColors[3] ?? '#F44336',
+        ],
+      },
+      floating: {
+        colors: [
+          primaryColors[0] ?? '#FFEBEE',
+          primaryColors[1] ?? '#FFCDD2',
+          primaryColors[2] ?? '#EF9A9A',
+        ],
+      },
+      gentle: {
+        colors: [primaryColors[0] ?? '#FFEBEE', primaryColors[1] ?? '#FFCDD2'],
+      },
     };
 
     const config = {
