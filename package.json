@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run format:check && next build",
+    "build": "npm run format && next build",
     "build:analyze": "ANALYZE=true next build",
     "build:clean": "rm -rf .next && npm run build",
     "start": "npm run build && npm run dev",
@@ -17,6 +17,7 @@
     "type-check": "tsc --noEmit",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,md,css}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "build:ci": "npm run format:check && next build",
     "parse-resume": "node scripts/parse-resume.js",
     "cache:clear": "node scripts/cache-management.js clear",
     "cache:status": "node scripts/cache-management.js status",

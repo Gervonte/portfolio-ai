@@ -47,6 +47,8 @@ export default function ScrollIndicator({
   const [lastInteraction, setLastInteraction] = useState<number>(0);
   const [hoveredSection, setHoveredSection] = useState<number | null>(null);
   const [isNavigating, setIsNavigating] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
 
   const scrollToSection = useCallback(
     (sectionIndex: number) => {
@@ -160,9 +162,13 @@ export default function ScrollIndicator({
         handleScrollEnd();
 
         // Hide indicator after dynamic delay based on recent interactions
+        // Only hide if not currently hovering
+        const hideDelay = getHideDelay();
         hideTimeout = setTimeout(() => {
-          setShowIndicator(false);
-        }, getHideDelay());
+          if (!isHovered) {
+            setShowIndicator(false);
+          }
+        }, hideDelay);
       }, 10);
     };
 
@@ -199,9 +205,12 @@ export default function ScrollIndicator({
 
           // Reset hide timeout when using keyboard navigation
           clearTimeout(hideTimeout);
+          const hideDelay = getHideDelay();
           hideTimeout = setTimeout(() => {
-            setShowIndicator(false);
-          }, getHideDelay());
+            if (!isHovered) {
+              setShowIndicator(false);
+            }
+          }, hideDelay);
         }
       }
     };
@@ -217,8 +226,19 @@ export default function ScrollIndicator({
       window.removeEventListener('keydown', handleKeyDown);
       clearTimeout(scrollTimeout);
       clearTimeout(hideTimeout);
+      if (hoverTimeout) {
+        clearTimeout(hoverTimeout);
+      }
     };
-  }, [sections, currentSection, scrollToSection, isNavigating]);
+  }, [
+    sections,
+    currentSection,
+    scrollToSection,
+    isNavigating,
+    isHovered,
+    getHideDelay,
+    hoverTimeout,
+  ]);
 
   const handleButtonPress = (direction: 'up' | 'down') => {
     setPressedButton(direction);
@@ -285,7 +305,30 @@ export default function ScrollIndicator({
                   borderRadius: '12px', // Design spec: 12px border radius
                   padding: '16px 24px',
                   minWidth: '400px',
-                  boxShadow: `0 2px 8px rgba(0, 0, 0, 0.08), 0 0 20px ${commonColors.shadowPrimary}`, // Design spec shadow
+                  boxShadow: isHovered
+                    ? `0 4px 16px rgba(0, 0, 0, 0.12), 0 0 24px ${commonColors.shadowPrimaryLight}`
+                    : `0 2px 8px rgba(0, 0, 0, 0.08), 0 0 20px ${commonColors.shadowPrimary}`,
+                  transform: isHovered ? 'scale(1.02)' : 'scale(1)',
+                  transition: 'all 0.3s ease-out',
+                }}
+                onMouseEnter={() => {
+                  setIsHovered(true);
+                  setShowIndicator(true); // Keep indicator visible while hovering
+                  // Clear any existing hover timeout
+                  if (hoverTimeout) {
+                    clearTimeout(hoverTimeout);
+                    setHoverTimeout(null);
+                  }
+                }}
+                onMouseLeave={() => {
+                  setIsHovered(false);
+                  // Start hide timeout when mouse leaves
+                  const hideDelay = getHideDelay();
+                  const timeout = setTimeout(() => {
+                    setShowIndicator(false);
+                    setHoverTimeout(null);
+                  }, hideDelay);
+                  setHoverTimeout(timeout);
                 }}
               >
                 <Group justify="center" gap="md">
@@ -416,25 +459,6 @@ export default function ScrollIndicator({
                     </ActionIcon>
                   </Group>
                 </Group>
-
-                {/* Scroll Status Indicator */}
-                <Box
-                  style={{
-                    position: 'absolute',
-                    top: '-6px',
-                    right: '-6px',
-                    width: '12px',
-                    height: '12px',
-                    borderRadius: '50%',
-                    background: isScrolling
-                      ? colorCombinations.primaryGradient
-                      : withOpacity(commonColors.backgroundSecondary, 0.6),
-                    transition: 'all 0.2s ease-in-out', // Design spec: 0.2s ease-in-out
-                    boxShadow: isScrolling
-                      ? `0 0 8px ${commonColors.shadowPrimary}`
-                      : '0 2px 4px rgba(0, 0, 0, 0.1)', // Design spec shadow
-                  }}
-                />
               </Box>
             </Box>
           )}
@@ -508,13 +532,36 @@ export default function ScrollIndicator({
           >
             <Box
               style={{
-                background: 'rgba(255, 255, 255, 0.1)',
+                background: `${commonColors.backgroundCard}CC`,
                 backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
+                border: `1px solid ${commonColors.borderPrimary}`,
                 borderRadius: '16px',
                 padding: '16px',
                 minWidth: '200px',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+                boxShadow: isHovered
+                  ? `0 8px 32px rgba(0, 0, 0, 0.15), 0 0 24px ${commonColors.shadowPrimaryLight}`
+                  : `0 8px 32px rgba(0, 0, 0, 0.1)`,
+                transform: isHovered ? 'scale(1.02)' : 'scale(1)',
+                transition: 'all 0.3s ease-out',
+              }}
+              onMouseEnter={() => {
+                setIsHovered(true);
+                setShowIndicator(true); // Keep indicator visible while hovering
+                // Clear any existing hover timeout
+                if (hoverTimeout) {
+                  clearTimeout(hoverTimeout);
+                  setHoverTimeout(null);
+                }
+              }}
+              onMouseLeave={() => {
+                setIsHovered(false);
+                // Start hide timeout when mouse leaves
+                const hideDelay = getHideDelay();
+                const timeout = setTimeout(() => {
+                  setShowIndicator(false);
+                  setHoverTimeout(null);
+                }, hideDelay);
+                setHoverTimeout(timeout);
               }}
             >
               {/* Progress Section */}
@@ -629,23 +676,6 @@ export default function ScrollIndicator({
                   <IconChevronDown size={16} />
                 </ActionIcon>
               </Group>
-
-              {/* Scroll Status Indicator */}
-              <Box
-                style={{
-                  position: 'absolute',
-                  top: '-8px',
-                  right: '-8px',
-                  width: '16px',
-                  height: '16px',
-                  borderRadius: '50%',
-                  background: isScrolling
-                    ? colorCombinations.primaryGradient
-                    : 'rgba(255, 255, 255, 0.3)',
-                  transition: 'all 0.3s ease',
-                  boxShadow: isScrolling ? `0 0 10px ${commonColors.shadowPrimary}` : 'none',
-                }}
-              />
             </Box>
           </Box>
         )}
