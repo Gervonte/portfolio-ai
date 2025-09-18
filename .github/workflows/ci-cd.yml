@@ -7,7 +7,9 @@ on:
     branches: [main, preview]
 
 env:
-  NODE_VERSION: '18'
+  NODE_VERSION: '20'
+  PNPM_VERSION: '8'
+  CACHE_VERSION: 'v3'
 
 jobs:
   # Lint and Type Check
