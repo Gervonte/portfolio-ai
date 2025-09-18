@@ -9,6 +9,9 @@
   "javascript.preferences.organizeImports": true,
   "prettier.requireConfig": true,
   "prettier.useEditorConfig": false,
+  "prettier.configPath": ".prettierrc",
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": false,
   "[typescript]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"

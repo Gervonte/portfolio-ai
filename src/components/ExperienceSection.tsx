@@ -1,7 +1,7 @@
 'use client';
 
 import { aboutData } from '@/lib/about';
-import { colorCombinations } from '@/lib/colors';
+import { useColorCombinations } from '@/lib/theme-aware-colors';
 import { Box, Container, Stack, Text, Timeline, Title } from '@mantine/core';
 import { IconBriefcase, IconExternalLink, IconMapPin } from '@tabler/icons-react';
 import { memo } from 'react';
@@ -9,6 +9,7 @@ import UnifiedCard from './UnifiedCard';
 
 const ExperienceSection = memo(() => {
   const { experience } = aboutData;
+  const colorCombinations = useColorCombinations();
 
   return (
     <Container size="lg" py="xl">
@@ -20,7 +21,8 @@ const ExperienceSection = memo(() => {
             size="h1"
             mb="md"
             style={{
-              background: colorCombinations.sakuraGradient,
+              backgroundImage: colorCombinations.primaryGradient,
+              backgroundSize: '100% 100%',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',

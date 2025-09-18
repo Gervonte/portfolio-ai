@@ -102,19 +102,70 @@ export const getRecentLeadership = (limit: number = 3): Leadership[] => {
   return aboutData.leadership.slice(0, limit);
 };
 
-// Skill level color mapping (cherry blossom theme)
+// Skill level color mapping (theme-aware)
+// Note: This function returns color names that work with both sakura and ocean themes
 export const getSkillColor = (level: Skill['level']): string => {
   switch (level) {
     case 'expert':
-      return 'sakura';
+      return 'sakura'; // Primary theme color (sakura in sakura theme, ocean in ocean theme)
     case 'advanced':
-      return 'pink';
+      return 'pink'; // Effect color (pink in sakura theme, mist in ocean theme)
     case 'intermediate':
-      return 'earth';
+      return 'earth'; // Earth color (consistent across themes)
     case 'beginner':
-      return 'gray';
+      return 'gray'; // Neutral color
     default:
       return 'gray';
+  }
+};
+
+// Theme-aware skill color mapping for better contrast
+// This function provides better color choices for each theme without changing global mappings
+export const getThemeAwareSkillColor = (
+  level: Skill['level'],
+  theme: 'sakura' | 'ocean'
+): string => {
+  if (theme === 'ocean') {
+    switch (level) {
+      case 'expert':
+        return 'ocean'; // Use ocean color for expert in ocean theme
+      case 'advanced':
+        return 'earth'; // Use earth color for advanced in ocean theme (better contrast)
+      case 'intermediate':
+        return 'warm'; // Use warm color for intermediate in ocean theme
+      case 'beginner':
+        return 'gray'; // Keep gray for beginner
+      default:
+        return 'gray';
+    }
+  } else {
+    // Sakura theme uses the original mapping
+    return getSkillColor(level);
+  }
+};
+
+// Theme-aware skill variant mapping for better contrast
+// This function provides different variants for better visual distinction
+export const getThemeAwareSkillVariant = (
+  level: Skill['level'],
+  theme: 'sakura' | 'ocean'
+): 'light' | 'filled' | 'outline' => {
+  if (theme === 'ocean') {
+    switch (level) {
+      case 'expert':
+        return 'filled'; // Use filled variant for expert in ocean theme
+      case 'advanced':
+        return 'light'; // Use light variant for advanced in ocean theme
+      case 'intermediate':
+        return 'outline'; // Use outline variant for intermediate in ocean theme
+      case 'beginner':
+        return 'light'; // Use light variant for beginner
+      default:
+        return 'light';
+    }
+  } else {
+    // Sakura theme uses light variant for all
+    return 'light';
   }
 };
 

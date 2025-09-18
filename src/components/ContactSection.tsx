@@ -1,7 +1,7 @@
 'use client';
 
 import { aboutData } from '@/lib/about';
-import { colorCombinations } from '@/lib/colors';
+import { useColorCombinations } from '@/lib/theme-aware-colors';
 import {
   Alert,
   Anchor,
@@ -33,6 +33,7 @@ import { MobileTooltip } from './MobileTooltip';
 
 const ContactSection = memo(() => {
   const { personalInfo } = aboutData;
+  const colorCombinations = useColorCombinations();
   const [isClient, setIsClient] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -124,7 +125,8 @@ const ContactSection = memo(() => {
             size="h1"
             mb="md"
             style={{
-              background: colorCombinations.sakuraGradient,
+              backgroundImage: colorCombinations.primaryGradient,
+              backgroundSize: '100% 100%',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',

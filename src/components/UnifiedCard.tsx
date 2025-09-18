@@ -1,7 +1,7 @@
 'use client';
 
 import { getBadgeContext, getDefaultContext } from '@/lib/badge-contexts';
-import { colorCombinations } from '@/lib/colors';
+import { useColorCombinations } from '@/lib/theme-aware-colors';
 import {
   Badge,
   Box,
@@ -133,7 +133,7 @@ const UnifiedCard = ({
   size = 'md',
   interactive = true,
   hoverable = true,
-  backgroundGradient = colorCombinations.sakuraGradient,
+  backgroundGradient,
   enableTechnicalDetails = false,
   onTechnicalDetailsClick,
   limitBadges = false,
@@ -141,6 +141,9 @@ const UnifiedCard = ({
   infoBoxDescription = false,
   children,
 }: UnifiedCardProps) => {
+  // Theme-aware colors
+  const colorCombinations = useColorCombinations();
+  const defaultBackgroundGradient = backgroundGradient || colorCombinations.primaryGradient;
   const getCardStyles = () => {
     const baseStyles = {
       transition: 'all 0.3s ease',
@@ -240,7 +243,7 @@ const UnifiedCard = ({
               height: getThumbnailHeight(),
               borderRadius: '8px',
               overflow: 'hidden',
-              background: backgroundGradient,
+              background: defaultBackgroundGradient,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -322,7 +325,7 @@ const UnifiedCard = ({
                 display: thumbnail.src ? 'none' : 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: backgroundGradient,
+                background: defaultBackgroundGradient,
                 position: 'absolute',
                 top: 0,
                 left: 0,

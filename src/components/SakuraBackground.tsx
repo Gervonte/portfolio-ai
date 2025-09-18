@@ -1,8 +1,8 @@
 'use client';
 
-import { pink, sakura } from '@/lib/colors';
+import { usePrimaryColors } from '@/lib/theme-aware-colors';
 import { Box } from '@mantine/core';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 interface SakuraBackgroundProps {
   intensity?: 'subtle' | 'moderate' | 'intense';
@@ -17,8 +17,8 @@ export default function SakuraBackground({
   className = '',
   children,
 }: SakuraBackgroundProps) {
+  const primaryColors = usePrimaryColors();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   // Configuration based on intensity and variant
   const getConfig = useCallback(() => {
@@ -29,9 +29,24 @@ export default function SakuraBackground({
     };
 
     const variantConfig = {
-      falling: { colors: [sakura[1], sakura[0], sakura[2], sakura[3]] },
-      floating: { colors: [sakura[0], sakura[1], sakura[2]] },
-      gentle: { colors: [sakura[0], sakura[1]] },
+      falling: {
+        colors: [
+          primaryColors[1] ?? '#FFCDD2',
+          primaryColors[0] ?? '#FFEBEE',
+          primaryColors[2] ?? '#EF9A9A',
+          primaryColors[3] ?? '#F44336',
+        ],
+      },
+      floating: {
+        colors: [
+          primaryColors[0] ?? '#FFEBEE',
+          primaryColors[1] ?? '#FFCDD2',
+          primaryColors[2] ?? '#EF9A9A',
+        ],
+      },
+      gentle: {
+        colors: [primaryColors[0] ?? '#FFEBEE', primaryColors[1] ?? '#FFCDD2'],
+      },
     };
 
     const config = {
@@ -55,106 +70,95 @@ export default function SakuraBackground({
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const initSakura = async () => {
-      try {
-        // Load sakura-js as a script since it doesn't have proper ES module support
-        if (!(window as { Sakura?: unknown }).Sakura) {
-          await new Promise((resolve, reject) => {
-            const script = document.createElement('script');
-            script.src = '/js/sakura-fixed.js';
-            script.onload = () => {
-              console.log('Script loaded, checking for Sakura...');
-              console.log('window.Sakura:', (window as { Sakura?: unknown }).Sakura);
-              console.log('typeof window.Sakura:', typeof (window as { Sakura?: unknown }).Sakura);
-              // Wait a bit more to ensure the library is fully loaded
-              setTimeout(() => {
-                console.log(
-                  'After timeout - window.Sakura:',
-                  (window as { Sakura?: unknown }).Sakura
-                );
-                resolve(undefined);
-              }, 200);
-            };
-            script.onerror = error => {
-              console.error('Failed to load sakura script:', error);
-              reject(error);
-            };
-            document.head.appendChild(script);
-          });
-        }
-
-        const Sakura = (window as { Sakura?: unknown }).Sakura;
-        console.log('Sakura loaded:', typeof Sakura, Sakura);
-        console.log(
-          'Window object keys:',
-          Object.keys(window).filter(key => key.toLowerCase().includes('sakura'))
-        );
-        if (!Sakura || typeof Sakura !== 'function') {
-          throw new Error(
-            `Sakura library not loaded properly. Type: ${typeof Sakura}, Value: ${Sakura}`
-          );
-        }
-
-        const config = getConfig();
-
-        if (containerRef.current) {
-          // Clear existing sakura
-          const existingSakura = containerRef.current.querySelector('.sakura-container');
-          if (existingSakura) {
-            existingSakura.remove();
+    // Add a delay to prevent layout shifts on initial load
+    const timer = setTimeout(() => {
+      const initSakura = async () => {
+        try {
+          // Load sakura-js as a script since it doesn't have proper ES module support
+          if (!(window as { Sakura?: unknown }).Sakura) {
+            await new Promise((resolve, reject) => {
+              const script = document.createElement('script');
+              script.src = '/js/sakura-fixed.js';
+              script.onload = () => {
+                // Wait a bit more to ensure the library is fully loaded
+                setTimeout(() => {
+                  resolve(undefined);
+                }, 200);
+              };
+              script.onerror = error => {
+                console.error('Failed to load sakura script:', error);
+                reject(error);
+              };
+              document.head.appendChild(script);
+            });
           }
 
-          // Create sakura container with unique ID
-          const sakuraContainer = document.createElement('div');
-          const containerId = `sakura-container-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-          sakuraContainer.id = containerId;
-          sakuraContainer.className = 'sakura-container';
-          sakuraContainer.style.cssText = `
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-          `;
+          const Sakura = (window as { Sakura?: unknown }).Sakura;
+          if (!Sakura || typeof Sakura !== 'function') {
+            throw new Error('Sakura library not loaded properly');
+          }
 
-          containerRef.current.appendChild(sakuraContainer);
+          const config = getConfig();
 
-          // Wait for the element to be in the DOM before initializing sakura
-          let sakuraInstance: { destroy?: () => void } | null = null;
-          setTimeout(() => {
-            const element = document.getElementById(containerId);
-            if (element) {
-              try {
-                // Initialize sakura - it expects a CSS selector string
-                sakuraInstance = Sakura(`#${containerId}`, config);
-              } catch (error) {
-                console.error('Failed to initialize sakura:', error);
+          if (containerRef.current) {
+            // Clear existing sakura
+            const existingSakura = containerRef.current.querySelector('.sakura-container');
+            if (existingSakura) {
+              existingSakura.remove();
+            }
+
+            // Create sakura container with unique ID
+            const sakuraContainer = document.createElement('div');
+            const containerId = `sakura-container-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+            sakuraContainer.id = containerId;
+            sakuraContainer.className = 'sakura-container';
+            sakuraContainer.style.cssText = `
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              pointer-events: none;
+              z-index: 1;
+              overflow: hidden;
+            `;
+
+            containerRef.current.appendChild(sakuraContainer);
+
+            // Wait for the element to be in the DOM before initializing sakura
+            let sakuraInstance: { destroy?: () => void } | null = null;
+            setTimeout(() => {
+              const element = document.getElementById(containerId);
+              if (element) {
+                try {
+                  // Initialize sakura - it expects a CSS selector string
+                  sakuraInstance = Sakura(`#${containerId}`, config);
+                } catch (error) {
+                  console.error('Failed to initialize sakura:', error);
+                }
               }
-            }
-          }, 0);
-          setIsLoaded(true);
+            }, 0);
 
-          // Cleanup function
-          return () => {
-            if (sakuraInstance && typeof sakuraInstance.destroy === 'function') {
-              sakuraInstance.destroy();
-            }
-            if (sakuraContainer.parentNode) {
-              sakuraContainer.parentNode.removeChild(sakuraContainer);
-            }
-          };
+            // Cleanup function
+            return () => {
+              if (sakuraInstance && typeof sakuraInstance.destroy === 'function') {
+                sakuraInstance.destroy();
+              }
+              if (sakuraContainer.parentNode) {
+                sakuraContainer.parentNode.removeChild(sakuraContainer);
+              }
+            };
+          }
+        } catch (error) {
+          console.warn('Failed to load sakura effect:', error);
         }
-      } catch (error) {
-        console.warn('Failed to load sakura effect:', error);
-      }
-    };
+      };
 
-    initSakura();
+      initSakura();
+    }, 500); // Delay sakura effect by 500ms to prevent layout shifts
 
     return () => {
+      clearTimeout(timer);
       const currentContainer = containerRef.current;
       if (currentContainer) {
         const sakuraContainer = currentContainer.querySelector('.sakura-container');
@@ -174,24 +178,10 @@ export default function SakuraBackground({
         width: '100%',
         height: '100%',
         minHeight: '100vh',
+        overflow: 'hidden', // Prevent layout shifts
       }}
     >
       {children}
-      {!isLoaded && (
-        <Box
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            opacity: 0.3,
-            fontSize: '14px',
-            color: pink[1],
-          }}
-        >
-          Loading sakura effect...
-        </Box>
-      )}
     </Box>
   );
 }

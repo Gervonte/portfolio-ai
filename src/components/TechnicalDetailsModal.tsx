@@ -1,7 +1,7 @@
 'use client';
 
-import { colorCombinations, commonColors } from '@/lib/colors';
 import { Project } from '@/lib/projects';
+import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
 import {
   Alert,
   Badge,
@@ -55,6 +55,8 @@ const getTechnicalIcon = (section: string) => {
 };
 
 const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetailsModalProps) => {
+  const colorCombinations = useColorCombinations();
+  const commonColors = useCommonColors();
   const [activeTab, setActiveTab] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
@@ -172,7 +174,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 size="md"
                 radius="xl"
                 style={{
-                  boxShadow: `0 8px 32px ${commonColors.shadowSakura}`,
+                  boxShadow: `0 8px 32px ${commonColors.shadowPrimary}`,
                   flexShrink: 0,
                 }}
               >
@@ -933,8 +935,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           radius="md"
                           withBorder
                           style={{
-                            background: colorCombinations.sakuraGradientModal,
-                            border: `1px solid ${commonColors.borderSakura}`,
+                            background: colorCombinations.primaryGradientModal,
+                            border: `1px solid ${commonColors.borderPrimaryColor}`,
                           }}
                         >
                           <Text size="sm" c="dimmed" fw={600} mb="xs">

@@ -1,7 +1,14 @@
 'use client';
 
-import { aboutData, getSkillColor, getSkillsByCategory, type Skill } from '@/lib/about';
-import { colorCombinations } from '@/lib/colors';
+import {
+  aboutData,
+  getSkillsByCategory,
+  getThemeAwareSkillColor,
+  getThemeAwareSkillVariant,
+  type Skill,
+} from '@/lib/about';
+import { useColorCombinations } from '@/lib/theme-aware-colors';
+import { useTheme } from '@/lib/theme-context';
 import {
   Box,
   Container,
@@ -125,6 +132,8 @@ const getSkillIconComponent = (skillName: string) => {
 };
 
 const AboutSection = memo(() => {
+  const colorCombinations = useColorCombinations();
+  const { currentTheme } = useTheme();
   const skillCategories = getSkillsByCategory();
 
   return (
@@ -150,7 +159,8 @@ const AboutSection = memo(() => {
             size="h1"
             mb="md"
             style={{
-              background: colorCombinations.sakuraGradient,
+              backgroundImage: colorCombinations.primaryGradient,
+              backgroundSize: '100% 100%',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -185,8 +195,8 @@ const AboutSection = memo(() => {
                     <Group key={skill.name} justify="space-between" align="center">
                       <Group gap="xs" align="center">
                         <ThemeIcon
-                          color={getSkillColor(skill.level)}
-                          variant="light"
+                          color={getThemeAwareSkillColor(skill.level, currentTheme)}
+                          variant={getThemeAwareSkillVariant(skill.level, currentTheme)}
                           size="sm"
                           radius="sm"
                           style={{
@@ -211,8 +221,8 @@ const AboutSection = memo(() => {
                       <BadgeWithTooltip
                         contextType="skill"
                         contextValue={skill.level}
-                        color={getSkillColor(skill.level)}
-                        variant="light"
+                        color={getThemeAwareSkillColor(skill.level, currentTheme)}
+                        variant={getThemeAwareSkillVariant(skill.level, currentTheme)}
                         size="sm"
                       >
                         {skill.level}

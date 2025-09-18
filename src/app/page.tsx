@@ -3,8 +3,8 @@
 import ParallaxElement from '@/components/ParallaxElement';
 import SakuraBackground from '@/components/SakuraBackground';
 import ScrollIndicator from '@/components/ScrollIndicator';
-import { colorCombinations, commonColors } from '@/lib/colors';
 import { ParallaxProvider } from '@/lib/parallax-context';
+import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
 import { Box, Button, Container, Group, Stack, Text, Title } from '@mantine/core';
 import { Suspense, lazy, memo } from 'react';
 
@@ -33,6 +33,10 @@ const SectionLoader = memo(() => (
 SectionLoader.displayName = 'SectionLoader';
 
 const HomePage = memo(() => {
+  // Theme-aware colors
+  const colorCombinations = useColorCombinations();
+  const commonColors = useCommonColors();
+
   return (
     <ParallaxProvider>
       {/* Hero Section */}
@@ -57,7 +61,7 @@ const HomePage = memo(() => {
                   ta="center"
                   mb="md"
                   style={{
-                    background: colorCombinations.sakuraGradient,
+                    backgroundImage: colorCombinations.primaryGradient,
                     backgroundClip: 'text',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
@@ -75,10 +79,10 @@ const HomePage = memo(() => {
                   ta="center"
                   size="xl"
                   mb="xl"
-                  c="dimmed"
                   style={{
                     maxWidth: '850px',
                     lineHeight: 1.6,
+                    color: commonColors.textSecondary, // Use theme-aware color directly
                   }}
                 >
                   2025 M.S. Computer Science Graduate | 2 Years of Series B Fintech Startup
@@ -106,9 +110,9 @@ const HomePage = memo(() => {
                     color="sakura"
                     aria-label="View my work projects"
                     style={{
-                      background: colorCombinations.sakuraGradient,
+                      background: colorCombinations.primaryGradient,
                       border: 'none',
-                      boxShadow: `0 4px 15px ${commonColors.shadowSakura}`,
+                      boxShadow: `0 4px 15px ${commonColors.shadowPrimary}`,
                       transition: 'all 0.3s ease',
                     }}
                     onClick={() => {
@@ -116,11 +120,11 @@ const HomePage = memo(() => {
                     }}
                     onMouseEnter={e => {
                       e.currentTarget.style.transform = 'translateY(-2px)';
-                      e.currentTarget.style.boxShadow = `0 6px 20px ${commonColors.shadowSakura}`;
+                      e.currentTarget.style.boxShadow = `0 6px 20px ${commonColors.shadowPrimary}`;
                     }}
                     onMouseLeave={e => {
                       e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = `0 4px 15px ${commonColors.shadowSakura}`;
+                      e.currentTarget.style.boxShadow = `0 4px 15px ${commonColors.shadowPrimary}`;
                     }}
                   >
                     View My Work
@@ -159,7 +163,7 @@ const HomePage = memo(() => {
         </Box>
       </SakuraBackground>
 
-      <ParallaxElement speed={0.8} center={true}>
+      <ParallaxElement speed={1.5} center={true}>
         <Box
           id="work"
           role="region"
@@ -176,7 +180,7 @@ const HomePage = memo(() => {
         </Box>
       </ParallaxElement>
 
-      <ParallaxElement speed={-0.8} center={true}>
+      <ParallaxElement speed={-1.2} center={true}>
         <Box
           id="experience"
           role="region"
@@ -190,7 +194,7 @@ const HomePage = memo(() => {
       </ParallaxElement>
 
       {/* About Section */}
-      <ParallaxElement speed={-0.8} center={true}>
+      <ParallaxElement speed={-1.5} center={true}>
         <Box
           id="about"
           role="main"
@@ -206,7 +210,7 @@ const HomePage = memo(() => {
         </Box>
       </ParallaxElement>
 
-      <ParallaxElement speed={0.8} center={true}>
+      <ParallaxElement speed={1.8} center={true}>
         <Box
           id="contact"
           role="region"
