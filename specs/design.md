@@ -983,8 +983,58 @@ The scroll indicator is a sophisticated navigation component that provides both 
 - **Skill Badges**: Updated to use theme-aware color system with better contrast
 - **Footer Text**: Fixed gradient text visibility across themes
 - **Navigation**: Enhanced with theme-aware colors and effects
-- **Modal Components**: Updated technical details modals for theme compatibility
+- **Technical Details Modal**: Complete design system overhaul with enhanced UX
 - **Scroll Indicator**: Complete redesign with enhanced hover effects and improved UX
+
+#### Technical Details Modal Overhaul
+
+The technical details modal has undergone a comprehensive redesign to align with the design system and improve user experience:
+
+##### Design System Compliance
+
+- **Badge Styling Consistency**: All badges now match UnifiedCard styling patterns
+  - Tools badges: `size="sm"`, `variant="filled"` (matching AI tools in UnifiedCard)
+  - Components badges: `size="sm"`, `variant="outline"` (matching technologies in UnifiedCard)
+  - Removed custom styling overrides in favor of BadgeWithTooltip defaults
+  - Leveraged built-in hover effects with scale(1.05) and shadow
+- **Visual Cleanup**: Removed all `withBorder` props and border styles from box elements
+  - Clean up visual clutter while maintaining card structure
+  - Keep essential borders only for tab folder effect
+  - Maintain box shadows for depth and visual hierarchy
+
+##### Modal Size & Layout Improvements
+
+- **Compact Design**: Reduced modal width from 22% to 20% for more compact display
+- **Height Optimization**: Set to 45vh for better content visibility without overwhelming
+- **Scroll Behavior**: Fixed header stays fixed while only body content scrolls
+  - Header uses `flex-shrink: 0` to prevent shrinking
+  - Body has `overflow-y: auto` and `flex: 1` for proper scrolling
+  - Content uses `overflow: hidden` to contain scroll within body area
+- **Responsive Design**: Proper height calculations for different screen sizes
+
+##### User Experience Enhancements
+
+- **Scroll Indicator Integration**: Modal state tracking via React Context
+  - Hide scroll indicator when technical details modal is open
+  - Use React context instead of DOM detection for better performance
+  - Add `hideWhenModalOpen` prop to ScrollIndicator component
+  - Wrap app with ModalProvider for global modal state management
+- **Content Organization**: Removed redundant components section
+  - Components displayed only as badges in architecture section
+  - Eliminated visual duplication and improved efficiency
+  - Cleaner interface with better information hierarchy
+- **Accessibility**: Maintained keyboard navigation and focus management
+  - Proper ARIA attributes and screen reader support
+  - Consistent tab navigation within modal
+  - Focus management during modal open/close
+
+##### Technical Implementation
+
+- **Modal Context**: Created `ModalContext` for reliable modal state tracking
+- **CSS Flexbox**: Implemented proper flex layout for content containment
+- **Height Constraints**: Added explicit height constraints to prevent stretching
+- **Performance**: Reduced DOM complexity by removing redundant sections
+- **Theme Integration**: Full theme-aware color system integration
 
 #### Scroll Indicator Enhancements
 
@@ -992,6 +1042,11 @@ The scroll indicator is a sophisticated navigation component that provides both 
 - **Visibility Management**: Stays visible while hovering, auto-hides with smart timeout logic
 - **Theme Integration**: Fully theme-aware with dynamic colors and consistent styling
 - **Clean Design**: Removed status indicator dots for cleaner appearance
+- **Modal Integration**: Hide scroll indicator when technical details modal is open
+  - React Context-based modal state tracking for reliable detection
+  - `hideWhenModalOpen` prop for flexible control
+  - ModalProvider wraps entire app for global state management
+  - Improved performance over DOM-based detection methods
 - **Build Process**: Improved build script to auto-format before building
 
 ### Accessibility Enhancements
