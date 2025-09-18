@@ -8,6 +8,7 @@ const __dirname = dirname(__filename);
 const nextConfig = {
   experimental: {
     optimizePackageImports: ['@mantine/core', '@mantine/hooks', '@tabler/icons-react'],
+    webVitalsAttribution: ['CLS', 'LCP'], // Track Core Web Vitals
   },
   turbopack: {
     rules: {
@@ -23,14 +24,20 @@ const nextConfig = {
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Add image optimization settings
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
+    // Enable additional optimizations
+    styledComponents: false,
   },
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
   generateEtags: false,
+  // SWC minification is enabled by default in Next.js 13+
   modularizeImports: {
     '@tabler/icons-react': {
       transform: '@tabler/icons-react/dist/esm/icons/{{member}}',

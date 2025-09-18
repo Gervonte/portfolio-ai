@@ -1,5 +1,12 @@
 'use client';
 
+import {
+  LazyAboutSection,
+  LazyContactSection,
+  LazyExperienceSection,
+  LazyScrollIndicator,
+  LazyWorkSection,
+} from '@/components/LazyComponents';
 import ParallaxElement from '@/components/ParallaxElement';
 import SakuraBackground from '@/components/SakuraBackground';
 import { ModalProvider } from '@/lib/modal-context';
@@ -7,29 +14,6 @@ import { ParallaxProvider } from '@/lib/parallax-context';
 import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
 import { Box, Button, Container, Group, Stack, Text, Title } from '@mantine/core';
 import { memo, useEffect } from 'react';
-
-const ScrollIndicator = dynamic(() => import('@/components/ScrollIndicator'), {
-  ssr: false,
-});
-
-// Lazy load sections below the fold for better performance
-import dynamic from 'next/dynamic';
-
-const AboutSection = dynamic(() => import('@/components/AboutSection'), {
-  loading: () => <div className="loading-placeholder">Loading...</div>,
-});
-
-const WorkSection = dynamic(() => import('@/components/WorkSection'), {
-  loading: () => <div className="loading-placeholder">Loading...</div>,
-});
-
-const ExperienceSection = dynamic(() => import('@/components/ExperienceSection'), {
-  loading: () => <div className="loading-placeholder">Loading...</div>,
-});
-
-const ContactSection = dynamic(() => import('@/components/ContactSection'), {
-  loading: () => <div className="loading-placeholder">Loading...</div>,
-});
 
 const HomePage = memo(() => {
   // Theme-aware colors
@@ -57,6 +41,7 @@ const HomePage = memo(() => {
           <Box
             id="hero"
             role="banner"
+            aria-label="Hero section with introduction"
             style={{
               position: 'relative',
               zIndex: 2,
@@ -97,6 +82,8 @@ const HomePage = memo(() => {
                       lineHeight: 1.6,
                       color: commonColors.textSecondary, // Use theme-aware color directly
                     }}
+                    role="text"
+                    aria-label="Professional summary and qualifications"
                   >
                     2025 M.S. Computer Science Graduate | 2 Years of Series B Fintech Startup
                     Experience
@@ -117,11 +104,13 @@ const HomePage = memo(() => {
                 environments with or without the use of AI.
               </Text> */}
                 <ParallaxElement speed={-0.8} center={true}>
-                  <Group justify="center" gap="md">
+                  <Group justify="center" gap="md" role="group" aria-label="Navigation actions">
                     <Button
                       size="lg"
                       color="sakura"
-                      aria-label="View my work projects"
+                      aria-label="View my work projects and portfolio"
+                      role="button"
+                      tabIndex={0}
                       style={{
                         background: colorCombinations.primaryGradient,
                         border: 'none',
@@ -139,6 +128,12 @@ const HomePage = memo(() => {
                         e.currentTarget.style.transform = 'translateY(0)';
                         e.currentTarget.style.boxShadow = `0 4px 15px ${commonColors.shadowPrimary}`;
                       }}
+                      onKeyDown={e => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}
                     >
                       View My Work
                     </Button>
@@ -146,7 +141,9 @@ const HomePage = memo(() => {
                       size="lg"
                       variant="filled"
                       color="sakura"
-                      aria-label="Contact me for opportunities"
+                      aria-label="Contact me for job opportunities and collaboration"
+                      role="button"
+                      tabIndex={0}
                       style={{
                         background: commonColors.accentSecondary + '1A',
                         color: commonColors.accentPrimary,
@@ -165,6 +162,14 @@ const HomePage = memo(() => {
                       onMouseLeave={e => {
                         e.currentTarget.style.transform = 'translateY(0)';
                         e.currentTarget.style.boxShadow = `0 4px 15px ${commonColors.shadowMedium}`;
+                      }}
+                      onKeyDown={e => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          document
+                            .getElementById('contact')
+                            ?.scrollIntoView({ behavior: 'smooth' });
+                        }
                       }}
                     >
                       Contact Me
@@ -187,7 +192,7 @@ const HomePage = memo(() => {
               background: commonColors.backgroundPrimary,
             }}
           >
-            <WorkSection />
+            <LazyWorkSection />
           </Box>
         </ParallaxElement>
 
@@ -198,7 +203,7 @@ const HomePage = memo(() => {
             aria-label="Professional experience"
             style={{ minHeight: '100vh', padding: '4rem 0' }}
           >
-            <ExperienceSection />
+            <LazyExperienceSection />
           </Box>
         </ParallaxElement>
 
@@ -213,7 +218,7 @@ const HomePage = memo(() => {
               background: commonColors.backgroundPrimary,
             }}
           >
-            <AboutSection />
+            <LazyAboutSection />
           </Box>
         </ParallaxElement>
 
@@ -226,12 +231,12 @@ const HomePage = memo(() => {
               padding: '4rem 0 2rem',
             }}
           >
-            <ContactSection />
+            <LazyContactSection />
           </Box>
         </ParallaxElement>
 
         {/* Scroll Indicator */}
-        <ScrollIndicator
+        <LazyScrollIndicator
           sections={['hero', 'work', 'experience', 'about', 'contact']}
           showProgress={true}
           showNavigation={true}

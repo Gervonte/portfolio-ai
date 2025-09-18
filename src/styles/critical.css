@@ -15,6 +15,21 @@ body {
     -apple-system,
     sans-serif;
   scroll-behavior: auto !important;
+  /* Improve rendering performance */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+}
+
+/* Optimize for performance */
+* {
+  will-change: auto;
+}
+
+/* Only enable will-change for elements that need it */
+.sakura-background,
+.parallax-element {
+  will-change: transform;
 }
 
 /* Hero section critical styles */

@@ -69,7 +69,7 @@ function getCurrentVersion() {
     const content = fs.readFileSync(path.join(WORKFLOW_DIR, 'ci-cd-optimized.yml'), 'utf8');
     const match = content.match(/CACHE_VERSION:\s*['"]([^'"]+)['"]/);
     return match ? match[1] : 'unknown';
-  } catch (error) {
+  } catch {
     return 'unknown';
   }
 }
