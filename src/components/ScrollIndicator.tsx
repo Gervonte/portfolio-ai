@@ -1,5 +1,6 @@
 'use client';
 
+import { useModal } from '@/lib/modal-context';
 import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
 import { ActionIcon, Box, Group, Progress, Stack, Text, Transition } from '@mantine/core';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
@@ -41,14 +42,15 @@ export default function ScrollIndicator({
   const [scrollProgress, setScrollProgress] = useState(0);
   const [currentSection, setCurrentSection] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-  const [isScrolling, setIsScrolling] = useState(false);
   const [showIndicator, setShowIndicator] = useState(false);
   const [pressedButton, setPressedButton] = useState<'up' | 'down' | null>(null);
   const [lastInteraction, setLastInteraction] = useState<number>(0);
   const [hoveredSection, setHoveredSection] = useState<number | null>(null);
   const [isNavigating, setIsNavigating] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const { isModalOpen } = useModal();
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [hideTimeout, setHideTimeout] = useState<NodeJS.Timeout | null>(null);
 
   const scrollToSection = useCallback(
     (sectionIndex: number) => {
@@ -76,23 +78,62 @@ export default function ScrollIndicator({
     const now = Date.now();
     const timeSinceInteraction = now - lastInteraction;
 
-    // If user interacted recently (within last 1 second), reset to 2 seconds
+    // If user interacted recently (within last 1 second), reset to 1.5 seconds
     if (timeSinceInteraction < 1000) {
-      return 2000; // Reset to 2 seconds after recent interaction
+      return 1500; // Reset to 1.5 seconds after recent interaction
     }
 
     // Default delay for no recent interaction
-    return 2000; // 2 seconds
+    return 1000; // 1 second for better responsiveness
   }, [lastInteraction]);
 
+  // Separate function to handle hiding the indicator
+  const scheduleHide = useCallback(() => {
+    // Clear any existing hide timeout
+    if (hideTimeout) {
+      clearTimeout(hideTimeout);
+      setHideTimeout(null);
+    }
+
+    // Don't hide if user is hovering over the indicator
+    if (isHovered) {
+      return;
+    }
+
+    // Schedule hide after delay
+    const hideDelay = getHideDelay();
+    const timeout = setTimeout(() => {
+      // Double-check hover state before hiding
+      if (!isHovered) {
+        setShowIndicator(false);
+        setHideTimeout(null);
+      }
+    }, hideDelay);
+    setHideTimeout(timeout);
+  }, [hideTimeout, getHideDelay, isHovered]);
+
   useEffect(() => {
+    let scrollTimeout: NodeJS.Timeout;
+    let scrollEndTimeout: NodeJS.Timeout;
+
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = (scrollTop / docHeight) * 100;
 
       setScrollProgress(Math.min(100, Math.max(0, progress)));
-      setIsVisible(scrollTop > 100);
+      const shouldBeVisible = scrollTop > 0; // Show as soon as any scrolling happens
+      setIsVisible(shouldBeVisible);
+
+      // Show indicator immediately when scrolling starts
+      if (scrollTop > 0 && !showIndicator) {
+        setShowIndicator(true);
+        setLastInteraction(Date.now());
+        if (hideTimeout) {
+          clearTimeout(hideTimeout);
+          setHideTimeout(null);
+        }
+      }
 
       // Determine current section (skip if we're programmatically navigating)
       if (!isNavigating) {
@@ -138,38 +179,17 @@ export default function ScrollIndicator({
 
         setCurrentSection(activeSection);
       }
-    };
 
-    const handleScrollStart = () => {
-      setIsScrolling(true);
-      setShowIndicator(true);
-      setLastInteraction(Date.now()); // Track scroll interaction
+      // Clear any existing scroll end timeout and set a new one
+      clearTimeout(scrollEndTimeout);
+      scrollEndTimeout = setTimeout(() => {
+        scheduleHide();
+      }, 150); // Wait 150ms after last scroll event
     };
-
-    const handleScrollEnd = () => {
-      setTimeout(() => setIsScrolling(false), 150);
-    };
-
-    let scrollTimeout: NodeJS.Timeout;
-    let hideTimeout: NodeJS.Timeout;
 
     const throttledScroll = () => {
       clearTimeout(scrollTimeout);
-      clearTimeout(hideTimeout);
-
-      scrollTimeout = setTimeout(() => {
-        handleScroll();
-        handleScrollEnd();
-
-        // Hide indicator after dynamic delay based on recent interactions
-        // Only hide if not currently hovering
-        const hideDelay = getHideDelay();
-        hideTimeout = setTimeout(() => {
-          if (!isHovered) {
-            setShowIndicator(false);
-          }
-        }, hideDelay);
-      }, 10);
+      scrollTimeout = setTimeout(handleScroll, 10);
     };
 
     // Keyboard navigation handler
@@ -202,30 +222,26 @@ export default function ScrollIndicator({
           scrollToSection(newSection);
 
           setShowIndicator(true);
+          setLastInteraction(Date.now()); // Track keyboard interaction
 
-          // Reset hide timeout when using keyboard navigation
-          clearTimeout(hideTimeout);
-          const hideDelay = getHideDelay();
-          hideTimeout = setTimeout(() => {
-            if (!isHovered) {
-              setShowIndicator(false);
-            }
-          }, hideDelay);
+          // Schedule hide after keyboard navigation
+          scheduleHide();
         }
       }
     };
 
-    window.addEventListener('scroll', handleScrollStart);
     window.addEventListener('scroll', throttledScroll);
     window.addEventListener('keydown', handleKeyDown);
     handleScroll(); // Initial call
 
     return () => {
-      window.removeEventListener('scroll', handleScrollStart);
       window.removeEventListener('scroll', throttledScroll);
       window.removeEventListener('keydown', handleKeyDown);
       clearTimeout(scrollTimeout);
-      clearTimeout(hideTimeout);
+      clearTimeout(scrollEndTimeout);
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+      }
       if (hoverTimeout) {
         clearTimeout(hoverTimeout);
       }
@@ -279,7 +295,7 @@ export default function ScrollIndicator({
     return (
       <Box visibleFrom="sm">
         <Transition
-          mounted={isVisible && showIndicator}
+          mounted={isVisible && showIndicator && !isModalOpen}
           transition="slide-up"
           duration={500}
           timingFunction="ease-out"
@@ -314,7 +330,11 @@ export default function ScrollIndicator({
                 onMouseEnter={() => {
                   setIsHovered(true);
                   setShowIndicator(true); // Keep indicator visible while hovering
-                  // Clear any existing hover timeout
+                  // Clear any existing timeouts when hovering
+                  if (hideTimeout) {
+                    clearTimeout(hideTimeout);
+                    setHideTimeout(null);
+                  }
                   if (hoverTimeout) {
                     clearTimeout(hoverTimeout);
                     setHoverTimeout(null);
@@ -322,13 +342,8 @@ export default function ScrollIndicator({
                 }}
                 onMouseLeave={() => {
                   setIsHovered(false);
-                  // Start hide timeout when mouse leaves
-                  const hideDelay = getHideDelay();
-                  const timeout = setTimeout(() => {
-                    setShowIndicator(false);
-                    setHoverTimeout(null);
-                  }, hideDelay);
-                  setHoverTimeout(timeout);
+                  // Schedule hide when mouse leaves (with delay)
+                  scheduleHide();
                 }}
               >
                 <Group justify="center" gap="md">
@@ -471,7 +486,7 @@ export default function ScrollIndicator({
     return (
       <Box visibleFrom="sm">
         <Transition
-          mounted={isVisible && showIndicator}
+          mounted={isVisible && showIndicator && !isModalOpen}
           transition="fade"
           duration={500}
           timingFunction="ease-out"
@@ -547,7 +562,11 @@ export default function ScrollIndicator({
               onMouseEnter={() => {
                 setIsHovered(true);
                 setShowIndicator(true); // Keep indicator visible while hovering
-                // Clear any existing hover timeout
+                // Clear any existing timeouts when hovering
+                if (hideTimeout) {
+                  clearTimeout(hideTimeout);
+                  setHideTimeout(null);
+                }
                 if (hoverTimeout) {
                   clearTimeout(hoverTimeout);
                   setHoverTimeout(null);
@@ -555,13 +574,8 @@ export default function ScrollIndicator({
               }}
               onMouseLeave={() => {
                 setIsHovered(false);
-                // Start hide timeout when mouse leaves
-                const hideDelay = getHideDelay();
-                const timeout = setTimeout(() => {
-                  setShowIndicator(false);
-                  setHoverTimeout(null);
-                }, hideDelay);
-                setHoverTimeout(timeout);
+                // Schedule hide when mouse leaves (with delay)
+                scheduleHide();
               }}
             >
               {/* Progress Section */}

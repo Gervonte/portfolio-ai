@@ -18,6 +18,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,md,css}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,md,css}\"",
     "build:ci": "npm run format:check && next build",
+    "cache:update": "node scripts/update-cache-version.js",
     "parse-resume": "node scripts/parse-resume.js",
     "cache:clear": "node scripts/cache-management.js clear",
     "cache:status": "node scripts/cache-management.js status",

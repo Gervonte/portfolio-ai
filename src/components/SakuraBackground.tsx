@@ -70,8 +70,16 @@ export default function SakuraBackground({
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Add a delay to prevent layout shifts on initial load
-    const timer = setTimeout(() => {
+    // Use requestIdleCallback for better performance, fallback to setTimeout
+    const scheduleInit = (callback: () => void) => {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(callback, { timeout: 200 });
+      } else {
+        setTimeout(callback, 100);
+      }
+    };
+
+    scheduleInit(() => {
       const initSakura = async () => {
         try {
           // Load sakura-js as a script since it doesn't have proper ES module support
@@ -79,11 +87,14 @@ export default function SakuraBackground({
             await new Promise((resolve, reject) => {
               const script = document.createElement('script');
               script.src = '/js/sakura-fixed.js';
+              script.async = true; // Make script loading non-blocking
               script.onload = () => {
-                // Wait a bit more to ensure the library is fully loaded
-                setTimeout(() => {
-                  resolve(undefined);
-                }, 200);
+                // Use requestIdleCallback for initialization
+                if ('requestIdleCallback' in window) {
+                  requestIdleCallback(() => resolve(undefined), { timeout: 200 });
+                } else {
+                  setTimeout(() => resolve(undefined), 100);
+                }
               };
               script.onerror = error => {
                 console.error('Failed to load sakura script:', error);
@@ -125,29 +136,28 @@ export default function SakuraBackground({
 
             containerRef.current.appendChild(sakuraContainer);
 
-            // Wait for the element to be in the DOM before initializing sakura
-            let sakuraInstance: { destroy?: () => void } | null = null;
-            setTimeout(() => {
+            // Use requestIdleCallback for sakura initialization
+            const initSakuraEffect = () => {
               const element = document.getElementById(containerId);
               if (element) {
                 try {
                   // Initialize sakura - it expects a CSS selector string
-                  sakuraInstance = Sakura(`#${containerId}`, config);
+                  const sakuraInstance = Sakura(`#${containerId}`, config);
+
+                  // Store instance for cleanup
+                  (sakuraContainer as HTMLElement & { sakuraInstance?: unknown }).sakuraInstance =
+                    sakuraInstance;
                 } catch (error) {
                   console.error('Failed to initialize sakura:', error);
                 }
               }
-            }, 0);
-
-            // Cleanup function
-            return () => {
-              if (sakuraInstance && typeof sakuraInstance.destroy === 'function') {
-                sakuraInstance.destroy();
-              }
-              if (sakuraContainer.parentNode) {
-                sakuraContainer.parentNode.removeChild(sakuraContainer);
-              }
             };
+
+            if ('requestIdleCallback' in window) {
+              requestIdleCallback(initSakuraEffect, { timeout: 200 });
+            } else {
+              setTimeout(initSakuraEffect, 0);
+            }
           }
         } catch (error) {
           console.warn('Failed to load sakura effect:', error);
@@ -155,14 +165,22 @@ export default function SakuraBackground({
       };
 
       initSakura();
-    }, 500); // Delay sakura effect by 500ms to prevent layout shifts
+    });
 
     return () => {
-      clearTimeout(timer);
       const currentContainer = containerRef.current;
       if (currentContainer) {
-        const sakuraContainer = currentContainer.querySelector('.sakura-container');
+        const sakuraContainer = currentContainer.querySelector(
+          '.sakura-container'
+        ) as HTMLElement & { sakuraInstance?: { destroy?: () => void } };
         if (sakuraContainer) {
+          // Cleanup sakura instance
+          if (
+            sakuraContainer.sakuraInstance &&
+            typeof sakuraContainer.sakuraInstance.destroy === 'function'
+          ) {
+            sakuraContainer.sakuraInstance.destroy();
+          }
           sakuraContainer.remove();
         }
       }

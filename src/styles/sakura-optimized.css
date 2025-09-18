@@ -1,0 +1,81 @@
+/*!
+ * Sakura.js 1.1.1 - Optimized Version
+ * Vanilla JS version of jQuery-Sakura: Make it rain sakura petals.
+ * https://github.com/jhammann/sakura
+ *
+ * Copyright 2019-2019 Jeroen Hammann
+ * Released under the MIT License
+ */
+
+/* Hide scrollbar utility class */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Essential animations only */
+@keyframes fall {
+  0% {
+    opacity: 0.9;
+    top: 0;
+  }
+  100% {
+    opacity: 0.2;
+    top: 100%;
+  }
+}
+
+@keyframes blow-soft-left {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: -50%;
+  }
+}
+
+@keyframes blow-soft-right {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: 50%;
+  }
+}
+
+@keyframes blow-left {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: -100%;
+  }
+}
+
+@keyframes blow-right {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: 100%;
+  }
+}
+
+/* Sakura petal styles */
+.sakura {
+  pointer-events: none;
+  position: absolute;
+}
+
+/* Prevent scroll restoration issues */
+html {
+  scroll-behavior: auto !important;
+}
+
+body {
+  scroll-behavior: auto !important;
+}

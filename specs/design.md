@@ -787,10 +787,34 @@ The scroll indicator is a sophisticated navigation component that provides both 
 
 #### Loading States
 
-- **Skeleton Screens**: For content loading
-- **Spinner**: For form submissions
-- **Progress Bar**: For page transitions
-- **Card Loading**: Shimmer effect on card containers
+The portfolio implements a comprehensive skeleton loading system that provides meaningful loading states for all major sections:
+
+##### Skeleton System Architecture
+
+- **BaseSkeleton Component**: Foundation component with theme-aware colors and shimmer animation
+- **Content-Specific Skeletons**: Tailored loading states for each section that mimic actual content structure
+- **Consistent Animation**: Unified shimmer effect across all skeleton components
+
+##### Section-Specific Skeletons
+
+- **HeroSectionSkeleton**: Mimics hero layout with title, subtitle, and CTA buttons
+- **AboutSectionSkeleton**: Replicates skills grid, research projects, and leadership sections
+- **WorkSectionSkeleton**: Mirrors project card grid layout with proper spacing
+- **ExperienceSectionSkeleton**: Reflects timeline/card layout with company details
+- **ContactSectionSkeleton**: Matches form layout and contact information structure
+
+##### Skeleton Features
+
+- **Shimmer Animation**: CSS-based shimmer effect with `skeleton-shimmer` keyframes
+- **Responsive Design**: Adapts to different screen sizes like actual content
+- **Accessibility**: Proper ARIA labels and semantic structure
+- **Performance**: Lightweight components with optimized rendering
+
+##### Loading State Hierarchy
+
+- **Above-the-Fold**: Hero section loads immediately with skeleton fallback
+- **Lazy Sections**: All other sections use lazy loading with content-specific skeletons
+- **Form States**: Traditional spinners for form submissions and interactions
 
 ### Micro-Interactions
 
@@ -955,7 +979,14 @@ The scroll indicator is a sophisticated navigation component that provides both 
 
 ## Recent Improvements & Updates
 
-### Theme System Implementation (Latest)
+### Component Architecture Refactoring (Latest)
+
+- **Modular Design**: Extracted all sections into dedicated components (Hero, About, Work, Experience, Contact)
+- **Lazy Loading**: Implemented universal lazy loading with content-specific skeleton states
+- **Code Organization**: Reduced `page.tsx` from 254 lines to ~120 lines for better maintainability
+- **Performance**: Bundle splitting and progressive loading for optimal user experience
+
+### Theme System Implementation
 
 #### Dynamic Theme Switching
 
@@ -983,8 +1014,104 @@ The scroll indicator is a sophisticated navigation component that provides both 
 - **Skill Badges**: Updated to use theme-aware color system with better contrast
 - **Footer Text**: Fixed gradient text visibility across themes
 - **Navigation**: Enhanced with theme-aware colors and effects
-- **Modal Components**: Updated technical details modals for theme compatibility
+- **Technical Details Modal**: Complete design system overhaul with enhanced UX
 - **Scroll Indicator**: Complete redesign with enhanced hover effects and improved UX
+
+#### Technical Details Modal Overhaul
+
+The technical details modal has undergone a comprehensive redesign to align with the design system and improve user experience:
+
+##### Design System Compliance
+
+- **Badge Styling Consistency**: All badges now match UnifiedCard styling patterns
+  - Tools badges: `size="sm"`, `variant="filled"` (matching AI tools in UnifiedCard)
+  - Components badges: `size="sm"`, `variant="outline"` (matching technologies in UnifiedCard)
+  - Removed custom styling overrides in favor of BadgeWithTooltip defaults
+  - Leveraged built-in hover effects with scale(1.05) and shadow
+- **Visual Cleanup**: Removed all `withBorder` props and border styles from box elements
+  - Clean up visual clutter while maintaining card structure
+  - Keep essential borders only for tab folder effect
+  - Maintain box shadows for depth and visual hierarchy
+
+##### Modal Size & Layout Improvements
+
+- **Compact Design**: Reduced modal width from 22% to 20% for more compact display
+- **Height Optimization**: Set to 70vh for better content visibility and improved user experience
+- **Scroll Behavior**: Fixed header stays fixed while only body content scrolls
+  - Header uses `flex-shrink: 0` to prevent shrinking
+  - Body has `overflow-y: auto` and `flex: 1` for proper scrolling
+  - Content uses `overflow: hidden` to contain scroll within body area
+- **Responsive Design**: Proper height calculations for different screen sizes
+
+##### User Experience Enhancements
+
+- **Scroll Indicator Integration**: Modal state tracking via React Context
+  - Hide scroll indicator when technical details modal is open
+  - Use React context instead of DOM detection for better performance
+  - Add `hideWhenModalOpen` prop to ScrollIndicator component
+  - Wrap app with ModalProvider for global modal state management
+- **Content Organization**: Removed redundant components section
+  - Components displayed only as badges in architecture section
+  - Eliminated visual duplication and improved efficiency
+  - Cleaner interface with better information hierarchy
+- **Accessibility**: Maintained keyboard navigation and focus management
+  - Proper ARIA attributes and screen reader support
+  - Consistent tab navigation within modal
+  - Focus management during modal open/close
+
+##### Mobile Experience Overhaul
+
+- **Responsive Sizing**: Replaced fixed viewport units with Mantine's responsive sizing system
+  - Changed from `size="20%"` to `size="xl"` for proper mobile width
+  - Implemented responsive heights: 85vh on tablet, 90vh on mobile
+  - Removed fixed width constraints that were too narrow on mobile
+- **Touch-Friendly Interface**: Enhanced touch interaction for mobile devices
+  - Increased tab button height to 48px on mobile (44px on small screens)
+  - Added proper padding (12px-16px) for comfortable touch targets
+  - Optimized font sizes for mobile readability (14px/13px)
+  - Maintained horizontal scrolling for tab navigation when needed
+- **Mobile-Specific CSS**: Added targeted mobile styles with proper breakpoints
+  - Media queries at 768px (tablet) and 480px (small mobile)
+  - Touch-friendly tab styling with `!important` overrides
+  - Proper margin and border radius adjustments for mobile screens
+- **Accessibility**: Maintained keyboard navigation and screen reader support
+  - Preserved ARIA attributes and focus management
+  - Touch targets meet accessibility guidelines (44px minimum)
+  - Proper contrast and readability on mobile devices
+
+##### Technical Implementation
+
+- **Modal Context**: Created `ModalContext` for reliable modal state tracking
+- **CSS Flexbox**: Implemented proper flex layout for content containment
+- **Height Constraints**: Added explicit height constraints to prevent stretching
+- **Performance**: Reduced DOM complexity by removing redundant sections
+- **Theme Integration**: Full theme-aware color system integration
+- **Mobile Optimization**: Complete mobile experience overhaul with responsive design
+
+#### Modal Height Enhancement (Latest Update)
+
+The technical details modal height has been increased to improve user experience and content visibility:
+
+##### Height Optimization
+
+- **Desktop Height**: Increased from 45vh to 70vh for better content visibility
+- **Body Content Area**: Updated to `calc(65vh - 100px)` to accommodate the new modal height
+- **Image Modal**: Also updated to 70vh for consistency across all modal instances
+- **Responsive Design**: Mobile heights remain unchanged (85vh tablet, 90vh mobile) as they were already optimal
+
+##### User Experience Benefits
+
+- **Better Content Visibility**: Users can see more technical details without excessive scrolling
+- **Improved Readability**: More space for content reduces cramped feeling
+- **Enhanced Navigation**: Better visibility of tab navigation and content sections
+- **Consistent Experience**: Both main modal and image preview modal now have matching heights
+
+##### Technical Implementation
+
+- **Component Updates**: Updated `TechnicalDetailsModal.tsx` inline styles for both modal instances
+- **CSS Updates**: Modified `technical-modal.css` to reflect new height values
+- **Maintained Responsiveness**: Preserved existing mobile-optimized heights
+- **Performance**: No impact on performance as only height values were changed
 
 #### Scroll Indicator Enhancements
 
@@ -992,6 +1119,11 @@ The scroll indicator is a sophisticated navigation component that provides both 
 - **Visibility Management**: Stays visible while hovering, auto-hides with smart timeout logic
 - **Theme Integration**: Fully theme-aware with dynamic colors and consistent styling
 - **Clean Design**: Removed status indicator dots for cleaner appearance
+- **Modal Integration**: Hide scroll indicator when technical details modal is open
+  - React Context-based modal state tracking for reliable detection
+  - `hideWhenModalOpen` prop for flexible control
+  - ModalProvider wraps entire app for global state management
+  - Improved performance over DOM-based detection methods
 - **Build Process**: Improved build script to auto-format before building
 
 ### Accessibility Enhancements
@@ -1003,10 +1135,92 @@ The scroll indicator is a sophisticated navigation component that provides both 
 
 ### Performance Optimizations
 
-- **Lazy Loading**: Maintained lazy loading for heavy components
+#### Loading & Rendering Performance
+
+- **Universal Lazy Loading**: All major sections use code-splitting for optimal bundle size
+- **Skeleton Loading System**: Content-specific loading states with theme-aware colors and shimmer animation
+- **Progressive Enhancement**: Graceful degradation from skeleton to full content
+- **Bundle Optimization**: Modular architecture reduces initial bundle size and improves maintainability
+
+#### Technical Optimizations
+
 - **Effect Loading**: Improved sakura effect loading with better error handling
 - **Parallax Timing**: Optimized parallax element initialization
 - **Color Loading**: Fixed color flash issues on initial page load
+- **Responsive Design**: Loading states and components adapt to different screen sizes
+
+### Technical Implementation Details
+
+#### Skeleton System Architecture
+
+The portfolio implements a sophisticated skeleton loading system built on a foundation of reusable components and theme integration:
+
+##### BaseSkeleton Component
+
+```typescript
+// Foundation component with theme-aware colors and shimmer animation
+const BaseSkeleton = memo(({ height, width, radius, className, animated, variant }) => {
+  const colorCombinations = useColorCombinations();
+
+  return (
+    <Skeleton
+      style={{
+        background: colorCombinations.skeletonGradient,
+        backgroundSize: '200% 100%',
+        animation: animated ? 'skeleton-shimmer 1.5s infinite ease-in-out' : 'none',
+      }}
+      // ... other props
+    />
+  );
+});
+```
+
+##### Theme Integration
+
+- **Dynamic Colors**: Uses `useColorCombinations()` for skeleton gradients and `useCommonColors()` for borders/shadows
+- **CSS Variables**: Fallback values in critical CSS for theme switching
+- **Consistent Theming**: All skeletons adapt automatically to current theme
+
+##### Component Structure
+
+```
+src/components/skeletons/
+├── BaseSkeleton.tsx           # Foundation component
+├── HeroSectionSkeleton.tsx    # Hero section loading state
+├── AboutSectionSkeleton.tsx   # About section loading state
+├── WorkSectionSkeleton.tsx    # Work section loading state
+├── ExperienceSectionSkeleton.tsx # Experience section loading state
+├── ContactSectionSkeleton.tsx # Contact section loading state
+└── index.ts                   # Export barrel
+```
+
+##### Lazy Loading Implementation
+
+```typescript
+// LazyComponents.tsx
+export const LazyHeroSection = dynamic(() => import('./HeroSection'), {
+  loading: () => <HeroSectionSkeleton />,
+  ssr: false,
+});
+```
+
+##### CSS Animation System
+
+```css
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-title {
+  background: var(--skeleton-gradient, fallback);
+  animation: skeleton-shimmer 1.5s infinite ease-in-out;
+}
+```
 
 ## Design Validation
 

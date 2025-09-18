@@ -359,3 +359,12 @@
   pointer-events: none;
   position: absolute;
 }
+
+/* Prevent scroll restoration issues */
+html {
+  scroll-behavior: auto !important;
+}
+
+body {
+  scroll-behavior: auto !important;
+}

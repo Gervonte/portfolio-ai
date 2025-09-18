@@ -73,6 +73,10 @@ export function useColorCombinations() {
     earthGradientModal: `linear-gradient(135deg, ${safeEarth[0]}, ${safeEarth[1]})`,
     warmGradientModal: `linear-gradient(135deg, ${safeWarm[0]}, ${safeWarm[1]})`,
     primaryGradientModal: `linear-gradient(135deg, ${safePrimary[0]}, ${safePrimary[1]})`,
+
+    // Skeleton loading gradients
+    skeletonGradient: `linear-gradient(90deg, ${safeWarm[1]} 25%, ${safeWarm[2]} 50%, ${safeWarm[1]} 75%)`,
+    skeletonGradientDark: `linear-gradient(90deg, ${safeWarm[3]} 25%, ${safeWarm[4]} 50%, ${safeWarm[3]} 75%)`,
   };
 }
 
@@ -104,11 +108,11 @@ export function useCommonColors() {
     // Border colors (fallback to sakura theme)
     borderPrimary: warmColors[2] ?? '#E8E8E8',
     borderSecondary: primaryColors[1] ?? '#FFCDD2', // sakura[1]
-    borderFocus: primaryColors[3] ?? '#F44336', // sakura[3]
+    borderFocus: primaryColors[5] ?? '#D32F2F', // sakura[5]
     borderPrimaryLight: primaryColors[2] ?? '#EF9A9A', // Primary-themed border (sakura[2])
 
     // Accent colors (fallback to sakura theme)
-    accentPrimary: primaryColors[3] ?? '#F44336', // sakura[3]
+    accentPrimary: primaryColors[5] ?? '#D32F2F', // sakura[5]
     accentSecondary: primaryColors[1] ?? '#FFCDD2', // sakura[1]
     accentPrimaryDark: primaryColors[4] ?? '#E53935', // Darker primary accent (sakura[4])
 
@@ -116,6 +120,7 @@ export function useCommonColors() {
     shadowLight: 'rgba(0, 0, 0, 0.05)',
     shadowMedium: 'rgba(0, 0, 0, 0.1)',
     shadowHeavy: 'rgba(0, 0, 0, 0.15)',
+    shadowCard: '0 2px 8px rgba(0, 0, 0, 0.08)',
     shadowPrimary: `rgba(${hexToRgb(primaryColors[3] || '#F44336')}, 0.25)`, // sakura[3]
     shadowPrimaryLight: `rgba(${hexToRgb(primaryColors[3] || '#F44336')}, 0.15)`, // Primary-themed shadow (sakura[3])
 

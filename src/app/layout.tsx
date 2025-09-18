@@ -9,8 +9,9 @@ import '@mantine/notifications/styles.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import React from 'react';
+import '../styles/critical.css';
 import '../styles/mobile-tooltips.css';
-import '../styles/sakura.css';
+import '../styles/sakura-optimized.css';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -50,7 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* Fonts are handled by Next.js Google Fonts */}
       </head>
-      <body className={inter.className}>
+      <body className={inter.className} style={{ scrollBehavior: 'auto' }}>
         <ThemeProvider>
           <ThemeWrapper>
             <SkipLink />

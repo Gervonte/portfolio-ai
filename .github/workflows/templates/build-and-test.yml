@@ -12,7 +12,7 @@ on:
         description: 'pnpm version'
         required: false
         type: string
-        default: '8'
+        default: '10'
       build-command:
         description: 'Build command to run'
         required: false

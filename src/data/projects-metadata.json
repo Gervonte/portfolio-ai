@@ -43,7 +43,7 @@
       "technicalDetails": {
         "analytics": {
           "enabled": false,
-          "showScreenshots": false,
+          "showScreenshots": true,
           "screenshots": ["analytics-dashboard.svg", "user-metrics.svg"],
           "description": "User behavior tracking - like a store's security cameras showing what customers look at, how long they stay, and what they buy. Tracks page views, session duration, and engagement patterns to understand user preferences.",
           "metrics": {
@@ -58,7 +58,7 @@
           "showScreenshots": false,
           "screenshots": ["error-tracking.svg", "system-health.svg", "uptime-monitor.svg"],
           "description": "System health monitoring - like a car's dashboard showing fuel level, engine temperature, and warning lights. Tracks uptime, error rates, and performance to ensure everything runs smoothly.",
-          "tools": ["Vercel Analytics", "GitHub Actions", "ESLint"],
+          "tools": ["Sentry", "GitHub Actions", "ESLint"],
           "uptime": "99.9%",
           "errorRate": "< 0.1%"
         },
@@ -95,7 +95,7 @@
             "TypeScript with strict validation",
             "GitHub Actions for CI/CD",
             "Vercel for hosting and deployment",
-            "Sakura.js for custom animations"
+            "Sakura.js"
           ],
           "deployment": "Vercel with CDN + Scheduled GitHub Actions",
           "workflow": "Feature Branch → Preview → Scheduled Main Deploy → Auto-sync Preview"
@@ -142,7 +142,7 @@
           "showScreenshots": false,
           "screenshots": ["audio-error-tracking.svg", "processing-health.svg"],
           "description": "Error tracking and audio processing monitoring - like a sound engineer's mixing board showing signal levels, distortion warnings, and equipment status to ensure clean audio output.",
-          "tools": ["Sentry", "Vercel Analytics", "Console Logging"],
+          "tools": ["Sentry", "Console Logging"],
           "uptime": "99.8%",
           "errorRate": "< 0.2%"
         },
