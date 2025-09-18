@@ -7,10 +7,13 @@ import { IconBrain, IconBrandGithub, IconCode, IconExternalLink } from '@tabler/
 import { memo, useState } from 'react';
 import dynamic from 'next/dynamic';
 
-const TechnicalDetailsModal = dynamic(() => import('./TechnicalDetailsModal'), {
-  loading: () => <div>Loading...</div>,
-  ssr: false,
-});
+const TechnicalDetailsModal = dynamic(
+  () => import('./TechnicalDetailsModal').then(mod => ({ default: mod.TechnicalDetailsModal })),
+  {
+    loading: () => <div>Loading...</div>,
+    ssr: false,
+  }
+);
 import UnifiedCard from './UnifiedCard';
 
 interface ExpandableProjectCardProps {

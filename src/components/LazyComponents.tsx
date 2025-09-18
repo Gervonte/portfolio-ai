@@ -29,7 +29,10 @@ export const LazyScrollIndicator = dynamic(() => import('./ScrollIndicator'), {
   ssr: false,
 });
 
-export const LazyTechnicalDetailsModal = dynamic(() => import('./TechnicalDetailsModal'), {
-  loading: () => <OptimizedLoadingSpinner height={200} aria-label="Loading technical details" />,
-  ssr: false,
-});
+export const LazyTechnicalDetailsModal = dynamic(
+  () => import('./TechnicalDetailsModal').then(mod => ({ default: mod.TechnicalDetailsModal })),
+  {
+    loading: () => <OptimizedLoadingSpinner height={200} aria-label="Loading technical details" />,
+    ssr: false,
+  }
+);
