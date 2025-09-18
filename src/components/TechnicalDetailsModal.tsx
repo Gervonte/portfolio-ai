@@ -875,7 +875,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           style={{
                             background: commonColors.backgroundModal,
                             textAlign: 'center',
-                            transition: 'all 0.2s ease',
+                            transition: 'all 0.2s ease-in-out',
                             cursor: 'default',
                           }}
                           onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
