@@ -1,5 +1,6 @@
 'use client';
 
+import { useModal } from '@/lib/modal-context';
 import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
 import { ActionIcon, Box, Group, Progress, Stack, Text, Transition } from '@mantine/core';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
@@ -25,6 +26,7 @@ interface ScrollIndicatorProps {
   variant?: 'minimal' | 'detailed';
   orientation?: 'vertical' | 'horizontal';
   className?: string;
+  hideWhenModalOpen?: boolean;
 }
 
 export default function ScrollIndicator({
@@ -35,6 +37,7 @@ export default function ScrollIndicator({
   variant = 'detailed',
   orientation = 'vertical',
   className = '',
+  hideWhenModalOpen = false,
 }: ScrollIndicatorProps) {
   const colorCombinations = useColorCombinations();
   const commonColors = useCommonColors();
@@ -48,6 +51,7 @@ export default function ScrollIndicator({
   const [hoveredSection, setHoveredSection] = useState<number | null>(null);
   const [isNavigating, setIsNavigating] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const { isModalOpen } = useModal();
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
 
   const scrollToSection = useCallback(
@@ -279,7 +283,7 @@ export default function ScrollIndicator({
     return (
       <Box visibleFrom="sm">
         <Transition
-          mounted={isVisible && showIndicator}
+          mounted={isVisible && showIndicator && !isModalOpen}
           transition="slide-up"
           duration={500}
           timingFunction="ease-out"
@@ -471,7 +475,7 @@ export default function ScrollIndicator({
     return (
       <Box visibleFrom="sm">
         <Transition
-          mounted={isVisible && showIndicator}
+          mounted={isVisible && showIndicator && !isModalOpen}
           transition="fade"
           duration={500}
           timingFunction="ease-out"

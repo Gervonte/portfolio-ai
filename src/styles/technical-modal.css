@@ -32,7 +32,7 @@
 .technical-modal-body {
   padding: var(--mantine-spacing-sm);
   overflow-y: auto;
-  max-height: calc(35vh - 100px);
+  max-height: calc(40vh - 100px);
 }
 
 @media (max-width: 768px) {

@@ -221,7 +221,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
         centered
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
-        size="22%"
+        size="20%"
         classNames={{
           content: 'technical-modal-content',
           body: 'technical-modal-body',
@@ -234,16 +234,13 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
           },
           body: {
             background: commonColors.backgroundCard,
-            maxHeight: '40vh',
             minHeight: '300px',
-            overflowY: 'auto',
             padding: '2rem',
             marginTop: '-2px',
             position: 'relative',
             zIndex: 5,
             boxShadow: `inset 0 1px 2px ${commonColors.shadowLight}, 0 2px 4px ${commonColors.shadowLight}`,
             borderRadius: '0 0 var(--mantine-radius-lg) var(--mantine-radius-lg)',
-            border: `1px solid ${commonColors.borderPrimary}`,
             borderTop: 'none',
           },
           header: {
@@ -395,8 +392,6 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       activeTab === key
                         ? `4px solid ${commonColors.accentPrimary}`
                         : '4px solid transparent',
-                    borderLeft: `1px solid ${commonColors.borderPrimary}`,
-                    borderRight: `1px solid ${commonColors.borderPrimary}`,
                     borderBottom:
                       activeTab === key ? 'none' : `2px solid ${commonColors.borderPrimary}`,
                     cursor: 'pointer',
@@ -467,10 +462,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 <Card
                   padding="xl"
                   radius="md"
-                  withBorder
                   style={{
                     background: commonColors.backgroundCard,
-                    border: `1px solid ${commonColors.borderPrimary}`,
                     boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
                     minHeight: '120px',
                     display: 'flex',
@@ -526,10 +519,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   <Card
                     padding="xl"
                     radius="md"
-                    withBorder
                     style={{
                       background: commonColors.backgroundCard,
-                      border: `1px solid ${commonColors.borderPrimary}`,
                       boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
                       transition: 'all 0.2s ease-in-out',
                       transform: 'scale(1)',
@@ -592,10 +583,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           key={metricKey}
                           padding="lg"
                           radius="md"
-                          withBorder
                           style={{
                             background: commonColors.backgroundCard,
-                            border: `1px solid ${commonColors.borderPrimary}`,
                             textAlign: 'center',
                             transition: 'all 0.2s ease-in-out',
                             cursor: 'default',
@@ -636,10 +625,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   <Card
                     padding="xl"
                     radius="md"
-                    withBorder
                     style={{
                       background: commonColors.backgroundCard,
-                      border: `1px solid ${commonColors.borderPrimary}`,
                       boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
                       transition: 'all 0.2s ease-in-out',
                       transform: 'scale(1)',
@@ -702,18 +689,9 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           key={tool}
                           contextType="technology"
                           contextValue={tool}
-                          size="md"
-                          variant="light"
+                          size="sm"
+                          variant="filled"
                           color={commonColors.accentPrimary}
-                          radius="xl"
-                          style={{
-                            fontWeight: 600,
-                            textTransform: 'none',
-                            background: commonColors.accentSecondary,
-                            color: commonColors.accentPrimary,
-                            border: `1px solid ${commonColors.accentPrimary}`,
-                            transition: 'all 0.2s ease-in-out',
-                          }}
                         >
                           {tool}
                         </BadgeWithTooltip>
@@ -727,10 +705,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   <Card
                     padding="xl"
                     radius="md"
-                    withBorder
                     style={{
                       background: commonColors.backgroundCard,
-                      border: `1px solid ${commonColors.borderPrimary}`,
                       boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
                       transition: 'all 0.2s ease-in-out',
                       transform: 'scale(1)',
@@ -808,10 +784,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         <Card
                           padding="sm"
                           radius="md"
-                          withBorder
                           style={{
                             background: commonColors.backgroundCard,
-                            border: `1px solid ${commonColors.borderPrimary}`,
                           }}
                         >
                           <Text size="sm" c={commonColors.textSecondary} fw={600} mb="xs">
@@ -830,10 +804,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   <Card
                     padding="xl"
                     radius="md"
-                    withBorder
                     style={{
                       background: commonColors.backgroundCard,
-                      border: `1px solid ${commonColors.borderPrimary}`,
                       boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
                       transition: 'all 0.2s ease-in-out',
                       transform: 'scale(1)',
@@ -899,7 +871,6 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           withBorder
                           style={{
                             background: commonColors.backgroundModal,
-                            border: `1px solid ${commonColors.borderModal}`,
                             textAlign: 'center',
                             transition: 'all 0.2s ease',
                             cursor: 'default',
@@ -928,10 +899,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   <Card
                     padding="lg"
                     radius="md"
-                    withBorder
                     style={{
                       background: commonColors.backgroundCard,
-                      border: `1px solid ${commonColors.borderPrimary}`,
                       boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
                       transition: 'all 0.2s ease-in-out',
                       transform: 'scale(1)',
@@ -1012,10 +981,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   <Card
                     padding="lg"
                     radius="md"
-                    withBorder
                     style={{
                       background: commonColors.backgroundCard,
-                      border: `1px solid ${commonColors.borderPrimary}`,
                       boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
                       transition: 'all 0.2s ease-in-out',
                       transform: 'scale(1)',
@@ -1105,10 +1072,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   <Card
                     padding="lg"
                     radius="md"
-                    withBorder
                     style={{
                       background: commonColors.backgroundCard,
-                      border: `1px solid ${commonColors.borderPrimary}`,
                       boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
                       transition: 'all 0.2s ease-in-out',
                       transform: 'scale(1)',
@@ -1172,7 +1137,6 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                           p="sm"
                           style={{
                             background: commonColors.backgroundModal,
-                            border: `1px solid ${commonColors.borderPrimary}`,
                             borderRadius: '12px',
                             textAlign: 'center',
                             transition: 'all 0.2s ease-in-out',
@@ -1210,10 +1174,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   <Card
                     padding="xl"
                     radius="md"
-                    withBorder
                     style={{
                       background: commonColors.backgroundCard,
-                      border: `1px solid ${commonColors.borderPrimary}`,
                       boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
                       transition: 'all 0.2s ease-in-out',
                       transform: 'scale(1)',
@@ -1288,18 +1250,9 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                                 key={component}
                                 contextType="technology"
                                 contextValue={component}
-                                size="md"
-                                variant="light"
+                                size="sm"
+                                variant="outline"
                                 color={commonColors.accentPrimary}
-                                radius="xl"
-                                style={{
-                                  fontWeight: 600,
-                                  textTransform: 'none',
-                                  background: commonColors.accentSecondary,
-                                  color: commonColors.accentPrimary,
-                                  border: `1px solid ${commonColors.accentPrimary}`,
-                                  transition: 'all 0.2s ease-in-out',
-                                }}
                               >
                                 {component}
                               </BadgeWithTooltip>
@@ -1332,10 +1285,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   <Card
                     padding="xl"
                     radius="md"
-                    withBorder
                     style={{
                       background: commonColors.backgroundCard,
-                      border: `1px solid ${commonColors.borderPrimary}`,
                       boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
                       transition: 'all 0.2s ease-in-out',
                       transform: 'scale(1)',
@@ -1397,10 +1348,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         <Card
                           padding="sm"
                           radius="md"
-                          withBorder
                           style={{
                             background: commonColors.backgroundCard,
-                            border: `1px solid ${commonColors.borderPrimary}`,
                           }}
                         >
                           <Text size="sm" c={commonColors.textSecondary} fw={600} mb="xs">
@@ -1415,10 +1364,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                         <Card
                           padding="sm"
                           radius="md"
-                          withBorder
                           style={{
                             background: commonColors.backgroundCard,
-                            border: `1px solid ${commonColors.borderPrimary}`,
                           }}
                         >
                           <Text size="sm" c={commonColors.textSecondary} fw={600} mb="xs">
@@ -1438,10 +1385,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   <Card
                     padding="xl"
                     radius="md"
-                    withBorder
                     style={{
                       background: commonColors.backgroundCard,
-                      border: `1px solid ${commonColors.borderPrimary}`,
                       boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
                       transition: 'all 0.2s ease-in-out',
                       transform: 'scale(1)',
@@ -1508,7 +1453,6 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                             borderRadius: 'var(--mantine-radius-sm)',
                             overflow: 'hidden',
                             cursor: 'pointer',
-                            border: `1px solid ${commonColors.borderPrimary}`,
                             transition: 'all 0.2s ease-in-out',
                             transform: 'scale(1)',
                           }}
@@ -1571,7 +1515,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
       <Modal
         opened={!!selectedImage}
         onClose={() => setSelectedImage(null)}
-        size="22%"
+        size="20%"
         centered
         title="Technical Screenshot"
         styles={{

@@ -1,5 +1,6 @@
 'use client';
 
+import { useModal } from '@/lib/modal-context';
 import { Project } from '@/lib/projects';
 import { getProjectScreenshots } from '@/lib/screenshot';
 import { IconBrain, IconBrandGithub, IconCode, IconExternalLink } from '@tabler/icons-react';
@@ -31,6 +32,7 @@ const getStatusColor = (status: Project['status']) => {
 
 const ExpandableProjectCard = memo(({ project, type }: ExpandableProjectCardProps) => {
   const [modalOpened, setModalOpened] = useState(false);
+  const { setModalOpen } = useModal();
   const screenshots = getProjectScreenshots(project);
 
   return (
@@ -90,7 +92,10 @@ const ExpandableProjectCard = memo(({ project, type }: ExpandableProjectCardProp
             : undefined
         }
         enableTechnicalDetails={project.enableTechnicalDetails}
-        onTechnicalDetailsClick={() => setModalOpened(true)}
+        onTechnicalDetailsClick={() => {
+          setModalOpened(true);
+          setModalOpen(true);
+        }}
         limitBadges={true}
         variant="default"
         size="md"
@@ -102,7 +107,10 @@ const ExpandableProjectCard = memo(({ project, type }: ExpandableProjectCardProp
       <TechnicalDetailsModal
         project={project}
         opened={modalOpened}
-        onClose={() => setModalOpened(false)}
+        onClose={() => {
+          setModalOpened(false);
+          setModalOpen(false);
+        }}
       />
     </>
   );
