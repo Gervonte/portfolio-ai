@@ -168,6 +168,25 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
             background: commonColors.backgroundCard,
             borderBottom: `1px solid ${commonColors.borderPrimary}`,
           },
+          close: {
+            color: commonColors.textSecondary,
+            background: 'transparent',
+            border: 'none',
+            borderRadius: 'var(--mantine-radius-md)',
+            padding: 'var(--mantine-spacing-xs)',
+            transition: 'all 0.2s ease-in-out',
+            transform: 'scale(1)',
+            '&:hover': {
+              color: commonColors.accentPrimary,
+              background: commonColors.accentSecondary,
+              transform: 'scale(1.1)',
+              boxShadow: `0 4px 12px ${commonColors.shadowMedium}`,
+            },
+            '&:focus': {
+              outline: `2px solid ${commonColors.accentPrimary}`,
+              outlineOffset: '2px',
+            },
+          },
         }}
       >
         <Alert
@@ -211,16 +230,42 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
             minHeight: '300px',
             overflowY: 'auto',
             padding: '2rem',
+            marginTop: '-2px',
+            position: 'relative',
+            zIndex: 5,
+            boxShadow: `inset 0 1px 2px ${commonColors.shadowLight}, 0 2px 4px ${commonColors.shadowLight}`,
+            borderRadius: '0 0 var(--mantine-radius-lg) var(--mantine-radius-lg)',
+            border: `1px solid ${commonColors.borderPrimary}`,
+            borderTop: 'none',
           },
           header: {
             background: commonColors.backgroundCard,
-            borderBottom: `1px solid ${commonColors.borderPrimary}`,
+            borderBottom: 'none',
             padding:
               'var(--mantine-spacing-xl) var(--mantine-spacing-md) 0 var(--mantine-spacing-md)',
             marginBottom: 0,
             position: 'relative',
             zIndex: 100,
             overflow: 'hidden',
+          },
+          close: {
+            color: commonColors.textSecondary,
+            background: 'transparent',
+            border: 'none',
+            borderRadius: 'var(--mantine-radius-md)',
+            padding: 'var(--mantine-spacing-xs)',
+            transition: 'all 0.2s ease-in-out',
+            transform: 'scale(1)',
+            '&:hover': {
+              color: commonColors.accentPrimary,
+              background: commonColors.accentSecondary,
+              transform: 'scale(1.1)',
+              boxShadow: `0 4px 12px ${commonColors.shadowMedium}`,
+            },
+            '&:focus': {
+              outline: `2px solid ${commonColors.accentPrimary}`,
+              outlineOffset: '2px',
+            },
           },
         }}
         overlayProps={{
@@ -292,15 +337,20 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 background: commonColors.backgroundCard,
                 padding: '0',
                 margin: '0 -1rem',
-                borderBottom: `4px solid ${commonColors.borderPrimary}`,
+                borderBottom: 'none',
                 display: 'flex',
                 justifyContent: 'center',
                 width: 'calc(100% + 2rem)',
-                minHeight: '44px',
+                minHeight: '56px',
                 overflowX: 'auto',
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none',
                 WebkitOverflowScrolling: 'touch',
+                gap: '0',
+                position: 'relative',
+                zIndex: 10,
+                boxShadow: `0 1px 3px ${commonColors.shadowLight}`,
+                borderRadius: 'var(--mantine-radius-lg) var(--mantine-radius-lg) 0 0',
               }}
               className="hide-scrollbar"
             >
@@ -326,7 +376,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     fontSize: 'var(--mantine-font-size-xs)',
                     color:
                       activeTab === key ? commonColors.accentPrimary : commonColors.textSecondary,
-                    background: activeTab === key ? commonColors.accentSecondary : 'transparent',
+                    background: activeTab === key ? commonColors.backgroundCard : 'transparent',
                     flex: '1 1 0',
                     minWidth: '0',
                     textAlign: 'center',
@@ -335,32 +385,45 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     justifyContent: 'center',
                     borderTop:
                       activeTab === key
-                        ? `2px solid ${commonColors.accentPrimary}`
-                        : '2px solid transparent',
+                        ? `4px solid ${commonColors.accentPrimary}`
+                        : '4px solid transparent',
                     borderLeft: `1px solid ${commonColors.borderPrimary}`,
                     borderRight: `1px solid ${commonColors.borderPrimary}`,
-                    borderBottom: 'none',
+                    borderBottom:
+                      activeTab === key ? 'none' : `2px solid ${commonColors.borderPrimary}`,
                     cursor: 'pointer',
                     height: '100%',
-                    minHeight: '44px',
+                    minHeight: '48px',
                     whiteSpace: 'nowrap',
-                    transform: 'scale(1)',
-                    boxShadow: 'none',
+                    transform: activeTab === key ? 'scale(1.01)' : 'scale(1)',
+                    boxShadow:
+                      activeTab === key
+                        ? `0 2px 8px ${commonColors.shadowLight}, 0 1px 2px ${commonColors.shadowLight}`
+                        : `0 1px 2px ${commonColors.shadowLight}`,
+                    borderRadius:
+                      activeTab === key
+                        ? 'var(--mantine-radius-md) var(--mantine-radius-md) 0 0'
+                        : '0',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    zIndex: activeTab === key ? 20 : 1,
+                    marginBottom: activeTab === key ? '-1px' : '0',
+                    marginTop: activeTab === key ? '1px' : '0',
                   }}
                   onMouseEnter={e => {
                     if (activeTab !== key) {
                       e.currentTarget.style.transform = 'scale(1.02)';
-                      e.currentTarget.style.boxShadow = `0 4px 16px ${commonColors.shadowMedium}`;
-                      e.currentTarget.style.background = commonColors.accentSecondary;
-                      e.currentTarget.style.color = commonColors.accentPrimary;
+                      e.currentTarget.style.boxShadow = `0 3px 12px ${commonColors.shadowLight}, 0 1px 3px ${commonColors.shadowLight}`;
+                      e.currentTarget.style.marginTop = '1px';
+                      e.currentTarget.style.marginBottom = '-1px';
                     }
                   }}
                   onMouseLeave={e => {
                     if (activeTab !== key) {
                       e.currentTarget.style.transform = 'scale(1)';
-                      e.currentTarget.style.boxShadow = 'none';
-                      e.currentTarget.style.background = 'transparent';
-                      e.currentTarget.style.color = commonColors.textSecondary;
+                      e.currentTarget.style.boxShadow = `0 1px 2px ${commonColors.shadowLight}`;
+                      e.currentTarget.style.marginTop = '0';
+                      e.currentTarget.style.marginBottom = '0';
                     }
                   }}
                 >
