@@ -1,9 +1,21 @@
 'use client';
 
-import { useColorCombinations } from '@/lib/theme-aware-colors';
+import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
 import { ActionIcon, Box, Group, Progress, Stack, Text, Transition } from '@mantine/core';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 import { useCallback, useEffect, useState } from 'react';
+
+// Helper function to avoid hook rules issues
+const withOpacity = (color: string, opacity: number): string => {
+  const hexToRgb = (hex: string) => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result
+      ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}`
+      : '0, 0, 0';
+  };
+  const rgb = hexToRgb(color);
+  return `rgba(${rgb}, ${opacity})`;
+};
 
 interface ScrollIndicatorProps {
   sections?: string[];
@@ -25,23 +37,51 @@ export default function ScrollIndicator({
   className = '',
 }: ScrollIndicatorProps) {
   const colorCombinations = useColorCombinations();
+  const commonColors = useCommonColors();
   const [scrollProgress, setScrollProgress] = useState(0);
   const [currentSection, setCurrentSection] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
   const [showIndicator, setShowIndicator] = useState(false);
   const [pressedButton, setPressedButton] = useState<'up' | 'down' | null>(null);
+  const [lastInteraction, setLastInteraction] = useState<number>(0);
+  const [hoveredSection, setHoveredSection] = useState<number | null>(null);
+  const [isNavigating, setIsNavigating] = useState(false);
 
   const scrollToSection = useCallback(
     (sectionIndex: number) => {
       const sectionId = sections[sectionIndex];
       const element = document.getElementById(sectionId);
       if (element) {
+        // Set navigation state and update current section immediately
+        setIsNavigating(true);
+        setCurrentSection(sectionIndex);
+        setLastInteraction(Date.now()); // Track interaction
+
         element.scrollIntoView({ behavior: 'smooth' });
+
+        // Reset navigation state after smooth scroll completes
+        setTimeout(() => {
+          setIsNavigating(false);
+        }, 800); // Allow time for smooth scroll to complete
       }
     },
     [sections]
   );
+
+  // Calculate delay based on recent interactions
+  const getHideDelay = useCallback(() => {
+    const now = Date.now();
+    const timeSinceInteraction = now - lastInteraction;
+
+    // If user interacted recently (within last 1 second), reset to 2 seconds
+    if (timeSinceInteraction < 1000) {
+      return 2000; // Reset to 2 seconds after recent interaction
+    }
+
+    // Default delay for no recent interaction
+    return 2000; // 2 seconds
+  }, [lastInteraction]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,28 +92,56 @@ export default function ScrollIndicator({
       setScrollProgress(Math.min(100, Math.max(0, progress)));
       setIsVisible(scrollTop > 100);
 
-      // Determine current section
-      const sectionElements = sections
-        .map(section => document.getElementById(section))
-        .filter(Boolean);
+      // Determine current section (skip if we're programmatically navigating)
+      if (!isNavigating) {
+        const sectionElements = sections
+          .map(section => document.getElementById(section))
+          .filter(Boolean);
 
-      let activeSection = 0;
-      for (let i = 0; i < sectionElements.length; i++) {
-        const element = sectionElements[i];
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
-            activeSection = i;
-            break;
+        let activeSection = -1; // Use -1 to indicate no section found
+        const viewportCenter = window.innerHeight / 2;
+
+        // First, try to find a section that contains the viewport center
+        for (let i = 0; i < sectionElements.length; i++) {
+          const element = sectionElements[i];
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            if (rect.top <= viewportCenter && rect.bottom >= viewportCenter) {
+              activeSection = i;
+              break;
+            }
           }
         }
+
+        // If no section contains the center, find the closest one
+        if (activeSection === -1) {
+          let closestSection = 0;
+          let closestDistance = Infinity;
+
+          for (let i = 0; i < sectionElements.length; i++) {
+            const element = sectionElements[i];
+            if (element) {
+              const rect = element.getBoundingClientRect();
+              const sectionCenter = rect.top + (rect.bottom - rect.top) / 2;
+              const distance = Math.abs(sectionCenter - viewportCenter);
+
+              if (distance < closestDistance) {
+                closestDistance = distance;
+                closestSection = i;
+              }
+            }
+          }
+          activeSection = closestSection;
+        }
+
+        setCurrentSection(activeSection);
       }
-      setCurrentSection(activeSection);
     };
 
     const handleScrollStart = () => {
       setIsScrolling(true);
       setShowIndicator(true);
+      setLastInteraction(Date.now()); // Track scroll interaction
     };
 
     const handleScrollEnd = () => {
@@ -91,10 +159,10 @@ export default function ScrollIndicator({
         handleScroll();
         handleScrollEnd();
 
-        // Hide indicator after 2 seconds of no scrolling
+        // Hide indicator after dynamic delay based on recent interactions
         hideTimeout = setTimeout(() => {
           setShowIndicator(false);
-        }, 2000);
+        }, getHideDelay());
       }, 10);
     };
 
@@ -124,14 +192,16 @@ export default function ScrollIndicator({
           // Show visual feedback for keyboard navigation
           handleButtonPress(event.key === 'ArrowUp' ? 'up' : 'down');
 
+          // Navigate directly to the calculated section
           scrollToSection(newSection);
+
           setShowIndicator(true);
 
           // Reset hide timeout when using keyboard navigation
           clearTimeout(hideTimeout);
           hideTimeout = setTimeout(() => {
             setShowIndicator(false);
-          }, 2000);
+          }, getHideDelay());
         }
       }
     };
@@ -148,7 +218,7 @@ export default function ScrollIndicator({
       clearTimeout(scrollTimeout);
       clearTimeout(hideTimeout);
     };
-  }, [sections, currentSection, scrollToSection]);
+  }, [sections, currentSection, scrollToSection, isNavigating]);
 
   const handleButtonPress = (direction: 'up' | 'down') => {
     setPressedButton(direction);
@@ -159,17 +229,18 @@ export default function ScrollIndicator({
     }, 200);
   };
 
-  const scrollToTop = () => {
+  const scrollToPreviousSection = () => {
     handleButtonPress('up');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setLastInteraction(Date.now()); // Track button interaction
+    const previousSection = Math.max(0, currentSection - 1);
+    scrollToSection(previousSection);
   };
 
-  const scrollToBottom = () => {
+  const scrollToNextSection = () => {
     handleButtonPress('down');
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: 'smooth',
-    });
+    setLastInteraction(Date.now()); // Track button interaction
+    const nextSection = Math.min(sections.length - 1, currentSection + 1);
+    scrollToSection(nextSection);
   };
 
   const getSectionName = (index: number) => {
@@ -190,8 +261,8 @@ export default function ScrollIndicator({
         <Transition
           mounted={isVisible && showIndicator}
           transition="slide-up"
-          duration={300}
-          timingFunction="ease"
+          duration={500}
+          timingFunction="ease-out"
         >
           {styles => (
             <Box
@@ -202,18 +273,19 @@ export default function ScrollIndicator({
                 left: '50%',
                 transform: 'translateX(-50%)',
                 zIndex: 1000,
+                transition: 'all 0.3s ease-out', // Smooth container transition
               }}
               className={className}
             >
               <Box
                 style={{
-                  background: 'rgba(0, 0, 0, 0.8)',
+                  background: `${commonColors.backgroundCard}CC`, // Card background with opacity
                   backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(233, 30, 99, 0.3)',
-                  borderRadius: '20px',
+                  border: `1px solid ${commonColors.borderPrimary}`,
+                  borderRadius: '12px', // Design spec: 12px border radius
                   padding: '16px 24px',
                   minWidth: '400px',
-                  boxShadow: '0 12px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(233, 30, 99, 0.2)',
+                  boxShadow: `0 2px 8px rgba(0, 0, 0, 0.08), 0 0 20px ${commonColors.shadowPrimary}`, // Design spec shadow
                 }}
               >
                 <Group justify="center" gap="md">
@@ -224,11 +296,12 @@ export default function ScrollIndicator({
                         value={scrollProgress}
                         size="md"
                         radius="xl"
+                        color={commonColors.accentPrimary}
                         style={{
-                          background: 'rgba(255, 255, 255, 0.2)',
+                          background: withOpacity(commonColors.backgroundSecondary, 0.2),
                         }}
                       />
-                      <Text size="sm" c="white" ta="center" mt="xs" fw={600}>
+                      <Text size="sm" c={commonColors.textPrimary} ta="center" mt="xs" fw={600}>
                         {Math.round(scrollProgress)}%
                       </Text>
                     </Box>
@@ -244,36 +317,43 @@ export default function ScrollIndicator({
                             padding: '8px 16px',
                             borderRadius: '12px',
                             cursor: 'pointer',
-                            transition: 'all 0.3s ease',
+                            transition: 'all 0.2s ease-in-out',
                             background:
                               currentSection === index
                                 ? colorCombinations.primaryGradient
-                                : 'rgba(255, 255, 255, 0.1)',
+                                : hoveredSection === index
+                                  ? withOpacity(commonColors.backgroundSecondary, 0.2)
+                                  : withOpacity(commonColors.backgroundSecondary, 0.1),
                             border:
                               currentSection === index
-                                ? '1px solid rgba(233, 30, 99, 0.5)'
-                                : '1px solid rgba(255, 255, 255, 0.2)',
+                                ? `1px solid ${commonColors.borderFocus}`
+                                : hoveredSection === index
+                                  ? `1px solid ${commonColors.borderSecondary}`
+                                  : `1px solid ${commonColors.borderPrimary}`,
                             boxShadow:
                               currentSection === index
-                                ? '0 4px 15px rgba(233, 30, 99, 0.3)'
-                                : 'none',
+                                ? `0 4px 15px ${commonColors.shadowPrimary}`
+                                : hoveredSection === index
+                                  ? `0 2px 8px ${commonColors.shadowPrimaryLight}`
+                                  : 'none',
+                            transform: hoveredSection === index ? 'scale(1.02)' : 'scale(1)',
                           }}
                           onClick={() => scrollToSection(index)}
-                          onMouseEnter={e => {
-                            if (currentSection !== index) {
-                              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
-                            }
-                          }}
-                          onMouseLeave={e => {
-                            if (currentSection !== index) {
-                              e.currentTarget.style.background = 'transparent';
-                            }
-                          }}
+                          onMouseEnter={() => setHoveredSection(index)}
+                          onMouseLeave={() => setHoveredSection(null)}
                         >
                           <Text
                             size="sm"
-                            c={currentSection === index ? 'white' : 'rgba(255, 255, 255, 0.8)'}
-                            fw={currentSection === index ? 700 : 500}
+                            c={
+                              currentSection === index
+                                ? commonColors.textInverse
+                                : hoveredSection === index
+                                  ? commonColors.textPrimary
+                                  : commonColors.textSecondary
+                            }
+                            fw={
+                              currentSection === index ? 700 : hoveredSection === index ? 600 : 500
+                            }
                           >
                             {getSectionName(index)}
                           </Text>
@@ -286,48 +366,50 @@ export default function ScrollIndicator({
                   <Group gap="xs">
                     <ActionIcon
                       variant="subtle"
-                      color="white"
                       size="md"
-                      onClick={scrollToTop}
+                      onClick={scrollToPreviousSection}
+                      aria-label={`Go to previous section: ${getSectionName(Math.max(0, currentSection - 1))}`}
                       style={{
                         background:
                           pressedButton === 'up'
                             ? colorCombinations.primaryGradient
-                            : 'rgba(255, 255, 255, 0.2)',
+                            : withOpacity(commonColors.backgroundSecondary, 0.8),
                         border:
                           pressedButton === 'up'
-                            ? '1px solid rgba(233, 30, 99, 0.5)'
-                            : '1px solid rgba(255, 255, 255, 0.3)',
+                            ? `1px solid ${commonColors.borderFocus}`
+                            : `1px solid ${commonColors.borderPrimary}`,
                         boxShadow:
                           pressedButton === 'up'
-                            ? '0 4px 15px rgba(233, 30, 99, 0.4), 0 0 10px rgba(233, 30, 99, 0.3)'
-                            : '0 2px 8px rgba(0, 0, 0, 0.2)',
-                        transform: pressedButton === 'up' ? 'scale(0.95)' : 'scale(1)',
-                        transition: 'all 0.2s ease',
+                            ? `0 4px 16px ${commonColors.shadowPrimary}` // Design spec shadow
+                            : '0 2px 8px rgba(0, 0, 0, 0.08)', // Design spec shadow
+                        transform: pressedButton === 'up' ? 'scale(0.98)' : 'scale(1)', // Design spec: 0.98x scale
+                        transition: 'all 0.2s ease-in-out', // Design spec: 0.2s ease-in-out
+                        borderRadius: '8px', // Consistent with design
                       }}
                     >
                       <IconChevronUp size={16} />
                     </ActionIcon>
                     <ActionIcon
                       variant="subtle"
-                      color="white"
                       size="md"
-                      onClick={scrollToBottom}
+                      onClick={scrollToNextSection}
+                      aria-label={`Go to next section: ${getSectionName(Math.min(sections.length - 1, currentSection + 1))}`}
                       style={{
                         background:
                           pressedButton === 'down'
                             ? colorCombinations.primaryGradient
-                            : 'rgba(255, 255, 255, 0.2)',
+                            : withOpacity(commonColors.backgroundSecondary, 0.8),
                         border:
                           pressedButton === 'down'
-                            ? '1px solid rgba(233, 30, 99, 0.5)'
-                            : '1px solid rgba(255, 255, 255, 0.3)',
+                            ? `1px solid ${commonColors.borderFocus}`
+                            : `1px solid ${commonColors.borderPrimary}`,
                         boxShadow:
                           pressedButton === 'down'
-                            ? '0 4px 15px rgba(233, 30, 99, 0.4), 0 0 10px rgba(233, 30, 99, 0.3)'
-                            : '0 2px 8px rgba(0, 0, 0, 0.2)',
-                        transform: pressedButton === 'down' ? 'scale(0.95)' : 'scale(1)',
-                        transition: 'all 0.2s ease',
+                            ? `0 4px 16px ${commonColors.shadowPrimary}` // Design spec shadow
+                            : '0 2px 8px rgba(0, 0, 0, 0.08)', // Design spec shadow
+                        transform: pressedButton === 'down' ? 'scale(0.98)' : 'scale(1)', // Design spec: 0.98x scale
+                        transition: 'all 0.2s ease-in-out', // Design spec: 0.2s ease-in-out
+                        borderRadius: '8px', // Consistent with design
                       }}
                     >
                       <IconChevronDown size={16} />
@@ -346,9 +428,11 @@ export default function ScrollIndicator({
                     borderRadius: '50%',
                     background: isScrolling
                       ? colorCombinations.primaryGradient
-                      : 'rgba(255, 255, 255, 0.3)',
-                    transition: 'all 0.3s ease',
-                    boxShadow: isScrolling ? '0 0 8px rgba(233, 30, 99, 0.5)' : 'none',
+                      : withOpacity(commonColors.backgroundSecondary, 0.6),
+                    transition: 'all 0.2s ease-in-out', // Design spec: 0.2s ease-in-out
+                    boxShadow: isScrolling
+                      ? `0 0 8px ${commonColors.shadowPrimary}`
+                      : '0 2px 4px rgba(0, 0, 0, 0.1)', // Design spec shadow
                   }}
                 />
               </Box>
@@ -365,8 +449,8 @@ export default function ScrollIndicator({
         <Transition
           mounted={isVisible && showIndicator}
           transition="fade"
-          duration={300}
-          timingFunction="ease"
+          duration={500}
+          timingFunction="ease-out"
         >
           {styles => (
             <Box
@@ -377,6 +461,7 @@ export default function ScrollIndicator({
                 top: '50%',
                 transform: 'translateY(-50%)',
                 zIndex: 1000,
+                transition: 'all 0.3s ease-out', // Smooth container transition
               }}
               className={className}
             >
@@ -384,12 +469,13 @@ export default function ScrollIndicator({
                 value={scrollProgress}
                 size="xs"
                 radius="xl"
+                color={commonColors.accentPrimary}
                 style={{
                   width: '4px',
                   height: '200px',
-                  background: 'rgba(255, 255, 255, 0.1)',
+                  background: withOpacity(commonColors.backgroundSecondary, 0.1),
                   backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  border: `1px solid ${commonColors.borderPrimary}`,
                 }}
               />
             </Box>
@@ -404,8 +490,8 @@ export default function ScrollIndicator({
       <Transition
         mounted={isVisible && showIndicator}
         transition="slide-left"
-        duration={300}
-        timingFunction="ease"
+        duration={500}
+        timingFunction="ease-out"
       >
         {styles => (
           <Box
@@ -416,6 +502,7 @@ export default function ScrollIndicator({
               top: '50%',
               transform: 'translateY(-50%)',
               zIndex: 1000,
+              transition: 'all 0.3s ease-out', // Smooth container transition
             }}
             className={className}
           >
@@ -434,10 +521,10 @@ export default function ScrollIndicator({
               {showProgress && (
                 <Box mb="md">
                   <Group justify="space-between" mb="xs">
-                    <Text size="sm" fw={500} c="white">
+                    <Text size="sm" fw={500} c={commonColors.textPrimary}>
                       Progress
                     </Text>
-                    <Text size="sm" c="dimmed">
+                    <Text size="sm" c={commonColors.textSecondary}>
                       {Math.round(scrollProgress)}%
                     </Text>
                   </Group>
@@ -445,8 +532,9 @@ export default function ScrollIndicator({
                     value={scrollProgress}
                     size="sm"
                     radius="xl"
+                    color={commonColors.accentPrimary}
                     style={{
-                      background: 'rgba(255, 255, 255, 0.1)',
+                      background: withOpacity(commonColors.backgroundSecondary, 0.1),
                     }}
                   />
                 </Box>
@@ -455,7 +543,7 @@ export default function ScrollIndicator({
               {/* Section Navigation */}
               {showNavigation && (
                 <Box>
-                  <Text size="sm" fw={500} c="white" mb="xs">
+                  <Text size="sm" fw={500} c={commonColors.textPrimary} mb="xs">
                     Sections
                   </Text>
                   <Stack gap="xs">
@@ -466,29 +554,44 @@ export default function ScrollIndicator({
                           padding: '8px 12px',
                           borderRadius: '8px',
                           cursor: 'pointer',
-                          transition: 'all 0.2s ease',
+                          transition: 'all 0.2s ease-in-out', // Design spec: 0.2s ease-in-out
                           background:
-                            currentSection === index ? 'rgba(233, 30, 99, 0.2)' : 'transparent',
+                            currentSection === index
+                              ? withOpacity(commonColors.accentPrimary, 0.1)
+                              : 'transparent',
                           border:
                             currentSection === index
-                              ? '1px solid rgba(233, 30, 99, 0.3)'
+                              ? `1px solid ${commonColors.borderFocus}`
                               : '1px solid transparent',
+                          // Hover effect preparation
+                          transform: 'scale(1)',
                         }}
                         onClick={() => scrollToSection(index)}
                         onMouseEnter={e => {
                           if (currentSection !== index) {
-                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                            e.currentTarget.style.background = withOpacity(
+                              commonColors.backgroundSecondary,
+                              0.5
+                            );
+                            e.currentTarget.style.transform = 'scale(1.02)'; // Design spec: 1.02x scale
+                            e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.12)'; // Design spec shadow
                           }
                         }}
                         onMouseLeave={e => {
                           if (currentSection !== index) {
                             e.currentTarget.style.background = 'transparent';
+                            e.currentTarget.style.transform = 'scale(1)';
+                            e.currentTarget.style.boxShadow = 'none';
                           }
                         }}
                       >
                         <Text
                           size="sm"
-                          c={currentSection === index ? 'white' : 'dimmed'}
+                          c={
+                            currentSection === index
+                              ? commonColors.textInverse
+                              : commonColors.textSecondary
+                          }
                           fw={currentSection === index ? 600 : 400}
                         >
                           {getSectionName(index)}
@@ -503,24 +606,24 @@ export default function ScrollIndicator({
               <Group justify="center" mt="md" gap="xs">
                 <ActionIcon
                   variant="subtle"
-                  color="white"
                   size="sm"
-                  onClick={scrollToTop}
+                  onClick={scrollToPreviousSection}
+                  aria-label={`Go to previous section: ${getSectionName(Math.max(0, currentSection - 1))}`}
                   style={{
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    background: withOpacity(commonColors.backgroundSecondary, 0.3),
+                    border: `1px solid ${commonColors.borderPrimary}`,
                   }}
                 >
                   <IconChevronUp size={16} />
                 </ActionIcon>
                 <ActionIcon
                   variant="subtle"
-                  color="white"
                   size="sm"
-                  onClick={scrollToBottom}
+                  onClick={scrollToNextSection}
+                  aria-label={`Go to next section: ${getSectionName(Math.min(sections.length - 1, currentSection + 1))}`}
                   style={{
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    background: withOpacity(commonColors.backgroundSecondary, 0.3),
+                    border: `1px solid ${commonColors.borderPrimary}`,
                   }}
                 >
                   <IconChevronDown size={16} />
@@ -540,7 +643,7 @@ export default function ScrollIndicator({
                     ? colorCombinations.primaryGradient
                     : 'rgba(255, 255, 255, 0.3)',
                   transition: 'all 0.3s ease',
-                  boxShadow: isScrolling ? '0 0 10px rgba(233, 30, 99, 0.5)' : 'none',
+                  boxShadow: isScrolling ? `0 0 10px ${commonColors.shadowPrimary}` : 'none',
                 }}
               />
             </Box>

@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run format:check && next build",
     "build:analyze": "ANALYZE=true next build",
     "build:clean": "rm -rf .next && npm run build",
     "start": "npm run build && npm run dev",
