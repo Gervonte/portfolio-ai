@@ -95,23 +95,45 @@ export default function ScrollIndicator({
       setHideTimeout(null);
     }
 
+    // Don't hide if user is hovering over the indicator
+    if (isHovered) {
+      return;
+    }
+
     // Schedule hide after delay
     const hideDelay = getHideDelay();
     const timeout = setTimeout(() => {
-      setShowIndicator(false);
-      setHideTimeout(null);
+      // Double-check hover state before hiding
+      if (!isHovered) {
+        setShowIndicator(false);
+        setHideTimeout(null);
+      }
     }, hideDelay);
     setHideTimeout(timeout);
-  }, [hideTimeout, getHideDelay]);
+  }, [hideTimeout, getHideDelay, isHovered]);
 
   useEffect(() => {
+    let scrollTimeout: NodeJS.Timeout;
+    let scrollEndTimeout: NodeJS.Timeout;
+
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = (scrollTop / docHeight) * 100;
 
       setScrollProgress(Math.min(100, Math.max(0, progress)));
-      setIsVisible(scrollTop > 100);
+      const shouldBeVisible = scrollTop > 0; // Show as soon as any scrolling happens
+      setIsVisible(shouldBeVisible);
+
+      // Show indicator immediately when scrolling starts
+      if (scrollTop > 0 && !showIndicator) {
+        setShowIndicator(true);
+        setLastInteraction(Date.now());
+        if (hideTimeout) {
+          clearTimeout(hideTimeout);
+          setHideTimeout(null);
+        }
+      }
 
       // Determine current section (skip if we're programmatically navigating)
       if (!isNavigating) {
@@ -157,41 +179,17 @@ export default function ScrollIndicator({
 
         setCurrentSection(activeSection);
       }
-    };
 
-    const handleScrollStart = () => {
-      setShowIndicator(true);
-      setLastInteraction(Date.now()); // Track scroll interaction
-      if (hideTimeout) {
-        clearTimeout(hideTimeout); // Clear any pending hide timeout when scrolling starts
-        setHideTimeout(null);
-      }
+      // Clear any existing scroll end timeout and set a new one
+      clearTimeout(scrollEndTimeout);
+      scrollEndTimeout = setTimeout(() => {
+        scheduleHide();
+      }, 150); // Wait 150ms after last scroll event
     };
-
-    const handleScrollEnd = () => {
-      // Scroll ended - schedule hide
-      scheduleHide();
-    };
-
-    let scrollTimeout: NodeJS.Timeout;
 
     const throttledScroll = () => {
       clearTimeout(scrollTimeout);
-
-      scrollTimeout = setTimeout(() => {
-        handleScroll();
-        // Don't call handleScrollEnd here - it gets called on every scroll event
-      }, 10);
-    };
-
-    // Separate scroll end detection
-    const handleScrollEndDetection = () => {
-      clearTimeout(scrollTimeout);
-
-      scrollTimeout = setTimeout(() => {
-        // This only runs when scrolling has actually stopped
-        handleScrollEnd();
-      }, 150); // Wait 150ms after last scroll event
+      scrollTimeout = setTimeout(handleScroll, 10);
     };
 
     // Keyboard navigation handler
@@ -232,18 +230,15 @@ export default function ScrollIndicator({
       }
     };
 
-    window.addEventListener('scroll', handleScrollStart);
     window.addEventListener('scroll', throttledScroll);
-    window.addEventListener('scroll', handleScrollEndDetection);
     window.addEventListener('keydown', handleKeyDown);
     handleScroll(); // Initial call
 
     return () => {
-      window.removeEventListener('scroll', handleScrollStart);
       window.removeEventListener('scroll', throttledScroll);
-      window.removeEventListener('scroll', handleScrollEndDetection);
       window.removeEventListener('keydown', handleKeyDown);
       clearTimeout(scrollTimeout);
+      clearTimeout(scrollEndTimeout);
       if (hideTimeout) {
         clearTimeout(hideTimeout);
       }
@@ -347,7 +342,7 @@ export default function ScrollIndicator({
                 }}
                 onMouseLeave={() => {
                   setIsHovered(false);
-                  // Schedule hide when mouse leaves
+                  // Schedule hide when mouse leaves (with delay)
                   scheduleHide();
                 }}
               >
@@ -579,7 +574,7 @@ export default function ScrollIndicator({
               }}
               onMouseLeave={() => {
                 setIsHovered(false);
-                // Schedule hide when mouse leaves
+                // Schedule hide when mouse leaves (with delay)
                 scheduleHide();
               }}
             >
