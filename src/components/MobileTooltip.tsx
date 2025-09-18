@@ -30,7 +30,7 @@ export function MobileTooltip({
   offset = 8,
   ...props
 }: MobileTooltipProps) {
-  const { opened, handlers } = useMobileTooltip({
+  const { opened, handlers, ref } = useMobileTooltip({
     delay,
     disabled,
     trigger,
@@ -68,19 +68,21 @@ export function MobileTooltip({
 
   return (
     <Tooltip {...tooltipProps}>
-      <div
+      <span
+        ref={ref}
         {...handlers}
+        className="mobile-tooltip-wrapper"
         style={{
-          // Ensure touch targets are large enough on mobile
-          minHeight: '44px',
-          minWidth: '44px',
-          display: 'flex',
+          // Responsive touch targets: 5px on desktop, 44px on mobile
+          minHeight: '5px',
+          minWidth: '5px',
+          display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
         {children}
-      </div>
+      </span>
     </Tooltip>
   );
 }

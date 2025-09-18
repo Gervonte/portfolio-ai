@@ -45,14 +45,17 @@ export const commonColors = {
   backgroundPrimary: warm[0] ?? '#FDFCFB',
   backgroundSecondary: warm[1] ?? '#F5F5F5',
   backgroundCard: warm[0] ?? '#FDFCFB',
+  backgroundHero: `linear-gradient(135deg, ${warm[0]}, ${sakura[0]})`,
+  backgroundWork: earth[0] ?? '#F9F7F4',
+  backgroundContact: sakura[0] ?? '#FFF8F8',
 
   // Border colors
   borderPrimary: warm[2] ?? '#E8E8E8',
   borderSecondary: sakura[1] ?? '#FFCDD2',
-  borderFocus: sakura[3] ?? '#F44336',
+  borderFocus: sakura[5] ?? '#D32F2F',
 
-  // Accent colors
-  accentPrimary: sakura[3] ?? '#F44336',
+  // Accent colors (using darker shades for better contrast)
+  accentPrimary: sakura[5] ?? '#D32F2F',
   accentSecondary: sakura[1] ?? '#FFCDD2',
 
   // Shadow colors

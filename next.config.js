@@ -8,6 +8,7 @@ const __dirname = dirname(__filename);
 const nextConfig = {
   experimental: {
     optimizePackageImports: ['@mantine/core', '@mantine/hooks', '@tabler/icons-react'],
+    webVitalsAttribution: ['CLS', 'LCP'], // Track Core Web Vitals
   },
   turbopack: {
     rules: {
@@ -23,14 +24,25 @@ const nextConfig = {
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Add image optimization settings
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
+    // Enable additional optimizations
+    styledComponents: false,
   },
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
   generateEtags: false,
+  // SWC minification is enabled by default in Next.js 13+
+  modularizeImports: {
+    '@tabler/icons-react': {
+      transform: '@tabler/icons-react/dist/esm/icons/{{member}}',
+    },
+  },
   // Build caching configuration
   webpack: (config, { dev, isServer }) => {
     // Enable persistent caching for faster builds
@@ -46,10 +58,12 @@ const nextConfig = {
       };
     }
 
-    // Optimize bundle splitting
+    // Optimize bundle splitting for better performance
     if (!isServer) {
       config.optimization.splitChunks = {
         chunks: 'all',
+        minSize: 20000,
+        maxSize: 244000,
         cacheGroups: {
           default: {
             minChunks: 2,
@@ -61,18 +75,35 @@ const nextConfig = {
             name: 'vendors',
             priority: -10,
             chunks: 'all',
+            maxSize: 200000,
           },
           mantine: {
             test: /[\\/]node_modules[\\/]@mantine[\\/]/,
             name: 'mantine',
-            priority: 10,
+            priority: 20,
             chunks: 'all',
+            maxSize: 150000,
           },
           icons: {
             test: /[\\/]node_modules[\\/]@tabler[\\/]/,
             name: 'icons',
-            priority: 10,
+            priority: 20,
             chunks: 'all',
+            maxSize: 50000,
+          },
+          react: {
+            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+            name: 'react',
+            priority: 30,
+            chunks: 'all',
+            maxSize: 100000,
+          },
+          next: {
+            test: /[\\/]node_modules[\\/]next[\\/]/,
+            name: 'next',
+            priority: 25,
+            chunks: 'all',
+            maxSize: 100000,
           },
         },
       };

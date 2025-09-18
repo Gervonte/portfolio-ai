@@ -7,6 +7,8 @@
 - **Mono No Aware**: Embracing the beauty of transience and impermanence through delicate, fleeting visual elements
 - **Cherry Blossom Aesthetic**: Soft, organic design inspired by sakura petals and spring renewal
 - **Professional Elegance**: Clean, sophisticated design that conveys competence while maintaining warmth
+- **Card-Based Interactivity**: All interactive elements encased in consistent card containers for unified user experience
+- **Living Interface**: Non-text elements respond to user interaction with hover effects, bringing the page to life
 - **Subtle Animation**: Gentle, contemplative movements that reflect the ephemeral nature of beauty
 - **Accessibility First**: Inclusive design that works for all users
 - **Performance-Driven**: Visual choices that support fast loading and smooth interactions
@@ -23,44 +25,73 @@
 ### Mantine UI Integration
 
 - **Component Library**: Mantine UI for consistent, accessible components
-- **Theme System**: Custom Mantine theme with sakura color palette
+- **Theme System**: Dynamic theme system with sakura and ocean variants
 - **Typography**: Mantine's typography system with custom font configurations
 - **Spacing**: Mantine's spacing scale adapted for cherry blossom aesthetic
 - **Accessibility**: Built-in accessibility features from Mantine components
 
+### Dynamic Theme System
+
+The portfolio now features a comprehensive theme system that allows users to switch between two distinct visual experiences:
+
+#### Theme Architecture
+
+- **Theme-Aware Hooks**: Custom React hooks for dynamic color access
+- **Context-Based Switching**: React Context for theme state management
+- **Component Integration**: All components automatically adapt to current theme
+- **Fallback System**: Sakura theme as default with graceful degradation
+
+#### Theme Variants
+
+1. **Sakura Theme (Default)**: Cherry blossom aesthetic with warm reds and pinks
+2. **Ocean Theme (Alternative)**: Ocean mist aesthetic with cool teals and aquas
+
+#### Theme Switching
+
+- **Toggle Component**: User-friendly theme switcher in header
+- **Persistent State**: Theme preference saved in localStorage
+- **Smooth Transitions**: Seamless switching between themes
+- **System Integration**: Respects user's system theme preferences
+
 ### Design Tokens
 
-- **Colors**: Mantine theme colors mapped to sakura palette
+- **Colors**: Dynamic theme-aware color system with sakura and ocean palettes
 - **Typography**: Mantine font families with custom sizing
 - **Spacing**: Mantine spacing scale (4px base unit)
-- **Shadows**: Custom shadow system for depth and elevation
+- **Shadows**: Theme-aware shadow system for depth and elevation
 - **Border Radius**: Consistent border radius values
 - **Breakpoints**: Mantine responsive breakpoints
+- **Gradients**: Dynamic gradient system that adapts to current theme
+- **Effects**: Theme-aware visual effects (sakura petals, ocean mist)
 
 ## Visual Identity
 
 ### Color Palette
 
-#### Primary Colors (Cherry Blossom Inspired - Red Variant)
+#### Current Palette: Cherry Blossom Inspired (Red Variant)
 
 - **Sakura Red**: `#FFCDD2` - Soft, delicate red for primary elements
 - **Sakura Deep**: `#F44336` - Deeper red for emphasis and CTAs
 - **Sakura Light**: `#FFEBEE` - Very light red for backgrounds and highlights
 - **Sakura Accent**: `#EF9A9A` - Medium red for secondary elements
 
-#### Secondary Colors
+#### Alternative Palette: Ocean Mist (Blue-Green Variant)
+
+- **Ocean Mist**: `#B8E6E6` - Soft, ethereal blue-green for primary elements
+- **Ocean Deep**: `#0891B2` - Deeper teal for emphasis and CTAs
+- **Ocean Light**: `#F0FDFA` - Very light aqua for backgrounds and highlights
+- **Ocean Accent**: `#67E8F9` - Medium cyan for secondary elements
+
+_This alternative maintains the same delicate, transient beauty while evoking the calm, contemplative nature of ocean mist - perfect for the Mono No Aware philosophy._
+
+#### Neutral Colors (Consistent Across Themes)
 
 - **Warm White**: `#FEFEFE` - Pure, clean white for main backgrounds
 - **Soft Gray**: `#F5F5F5` - Gentle gray for section backgrounds
 - **Charcoal**: `#2C2C2C` - Deep charcoal for primary text
 - **Midnight**: `#1A1A1A` - Near black for strong contrast
-
-#### Neutral Colors
-
-- **Text Primary**: `#2C2C2C` - Charcoal for main text content
 - **Text Secondary**: `#666666` - Medium gray for supporting text
 - **Text Muted**: `#999999` - Light gray for placeholders and subtle text
-- **Background White**: `#FEFEFE` - Pure white main background
 - **Background Cream**: `#FDFCFB` - Warm off-white for section backgrounds
 - **Border Light**: `#E8E8E8` - Subtle borders and dividers
 
@@ -71,17 +102,55 @@
 - **Vibe Coded Background**: `#FFEBEE` with sakura red tint
 - **Standard Work Background**: `#FDF4E3` with warm brown tint
 
-#### Sakura Petal Colors
+#### Sakura Petal Colors (Sakura Theme)
 
 - **Petal Red**: `#FFCDD2` - Main petal color
 - **Petal Light**: `#FFEBEE` - Light petal for subtle effects
 - **Petal Dark**: `#F44336` - Dark petal for depth and shadow
 
+#### Ocean Mist Effects (Ocean Theme)
+
+- **Mist Droplet**: `#B8E6E6` - Main droplet color
+- **Mist Light**: `#F0FDFA` - Light droplet for subtle effects
+- **Mist Dark**: `#0891B2` - Dark droplet for depth and shadow
+
+### Theme-Aware Color System
+
+The portfolio implements a sophisticated theme-aware color system that provides dynamic color access across all components:
+
+#### Color Hooks
+
+- **useColorCombinations()**: Provides theme-specific gradient combinations
+- **useCommonColors()**: Supplies semantic color tokens (text, background, borders)
+- **usePrimaryColors()**: Returns the primary color palette for current theme
+- **useEffectColors()**: Provides effect colors (pink for sakura, mist for ocean)
+- **useWarmColors()**: Supplies neutral warm colors (consistent across themes)
+- **useEarthColors()**: Provides earth tones (consistent across themes)
+
+#### Semantic Color Mapping
+
+| Purpose            | Sakura Theme          | Ocean Theme          | Description         |
+| ------------------ | --------------------- | -------------------- | ------------------- |
+| **Primary**        | `sakura[3]` (#F44336) | `ocean[3]` (#0891B2) | Main brand color    |
+| **Effect**         | `pink[3]` (#F06292)   | `mist[3]` (#5EEAD4)  | Accent/effect color |
+| **Text Primary**   | `warm[5]` (#2C2C2C)   | `warm[5]` (#2C2C2C)  | Main text color     |
+| **Text Secondary** | `warm[4]` (#666666)   | `warm[4]` (#666666)  | Secondary text      |
+| **Background**     | `warm[0]` (#FDFCFB)   | `warm[0]` (#FDFCFB)  | Main background     |
+
+#### Gradient System
+
+- **Primary Gradient**: `linear-gradient(135deg, primary[3], primary[1])`
+- **Effect Gradient**: `linear-gradient(135deg, effect[3], effect[1])`
+- **Footer Gradient**: `linear-gradient(135deg, primary[0], warm[1])`
+- **Modal Gradients**: Theme-specific gradients for technical details
+
 ### Mantine Theme Configuration
+
+#### Current Theme: Sakura (Cherry Blossom)
 
 ```typescript
 // Mantine theme with sakura color palette
-const theme = {
+const sakuraTheme = {
   colors: {
     sakura: [
       '#FFEBEE', // sakura[0] - lightest red
@@ -103,6 +172,9 @@ const theme = {
       '#666666', // warm[4] - secondary text
       '#2C2C2C', // warm[5] - primary text
       '#1A1A1A', // warm[6] - near black
+      '#1A1A1A', // warm[7] - duplicate for 10 elements
+      '#1A1A1A', // warm[8] - duplicate for 10 elements
+      '#1A1A1A', // warm[9] - duplicate for 10 elements
     ],
     earth: [
       '#FDF4E3', // earth[0] - light brown
@@ -110,6 +182,24 @@ const theme = {
       '#D4A574', // earth[2] - medium brown
       '#8B4513', // earth[3] - saddle brown
       '#654321', // earth[4] - dark brown
+      '#4A2C17', // earth[5] - darker brown
+      '#3D2314', // earth[6] - very dark brown
+      '#2F1B0F', // earth[7] - ultra dark brown
+      '#1F1209', // earth[8] - near black brown
+      '#0F0905', // earth[9] - black brown
+    ],
+    // Pink colors for sakura effects
+    pink: [
+      '#FCE4EC', // pink[0] - lightest pink
+      '#F8BBD9', // pink[1] - light pink
+      '#F48FB1', // pink[2] - medium pink
+      '#F06292', // pink[3] - deep pink
+      '#EC407A', // pink[4] - darker pink
+      '#E91E63', // pink[5] - darkest pink
+      '#D81B60', // pink[6] - very dark pink
+      '#C2185B', // pink[7] - ultra dark pink
+      '#AD1457', // pink[8] - near black pink
+      '#880E4F', // pink[9] - black pink
     ],
   },
   primaryColor: 'sakura',
@@ -121,18 +211,18 @@ const theme = {
     fontWeight: '600',
   },
   spacing: {
-    xs: 4,
-    sm: 8,
-    md: 16,
-    lg: 24,
-    xl: 32,
+    xs: '4px',
+    sm: '8px',
+    md: '16px',
+    lg: '24px',
+    xl: '32px',
   },
   radius: {
-    xs: 4,
-    sm: 8,
-    md: 12,
-    lg: 16,
-    xl: 20,
+    xs: '4px',
+    sm: '8px',
+    md: '12px',
+    lg: '16px',
+    xl: '20px',
   },
   shadows: {
     xs: '0 1px 3px rgba(0, 0, 0, 0.05)',
@@ -141,8 +231,183 @@ const theme = {
     lg: '0 10px 15px rgba(0, 0, 0, 0.1)',
     xl: '0 20px 25px rgba(0, 0, 0, 0.1)',
   },
+  breakpoints: {
+    xs: '30em',
+    sm: '48em',
+    md: '64em',
+    lg: '74em',
+    xl: '90em',
+  },
+  components: {
+    Tooltip: {
+      defaultProps: {
+        multiline: true,
+        withArrow: true,
+        withinPortal: true,
+        zIndex: 1000,
+      },
+      styles: {
+        tooltip: {
+          fontSize: '14px',
+          maxWidth: '280px',
+          padding: '8px 12px',
+          borderRadius: '8px',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+          zIndex: 1000,
+        },
+        arrow: {
+          zIndex: 1001,
+        },
+      },
+    },
+    ActionIcon: {
+      styles: {
+        root: {
+          // Ensure minimum touch target size on mobile
+          minHeight: '44px',
+          minWidth: '44px',
+        },
+      },
+    },
+  },
 };
 ```
+
+#### Alternative Theme: Ocean Mist
+
+```typescript
+// Mantine theme with ocean mist color palette
+const oceanTheme = {
+  colors: {
+    ocean: [
+      '#F0FDFA', // ocean[0] - lightest aqua
+      '#B8E6E6', // ocean[1] - light aqua
+      '#67E8F9', // ocean[2] - medium cyan
+      '#0891B2', // ocean[3] - deep teal
+      '#0E7490', // ocean[4] - darker teal
+      '#155E75', // ocean[5] - darkest teal
+      '#164E63', // ocean[6] - very dark teal
+      '#134E4A', // ocean[7] - ultra dark teal
+      '#0F766E', // ocean[8] - near black teal
+      '#0A4A42', // ocean[9] - black teal
+    ],
+    warm: [
+      '#FDFCFB', // warm[0] - cream white
+      '#F5F5F5', // warm[1] - light gray
+      '#E8E8E8', // warm[2] - border gray
+      '#999999', // warm[3] - muted text
+      '#666666', // warm[4] - secondary text
+      '#2C2C2C', // warm[5] - primary text
+      '#1A1A1A', // warm[6] - near black
+      '#1A1A1A', // warm[7] - duplicate for 10 elements
+      '#1A1A1A', // warm[8] - duplicate for 10 elements
+      '#1A1A1A', // warm[9] - duplicate for 10 elements
+    ],
+    earth: [
+      '#FDF4E3', // earth[0] - light brown
+      '#F4E4BC', // earth[1] - warm beige
+      '#D4A574', // earth[2] - medium brown
+      '#8B4513', // earth[3] - saddle brown
+      '#654321', // earth[4] - dark brown
+      '#4A2C17', // earth[5] - darker brown
+      '#3D2314', // earth[6] - very dark brown
+      '#2F1B0F', // earth[7] - ultra dark brown
+      '#1F1209', // earth[8] - near black brown
+      '#0F0905', // earth[9] - black brown
+    ],
+    // Mist colors for ocean effects
+    mist: [
+      '#F0FDFA', // mist[0] - lightest aqua
+      '#CCFBF1', // mist[1] - light aqua
+      '#99F6E4', // mist[2] - medium aqua
+      '#5EEAD4', // mist[3] - deep aqua
+      '#2DD4BF', // mist[4] - darker aqua
+      '#14B8A6', // mist[5] - darkest aqua
+      '#0D9488', // mist[6] - very dark aqua
+      '#0F766E', // mist[7] - ultra dark aqua
+      '#115E59', // mist[8] - near black aqua
+      '#134E4A', // mist[9] - black aqua
+    ],
+  },
+  primaryColor: 'ocean',
+  primaryShade: 3, // Use ocean[3] as primary
+  fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
+  fontFamilyMonospace: 'JetBrains Mono, Fira Code, Consolas, monospace',
+  headings: {
+    fontFamily: 'Inter, sans-serif',
+    fontWeight: '600',
+  },
+  spacing: {
+    xs: '4px',
+    sm: '8px',
+    md: '16px',
+    lg: '24px',
+    xl: '32px',
+  },
+  radius: {
+    xs: '4px',
+    sm: '8px',
+    md: '12px',
+    lg: '16px',
+    xl: '20px',
+  },
+  shadows: {
+    xs: '0 1px 3px rgba(0, 0, 0, 0.05)',
+    sm: '0 1px 3px rgba(0, 0, 0, 0.1)',
+    md: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    lg: '0 10px 15px rgba(0, 0, 0, 0.1)',
+    xl: '0 20px 25px rgba(0, 0, 0, 0.1)',
+  },
+  breakpoints: {
+    xs: '30em',
+    sm: '48em',
+    md: '64em',
+    lg: '74em',
+    xl: '90em',
+  },
+  components: {
+    Tooltip: {
+      defaultProps: {
+        multiline: true,
+        withArrow: true,
+        withinPortal: true,
+        zIndex: 1000,
+      },
+      styles: {
+        tooltip: {
+          fontSize: '14px',
+          maxWidth: '280px',
+          padding: '8px 12px',
+          borderRadius: '8px',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+          zIndex: 1000,
+        },
+        arrow: {
+          zIndex: 1001,
+        },
+      },
+    },
+    ActionIcon: {
+      styles: {
+        root: {
+          // Ensure minimum touch target size on mobile
+          minHeight: '44px',
+          minWidth: '44px',
+        },
+      },
+    },
+  },
+};
+```
+
+#### Theme Selection Rationale
+
+**Theme Philosophy & Use Cases**
+
+| Theme                        | Philosophy                                           | Emotional Tone                    | Best For                                                             | Accessibility                                                           |
+| ---------------------------- | ---------------------------------------------------- | --------------------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| **Sakura (Default)**         | Cherry blossom aesthetic - delicate, fleeting beauty | Warm, romantic, contemplative     | Creative portfolios, artistic presentations, personal branding       | High contrast reds ensure excellent readability                         |
+| **Ocean Mist (Alternative)** | Ocean mist aesthetic - calm, ethereal, contemplative | Professional, serene, trustworthy | Technical portfolios, corporate presentations, professional services | Teal/cyan colors provide excellent contrast and are colorblind-friendly |
 
 ### Typography
 
@@ -204,15 +469,16 @@ const theme = {
 - **Navigation**: Mantine Navbar, Burger, Anchor, Breadcrumbs
 - **Data Display**: Mantine Badge, Avatar, Timeline, List, Table
 - **Feedback**: Mantine Alert, Notification, LoadingOverlay, Skeleton
+- **Overlays**: Mantine Tooltip, Modal, Popover, Drawer
 - **Custom Components**: SakuraPetal, ProjectCard, WorkSectionHeader
 
 #### Atomic Design Principles
 
-- **Atoms**: Mantine Button, Input, Icon + Custom SakuraPetal
-- **Molecules**: Mantine Card + Custom ProjectCard, SkillBadge, ContactItem
-- **Organisms**: Custom WorkSection, ExperienceTimeline + Mantine Navbar
-- **Templates**: Mantine Container + Custom PageLayout, SectionLayout
-- **Pages**: Home, About, Work, Contact using Mantine components
+- **Atoms**: Mantine Button, Input, Icon + Custom SakuraPetal + Card Wrappers
+- **Molecules**: Mantine Card + Custom ProjectCard, SkillBadge, ContactItem + Interactive Cards
+- **Organisms**: Custom WorkSection, ExperienceTimeline + Mantine Navbar + Card Grids
+- **Templates**: Mantine Container + Custom PageLayout, SectionLayout + Card Layouts
+- **Pages**: Home, About, Work, Contact using Mantine components + Card-based interactions
 
 ### Navigation
 
@@ -346,6 +612,161 @@ const theme = {
 
 ## Interactive Elements
 
+### Card-Based Design System
+
+#### Universal Card Container
+
+- **All Interactive Elements**: Encased in subtle card containers with consistent styling
+- **Card Properties**:
+  - Rounded corners (12px border radius)
+  - Subtle shadow (0 2px 8px rgba(0, 0, 0, 0.08))
+  - Smooth transitions (0.2s ease-in-out)
+  - Hover elevation increase
+- **Card Types**:
+  - **Content Cards**: Project cards, skill cards, experience cards
+  - **Interactive Cards**: Buttons, links, form elements
+  - **Decorative Cards**: Icons, badges, status indicators
+
+#### Card Interaction Patterns
+
+- **Hover State**:
+  - Scale transform (1.02x)
+  - Shadow increase (0 4px 16px rgba(0, 0, 0, 0.12))
+  - Subtle color shift
+  - Smooth 0.2s transition
+- **Active State**:
+  - Scale down (0.98x)
+  - Shadow reduction
+  - Color intensification
+- **Focus State**:
+  - Outline ring (2px, primary color)
+  - Accessibility-compliant focus indicators
+
+### Comprehensive Hover Effects
+
+#### Non-Text Element Hover System
+
+- **Icons**:
+  - Scale animation (1.1x)
+  - Color transition to primary color
+  - Subtle rotation (2-3 degrees)
+  - Glow effect on hover
+- **Images**:
+  - Gentle zoom (1.05x)
+  - Overlay with subtle color tint
+  - Smooth transition (0.3s ease-out)
+- **Cards**:
+  - Lift effect with increased shadow
+  - Border color transition
+  - Background color shift
+  - Content subtle movement
+- **Buttons**:
+  - Background color transition
+  - Scale effect (1.02x)
+  - Shadow enhancement
+  - Icon animation (if present)
+
+#### Advanced Hover Interactions
+
+- **Project Cards**:
+  - Image overlay with project details
+  - Tech stack badges appear
+  - Action buttons slide up
+  - Subtle sakura petal animation
+- **Skill Badges**:
+  - Color intensity increase
+  - Subtle bounce animation
+  - Tooltip with proficiency level
+  - Glow effect matching skill category
+- **Navigation Items**:
+  - Underline animation from left to right
+  - Background color fade-in
+  - Icon rotation (if present)
+  - Smooth color transition
+
+#### Scroll Indicator
+
+The scroll indicator is a sophisticated navigation component that provides both visual progress feedback and interactive section navigation.
+
+##### Design Principles
+
+- **Card-Based Container**: Follows the universal card design system with 12px border radius and theme-aware styling
+- **Theme Integration**: Fully theme-aware with dynamic colors, shadows, and effects
+- **Accessibility First**: Keyboard navigation support and descriptive aria-labels
+- **Progressive Enhancement**: Graceful degradation for different screen sizes and orientations
+
+##### Visual Design
+
+- **Container Styling**:
+  - Background: Theme-aware card background with opacity (`backgroundCardCC`)
+  - Border: Theme-aware primary border color
+  - Border Radius: 12px (horizontal) / 16px (vertical)
+  - Backdrop Filter: 20px blur for glassmorphism effect
+  - Shadow: Dynamic shadow system with hover enhancement
+
+- **Hover Effects**:
+  - Scale Transform: 1.02x on hover
+  - Shadow Enhancement: Increased shadow depth and glow
+  - Border: Maintains consistent border color (no outline change)
+  - Transition: Smooth 0.3s ease-out animation
+
+##### Functional Behavior
+
+- **Visibility Management**:
+  - Auto-hide after 2 seconds of inactivity
+  - Stays visible while hovering over the component
+  - Shows on scroll, keyboard navigation, and user interaction
+  - Dynamic delay reset based on recent interactions
+
+- **Progress Tracking**:
+  - Real-time scroll progress percentage
+  - Theme-aware progress bar with primary accent color
+  - Smooth progress updates with throttled scroll detection
+
+- **Section Navigation**:
+  - Visual section indicators with current section highlighting
+  - Arrow buttons for previous/next section navigation
+  - Keyboard support (arrow keys) for section navigation
+  - Smooth scrolling to target sections
+
+##### Variants
+
+1. **Horizontal Variant (Bottom)**:
+   - Position: Fixed bottom center
+   - Layout: Horizontal progress bar with section indicators
+   - Width: Minimum 400px, responsive
+   - Use Case: Desktop and tablet landscape
+
+2. **Vertical Variant (Side)**:
+   - Position: Fixed left/right side
+   - Layout: Vertical progress bar with compact section list
+   - Width: Minimum 200px
+   - Use Case: Desktop portrait and mobile
+
+##### Theme Integration
+
+- **Color System**: Uses theme-aware color hooks for all styling
+- **Dynamic Adaptation**: Automatically adapts to sakura/ocean theme changes
+- **Consistent Styling**: Follows the same design tokens as other components
+- **Accessibility**: Maintains proper contrast ratios across all themes
+
+##### Interaction Patterns
+
+- **Hover State**:
+  - Container scale and shadow enhancement
+  - Section button hover effects with scale and color changes
+  - Smooth transitions for all interactive elements
+
+- **Active State**:
+  - Button press animations with visual feedback
+  - Current section highlighting with gradient background
+  - Progress bar color updates
+
+- **Focus State**:
+  - Keyboard navigation with visible focus indicators
+  - Accessible button labels and descriptions
+  - Screen reader friendly section announcements
+
 ### Animations
 
 #### Page Transitions
@@ -353,6 +774,7 @@ const theme = {
 - **Fade In**: 0.3s ease-out for page load
 - **Slide Up**: 0.4s ease-out for section reveals
 - **Stagger**: 0.1s delay between card animations
+- **Card Cascade**: Sequential card appearance with 0.1s intervals
 
 #### Hover Effects
 
@@ -360,12 +782,39 @@ const theme = {
 - **Buttons**: Color transition and slight scale
 - **Links**: Underline animation from left to right
 - **Images**: Subtle zoom effect
+- **Icons**: Scale and color transition
+- **Interactive Elements**: Universal hover feedback
 
 #### Loading States
 
-- **Skeleton Screens**: For content loading
-- **Spinner**: For form submissions
-- **Progress Bar**: For page transitions
+The portfolio implements a comprehensive skeleton loading system that provides meaningful loading states for all major sections:
+
+##### Skeleton System Architecture
+
+- **BaseSkeleton Component**: Foundation component with theme-aware colors and shimmer animation
+- **Content-Specific Skeletons**: Tailored loading states for each section that mimic actual content structure
+- **Consistent Animation**: Unified shimmer effect across all skeleton components
+
+##### Section-Specific Skeletons
+
+- **HeroSectionSkeleton**: Mimics hero layout with title, subtitle, and CTA buttons
+- **AboutSectionSkeleton**: Replicates skills grid, research projects, and leadership sections
+- **WorkSectionSkeleton**: Mirrors project card grid layout with proper spacing
+- **ExperienceSectionSkeleton**: Reflects timeline/card layout with company details
+- **ContactSectionSkeleton**: Matches form layout and contact information structure
+
+##### Skeleton Features
+
+- **Shimmer Animation**: CSS-based shimmer effect with `skeleton-shimmer` keyframes
+- **Responsive Design**: Adapts to different screen sizes like actual content
+- **Accessibility**: Proper ARIA labels and semantic structure
+- **Performance**: Lightweight components with optimized rendering
+
+##### Loading State Hierarchy
+
+- **Above-the-Fold**: Hero section loads immediately with skeleton fallback
+- **Lazy Sections**: All other sections use lazy loading with content-specific skeletons
+- **Form States**: Traditional spinners for form submissions and interactions
 
 ### Micro-Interactions
 
@@ -375,6 +824,7 @@ const theme = {
 - **Hover**: Darker shade with increased shadow
 - **Active**: Pressed state with reduced shadow
 - **Disabled**: Muted color with no interaction
+- **Loading**: Spinner with disabled state
 
 #### Form Interactions
 
@@ -382,6 +832,62 @@ const theme = {
 - **Error**: Red border with shake animation
 - **Success**: Green border with checkmark
 - **Loading**: Spinner with disabled state
+
+#### Card-Specific Interactions
+
+- **Project Cards**:
+  - Hover: Image overlay, tech stack reveal
+  - Click: Smooth transition to detail view
+  - Focus: Keyboard navigation support
+- **Skill Cards**:
+  - Hover: Proficiency level tooltip
+  - Click: Filter projects by skill
+  - Focus: Clear focus indicators
+- **Experience Cards**:
+  - Hover: Timeline connection highlight
+  - Click: Expand for detailed information
+  - Focus: Keyboard accessible navigation
+
+### Tooltip System
+
+#### Tooltip Design Specifications
+
+- **Appearance**:
+  - Background: Semi-transparent dark overlay (#1A1A1A with 0.9 opacity)
+  - Text Color: White (#FFFFFF)
+  - Border Radius: 8px
+  - Font Size: 14px
+  - Max Width: 280px
+  - Padding: 8px 12px
+  - Box Shadow: 0 4px 12px rgba(0, 0, 0, 0.15)
+  - Z-Index: 1000
+
+#### Tooltip Behavior
+
+- **Trigger**: Hover on interactive elements
+- **Delay**: 500ms before showing
+- **Duration**: 200ms fade-in/out transition
+- **Positioning**: Smart positioning to avoid viewport edges
+- **Arrow**: Small triangular pointer (z-index: 1001)
+- **Multiline Support**: Automatic text wrapping for longer content
+- **Portal Rendering**: Rendered outside component tree to avoid clipping
+
+#### Tooltip Content Types
+
+- **Skill Proficiency**: "Advanced", "Intermediate", "Expert" levels
+- **Technology Details**: Brief descriptions of tools and frameworks
+- **Project Information**: Quick project stats, tech stack, or key features
+- **Navigation Hints**: Helpful context for navigation items
+- **Status Indicators**: Current state or availability information
+- **Accessibility Info**: Screen reader friendly descriptions
+
+#### Tooltip Accessibility
+
+- **Keyboard Navigation**: Tooltips appear on focus for keyboard users
+- **Screen Reader Support**: Proper ARIA labels and descriptions
+- **Focus Management**: Tooltips don't interfere with tab order
+- **Dismissal**: Tooltips disappear when focus moves or element is no longer hovered
+- **High Contrast**: Meets WCAG contrast requirements
 
 ## Responsive Design
 
@@ -470,14 +976,251 @@ const theme = {
 - **Profile Photo**: Professional headshot, 400x400px minimum
 - **Project Screenshots**: High-resolution, consistent aspect ratios
 - **Background Images**: Subtle, non-distracting patterns
-- **Optimization**: WebP format with fallbacks
 
-### Illustrations
+## Recent Improvements & Updates
 
-- **Custom Graphics**: For empty states and loading
-- **Decorative Elements**: Subtle patterns and shapes
-- **Work Section Graphics**: AI and coding-themed illustrations
-- **Consistent Style**: Matching visual language
+### Component Architecture Refactoring (Latest)
+
+- **Modular Design**: Extracted all sections into dedicated components (Hero, About, Work, Experience, Contact)
+- **Lazy Loading**: Implemented universal lazy loading with content-specific skeleton states
+- **Code Organization**: Reduced `page.tsx` from 254 lines to ~120 lines for better maintainability
+- **Performance**: Bundle splitting and progressive loading for optimal user experience
+
+### Theme System Implementation
+
+#### Dynamic Theme Switching
+
+- **User Control**: Theme toggle in header for instant switching
+- **Persistent Preferences**: Theme choice saved in localStorage
+- **System Integration**: Respects user's system theme preferences
+- **Smooth Transitions**: Seamless switching between sakura and ocean themes
+
+#### Enhanced Visual Effects
+
+- **Improved Parallax**: More dramatic scrolling effects for better visual impact
+- **Sakura Effects**: Optimized loading and performance for background effects
+- **Color Consistency**: Fixed color flashes and layout shifts on initial load
+- **Gradient Text**: Enhanced gradient text effects with proper CSS properties
+
+#### Technical Improvements
+
+- **CSS Property Conflicts**: Resolved background vs backgroundClip conflicts
+- **Layout Stability**: Fixed hero section layout shifts during parallax initialization
+- **Theme-Aware Components**: All components now use dynamic color system
+- **Performance Optimization**: Improved loading times and reduced layout shifts
+
+#### Component Updates
+
+- **Skill Badges**: Updated to use theme-aware color system with better contrast
+- **Footer Text**: Fixed gradient text visibility across themes
+- **Navigation**: Enhanced with theme-aware colors and effects
+- **Technical Details Modal**: Complete design system overhaul with enhanced UX
+- **Scroll Indicator**: Complete redesign with enhanced hover effects and improved UX
+
+#### Technical Details Modal Overhaul
+
+The technical details modal has undergone a comprehensive redesign to align with the design system and improve user experience:
+
+##### Design System Compliance
+
+- **Badge Styling Consistency**: All badges now match UnifiedCard styling patterns
+  - Tools badges: `size="sm"`, `variant="filled"` (matching AI tools in UnifiedCard)
+  - Components badges: `size="sm"`, `variant="outline"` (matching technologies in UnifiedCard)
+  - Removed custom styling overrides in favor of BadgeWithTooltip defaults
+  - Leveraged built-in hover effects with scale(1.05) and shadow
+- **Visual Cleanup**: Removed all `withBorder` props and border styles from box elements
+  - Clean up visual clutter while maintaining card structure
+  - Keep essential borders only for tab folder effect
+  - Maintain box shadows for depth and visual hierarchy
+
+##### Modal Size & Layout Improvements
+
+- **Compact Design**: Reduced modal width from 22% to 20% for more compact display
+- **Height Optimization**: Set to 70vh for better content visibility and improved user experience
+- **Scroll Behavior**: Fixed header stays fixed while only body content scrolls
+  - Header uses `flex-shrink: 0` to prevent shrinking
+  - Body has `overflow-y: auto` and `flex: 1` for proper scrolling
+  - Content uses `overflow: hidden` to contain scroll within body area
+- **Responsive Design**: Proper height calculations for different screen sizes
+
+##### User Experience Enhancements
+
+- **Scroll Indicator Integration**: Modal state tracking via React Context
+  - Hide scroll indicator when technical details modal is open
+  - Use React context instead of DOM detection for better performance
+  - Add `hideWhenModalOpen` prop to ScrollIndicator component
+  - Wrap app with ModalProvider for global modal state management
+- **Content Organization**: Removed redundant components section
+  - Components displayed only as badges in architecture section
+  - Eliminated visual duplication and improved efficiency
+  - Cleaner interface with better information hierarchy
+- **Accessibility**: Maintained keyboard navigation and focus management
+  - Proper ARIA attributes and screen reader support
+  - Consistent tab navigation within modal
+  - Focus management during modal open/close
+
+##### Mobile Experience Overhaul
+
+- **Responsive Sizing**: Replaced fixed viewport units with Mantine's responsive sizing system
+  - Changed from `size="20%"` to `size="xl"` for proper mobile width
+  - Implemented responsive heights: 85vh on tablet, 90vh on mobile
+  - Removed fixed width constraints that were too narrow on mobile
+- **Touch-Friendly Interface**: Enhanced touch interaction for mobile devices
+  - Increased tab button height to 48px on mobile (44px on small screens)
+  - Added proper padding (12px-16px) for comfortable touch targets
+  - Optimized font sizes for mobile readability (14px/13px)
+  - Maintained horizontal scrolling for tab navigation when needed
+- **Mobile-Specific CSS**: Added targeted mobile styles with proper breakpoints
+  - Media queries at 768px (tablet) and 480px (small mobile)
+  - Touch-friendly tab styling with `!important` overrides
+  - Proper margin and border radius adjustments for mobile screens
+- **Accessibility**: Maintained keyboard navigation and screen reader support
+  - Preserved ARIA attributes and focus management
+  - Touch targets meet accessibility guidelines (44px minimum)
+  - Proper contrast and readability on mobile devices
+
+##### Technical Implementation
+
+- **Modal Context**: Created `ModalContext` for reliable modal state tracking
+- **CSS Flexbox**: Implemented proper flex layout for content containment
+- **Height Constraints**: Added explicit height constraints to prevent stretching
+- **Performance**: Reduced DOM complexity by removing redundant sections
+- **Theme Integration**: Full theme-aware color system integration
+- **Mobile Optimization**: Complete mobile experience overhaul with responsive design
+
+#### Modal Height Enhancement (Latest Update)
+
+The technical details modal height has been increased to improve user experience and content visibility:
+
+##### Height Optimization
+
+- **Desktop Height**: Increased from 45vh to 70vh for better content visibility
+- **Body Content Area**: Updated to `calc(65vh - 100px)` to accommodate the new modal height
+- **Image Modal**: Also updated to 70vh for consistency across all modal instances
+- **Responsive Design**: Mobile heights remain unchanged (85vh tablet, 90vh mobile) as they were already optimal
+
+##### User Experience Benefits
+
+- **Better Content Visibility**: Users can see more technical details without excessive scrolling
+- **Improved Readability**: More space for content reduces cramped feeling
+- **Enhanced Navigation**: Better visibility of tab navigation and content sections
+- **Consistent Experience**: Both main modal and image preview modal now have matching heights
+
+##### Technical Implementation
+
+- **Component Updates**: Updated `TechnicalDetailsModal.tsx` inline styles for both modal instances
+- **CSS Updates**: Modified `technical-modal.css` to reflect new height values
+- **Maintained Responsiveness**: Preserved existing mobile-optimized heights
+- **Performance**: No impact on performance as only height values were changed
+
+#### Scroll Indicator Enhancements
+
+- **Hover Effects**: Added scale transform and enhanced shadows for better interactivity
+- **Visibility Management**: Stays visible while hovering, auto-hides with smart timeout logic
+- **Theme Integration**: Fully theme-aware with dynamic colors and consistent styling
+- **Clean Design**: Removed status indicator dots for cleaner appearance
+- **Modal Integration**: Hide scroll indicator when technical details modal is open
+  - React Context-based modal state tracking for reliable detection
+  - `hideWhenModalOpen` prop for flexible control
+  - ModalProvider wraps entire app for global state management
+  - Improved performance over DOM-based detection methods
+- **Build Process**: Improved build script to auto-format before building
+
+### Accessibility Enhancements
+
+- **Color Contrast**: Improved contrast ratios for both themes
+- **Theme Fallbacks**: Sakura theme as default with graceful degradation
+- **Screen Reader Support**: Maintained accessibility features across theme changes
+- **Keyboard Navigation**: Theme toggle accessible via keyboard
+
+### Performance Optimizations
+
+#### Loading & Rendering Performance
+
+- **Universal Lazy Loading**: All major sections use code-splitting for optimal bundle size
+- **Skeleton Loading System**: Content-specific loading states with theme-aware colors and shimmer animation
+- **Progressive Enhancement**: Graceful degradation from skeleton to full content
+- **Bundle Optimization**: Modular architecture reduces initial bundle size and improves maintainability
+
+#### Technical Optimizations
+
+- **Effect Loading**: Improved sakura effect loading with better error handling
+- **Parallax Timing**: Optimized parallax element initialization
+- **Color Loading**: Fixed color flash issues on initial page load
+- **Responsive Design**: Loading states and components adapt to different screen sizes
+
+### Technical Implementation Details
+
+#### Skeleton System Architecture
+
+The portfolio implements a sophisticated skeleton loading system built on a foundation of reusable components and theme integration:
+
+##### BaseSkeleton Component
+
+```typescript
+// Foundation component with theme-aware colors and shimmer animation
+const BaseSkeleton = memo(({ height, width, radius, className, animated, variant }) => {
+  const colorCombinations = useColorCombinations();
+
+  return (
+    <Skeleton
+      style={{
+        background: colorCombinations.skeletonGradient,
+        backgroundSize: '200% 100%',
+        animation: animated ? 'skeleton-shimmer 1.5s infinite ease-in-out' : 'none',
+      }}
+      // ... other props
+    />
+  );
+});
+```
+
+##### Theme Integration
+
+- **Dynamic Colors**: Uses `useColorCombinations()` for skeleton gradients and `useCommonColors()` for borders/shadows
+- **CSS Variables**: Fallback values in critical CSS for theme switching
+- **Consistent Theming**: All skeletons adapt automatically to current theme
+
+##### Component Structure
+
+```
+src/components/skeletons/
+├── BaseSkeleton.tsx           # Foundation component
+├── HeroSectionSkeleton.tsx    # Hero section loading state
+├── AboutSectionSkeleton.tsx   # About section loading state
+├── WorkSectionSkeleton.tsx    # Work section loading state
+├── ExperienceSectionSkeleton.tsx # Experience section loading state
+├── ContactSectionSkeleton.tsx # Contact section loading state
+└── index.ts                   # Export barrel
+```
+
+##### Lazy Loading Implementation
+
+```typescript
+// LazyComponents.tsx
+export const LazyHeroSection = dynamic(() => import('./HeroSection'), {
+  loading: () => <HeroSectionSkeleton />,
+  ssr: false,
+});
+```
+
+##### CSS Animation System
+
+```css
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-title {
+  background: var(--skeleton-gradient, fallback);
+  animation: skeleton-shimmer 1.5s infinite ease-in-out;
+}
+```
 
 ## Design Validation
 

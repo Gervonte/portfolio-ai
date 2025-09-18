@@ -74,6 +74,18 @@ export const projectTypeContexts: Record<string, BadgeContext> = {
     ],
     capabilitiesLabel: 'How It Works:',
   },
+  'resume-parsed': {
+    title: 'AI-Parsed Resume Content',
+    description:
+      'This content was automatically extracted and structured from my resume using AI parsing technology',
+    capabilities: [
+      'Automated extraction of skills, experience, and achievements',
+      'Intelligent categorization and organization of information',
+      'Consistent formatting and structure across all sections',
+      'Real-time updates when resume content changes',
+    ],
+    capabilitiesLabel: 'How It Works:',
+  },
 };
 
 // Project status contexts
@@ -86,7 +98,7 @@ export const projectStatusContexts: Record<string, BadgeContext> = {
       'Achieved performance and quality targets',
       'Maintained active user engagement',
     ],
-    capabilitiesLabel: 'What Was Delivered:',
+    capabilitiesLabel: 'What Was Done:',
   },
   'in-progress': {
     title: 'In Active Development',
@@ -564,6 +576,100 @@ export const technologyContexts: Record<string, BadgeContext> = {
       'Creating charts, graphs, and plots',
       'Customizing visualizations for presentations',
       'Analyzing data through visual representation',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+
+  // Framework Versions
+  'Next.js 15+ with App Router': {
+    title: 'Next.js 15+ with App Router',
+    description: 'Latest Next.js with App Router for modern React applications',
+    capabilities: [
+      'Server-side rendering and static generation',
+      'API routes and middleware',
+      'Built-in performance optimizations',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  'Mantine UI Component Library': {
+    title: 'Mantine UI Component Library',
+    description: 'Modern React components library with built-in theming',
+    capabilities: [
+      'Pre-built accessible components',
+      'Consistent design system',
+      'Built-in dark/light theme support',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  'TypeScript with strict validation': {
+    title: 'TypeScript with strict validation',
+    description: 'TypeScript with strict type checking for robust applications',
+    capabilities: [
+      'Compile-time error detection',
+      'Enhanced IDE support and autocomplete',
+      'Self-documenting code with types',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  'Vite Build System': {
+    title: 'Vite Build System',
+    description: 'Fast build tool and development server for modern web projects',
+    capabilities: [
+      'Lightning-fast hot module replacement',
+      'Optimized production builds',
+      'Native ES modules support',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  'Chakra UI Components': {
+    title: 'Chakra UI Components',
+    description: 'Simple, modular and accessible component library for React',
+    capabilities: [
+      'Accessible components out of the box',
+      'Simple and composable API',
+      'Built-in responsive design',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  'Essentia.js Audio Analysis': {
+    title: 'Essentia.js Audio Analysis',
+    description: 'JavaScript library for audio analysis and music information retrieval',
+    capabilities: [
+      'Real-time audio feature extraction',
+      'Music analysis and classification',
+      'Audio fingerprinting and matching',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+
+  // Additional Tools & Services
+  'GitHub Actions for CI/CD': {
+    title: 'GitHub Actions for CI/CD',
+    description: 'Automated continuous integration and deployment workflows',
+    capabilities: [
+      'Automated testing and building',
+      'Scheduled deployments and releases',
+      'Security scanning and code quality checks',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  'Vercel for hosting and deployment': {
+    title: 'Vercel for hosting and deployment',
+    description: 'Cloud platform for frontend frameworks and static sites',
+    capabilities: [
+      'Automatic deployments from Git',
+      'Global CDN and edge functions',
+      'Preview deployments for testing',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  'Web Audio API Integration': {
+    title: 'Web Audio API Integration',
+    description: 'Browser API for processing and synthesizing audio',
+    capabilities: [
+      'Real-time audio processing and analysis',
+      'Audio synthesis and effects',
+      'Low-latency audio manipulation',
     ],
     capabilitiesLabel: 'What It Does:',
   },

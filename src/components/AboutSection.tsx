@@ -1,9 +1,15 @@
 'use client';
 
-import { aboutData, getSkillColor, getSkillsByCategory, type Skill } from '@/lib/about';
-import { colorCombinations } from '@/lib/colors';
 import {
-  Badge,
+  aboutData,
+  getSkillsByCategory,
+  getThemeAwareSkillColor,
+  getThemeAwareSkillVariant,
+  type Skill,
+} from '@/lib/about';
+import { useColorCombinations } from '@/lib/theme-aware-colors';
+import { useTheme } from '@/lib/theme-context';
+import {
   Box,
   Container,
   Divider,
@@ -126,6 +132,8 @@ const getSkillIconComponent = (skillName: string) => {
 };
 
 const AboutSection = memo(() => {
+  const colorCombinations = useColorCombinations();
+  const { currentTheme } = useTheme();
   const skillCategories = getSkillsByCategory();
 
   return (
@@ -134,7 +142,9 @@ const AboutSection = memo(() => {
         {/* Hero Section */}
         <Box ta="center" mb="xl">
           <Group justify="center" mb="md">
-            <Badge
+            <BadgeWithTooltip
+              contextType="projectType"
+              contextValue="resume-parsed"
               leftSection={<IconFileText size={14} />}
               color="sakura"
               variant="light"
@@ -142,14 +152,15 @@ const AboutSection = memo(() => {
               radius="xl"
             >
               Generated from Resume
-            </Badge>
+            </BadgeWithTooltip>
           </Group>
           <Title
             order={1}
             size="h1"
             mb="md"
             style={{
-              background: colorCombinations.sakuraGradient,
+              backgroundImage: colorCombinations.primaryGradient,
+              backgroundSize: '100% 100%',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -184,10 +195,22 @@ const AboutSection = memo(() => {
                     <Group key={skill.name} justify="space-between" align="center">
                       <Group gap="xs" align="center">
                         <ThemeIcon
-                          color={getSkillColor(skill.level)}
-                          variant="light"
+                          color={getThemeAwareSkillColor(skill.level, currentTheme)}
+                          variant={getThemeAwareSkillVariant(skill.level, currentTheme)}
                           size="sm"
                           radius="sm"
+                          style={{
+                            cursor: 'default',
+                            transition: 'all 0.2s ease',
+                          }}
+                          onMouseEnter={e => {
+                            e.currentTarget.style.transform = 'scale(1.1)';
+                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                          }}
+                          onMouseLeave={e => {
+                            e.currentTarget.style.transform = 'scale(1)';
+                            e.currentTarget.style.boxShadow = 'none';
+                          }}
                         >
                           {getSkillIconComponent(skill.name)}
                         </ThemeIcon>
@@ -198,8 +221,8 @@ const AboutSection = memo(() => {
                       <BadgeWithTooltip
                         contextType="skill"
                         contextValue={skill.level}
-                        color={getSkillColor(skill.level)}
-                        variant="light"
+                        color={getThemeAwareSkillColor(skill.level, currentTheme)}
+                        variant={getThemeAwareSkillVariant(skill.level, currentTheme)}
                         size="sm"
                       >
                         {skill.level}
@@ -231,7 +254,22 @@ const AboutSection = memo(() => {
                     <Text fw={600} size="lg">
                       {exp.title}
                     </Text>
-                    <Badge color="sakura" variant="light">
+                    <Badge 
+                      color="sakura" 
+                      variant="light"
+                      style={{
+                        cursor: 'default',
+                        transition: 'all 0.2s ease',
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.transform = 'scale(1.05)';
+                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.transform = 'scale(1)';
+                        e.currentTarget.style.boxShadow = 'none';
+                      }}
+                    >
                       {exp.period}
                     </Badge>
                   </Group>

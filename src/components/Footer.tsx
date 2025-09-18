@@ -1,6 +1,6 @@
 'use client';
 
-import { colorCombinations, commonColors } from '@/lib/colors';
+import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
 import {
   Anchor,
   Box,
@@ -24,13 +24,17 @@ import {
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
+  // Theme-aware colors
+  const colorCombinations = useColorCombinations();
+  const commonColors = useCommonColors();
+
   return (
     <Box
       component="footer"
       style={{
         background: colorCombinations.footerGradient,
         padding: '4rem 0 2rem',
-        marginTop: '4rem',
+        marginTop: '1rem',
         position: 'relative',
         overflow: 'hidden',
         borderTop: `1px solid ${commonColors.borderSecondary}`,
@@ -61,7 +65,8 @@ export default function Footer() {
                 order={2}
                 size="h2"
                 style={{
-                  background: colorCombinations.sakuraGradient,
+                  backgroundImage: colorCombinations.primaryGradient,
+                  backgroundSize: '100% 100%',
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -79,7 +84,7 @@ export default function Footer() {
           <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="xl">
             {/* About Section */}
             <Stack gap="md">
-              <Title order={4} size="h5" c={commonColors.textPrimary}>
+              <Title order={4} c={commonColors.textPrimary}>
                 About
               </Title>
               <Text size="sm" c="dimmed" lh={1.6}>
@@ -96,7 +101,7 @@ export default function Footer() {
 
             {/* Quick Links */}
             <Stack gap="md">
-              <Title order={4} size="h5" c={commonColors.textPrimary}>
+              <Title order={4} c={commonColors.textPrimary}>
                 Navigation
               </Title>
               <Stack gap="xs">
@@ -130,7 +135,7 @@ export default function Footer() {
 
             {/* Connect Section */}
             <Stack gap="md">
-              <Title order={4} size="h5" c={commonColors.textPrimary}>
+              <Title order={4} c={commonColors.textPrimary}>
                 Connect
               </Title>
               <Stack gap="sm">
@@ -203,11 +208,12 @@ export default function Footer() {
 
             {/* Tech Stack */}
             <Stack gap="md">
-              <Title order={4} size="h5" c={commonColors.textPrimary}>
+              <Title order={4} c={commonColors.textPrimary}>
                 Built With
               </Title>
               <Text size="sm" c="dimmed" lh={1.6}>
-                Next.js, TypeScript, Mantine UI, and sakura.js for a modern, responsive experience.
+                Built with Cursor AI, Next.js, TypeScript, Mantine UI, and sakura.js for a modern,
+                responsive experience.
               </Text>
               <Group gap="xs">
                 <IconHeart size={16} style={{ color: commonColors.accentPrimary }} />

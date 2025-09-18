@@ -1,17 +1,17 @@
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import SkipLink from '@/components/SkipLink';
+import ThemeWrapper from '@/components/ThemeWrapper';
 import { generatePageMetadata, generateStructuredData } from '@/lib/seo';
-import { theme } from '@/lib/theme';
-import { MantineProvider } from '@mantine/core';
+import { ThemeProvider } from '@/lib/theme-context';
 import '@mantine/core/styles.css';
-import { Notifications } from '@mantine/notifications';
 import '@mantine/notifications/styles.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import React from 'react';
+import '../styles/critical.css';
 import '../styles/mobile-tooltips.css';
-import '../styles/sakura.css';
+import '../styles/sakura-optimized.css';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -51,14 +51,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* Fonts are handled by Next.js Google Fonts */}
       </head>
-      <body className={inter.className}>
-        <MantineProvider theme={theme}>
-          <Notifications />
-          <SkipLink />
-          <Header links={navigationLinks} />
-          <main style={{ paddingTop: '60px' }}>{children}</main>
-          <Footer />
-        </MantineProvider>
+      <body className={inter.className} style={{ scrollBehavior: 'auto' }}>
+        <ThemeProvider>
+          <ThemeWrapper>
+            <SkipLink />
+            <Header links={navigationLinks} />
+            <main style={{ paddingTop: '60px' }}>{children}</main>
+            <Footer />
+          </ThemeWrapper>
+        </ThemeProvider>
       </body>
     </html>
   );
