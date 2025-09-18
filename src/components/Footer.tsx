@@ -84,7 +84,7 @@ export default function Footer() {
           <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="xl">
             {/* About Section */}
             <Stack gap="md">
-              <Title order={4} size="h5" c={commonColors.textPrimary}>
+              <Title order={4} c={commonColors.textPrimary}>
                 About
               </Title>
               <Text size="sm" c="dimmed" lh={1.6}>
@@ -101,7 +101,7 @@ export default function Footer() {
 
             {/* Quick Links */}
             <Stack gap="md">
-              <Title order={4} size="h5" c={commonColors.textPrimary}>
+              <Title order={4} c={commonColors.textPrimary}>
                 Navigation
               </Title>
               <Stack gap="xs">
@@ -135,7 +135,7 @@ export default function Footer() {
 
             {/* Connect Section */}
             <Stack gap="md">
-              <Title order={4} size="h5" c={commonColors.textPrimary}>
+              <Title order={4} c={commonColors.textPrimary}>
                 Connect
               </Title>
               <Stack gap="sm">
@@ -208,7 +208,7 @@ export default function Footer() {
 
             {/* Tech Stack */}
             <Stack gap="md">
-              <Title order={4} size="h5" c={commonColors.textPrimary}>
+              <Title order={4} c={commonColors.textPrimary}>
                 Built With
               </Title>
               <Text size="sm" c="dimmed" lh={1.6}>

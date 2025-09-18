@@ -52,7 +52,7 @@ const WorkflowsCard = memo(({ section, commonColors }: SectionCardProps) => {
           <IconSettings size={24} />
         </ThemeIcon>
         <Group gap="xs" align="center">
-          <Title order={4} fw={700} c={commonColors.textPrimary}>
+          <Title order={5} fw={700} c={commonColors.textPrimary}>
             CI/CD Workflows
           </Title>
           <MobileTooltip

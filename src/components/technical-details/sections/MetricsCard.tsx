@@ -52,7 +52,7 @@ const MetricsCard = memo(({ section, commonColors }: SectionCardProps) => {
           <IconChartBar size={24} />
         </ThemeIcon>
         <Group gap="xs" align="center">
-          <Title order={4} fw={700} c={commonColors.textPrimary}>
+          <Title order={5} fw={700} c={commonColors.textPrimary}>
             Key Metrics
           </Title>
           <MobileTooltip

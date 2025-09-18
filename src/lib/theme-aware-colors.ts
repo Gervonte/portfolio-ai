@@ -104,11 +104,11 @@ export function useCommonColors() {
     // Border colors (fallback to sakura theme)
     borderPrimary: warmColors[2] ?? '#E8E8E8',
     borderSecondary: primaryColors[1] ?? '#FFCDD2', // sakura[1]
-    borderFocus: primaryColors[3] ?? '#F44336', // sakura[3]
+    borderFocus: primaryColors[5] ?? '#D32F2F', // sakura[5]
     borderPrimaryLight: primaryColors[2] ?? '#EF9A9A', // Primary-themed border (sakura[2])
 
     // Accent colors (fallback to sakura theme)
-    accentPrimary: primaryColors[3] ?? '#F44336', // sakura[3]
+    accentPrimary: primaryColors[5] ?? '#D32F2F', // sakura[5]
     accentSecondary: primaryColors[1] ?? '#FFCDD2', // sakura[1]
     accentPrimaryDark: primaryColors[4] ?? '#E53935', // Darker primary accent (sakura[4])
 

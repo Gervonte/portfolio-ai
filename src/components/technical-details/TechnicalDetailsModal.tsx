@@ -154,6 +154,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
         size="xl"
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
+        role="dialog"
         classNames={{
           content: 'technical-modal-content',
           header: 'technical-modal-header',

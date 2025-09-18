@@ -177,6 +177,7 @@ const ContactSection = memo(() => {
                         href={method.href}
                         target={method.href.startsWith('http') ? '_blank' : undefined}
                         style={{ textDecoration: 'none' }}
+                        aria-label={`${method.title} - ${method.description}`}
                       >
                         <ThemeIcon
                           color="sakura"

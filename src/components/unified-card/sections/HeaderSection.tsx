@@ -48,8 +48,8 @@ const HeaderSection = memo(
                     <Box style={{ flex: 1, minWidth: 0 }}>
                       <Group align="flex-start" gap="md" mb="xs">
                         <Title
-                          order={4}
-                          size="h4"
+                          order={3}
+                          size="h3"
                           c="dark"
                           style={{
                             wordBreak: 'break-word',

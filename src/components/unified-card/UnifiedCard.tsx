@@ -102,7 +102,7 @@ const UnifiedCard = memo(
               <span
                 style={{
                   background: 'var(--mantine-color-sakura-light)',
-                  color: 'var(--mantine-color-sakura)',
+                  color: 'var(--mantine-color-sakura-5)',
                   padding: '4px 8px',
                   borderRadius: '4px',
                   fontSize: '12px',

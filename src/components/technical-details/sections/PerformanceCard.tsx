@@ -58,7 +58,7 @@ const PerformanceCard = memo(({ section, commonColors }: SectionCardProps) => {
               <IconRocket size={24} />
             </ThemeIcon>
             <Group gap="xs" align="center">
-              <Title order={4} fw={700} c={commonColors.textPrimary}>
+              <Title order={5} fw={700} c={commonColors.textPrimary}>
                 Performance Metrics
               </Title>
               <MobileTooltip
@@ -149,7 +149,7 @@ const PerformanceCard = memo(({ section, commonColors }: SectionCardProps) => {
               <IconActivity size={24} />
             </ThemeIcon>
             <Group gap="xs" align="center">
-              <Title order={4} fw={700} c={commonColors.textPrimary}>
+              <Title order={5} fw={700} c={commonColors.textPrimary}>
                 Core Web Vitals
               </Title>
               <MobileTooltip

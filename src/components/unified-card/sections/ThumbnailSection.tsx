@@ -178,7 +178,7 @@ const ThumbnailSection = memo(
                           style={{
                             fontSize: '12px',
                             fontWeight: 500,
-                            color: 'var(--mantine-color-sakura)',
+                            color: 'var(--mantine-color-sakura-5)',
                             marginBottom: '4px',
                           }}
                         >

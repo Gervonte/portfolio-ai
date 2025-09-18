@@ -53,7 +53,7 @@ export const theme = createTheme({
     ],
   },
   primaryColor: 'sakura',
-  primaryShade: 3, // Use sakura[3] as primary
+  primaryShade: 5, // Use sakura[5] as primary for better contrast
   fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
   fontFamilyMonospace: 'JetBrains Mono, Fira Code, Consolas, monospace',
   headings: {

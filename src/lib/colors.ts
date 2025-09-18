@@ -52,10 +52,10 @@ export const commonColors = {
   // Border colors
   borderPrimary: warm[2] ?? '#E8E8E8',
   borderSecondary: sakura[1] ?? '#FFCDD2',
-  borderFocus: sakura[3] ?? '#F44336',
+  borderFocus: sakura[5] ?? '#D32F2F',
 
-  // Accent colors
-  accentPrimary: sakura[3] ?? '#F44336',
+  // Accent colors (using darker shades for better contrast)
+  accentPrimary: sakura[5] ?? '#D32F2F',
   accentSecondary: sakura[1] ?? '#FFCDD2',
 
   // Shadow colors
