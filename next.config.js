@@ -8,7 +8,6 @@ const __dirname = dirname(__filename);
 const nextConfig = {
   experimental: {
     optimizePackageImports: ['@mantine/core', '@mantine/hooks', '@tabler/icons-react'],
-    scrollRestoration: true,
   },
   turbopack: {
     rules: {
