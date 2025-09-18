@@ -1028,6 +1028,26 @@ The technical details modal has undergone a comprehensive redesign to align with
   - Consistent tab navigation within modal
   - Focus management during modal open/close
 
+##### Mobile Experience Overhaul
+
+- **Responsive Sizing**: Replaced fixed viewport units with Mantine's responsive sizing system
+  - Changed from `size="20%"` to `size="xl"` for proper mobile width
+  - Implemented responsive heights: 85vh on tablet, 90vh on mobile
+  - Removed fixed width constraints that were too narrow on mobile
+- **Touch-Friendly Interface**: Enhanced touch interaction for mobile devices
+  - Increased tab button height to 48px on mobile (44px on small screens)
+  - Added proper padding (12px-16px) for comfortable touch targets
+  - Optimized font sizes for mobile readability (14px/13px)
+  - Maintained horizontal scrolling for tab navigation when needed
+- **Mobile-Specific CSS**: Added targeted mobile styles with proper breakpoints
+  - Media queries at 768px (tablet) and 480px (small mobile)
+  - Touch-friendly tab styling with `!important` overrides
+  - Proper margin and border radius adjustments for mobile screens
+- **Accessibility**: Maintained keyboard navigation and screen reader support
+  - Preserved ARIA attributes and focus management
+  - Touch targets meet accessibility guidelines (44px minimum)
+  - Proper contrast and readability on mobile devices
+
 ##### Technical Implementation
 
 - **Modal Context**: Created `ModalContext` for reliable modal state tracking
@@ -1035,6 +1055,7 @@ The technical details modal has undergone a comprehensive redesign to align with
 - **Height Constraints**: Added explicit height constraints to prevent stretching
 - **Performance**: Reduced DOM complexity by removing redundant sections
 - **Theme Integration**: Full theme-aware color system integration
+- **Mobile Optimization**: Complete mobile experience overhaul with responsive design
 
 #### Scroll Indicator Enhancements
 
