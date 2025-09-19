@@ -435,7 +435,7 @@ const AboutSection = memo(() => {
                           contextValue={role.clubAbbreviation}
                           color="sakura"
                           variant="light"
-                          size="sm"
+                          size="md"
                           radius="md"
                         >
                           {role.clubAbbreviation}
