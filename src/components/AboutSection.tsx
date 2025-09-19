@@ -138,7 +138,7 @@ const AboutSection = memo(() => {
   const skillCategories = getSkillsByCategory();
 
   return (
-    <Container size="lg" py="xl">
+    <Container size="lg">
       <Stack gap="xl">
         {/* Hero Section */}
         <Box ta="center" mb="xl">

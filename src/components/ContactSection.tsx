@@ -116,7 +116,7 @@ const ContactSection = memo(() => {
   ];
 
   return (
-    <Container size="lg" py="lg">
+    <Container size="lg">
       <Stack gap="xl">
         {/* Header */}
         <Box ta="center" mb="xl">

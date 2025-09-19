@@ -10,6 +10,7 @@ import {
 } from '@/components/LazyComponents';
 import ParallaxElement from '@/components/ParallaxElement';
 import { ModalProvider } from '@/lib/modal-context';
+import { getSectionSpeed } from '@/lib/parallax-config';
 import { ParallaxProvider } from '@/lib/parallax-context';
 import { useCommonColors } from '@/lib/theme-aware-colors';
 import { Box } from '@mantine/core';
@@ -38,7 +39,7 @@ const HomePage = memo(() => {
         {/* Hero Section */}
         <LazyHeroSection />
 
-        <ParallaxElement speed={1.5} center={true}>
+        <ParallaxElement speed={getSectionSpeed('work')}>
           <Box
             id="work"
             role="region"
@@ -53,19 +54,22 @@ const HomePage = memo(() => {
           </Box>
         </ParallaxElement>
 
-        <ParallaxElement speed={-1.2} center={true}>
+        <ParallaxElement speed={getSectionSpeed('experience')}>
           <Box
             id="experience"
             role="region"
             aria-label="Professional experience"
-            style={{ minHeight: '100vh', padding: '4rem 0' }}
+            style={{
+              minHeight: '100vh',
+              padding: '4rem 0',
+            }}
           >
             <LazyExperienceSection />
           </Box>
         </ParallaxElement>
 
         {/* About Section */}
-        <ParallaxElement speed={-1.5} center={true}>
+        <ParallaxElement speed={getSectionSpeed('about')}>
           <Box
             id="about"
             role="main"
@@ -79,7 +83,7 @@ const HomePage = memo(() => {
           </Box>
         </ParallaxElement>
 
-        <ParallaxElement speed={1.8} center={true}>
+        <ParallaxElement speed={getSectionSpeed('contact')}>
           <Box
             id="contact"
             role="region"

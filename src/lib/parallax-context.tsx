@@ -42,7 +42,7 @@ interface ParallaxProviderProps {
 
 export const ParallaxProvider: React.FC<ParallaxProviderProps> = ({ children }) => {
   const [isReducedMotion, setIsReducedMotion] = useState(false);
-  const [globalSpeedMultiplier, setGlobalSpeedMultiplier] = useState(2.0);
+  const [globalSpeedMultiplier, setGlobalSpeedMultiplier] = useState(1.0);
   const rellaxInstances = useRef<Set<RellaxInstance>>(new Set());
 
   useEffect(() => {
@@ -67,25 +67,12 @@ export const ParallaxProvider: React.FC<ParallaxProviderProps> = ({ children }) 
     options: { center?: boolean; horizontal?: boolean } = {}
   ): RellaxInstance | null => {
     if (isReducedMotion || typeof window === 'undefined') {
-      console.log('ParallaxContext: Skipping Rellax creation - reduced motion or SSR');
       return null;
     }
 
     try {
       const adjustedSpeed = speed * globalSpeedMultiplier;
       const { center = false, horizontal = false } = options;
-      console.log(
-        'ParallaxContext: Creating Rellax instance for element:',
-        element,
-        'with base speed:',
-        speed,
-        'adjusted speed:',
-        adjustedSpeed,
-        'center:',
-        center,
-        'horizontal:',
-        horizontal
-      );
       const instance = new Rellax(element, {
         speed: adjustedSpeed,
         center: center,
@@ -95,7 +82,6 @@ export const ParallaxProvider: React.FC<ParallaxProviderProps> = ({ children }) 
         horizontal: horizontal,
       });
 
-      console.log('ParallaxContext: Rellax instance created:', instance);
       rellaxInstances.current.add(instance);
       return instance;
     } catch (error) {
