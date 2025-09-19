@@ -55,52 +55,52 @@
   "skills": [
     {
       "name": "Python",
-      "level": "expert",
+      "level": "advanced",
       "category": "backend"
     },
     {
       "name": "TypeScript",
-      "level": "expert",
+      "level": "advanced",
       "category": "frontend"
     },
     {
       "name": "JavaScript",
-      "level": "expert",
+      "level": "advanced",
       "category": "frontend"
     },
     {
       "name": "React",
-      "level": "expert",
+      "level": "advanced",
       "category": "frontend"
     },
     {
       "name": "Node.js",
-      "level": "expert",
+      "level": "advanced",
       "category": "backend"
     },
     {
       "name": "Express",
-      "level": "expert",
+      "level": "advanced",
       "category": "backend"
     },
     {
       "name": "HTML",
-      "level": "expert",
+      "level": "advanced",
       "category": "frontend"
     },
     {
       "name": "CSS",
-      "level": "expert",
+      "level": "advanced",
       "category": "frontend"
     },
     {
       "name": "REST APIs",
-      "level": "expert",
+      "level": "advanced",
       "category": "backend"
     },
     {
       "name": "PostgreSQL",
-      "level": "expert",
+      "level": "advanced",
       "category": "backend"
     },
     {
@@ -110,12 +110,22 @@
     },
     {
       "name": "Git",
-      "level": "expert",
+      "level": "advanced",
       "category": "devops"
     },
     {
       "name": "GitHub Actions",
       "level": "advanced",
+      "category": "devops"
+    },
+    {
+      "name": "Vercel",
+      "level": "intermediate",
+      "category": "devops"
+    },
+    {
+      "name": "Sentry",
+      "level": "intermediate",
       "category": "devops"
     }
   ]

@@ -86,6 +86,24 @@ const getCategoryDisplayName = (category: string) => {
   }
 };
 
+// Utility function to get ELI5 description for category
+const getCategoryELI5Description = (category: string): string => {
+  switch (category) {
+    case 'frontend':
+      return 'What users see and click on';
+    case 'backend':
+      return 'The hidden engine that powers everything';
+    case 'devops':
+      return 'Getting software from code to users';
+    case 'tools':
+      return 'The digital toolbox that helps developers work smarter';
+    case 'soft':
+      return 'The people skills that make technical work successful';
+    default:
+      return 'Essential skills for modern development';
+  }
+};
+
 // Utility function to get skill icon component
 const getSkillIconComponent = (skillName: string) => {
   const skillLower = skillName.toLowerCase();
@@ -184,6 +202,8 @@ const AboutSection = memo(() => {
               <UnifiedCard
                 key={category}
                 title={`${getCategoryDisplayName(category)} Skills`}
+                subtitle={getCategoryELI5Description(category)}
+                subtitleColor="dimmed"
                 headerIcon={getCategoryIconComponent(category as Skill['category'])}
                 headerIconColor="sakura"
                 variant="outlined"

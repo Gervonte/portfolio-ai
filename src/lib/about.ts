@@ -1,4 +1,5 @@
 import aboutMetadata from '@/data/about-metadata.json';
+import manualAdditions from '@/data/manual-additions.json';
 
 // Type definitions
 export interface Skill {
@@ -61,8 +62,36 @@ export interface AboutData {
   leadership: Leadership[];
 }
 
-// Export the data
-export const aboutData = aboutMetadata as AboutData;
+// Helper function to deduplicate skills by name
+const deduplicateSkills = (skills: Skill[]): Skill[] => {
+  const seen = new Set<string>();
+  return skills.filter(skill => {
+    if (seen.has(skill.name)) {
+      return false;
+    }
+    seen.add(skill.name);
+    return true;
+  });
+};
+
+// Merge data from both files
+const mergedData: AboutData = {
+  personalInfo: aboutMetadata.personalInfo,
+  skills: deduplicateSkills([
+    ...aboutMetadata.skills,
+    ...(manualAdditions.skills || []),
+  ] as Skill[]),
+  experience: [...aboutMetadata.experience, ...(manualAdditions.experience || [])],
+  education: [...aboutMetadata.education, ...(manualAdditions.education || [])],
+  researchProjects: [
+    ...aboutMetadata.researchProjects,
+    ...(manualAdditions.researchProjects || []),
+  ],
+  leadership: [...aboutMetadata.leadership, ...(manualAdditions.leadership || [])],
+};
+
+// Export the merged data
+export const aboutData = mergedData;
 
 // Utility functions
 export const getSkillsByCategory = (): Record<string, Skill[]> => {
