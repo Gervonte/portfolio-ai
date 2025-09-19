@@ -46,11 +46,11 @@ This document serves as a comprehensive index of all documentation files in the 
 
 ## 📊 Data Documentation
 
-| File                                                           | Purpose                       | Audience   | Last Updated |
-| -------------------------------------------------------------- | ----------------------------- | ---------- | ------------ |
-| [`src/data/README.md`](./src/data/README.md)                   | Data structure documentation  | Developers | -            |
-| [`src/data/README-about.md`](./src/data/README-about.md)       | About section data format     | Developers | -            |
-| [`src/data/skills-tracking.md`](./src/data/skills-tracking.md) | Skills tracking and decisions | Developers | Sep 2025     |
+| File                                                           | Purpose                              | Audience   | Last Updated |
+| -------------------------------------------------------------- | ------------------------------------ | ---------- | ------------ |
+| [`src/data/README.md`](./src/data/README.md)                   | Data structure documentation         | Developers | -            |
+| [`src/data/README-about.md`](./src/data/README-about.md)       | About section data format & workflow | Developers | -            |
+| [`src/data/skills-tracking.md`](./src/data/skills-tracking.md) | Skills tracking and decisions        | Developers | Sep 2025     |
 
 ---
 
