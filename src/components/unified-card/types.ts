@@ -116,6 +116,7 @@ export interface HeaderSectionProps {
   headerIcon?: ReactNode;
   headerIconColor: string;
   infoBoxDescription: boolean;
+  timeline?: string;
   /** Heading order for the title (1-6). Defaults to 3. Should align with document hierarchy. */
   titleHeadingOrder?: 1 | 2 | 3 | 4 | 5 | 6;
 }

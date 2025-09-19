@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Group, Stack, Text, ThemeIcon, Title } from '@mantine/core';
+import { Badge, Box, Group, Stack, Text, ThemeIcon, Title } from '@mantine/core';
 import { memo } from 'react';
 import { MobileTooltip } from '../../MobileTooltip';
 import { HeaderSectionProps } from '../types';
@@ -14,6 +14,7 @@ const HeaderSection = memo(
     headerIcon,
     headerIconColor,
     infoBoxDescription,
+    timeline,
     titleHeadingOrder = 3,
   }: HeaderSectionProps) => {
     return (
@@ -47,7 +48,7 @@ const HeaderSection = memo(
                       </ThemeIcon>
                     )}
                     <Box style={{ flex: 1, minWidth: 0 }}>
-                      <Group align="flex-start" gap="md" mb="xs">
+                      <Group align="center" gap="md" mb="xs">
                         <Title
                           order={titleHeadingOrder}
                           size="h3"
@@ -204,6 +205,28 @@ const HeaderSection = memo(
             </Stack>
           </Box>
         </Group>
+        {/* Timeline badge for work experience only */}
+        {timeline && infoBoxDescription && (
+          <Badge
+            color="sakura"
+            variant="light"
+            size="sm"
+            style={{
+              cursor: 'default',
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            {timeline}
+          </Badge>
+        )}
       </Group>
     );
   }
