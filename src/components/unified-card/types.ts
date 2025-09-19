@@ -46,6 +46,7 @@ export interface UnifiedCardProps {
   // Content
   title: string;
   subtitle?: string;
+  subtitleColor?: string;
   description?: string;
   longDescription?: string;
 
@@ -111,6 +112,7 @@ export interface ThumbnailSectionProps {
 export interface HeaderSectionProps {
   title: string;
   subtitle?: string;
+  subtitleColor?: string;
   description?: string;
   longDescription?: string;
   headerIcon?: ReactNode;

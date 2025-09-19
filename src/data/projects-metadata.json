@@ -37,7 +37,7 @@
         "Comprehensive error handling and conflict resolution"
       ],
       "aiTools": ["Claude AI", "GitHub Copilot", "ChatGPT", "Cursor"],
-      "timeline": "3 weeks",
+      "timeline": "2 weeks",
       "category": "Full Stack Web Development",
       "enableTechnicalDetails": true,
       "technicalDetails": {

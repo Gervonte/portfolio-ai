@@ -9,6 +9,7 @@ const HeaderSection = memo(
   ({
     title,
     subtitle,
+    subtitleColor,
     description,
     longDescription,
     headerIcon,
@@ -63,7 +64,7 @@ const HeaderSection = memo(
                         {subtitle && (
                           <Text
                             size="md"
-                            c="sakura"
+                            c={subtitleColor || 'sakura'}
                             fw={400}
                             style={{
                               wordBreak: 'break-word',
@@ -173,7 +174,7 @@ const HeaderSection = memo(
                       {subtitle && (
                         <Text
                           size="sm"
-                          c="sakura"
+                          c={subtitleColor || 'sakura'}
                           style={{
                             wordBreak: 'break-word',
                             lineHeight: 1.3,

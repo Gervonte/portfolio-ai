@@ -17,6 +17,7 @@ const UnifiedCard = memo(
   ({
     title,
     subtitle,
+    subtitleColor,
     description,
     longDescription,
     thumbnail,
@@ -90,6 +91,7 @@ const UnifiedCard = memo(
           <HeaderSection
             title={title}
             subtitle={subtitle}
+            subtitleColor={subtitleColor}
             description={description}
             longDescription={longDescription}
             headerIcon={headerIcon}

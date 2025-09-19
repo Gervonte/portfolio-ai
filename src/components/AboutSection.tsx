@@ -319,10 +319,11 @@ const AboutSection = memo(() => {
               <UnifiedCard
                 key={index}
                 title={project.title}
-                subtitle={project.period}
-                description={project.description}
+                subtitle={project.description}
+                subtitleColor="dimmed"
                 headerIcon={<IconTarget size={20} />}
                 headerIconColor="sakura"
+                timeline={project.period}
                 technologies={project.technologies.map(tech => ({
                   name: tech,
                   color: 'sakura',
@@ -330,6 +331,7 @@ const AboutSection = memo(() => {
                   contextValue: tech,
                 }))}
                 achievements={project.achievements}
+                professionalAchievements={true}
                 variant="default"
                 size="lg"
                 interactive={false}

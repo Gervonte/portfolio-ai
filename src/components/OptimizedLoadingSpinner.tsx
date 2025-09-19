@@ -1,5 +1,6 @@
 'use client';
 
+import { useWarmColors } from '@/lib/theme-aware-colors';
 import { Box, Skeleton } from '@mantine/core';
 import { memo } from 'react';
 
@@ -19,6 +20,7 @@ const OptimizedLoadingSpinner = memo(
     className = '',
     'aria-label': ariaLabel = 'Loading content',
   }: OptimizedLoadingSpinnerProps) => {
+    const warmColors = useWarmColors();
     return (
       <Box
         className={`loading-placeholder ${className}`}
@@ -39,7 +41,7 @@ const OptimizedLoadingSpinner = memo(
             height={60}
             radius="md"
             style={{
-              background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
+              background: `linear-gradient(90deg, ${warmColors[1] ?? '#F5F5F5'} 25%, ${warmColors[2] ?? '#E8E8E8'} 50%, ${warmColors[1] ?? '#F5F5F5'} 75%)`,
               backgroundSize: '200% 100%',
               animation: 'loading 1.5s infinite',
             }}
@@ -57,7 +59,12 @@ const OptimizedLoadingSpinner = memo(
 
           @media (prefers-color-scheme: dark) {
             .loading-placeholder :global(.mantine-Skeleton-root) {
-              background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+              background: linear-gradient(
+                90deg,
+                ${warmColors[6] ?? '#1A1A1A'} 25%,
+                ${warmColors[5] ?? '#2C2C2C'} 50%,
+                ${warmColors[6] ?? '#1A1A1A'} 75%
+              );
               background-size: 200% 100%;
             }
           }
