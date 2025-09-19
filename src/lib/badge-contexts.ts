@@ -22,7 +22,7 @@ export const skillLevelContexts: Record<string, BadgeContext> = {
   },
   intermediate: {
     title: 'Getting the Hang of It',
-    description: 'You can build things and solve problems on your own',
+    description: 'I can build things and solve problems on your own',
     capabilities: [
       'Building real projects that work',
       'Debugging issues when they come up',
@@ -32,7 +32,7 @@ export const skillLevelContexts: Record<string, BadgeContext> = {
   },
   advanced: {
     title: 'Pretty Confident',
-    description: "You've got solid skills and can tackle most challenges",
+    description: "I've got solid skills and can tackle most challenges",
     capabilities: [
       'Building complex features',
       'Optimizing performance',
@@ -41,8 +41,8 @@ export const skillLevelContexts: Record<string, BadgeContext> = {
     capabilitiesLabel: 'What I Can Do:',
   },
   expert: {
-    title: 'Really Know Your Stuff',
-    description: "You're the person others come to for help",
+    title: 'Really Know My Stuff',
+    description: "I'm the person others come to for help",
     capabilities: [
       'Designing system architecture',
       'Mentoring other developers',

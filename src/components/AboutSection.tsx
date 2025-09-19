@@ -19,7 +19,6 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  ThemeIcon,
   Title,
 } from '@mantine/core';
 import {
@@ -39,12 +38,14 @@ import {
   IconDatabase,
   IconFileText,
   IconSchool,
+  IconShield,
   IconTarget,
   IconTools,
   IconUsers,
 } from '@tabler/icons-react';
 import { memo } from 'react';
 import BadgeWithTooltip from './BadgeWithTooltip';
+import ThemeIconWithTooltip from './ThemeIconWithTooltip';
 import UnifiedCard from './UnifiedCard';
 
 // Use data from metadata file
@@ -143,6 +144,10 @@ const getSkillIconComponent = (skillName: string) => {
       return <IconBrandGit size={16} />;
     case 'github actions':
       return <IconBrandGithub size={16} />;
+    case 'vercel':
+      return <IconCloud size={16} />;
+    case 'sentry':
+      return <IconShield size={16} />;
 
     // Default fallback
     default:
@@ -215,26 +220,15 @@ const AboutSection = memo(() => {
                   {categorySkills.map(skill => (
                     <Group key={skill.name} justify="space-between" align="center">
                       <Group gap="xs" align="center">
-                        <ThemeIcon
+                        <ThemeIconWithTooltip
+                          technologyName={skill.name}
                           color={getThemeAwareSkillColor(skill.level, currentTheme)}
                           variant={getThemeAwareSkillVariant(skill.level, currentTheme)}
                           size="sm"
                           radius="sm"
-                          style={{
-                            cursor: 'default',
-                            transition: 'all 0.2s ease',
-                          }}
-                          onMouseEnter={e => {
-                            e.currentTarget.style.transform = 'scale(1.1)';
-                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-                          }}
-                          onMouseLeave={e => {
-                            e.currentTarget.style.transform = 'scale(1)';
-                            e.currentTarget.style.boxShadow = 'none';
-                          }}
                         >
                           {getSkillIconComponent(skill.name)}
-                        </ThemeIcon>
+                        </ThemeIconWithTooltip>
                         <Text size="sm" fw={500}>
                           {skill.name}
                         </Text>

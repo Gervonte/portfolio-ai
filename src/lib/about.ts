@@ -74,7 +74,21 @@ const deduplicateSkills = (skills: Skill[]): Skill[] => {
   });
 };
 
+// Helper function to deduplicate research projects by title
+const deduplicateResearchProjects = (projects: ResearchProject[]): ResearchProject[] => {
+  const seen = new Set<string>();
+  return projects.filter(project => {
+    if (seen.has(project.title)) {
+      return false;
+    }
+    seen.add(project.title);
+    return true;
+  });
+};
+
 // Merge data from both files
+// about-metadata.json: Auto-generated from resume parsing (DO NOT EDIT)
+// manual-additions.json: Manual additions and custom data (EDIT THIS)
 const mergedData: AboutData = {
   personalInfo: aboutMetadata.personalInfo,
   skills: deduplicateSkills([
@@ -83,10 +97,10 @@ const mergedData: AboutData = {
   ] as Skill[]),
   experience: [...aboutMetadata.experience, ...(manualAdditions.experience || [])],
   education: [...aboutMetadata.education, ...(manualAdditions.education || [])],
-  researchProjects: [
-    ...aboutMetadata.researchProjects,
+  researchProjects: deduplicateResearchProjects([
     ...(manualAdditions.researchProjects || []),
-  ],
+    ...aboutMetadata.researchProjects,
+  ]),
   leadership: [...aboutMetadata.leadership, ...(manualAdditions.leadership || [])],
 };
 
