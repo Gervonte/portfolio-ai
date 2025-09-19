@@ -2,8 +2,8 @@
 
 import { Box, Group, Text } from '@mantine/core';
 import { memo } from 'react';
-import { formatSectionTitle } from './utils';
 import { TabNavigationProps } from './types';
+import { formatSectionTitle } from './utils';
 
 const TabNavigation = memo(
   ({ technicalSections, activeTab, onTabChange, commonColors }: TabNavigationProps) => {
@@ -15,9 +15,9 @@ const TabNavigation = memo(
           margin: '0 -1rem',
           borderBottom: 'none',
           display: 'flex',
-          justifyContent: 'center',
+          justifyContent: 'flex-start',
           width: 'calc(100% + 2rem)',
-          minHeight: '64px',
+          minHeight: '56px',
           overflowX: 'auto',
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
@@ -48,12 +48,12 @@ const TabNavigation = memo(
             style={{
               fontWeight: 600,
               transition: 'all 0.2s ease-in-out',
-              padding: 'var(--mantine-spacing-sm) var(--mantine-spacing-md)',
-              fontSize: 'var(--mantine-font-size-sm)',
+              padding: 'var(--mantine-spacing-xs) var(--mantine-spacing-sm)',
+              fontSize: 'clamp(var(--mantine-font-size-xs), 2.5vw, var(--mantine-font-size-sm))',
               color: activeTab === key ? commonColors.accentPrimary : commonColors.textSecondary,
               background: activeTab === key ? commonColors.backgroundCard : 'transparent',
-              flex: '1 1 0',
-              minWidth: '0',
+              flex: '0 0 auto',
+              minWidth: 'max-content',
               textAlign: 'center',
               display: 'flex',
               alignItems: 'center',
@@ -65,7 +65,7 @@ const TabNavigation = memo(
               borderBottom: activeTab === key ? 'none' : `2px solid ${commonColors.borderPrimary}`,
               cursor: 'pointer',
               height: '100%',
-              minHeight: '56px',
+              minHeight: '48px',
               whiteSpace: 'nowrap',
               transform: activeTab === key ? 'scale(1.01)' : 'scale(1)',
               boxShadow:
@@ -97,9 +97,17 @@ const TabNavigation = memo(
               }
             }}
           >
-            <Group gap="sm" align="center" wrap="nowrap">
+            <Group gap="xs" align="center" wrap="nowrap">
               {icon}
-              <Text size="sm" fw={600}>
+              <Text
+                size="sm"
+                fw={600}
+                style={{
+                  fontSize:
+                    'clamp(var(--mantine-font-size-xs), 2.5vw, var(--mantine-font-size-sm))',
+                  lineHeight: 1.2,
+                }}
+              >
                 {formatSectionTitle(key)}
               </Text>
             </Group>

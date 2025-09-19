@@ -8,7 +8,7 @@ import { getTechnicalIcon } from './utils';
 const ModalHeader = memo(({ project, activeTab, commonColors }: ModalHeaderProps) => {
   return (
     <Box>
-      <Group gap="sm" align="flex-start" mb="sm" wrap="wrap">
+      <Group gap="sm" align="flex-start" mb="lg" wrap="wrap">
         <ThemeIcon
           color={commonColors.accentPrimary}
           variant="light"

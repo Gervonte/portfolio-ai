@@ -13,6 +13,16 @@
   --modal-tab-small-mobile-font-size: 13px;
 }
 
+/* Hide scrollbar for tab navigation */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
 .technical-modal-content {
   max-height: 70vh;
   height: 70vh;
@@ -54,6 +64,8 @@
     min-height: var(--modal-tab-mobile-height) !important;
     padding: var(--modal-tab-mobile-padding) !important;
     font-size: var(--modal-tab-mobile-font-size) !important;
+    flex: 0 0 auto !important;
+    min-width: max-content !important;
   }
 }
 
@@ -74,5 +86,7 @@
     min-height: var(--modal-tab-small-mobile-height) !important;
     padding: var(--modal-tab-small-mobile-padding) !important;
     font-size: var(--modal-tab-small-mobile-font-size) !important;
+    flex: 0 0 auto !important;
+    min-width: max-content !important;
   }
 }
