@@ -14,24 +14,11 @@ import { getSectionSpeed } from '@/lib/parallax-config';
 import { ParallaxProvider } from '@/lib/parallax-context';
 import { useCommonColors } from '@/lib/theme-aware-colors';
 import { Box } from '@mantine/core';
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 
 const HomePage = memo(() => {
   // Theme-aware colors
   const commonColors = useCommonColors();
-
-  // Ensure page starts at top on mount and refresh
-  useEffect(() => {
-    // Force scroll to top immediately
-    window.scrollTo(0, 0);
-
-    // Also try after a short delay to override any browser restoration
-    const timer = setTimeout(() => {
-      window.scrollTo(0, 0);
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <ModalProvider>
