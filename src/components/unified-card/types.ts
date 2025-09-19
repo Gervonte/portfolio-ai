@@ -106,7 +106,6 @@ export interface ThumbnailSectionProps {
   primaryAction?: ActionProps;
   interactive: boolean;
   backgroundGradient: string;
-  thumbnailHeight: string;
 }
 
 export interface HeaderSectionProps {
@@ -165,6 +164,5 @@ export interface CardStyles {
 }
 
 export interface SizeConfig {
-  thumbnailHeight: string;
   padding: string;
 }

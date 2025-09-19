@@ -33,22 +33,18 @@ export const getSizeConfig = (size: string): SizeConfig => {
   switch (size) {
     case 'sm':
       return {
-        thumbnailHeight: '120px',
         padding: 'md',
       };
     case 'md':
       return {
-        thumbnailHeight: '160px',
         padding: 'lg',
       };
     case 'lg':
       return {
-        thumbnailHeight: '200px',
         padding: 'xl',
       };
     default:
       return {
-        thumbnailHeight: '160px',
         padding: 'lg',
       };
   }

@@ -14,7 +14,6 @@ const ThumbnailSection = memo(
     primaryAction,
     interactive,
     backgroundGradient,
-    thumbnailHeight,
   }: ThumbnailSectionProps) => {
     return (
       <Box
@@ -28,7 +27,7 @@ const ThumbnailSection = memo(
           : {})}
         style={{
           position: 'relative',
-          height: thumbnailHeight,
+          aspectRatio: '16/9',
           borderRadius: '8px',
           overflow: 'hidden',
           background: backgroundGradient,

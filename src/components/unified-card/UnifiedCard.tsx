@@ -83,7 +83,6 @@ const UnifiedCard = memo(
               primaryAction={primaryAction}
               interactive={interactive}
               backgroundGradient={defaultBackgroundGradient}
-              thumbnailHeight={sizeConfig.thumbnailHeight}
             />
           )}
 
