@@ -10,6 +10,7 @@ import {
 import { useColorCombinations } from '@/lib/theme-aware-colors';
 import { useTheme } from '@/lib/theme-context';
 import {
+  Badge,
   Box,
   Container,
   Divider,
@@ -351,24 +352,60 @@ const AboutSection = memo(() => {
               hoverable={true}
             >
               <Stack gap="md">
-                {education.map((edu, index) => (
-                  <Box key={index}>
-                    <Box style={{ flex: 1 }}>
-                      <Text fw={600} size="md">
-                        {edu.degree}
-                      </Text>
-                      <Text c="sakura" size="sm" mb="xs">
-                        {edu.institution} • {edu.year}
-                      </Text>
-                      {edu.description && (
-                        <Text size="sm" c="gray.6">
-                          {edu.description}
+                {education.map((edu, index) => {
+                  // Extract GPA from description if it exists
+                  const gpaMatch = edu.description?.match(/GPA:\s*([\d.]+)/);
+                  const gpa = gpaMatch ? gpaMatch[1] : null;
+                  const descriptionWithoutGpa = edu.description
+                    ?.replace(/GPA:\s*[\d.]+/, '')
+                    .trim();
+
+                  return (
+                    <Box key={index}>
+                      <Box style={{ flex: 1 }}>
+                        <Group justify="space-between" align="center" mb="xs">
+                          <Text fw={600} size="md">
+                            {edu.degree}
+                          </Text>
+                          {gpa && (
+                            <Badge
+                              color="sakura"
+                              variant="light"
+                              size="md"
+                              radius="md"
+                              style={{
+                                cursor: 'default',
+                                transition: 'all 0.2s ease',
+                              }}
+                              onMouseEnter={e => {
+                                e.currentTarget.style.transform = 'scale(1.05)';
+                                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                              }}
+                              onMouseLeave={e => {
+                                e.currentTarget.style.transform = 'scale(1)';
+                                e.currentTarget.style.boxShadow = 'none';
+                              }}
+                            >
+                              GPA: {gpa}
+                            </Badge>
+                          )}
+                        </Group>
+                        <Text c="sakura" size="sm" mb="xs">
+                          {edu.institution} • {edu.year}
                         </Text>
-                      )}
+                        <Text size="sm" c="gray.6" mb="xs">
+                          {edu.location}
+                        </Text>
+                        {descriptionWithoutGpa && (
+                          <Text size="sm" c="gray.6">
+                            {descriptionWithoutGpa}
+                          </Text>
+                        )}
+                      </Box>
+                      {index < education.length - 1 && <Divider my="md" style={{ opacity: 0 }} />}
                     </Box>
-                    {index < education.length - 1 && <Divider my="md" />}
-                  </Box>
-                ))}
+                  );
+                })}
               </Stack>
             </UnifiedCard>
           </Grid.Col>
@@ -387,11 +424,23 @@ const AboutSection = memo(() => {
                 {leadership.map((role, index) => (
                   <Box key={index}>
                     <Box style={{ flex: 1 }}>
-                      <Text fw={600} size="md">
-                        {role.name}
-                      </Text>
+                      <Group justify="space-between" align="center" mb="xs">
+                        <Text fw={600} size="md">
+                          {role.name}
+                        </Text>
+                        <BadgeWithTooltip
+                          contextType="leadership"
+                          contextValue={role.clubAbbreviation}
+                          color="sakura"
+                          variant="light"
+                          size="sm"
+                          radius="md"
+                        >
+                          {role.clubAbbreviation}
+                        </BadgeWithTooltip>
+                      </Group>
                       <Text c="sakura" size="sm" mb="xs">
-                        {role.organization} • {role.year}
+                        {role.organization}
                       </Text>
                       {role.description && (
                         <Text size="sm" c="gray.6">
@@ -399,7 +448,7 @@ const AboutSection = memo(() => {
                         </Text>
                       )}
                     </Box>
-                    {index < leadership.length - 1 && <Divider my="md" />}
+                    {index < leadership.length - 1 && <Divider my="md" style={{ opacity: 0 }} />}
                   </Box>
                 ))}
               </Stack>

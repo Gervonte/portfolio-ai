@@ -7,7 +7,14 @@ import { memo } from 'react';
 import { MobileTooltip } from './MobileTooltip';
 
 interface BadgeWithTooltipProps extends BadgeProps {
-  contextType: 'skill' | 'projectType' | 'status' | 'technology' | 'aiTool' | 'cache';
+  contextType:
+    | 'skill'
+    | 'projectType'
+    | 'status'
+    | 'technology'
+    | 'aiTool'
+    | 'cache'
+    | 'leadership';
   contextValue: string;
   showCapabilities?: boolean;
 }

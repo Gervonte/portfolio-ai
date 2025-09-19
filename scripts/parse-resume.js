@@ -15,6 +15,7 @@ const __dirname = path.dirname(__filename);
 // Paths
 const resumePath = path.join(__dirname, '../src/assets/resume.txt');
 const outputPath = path.join(__dirname, '../src/data/about-metadata.json');
+const manualAdditionsPath = path.join(__dirname, '../src/data/manual-additions.json');
 
 // Skill level mapping based on context and keywords
 // const skillLevelMap = {
@@ -299,7 +300,7 @@ function determineSkillLevel(skillName) {
     return 'intermediate';
   }
 
-  // Core technologies that are likely expert level
+  // Technologies that are likely advanced
   if (
     [
       'python',
@@ -313,14 +314,6 @@ function determineSkillLevel(skillName) {
       'git',
       'postgresql',
       'rest apis',
-    ].includes(skillLower)
-  ) {
-    return 'expert';
-  }
-
-  // Technologies that are likely advanced
-  if (
-    [
       'api development',
       'unit testing',
       'integration testing',
@@ -329,7 +322,7 @@ function determineSkillLevel(skillName) {
       'product thinking',
     ].includes(skillLower)
   ) {
-    return 'expert';
+    return 'advanced';
   }
 
   // Technologies that are likely intermediate
@@ -342,7 +335,7 @@ function determineSkillLevel(skillName) {
       'model interpretability',
     ].includes(skillLower)
   ) {
-    return 'advanced';
+    return 'intermediate';
   }
 
   // Soft skills
@@ -358,7 +351,7 @@ function determineSkillLevel(skillName) {
     return 'advanced';
   }
 
-  return 'advanced'; // Default
+  return 'intermediate'; // Default - more realistic
 }
 
 function extractExperience(lines) {
@@ -398,9 +391,32 @@ function extractExperience(lines) {
           company: company,
           period: '',
           description: '',
+          longDescription: '',
           technologies: [],
           achievements: [],
         };
+
+        // Add specific enhancements for known companies
+        if (company.includes('NovaCredit')) {
+          currentExperience.description =
+            'Fintech startup building credit access for newcomers to America';
+          currentExperience.longDescription =
+            "NovaCredit bridges the gap between international credit history and US financial systems, helping immigrants and international students establish creditworthiness when traditional lenders can't see their financial track record.\n\nI worked on Credit Passport®, their flagship product that translates foreign credit histories into US-equivalent scores.\n\nThe company also offers Cash Atlas™, Income Navigator, and a unified platform for comprehensive credit solutions.";
+          currentExperience.technologies = [
+            'TypeScript',
+            'JavaScript',
+            'React',
+            'Node.js',
+            'Express',
+            'HTML',
+            'CSS',
+            'REST APIs',
+            'PostgreSQL',
+            'GraphQL',
+            'Git',
+            'GitHub Actions',
+          ];
+        }
       }
       // Check if this is a date line
       else if (currentExperience && line.match(/^[A-Za-z]+ \d{4} - [A-Za-z]+ \d{4}$/)) {
@@ -444,25 +460,34 @@ function extractEducation(lines) {
       // Extract institution and location
       const institutionMatch = institutionPart.match(/^([^,]+),/);
       const institution = institutionMatch ? institutionMatch[1] : institutionPart;
+      const location = institutionMatch
+        ? institutionPart.substring(institutionMatch[0].length).trim()
+        : '';
 
       // Extract degree and year
       const degreeMatch = degreePart.match(/^([^|]+)\|/);
       const degree = degreeMatch ? degreeMatch[1].trim() : degreePart;
 
-      // Look for GPA in next line
+      // Look for GPA and year in next line
       let gpa = '';
+      let year = '';
       if (i + 1 < lines.length) {
         const nextLine = lines[i + 1];
         const gpaMatch = nextLine.match(/GPA\s+([0-9.]+)/);
         if (gpaMatch) {
           gpa = `GPA: ${gpaMatch[1]}`;
         }
+        const yearMatch = nextLine.match(/(\d{4})/);
+        if (yearMatch) {
+          year = yearMatch[1];
+        }
       }
 
       education.push({
         degree: degree,
         institution: institution,
-        year: extractYearFromDegree(degree),
+        location: location,
+        year: year || '2025',
         description: gpa,
       });
     }
@@ -550,9 +575,16 @@ function extractLeadership(lines) {
           leadership.push(currentRole);
         }
 
+        // Extract club abbreviation from parentheses
+        const abbreviationMatch = line.match(/\(([^)]+)\)/);
+        const clubAbbreviation = abbreviationMatch ? abbreviationMatch[1] : '';
+        const nameWithoutAbbreviation = line.replace(/\s*\([^)]+\)/, '');
+
         currentRole = {
-          name: line,
+          name: nameWithoutAbbreviation,
           organization: '',
+          clubAbbreviation: clubAbbreviation,
+          clubDescription: getClubDescription(clubAbbreviation),
           year: '',
           description: '',
         };
@@ -576,6 +608,18 @@ function extractLeadership(lines) {
   return leadership;
 }
 
+// Helper function to get club descriptions
+function getClubDescription(abbreviation) {
+  const clubDescriptions = {
+    ALC: "Alumni Leadership Committee - A group of dedicated alumni who oversee events and initiatives to engage and support the university's alumni community.",
+    NSBE: 'National Society of Black Engineers - A student organization dedicated to increasing the number of culturally responsible Black engineers who excel academically, succeed professionally, and positively impact the community.',
+    IEEE: 'Institute of Electrical and Electronics Engineers - A professional organization for electrical and computer engineering professionals.',
+    ACM: "Association for Computing Machinery - The world's largest educational and scientific computing society.",
+  };
+
+  return clubDescriptions[abbreviation] || `${abbreviation} - Professional organization or club.`;
+}
+
 // Main execution
 function main() {
   try {
@@ -586,6 +630,89 @@ function main() {
 
     // Parse resume
     const parsedData = parseResume(resumeText);
+
+    // Add manual additions that aren't in the resume
+    const manualAdditions = loadManualAdditions();
+    if (manualAdditions) {
+      // Merge leadership entries
+      if (manualAdditions.leadership && manualAdditions.leadership.length > 0) {
+        const resumeLeadershipNames = parsedData.leadership.map(role => role.name);
+        const manualLeadership = manualAdditions.leadership.filter(
+          role => !resumeLeadershipNames.includes(role.name)
+        );
+        parsedData.leadership = [...parsedData.leadership, ...manualLeadership];
+
+        // Sort leadership by year (most recent first), with empty years at the end
+        parsedData.leadership.sort((a, b) => {
+          if (!a.year && !b.year) return 0;
+          if (!a.year) return 1;
+          if (!b.year) return -1;
+          return parseInt(b.year) - parseInt(a.year);
+        });
+      }
+
+      // Merge other sections as needed
+      if (manualAdditions.education && manualAdditions.education.length > 0) {
+        // Merge education entries by updating existing ones and adding new ones
+        parsedData.education = parsedData.education.map(edu => {
+          const manualEdu = manualAdditions.education.find(
+            me => me.degree === edu.degree && me.institution === edu.institution
+          );
+          return manualEdu ? { ...edu, ...manualEdu } : edu;
+        });
+
+        // Add any manual education entries that don't exist in resume
+        const resumeEducationKeys = parsedData.education.map(
+          edu => `${edu.degree} - ${edu.institution}`
+        );
+        const newManualEducation = manualAdditions.education.filter(
+          edu => !resumeEducationKeys.includes(`${edu.degree} - ${edu.institution}`)
+        );
+        parsedData.education = [...parsedData.education, ...newManualEducation];
+      }
+
+      if (manualAdditions.experience && manualAdditions.experience.length > 0) {
+        // Merge experience entries by updating existing ones and adding new ones
+        parsedData.experience = parsedData.experience.map(exp => {
+          const manualExp = manualAdditions.experience.find(
+            me => me.title === exp.title && me.company === exp.company
+          );
+          return manualExp ? { ...exp, ...manualExp } : exp;
+        });
+
+        // Add any manual experience entries that don't exist in resume
+        const resumeExperienceKeys = parsedData.experience.map(
+          exp => `${exp.title} - ${exp.company}`
+        );
+        const newManualExperience = manualAdditions.experience.filter(
+          exp => !resumeExperienceKeys.includes(`${exp.title} - ${exp.company}`)
+        );
+        parsedData.experience = [...parsedData.experience, ...newManualExperience];
+      }
+
+      if (manualAdditions.researchProjects && manualAdditions.researchProjects.length > 0) {
+        // Merge research projects by updating existing ones and adding new ones
+        parsedData.researchProjects = parsedData.researchProjects.map(proj => {
+          const manualProj = manualAdditions.researchProjects.find(mp => mp.title === proj.title);
+          return manualProj ? { ...proj, ...manualProj } : proj;
+        });
+
+        // Add any manual research projects that don't exist in resume
+        const resumeProjectNames = parsedData.researchProjects.map(proj => proj.title);
+        const newManualProjects = manualAdditions.researchProjects.filter(
+          proj => !resumeProjectNames.includes(proj.title)
+        );
+        parsedData.researchProjects = [...parsedData.researchProjects, ...newManualProjects];
+      }
+
+      if (manualAdditions.skills && manualAdditions.skills.length > 0) {
+        const resumeSkillNames = parsedData.skills.map(skill => skill.name);
+        const manualSkills = manualAdditions.skills.filter(
+          skill => !resumeSkillNames.includes(skill.name)
+        );
+        parsedData.skills = [...parsedData.skills, ...manualSkills];
+      }
+    }
 
     // Write to output file
     fs.writeFileSync(outputPath, JSON.stringify(parsedData, null, 2));
@@ -602,6 +729,19 @@ function main() {
     console.error('❌ Error parsing resume:', error.message);
     process.exit(1);
   }
+}
+
+// Helper function to load manual additions
+function loadManualAdditions() {
+  try {
+    if (fs.existsSync(manualAdditionsPath)) {
+      const manualData = JSON.parse(fs.readFileSync(manualAdditionsPath, 'utf8'));
+      return manualData;
+    }
+  } catch (error) {
+    console.log('⚠️  Could not load manual additions file, skipping manual entries');
+  }
+  return null;
 }
 
 // Run if called directly

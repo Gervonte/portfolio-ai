@@ -753,6 +753,34 @@ export const cacheContexts: Record<string, BadgeContext> = {
   },
 };
 
+// Leadership contexts
+export const leadershipContexts: Record<string, BadgeContext> = {
+  ALC: {
+    title: 'Alumni Leadership Committee (ALC)',
+    description:
+      "A group of dedicated alumni who oversee events and initiatives to engage and support the university's alumni community.",
+    capabilities: [
+      'Organizing alumni events and networking opportunities',
+      'Supporting current students and recent graduates',
+      'Maintaining connections between alumni and the university',
+      'Planning fundraising and community engagement initiatives',
+    ],
+    capabilitiesLabel: 'What They Do:',
+  },
+  NSBE: {
+    title: 'National Society of Black Engineers (NSBE)',
+    description:
+      'A student organization dedicated to increasing the number of culturally responsible Black engineers who excel academically, succeed professionally, and positively impact the community.',
+    capabilities: [
+      'Providing academic support and mentorship programs',
+      'Organizing professional development workshops',
+      'Facilitating networking with industry professionals',
+      'Promoting diversity and inclusion in engineering',
+    ],
+    capabilitiesLabel: 'What They Do:',
+  },
+};
+
 // Helper functions
 export const getBadgeContext = (contextType: string, contextValue: string): BadgeContext | null => {
   switch (contextType) {
@@ -768,6 +796,8 @@ export const getBadgeContext = (contextType: string, contextValue: string): Badg
       return aiToolsContexts[contextValue] || null;
     case 'cache':
       return cacheContexts[contextValue] || null;
+    case 'leadership':
+      return leadershipContexts[contextValue] || null;
     default:
       return null;
   }

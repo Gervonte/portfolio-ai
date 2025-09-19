@@ -111,7 +111,7 @@ const ContactSection = memo(() => {
       title: 'Location',
       value: personalInfo.location,
       href: undefined,
-      description: 'Based in Florida, open to relocation',
+      description: 'Based in Central Florida, open to relocation',
     },
   ];
 

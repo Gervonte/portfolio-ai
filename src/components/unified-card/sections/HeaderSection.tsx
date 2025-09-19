@@ -15,7 +15,6 @@ const HeaderSection = memo(
     headerIconColor,
     infoBoxDescription,
     titleHeadingOrder = 3,
-    subtitleHeadingOrder = 4,
   }: HeaderSectionProps) => {
     return (
       <Group justify="space-between" align="flex-start" mb="sm">

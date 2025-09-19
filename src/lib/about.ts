@@ -20,6 +20,7 @@ export interface Experience {
 export interface Education {
   degree: string;
   institution: string;
+  location: string;
   year: string;
   description?: string;
 }
@@ -27,6 +28,8 @@ export interface Education {
 export interface Leadership {
   name: string;
   organization: string;
+  clubAbbreviation: string;
+  clubDescription: string;
   year: string;
   description?: string;
 }
