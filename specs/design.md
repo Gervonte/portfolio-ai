@@ -125,6 +125,16 @@ The portfolio implements a sophisticated theme-aware color system that provides 
 - **usePrimaryColors()**: Returns the primary color palette for current theme
 - **useEffectColors()**: Provides effect colors (pink for sakura, mist for ocean)
 - **useWarmColors()**: Supplies neutral warm colors (consistent across themes)
+
+#### Theme Color Consistency (Updated)
+
+- **Hardcoded Color Elimination**: All hardcoded hex values replaced with theme color references
+- **Component Color Usage**:
+  - `Header.tsx`: Uses `warmColors` for background and `withOpacity` for transparency
+  - `OptimizedLoadingSpinner.tsx`: Theme-aware skeleton gradients for light and dark modes
+  - `colors.ts`: Gradient definitions use theme colors (`sakura[0]`, `warm[1]`, etc.)
+- **UnifiedCard Subtitle Styling**: New `subtitleColor` prop allows flexible color overrides
+- **Fallback System**: All theme colors include fallback hex values for graceful degradation
 - **useEarthColors()**: Provides earth tones (consistent across themes)
 
 #### Semantic Color Mapping
@@ -564,6 +574,33 @@ const oceanTheme = {
 - **Skill Bars**: Animated progress bars with percentages
 - **Tech Stack**: Tag-based layout with category grouping
 - **Proficiency Levels**: Beginner, Intermediate, Advanced, Expert
+
+#### Research Project Cards
+
+- **Layout**: UnifiedCard components with flexible subtitle styling
+- **Header Structure**:
+  - Title as main heading
+  - Description displayed as subtitle with dimmed color (`gray.6`)
+  - Header icon (target icon) with sakura color theming
+- **Timeline Badge**: Period displayed as timeline badge in footer (right-aligned)
+- **Achievements Display**: Plain text format without bullet points (`professionalAchievements=true`)
+- **Technology Tags**: Sakura-themed badges with tooltips
+- **Styling**:
+  - `subtitleColor="dimmed"` for description text
+  - Consistent with theme color system
+  - Hoverable cards with subtle interactions
+
+#### Education & Leadership Cards
+
+- **Layout**: UnifiedCard components with inline badges
+- **GPA Display**: Badge format without tooltips, inline with institution title
+- **Location Information**: Displayed on separate line below institution and year
+- **Club Abbreviations**: Separate badges with tooltips explaining full club names
+- **Timeline**: Year displayed as inline badge, right-aligned
+- **Styling**:
+  - Invisible dividers for clean visual separation
+  - Consistent badge sizing and positioning
+  - Theme-aware color usage
 
 ### Contact Section
 
@@ -1142,6 +1179,29 @@ const getSkillBadgeColor = (level: string, theme: string) => {
 - **Lazy Loading**: Implemented universal lazy loading with content-specific skeleton states
 - **Code Organization**: Reduced `page.tsx` from 254 lines to ~120 lines for better maintainability
 - **Performance**: Bundle splitting and progressive loading for optimal user experience
+
+### UnifiedCard Component Enhancements (Current)
+
+#### Flexible Subtitle Styling
+
+- **New `subtitleColor` Prop**: Added to `UnifiedCardProps` and `HeaderSectionProps`
+- **Dynamic Color Application**: Allows per-card subtitle color customization
+- **Fallback System**: Defaults to `sakura` theme color when `subtitleColor` not specified
+- **Research Projects**: Use `subtitleColor="dimmed"` for description text
+- **Consistent Theming**: Maintains theme system integration while allowing overrides
+
+#### Timeline Badge Positioning
+
+- **Work Experience Cards**: Timeline badges properly positioned right-aligned in header
+- **Research Project Cards**: Timeline badges moved to footer for better visual hierarchy
+- **Flexbox Layout**: Restored proper flexbox structure from `feat-32` implementation
+- **Text Alignment**: Position text now properly inline with titles
+
+#### Achievement Display Options
+
+- **Professional Mode**: Added `professionalAchievements=true` prop to remove bullet points
+- **Research Projects**: Display achievements as plain italic text instead of bulleted lists
+- **Flexible Rendering**: Maintains backward compatibility with existing bulleted format
 
 ### Theme System Implementation
 
