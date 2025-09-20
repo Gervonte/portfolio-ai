@@ -72,3 +72,11 @@ export interface ModalHeaderProps {
   activeTab: string | null;
   commonColors: CommonColors;
 }
+
+// Modal configuration constants
+export const MODAL_CONFIG = {
+  size: '90vw',
+  maxWidth: '1000px',
+  maxHeight: '90vh',
+  imageMaxHeight: '70vh',
+} as const;

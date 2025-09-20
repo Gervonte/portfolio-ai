@@ -19,6 +19,7 @@ import WorkflowsCard from './sections/WorkflowsCard';
 import TabNavigation from './TabNavigation';
 import {
   ExtendedTechnicalSection,
+  MODAL_CONFIG,
   ScreenshotItem,
   TechnicalDetailsModalProps,
   TechnicalSectionWithKey,
@@ -152,8 +153,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
       background: commonColors.backgroundModal,
       border: `1px solid ${commonColors.borderModal}`,
       boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
-      height: '70vh',
-      maxHeight: '70vh',
+      height: MODAL_CONFIG.imageMaxHeight,
+      maxHeight: MODAL_CONFIG.imageMaxHeight,
     },
     body: {
       background: commonColors.backgroundCard,
@@ -331,7 +332,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
       <Modal
         opened={!!selectedImage}
         onClose={() => setSelectedImage(null)}
-        size="90vw"
+        size={MODAL_CONFIG.size}
         centered
         title={
           <Group justify="space-between" w="100%">
@@ -348,10 +349,10 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
             background: commonColors.backgroundModal,
             border: `1px solid ${commonColors.borderModal}`,
             boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
-            maxHeight: '90vh',
+            maxHeight: MODAL_CONFIG.maxHeight,
             padding: 0,
-            maxWidth: '1000px',
-            width: '90vw',
+            maxWidth: MODAL_CONFIG.maxWidth,
+            width: MODAL_CONFIG.size,
           },
           body: {
             background: commonColors.backgroundCard,
@@ -369,7 +370,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
             <Box
               style={{
                 position: 'relative',
-                maxHeight: '70vh',
+                maxHeight: MODAL_CONFIG.imageMaxHeight,
                 overflow: 'hidden',
                 display: 'flex',
                 alignItems: 'center',
@@ -460,7 +461,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 height={800}
                 style={{
                   maxWidth: '100%',
-                  maxHeight: '70vh',
+                  maxHeight: MODAL_CONFIG.imageMaxHeight,
                   width: 'auto',
                   height: 'auto',
                   objectFit: 'contain',
