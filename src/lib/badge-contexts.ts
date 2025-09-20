@@ -22,7 +22,7 @@ export const skillLevelContexts: Record<string, BadgeContext> = {
   },
   intermediate: {
     title: 'Getting the Hang of It',
-    description: 'You can build things and solve problems on your own',
+    description: 'I can build things and solve problems on my own',
     capabilities: [
       'Building real projects that work',
       'Debugging issues when they come up',
@@ -32,7 +32,7 @@ export const skillLevelContexts: Record<string, BadgeContext> = {
   },
   advanced: {
     title: 'Pretty Confident',
-    description: "You've got solid skills and can tackle most challenges",
+    description: "I've got solid skills and can tackle most challenges",
     capabilities: [
       'Building complex features',
       'Optimizing performance',
@@ -41,8 +41,8 @@ export const skillLevelContexts: Record<string, BadgeContext> = {
     capabilitiesLabel: 'What I Can Do:',
   },
   expert: {
-    title: 'Really Know Your Stuff',
-    description: "You're the person others come to for help",
+    title: 'Really Know My Stuff',
+    description: "I'm the person others come to for help",
     capabilities: [
       'Designing system architecture',
       'Mentoring other developers',
@@ -753,6 +753,34 @@ export const cacheContexts: Record<string, BadgeContext> = {
   },
 };
 
+// Leadership contexts
+export const leadershipContexts: Record<string, BadgeContext> = {
+  ALC: {
+    title: 'Alumni Leadership Committee (ALC)',
+    description:
+      "A group of dedicated alumni who oversee events and initiatives to engage and support the university's alumni community.",
+    capabilities: [
+      'Organizing alumni events and networking opportunities',
+      'Supporting current students and recent graduates',
+      'Maintaining connections between alumni and the university',
+      'Planning fundraising and community engagement initiatives',
+    ],
+    capabilitiesLabel: 'What They Do:',
+  },
+  NSBE: {
+    title: 'National Society of Black Engineers (NSBE)',
+    description:
+      'A student organization dedicated to increasing the number of culturally responsible Black engineers who excel academically, succeed professionally, and positively impact the community.',
+    capabilities: [
+      'Providing academic support and mentorship programs',
+      'Organizing professional development workshops',
+      'Facilitating networking with industry professionals',
+      'Promoting diversity and inclusion in engineering',
+    ],
+    capabilitiesLabel: 'What They Do:',
+  },
+};
+
 // Helper functions
 export const getBadgeContext = (contextType: string, contextValue: string): BadgeContext | null => {
   switch (contextType) {
@@ -768,6 +796,8 @@ export const getBadgeContext = (contextType: string, contextValue: string): Badg
       return aiToolsContexts[contextValue] || null;
     case 'cache':
       return cacheContexts[contextValue] || null;
+    case 'leadership':
+      return leadershipContexts[contextValue] || null;
     default:
       return null;
   }
