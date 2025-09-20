@@ -76,7 +76,7 @@ export default function Footer() {
               </Title>
             </Group>
             <Text size="lg" c="dimmed" maw={600} mx="auto" mb="md">
-              2025 M.S. Computer Science Graduate | 2 Years of Series B Fintech Startup Experience
+              M.S. Computer Science | 2 Years of Engineering Experience at Series B Fintech Startup
             </Text>
           </Box>
 

@@ -62,7 +62,8 @@ const HeroSection = memo(() => {
                 role="text"
                 aria-label="Professional summary and qualifications"
               >
-                2025 M.S. Computer Science Graduate | 2 Years of Series B Fintech Startup Experience
+                M.S. Computer Science | 2 Years of Engineering Experience at Series B Fintech
+                Startup
               </Text>
             </ParallaxElement>
             <ParallaxElement speed={getHeroSpeed('buttons')}>

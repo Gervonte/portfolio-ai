@@ -99,7 +99,7 @@ function extractPersonalInfo(lines) {
     linkedin: 'https://www.linkedin.com/in/gervonte-fowler-5a7781158', // Not in resume, using placeholder
     github: githubMatch ? `https://${githubMatch[0]}` : 'https://github.com/gervonte',
     summary:
-      'Passionate full-stack software engineer with expertise in React, Node.js, and AI/ML research. Currently pursuing MS in Computer Science with focus on LLM evaluation and explainable AI systems. Proven track record of shipping production-ready features and leading technical initiatives at fintech startups.',
+      'Passionate full-stack software engineer with expertise in React, Node.js, and AI/ML research. Recently graduated with a MS in Computer Science with project work on LLM evaluation and explainable AI systems. Proven track record of shipping production-ready features.',
   };
 }
 
