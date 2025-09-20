@@ -79,8 +79,6 @@
   ],
   "experience": [
     {
-      "title": "Full Stack Software Engineer",
-      "company": "NovaCredit",
       "period": "August 2020 - June 2022",
       "description": "Fintech startup building credit access for newcomers to America",
       "longDescription": "NovaCredit bridges the gap between international credit history and US financial systems, helping immigrants and international students establish creditworthiness when traditional lenders can't see their financial track record.\n\nI worked on Credit Passport®, their flagship product that translates foreign credit histories into US-equivalent scores.\n\nThe company also offers Cash Atlas™, Income Navigator, and a unified platform for comprehensive credit solutions.",
@@ -164,14 +162,6 @@
     }
   ],
   "leadership": [
-    {
-      "name": "Member, Alumni Leadership Committee",
-      "organization": "Florida Polytechnic University",
-      "clubAbbreviation": "ALC",
-      "clubDescription": "Alumni Leadership Committee - A group of dedicated alumni who oversee events and initiatives to engage and support the university's alumni community.",
-      "year": "2025",
-      "description": "Oversee events and initiatives to engage and support alumni."
-    },
     {
       "name": "Treasurer, National Society of Black Engineers",
       "organization": "Florida Polytechnic University Chapter",
