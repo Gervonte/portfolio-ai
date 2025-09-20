@@ -68,13 +68,13 @@
           "screenshots": ["github-actions.svg", "deployment-pipeline.svg", "security-scan.svg"],
           "description": "Automated pipeline that tests, builds, and deploys code with daily scheduled releases.",
           "workflows": [
-            "Scheduled Daily Deploy (2:00 PM UTC / 9:00 AM EST)",
+            "Scheduled Daily Deploy (2:00 PM UTC / 10:00 AM EST)",
             "Feature Branch → Preview → Main Pipeline",
             "Automated PR Creation & Management",
             "Security Scanning & Performance Monitoring",
             "Branch Protection & Merge Automation"
           ],
-          "deploymentFrequency": "Daily at 9:00 AM EST",
+          "deploymentFrequency": "Daily at 10:00 AM EST",
           "leadTime": "Batch deployment with 30s processing time",
           "branchStrategy": "Feature branches → Preview → Main (scheduled)",
           "automation": [
