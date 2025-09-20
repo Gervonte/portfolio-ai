@@ -47,11 +47,17 @@ export interface SectionCardProps {
   commonColors: CommonColors;
 }
 
+export interface ScreenshotItem {
+  src: string;
+  caption?: string;
+  alt?: string;
+}
+
 export interface ScreenshotGalleryProps {
-  screenshots: string[];
+  screenshots: string[] | ScreenshotItem[];
   sectionKey: string;
   commonColors: CommonColors;
-  onImageSelect: (image: string) => void;
+  onImageSelect: (image: ScreenshotItem) => void;
 }
 
 export interface TabNavigationProps {

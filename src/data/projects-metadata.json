@@ -64,8 +64,19 @@
         },
         "cicd": {
           "enabled": true,
-          "showScreenshots": false,
-          "screenshots": ["github-actions.svg", "deployment-pipeline.svg", "security-scan.svg"],
+          "showScreenshots": true,
+          "screenshots": [
+            {
+              "src": "portfolio-ai/cicd/scheduled-deploy-workflow.png",
+              "caption": "Scheduled Daily Deploy workflow showing successful runs at 10:13 AM with ~2 minute duration",
+              "alt": "GitHub Actions scheduled deployment workflow runs"
+            },
+            {
+              "src": "portfolio-ai/cicd/pr-workflow.png",
+              "caption": "CI/CD pipeline status showing automated checks, deployment status, and merge readiness",
+              "alt": "GitHub Actions CI/CD pipeline status and checks"
+            }
+          ],
           "description": "Automated pipeline that tests, builds, and deploys code with daily scheduled releases.",
           "workflows": [
             "Scheduled Daily Deploy (2:00 PM UTC / 10:00 AM EST)",
@@ -127,14 +138,14 @@
       "technicalDetails": {
         "analytics": {
           "enabled": false,
-          "showScreenshots": false,
+          "showScreenshots": true,
           "screenshots": ["audio-analytics.svg", "processing-metrics.svg"],
           "description": "Tracks user engagement and audio processing metrics including files processed.",
           "metrics": {
-            "pageViews": "800+",
-            "bounceRate": "35%",
-            "avgSessionDuration": "3m 45s",
-            "filesProcessed": "150+"
+            "pageViews": "N/A",
+            "bounceRate": "N/A",
+            "avgSessionDuration": "N/A",
+            "filesProcessed": "N/A"
           }
         },
         "monitoring": {
