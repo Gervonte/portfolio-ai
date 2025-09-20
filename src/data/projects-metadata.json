@@ -3,8 +3,8 @@
     {
       "id": "portfolio-ai",
       "title": "Portfolio AI",
-      "description": "My personal portfolio website with sakura theme, modern animations, and advanced CI/CD pipeline built using Cursor and Next.js for SEO.",
-      "longDescription": "A comprehensive portfolio website built with Next.js, TypeScript, and Mantine UI, featuring AI-assisted development throughout the process. The project showcases both traditional development skills and AI collaboration, with a beautiful sakura theme inspired by mono no aware aesthetics. Includes advanced CI/CD pipeline with scheduled deployments, automated PR management, and technical deep-dive modals showcasing behind-the-scenes development processes.",
+      "description": "AI-assisted portfolio showcasing modern development practices with dynamic themes, automated CI/CD, and interactive technical deep-dives built with Cursor AI and Next.js.",
+      "longDescription": "A sophisticated portfolio website that demonstrates the power of AI-assisted development, built entirely with Cursor AI and Next.js. Features dynamic sakura/ocean themes with mono no aware aesthetics, comprehensive CI/CD automation, and interactive technical deep-dives. Showcases advanced engineering practices including automated PR management, scheduled deployments, data validation with Zod, and performance optimization. The project serves as both a portfolio and a case study of modern AI-human collaboration in software development.",
       "type": "vibe-coded",
       "technologies": [
         "Next.js",
