@@ -43,16 +43,6 @@ export default function ParallaxElement({
 
     // Wait a bit for the element to be fully rendered
     const timer = setTimeout(() => {
-      console.log(
-        'ParallaxElement: Creating Rellax instance with speed:',
-        speed,
-        'multiplier:',
-        globalSpeedMultiplier,
-        'center:',
-        center,
-        'horizontal:',
-        horizontal
-      );
       const instance = createRellaxInstance(elementRef.current!, speed, {
         center,
         horizontal,
@@ -60,9 +50,6 @@ export default function ParallaxElement({
 
       if (instance) {
         instanceRef.current = instance;
-        console.log('ParallaxElement: Rellax instance created successfully');
-      } else {
-        console.log('ParallaxElement: Failed to create Rellax instance');
       }
     }, 200);
 

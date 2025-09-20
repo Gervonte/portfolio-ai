@@ -47,11 +47,17 @@ export interface SectionCardProps {
   commonColors: CommonColors;
 }
 
+export interface ScreenshotItem {
+  src: string;
+  caption?: string;
+  alt?: string;
+}
+
 export interface ScreenshotGalleryProps {
-  screenshots: string[];
+  screenshots: string[] | ScreenshotItem[];
   sectionKey: string;
   commonColors: CommonColors;
-  onImageSelect: (image: string) => void;
+  onImageSelect: (image: ScreenshotItem) => void;
 }
 
 export interface TabNavigationProps {
@@ -66,3 +72,11 @@ export interface ModalHeaderProps {
   activeTab: string | null;
   commonColors: CommonColors;
 }
+
+// Modal configuration constants
+export const MODAL_CONFIG = {
+  size: '90vw',
+  maxWidth: '1000px',
+  maxHeight: '90vh',
+  imageMaxHeight: '70vh',
+} as const;

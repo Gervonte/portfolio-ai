@@ -20,28 +20,22 @@ const HeroSectionSkeleton = memo(() => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        marginBottom: '3rem',
         background: commonColors.backgroundPrimary,
       }}
     >
       <Container size="lg" py="xl">
         <Stack align="center" gap="xl">
           {/* Main Title */}
-          <Box
-            ta="center"
-            mb="md"
-            style={{
-              fontSize: 'clamp(3.5rem, 6vw, 5rem)',
-              margin: '0 auto',
-            }}
-          >
-            <BaseSkeleton height={80} width={600} radius="md" className="skeleton-title" />
+          <Box style={{ maxWidth: '600px', width: '100%' }}>
+            <BaseSkeleton height={80} width="100%" radius="md" className="skeleton-title" />
           </Box>
 
           {/* Subtitle */}
           <Box ta="center" mb="xl" mx="auto" maw={850}>
-            <BaseSkeleton height={32} width="100%" radius="md" />
+            <BaseSkeleton height={24} width="100%" radius="md" />
             <Box mt="xs">
-              <BaseSkeleton height={32} width="90%" radius="md" />
+              <BaseSkeleton height={24} width="90%" radius="md" />
             </Box>
           </Box>
 

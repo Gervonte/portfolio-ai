@@ -17,6 +17,7 @@ const UnifiedCard = memo(
   ({
     title,
     subtitle,
+    subtitleColor,
     description,
     longDescription,
     thumbnail,
@@ -24,7 +25,6 @@ const UnifiedCard = memo(
     headerIconColor = 'sakura',
     statusBadge,
     titleHeadingOrder,
-    subtitleHeadingOrder,
     technologies = [],
     aiTools = [],
     achievements = [],
@@ -83,7 +83,7 @@ const UnifiedCard = memo(
               primaryAction={primaryAction}
               interactive={interactive}
               backgroundGradient={defaultBackgroundGradient}
-              thumbnailHeight={sizeConfig.thumbnailHeight}
+              aspectRatio={sizeConfig.aspectRatio}
             />
           )}
 
@@ -91,42 +91,15 @@ const UnifiedCard = memo(
           <HeaderSection
             title={title}
             subtitle={subtitle}
+            subtitleColor={subtitleColor}
             description={description}
             longDescription={longDescription}
             headerIcon={headerIcon}
             headerIconColor={headerIconColor}
             infoBoxDescription={infoBoxDescription}
+            timeline={timeline}
             titleHeadingOrder={titleHeadingOrder}
-            subtitleHeadingOrder={subtitleHeadingOrder}
           />
-
-          {/* Timeline badge for work experience only */}
-          {timeline && infoBoxDescription && (
-            <div style={{ marginTop: '-1rem', marginBottom: '1rem', textAlign: 'right' }}>
-              <span
-                style={{
-                  background: 'var(--mantine-color-sakura-light)',
-                  color: 'var(--mantine-color-sakura-5)',
-                  padding: '4px 8px',
-                  borderRadius: '4px',
-                  fontSize: '12px',
-                  fontWeight: 500,
-                  cursor: 'default',
-                  transition: 'all 0.2s ease',
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.transform = 'scale(1.05)';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.transform = 'scale(1)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-              >
-                {timeline}
-              </span>
-            </div>
-          )}
 
           {/* Achievements or Highlights */}
           <AchievementsSection

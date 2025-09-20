@@ -10,6 +10,7 @@ import {
 import { useColorCombinations } from '@/lib/theme-aware-colors';
 import { useTheme } from '@/lib/theme-context';
 import {
+  Badge,
   Box,
   Container,
   Divider,
@@ -18,7 +19,6 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  ThemeIcon,
   Title,
 } from '@mantine/core';
 import {
@@ -38,12 +38,14 @@ import {
   IconDatabase,
   IconFileText,
   IconSchool,
+  IconShield,
   IconTarget,
   IconTools,
   IconUsers,
 } from '@tabler/icons-react';
 import { memo } from 'react';
 import BadgeWithTooltip from './BadgeWithTooltip';
+import ThemeIconWithTooltip from './ThemeIconWithTooltip';
 import UnifiedCard from './UnifiedCard';
 
 // Use data from metadata file
@@ -82,6 +84,24 @@ const getCategoryDisplayName = (category: string) => {
       return 'Soft Skills';
     default:
       return category.charAt(0).toUpperCase() + category.slice(1);
+  }
+};
+
+// Utility function to get ELI5 description for category
+const getCategoryELI5Description = (category: string): string => {
+  switch (category) {
+    case 'frontend':
+      return 'What users see and click on';
+    case 'backend':
+      return 'The hidden engine that powers everything';
+    case 'devops':
+      return 'Getting software from code to users';
+    case 'tools':
+      return 'The digital toolbox that helps developers work smarter';
+    case 'soft':
+      return 'The people skills that make technical work successful';
+    default:
+      return 'Essential skills for modern development';
   }
 };
 
@@ -124,6 +144,10 @@ const getSkillIconComponent = (skillName: string) => {
       return <IconBrandGit size={16} />;
     case 'github actions':
       return <IconBrandGithub size={16} />;
+    case 'vercel':
+      return <IconCloud size={16} />;
+    case 'sentry':
+      return <IconShield size={16} />;
 
     // Default fallback
     default:
@@ -137,7 +161,7 @@ const AboutSection = memo(() => {
   const skillCategories = getSkillsByCategory();
 
   return (
-    <Container size="lg" py="xl">
+    <Container size="lg">
       <Stack gap="xl">
         {/* Hero Section */}
         <Box ta="center" mb="xl">
@@ -183,6 +207,8 @@ const AboutSection = memo(() => {
               <UnifiedCard
                 key={category}
                 title={`${getCategoryDisplayName(category)} Skills`}
+                subtitle={getCategoryELI5Description(category)}
+                subtitleColor="dimmed"
                 headerIcon={getCategoryIconComponent(category as Skill['category'])}
                 headerIconColor="sakura"
                 variant="outlined"
@@ -194,26 +220,15 @@ const AboutSection = memo(() => {
                   {categorySkills.map(skill => (
                     <Group key={skill.name} justify="space-between" align="center">
                       <Group gap="xs" align="center">
-                        <ThemeIcon
+                        <ThemeIconWithTooltip
+                          technologyName={skill.name}
                           color={getThemeAwareSkillColor(skill.level, currentTheme)}
                           variant={getThemeAwareSkillVariant(skill.level, currentTheme)}
                           size="sm"
                           radius="sm"
-                          style={{
-                            cursor: 'default',
-                            transition: 'all 0.2s ease',
-                          }}
-                          onMouseEnter={e => {
-                            e.currentTarget.style.transform = 'scale(1.1)';
-                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-                          }}
-                          onMouseLeave={e => {
-                            e.currentTarget.style.transform = 'scale(1)';
-                            e.currentTarget.style.boxShadow = 'none';
-                          }}
                         >
                           {getSkillIconComponent(skill.name)}
-                        </ThemeIcon>
+                        </ThemeIconWithTooltip>
                         <Text size="sm" fw={500}>
                           {skill.name}
                         </Text>
@@ -318,10 +333,11 @@ const AboutSection = memo(() => {
               <UnifiedCard
                 key={index}
                 title={project.title}
-                subtitle={project.period}
-                description={project.description}
+                subtitle={project.description}
+                subtitleColor="dimmed"
                 headerIcon={<IconTarget size={20} />}
                 headerIconColor="sakura"
+                timeline={project.period}
                 technologies={project.technologies.map(tech => ({
                   name: tech,
                   color: 'sakura',
@@ -329,6 +345,7 @@ const AboutSection = memo(() => {
                   contextValue: tech,
                 }))}
                 achievements={project.achievements}
+                professionalAchievements={true}
                 variant="default"
                 size="lg"
                 interactive={false}
@@ -351,24 +368,60 @@ const AboutSection = memo(() => {
               hoverable={true}
             >
               <Stack gap="md">
-                {education.map((edu, index) => (
-                  <Box key={index}>
-                    <Box style={{ flex: 1 }}>
-                      <Text fw={600} size="md">
-                        {edu.degree}
-                      </Text>
-                      <Text c="sakura" size="sm" mb="xs">
-                        {edu.institution} • {edu.year}
-                      </Text>
-                      {edu.description && (
-                        <Text size="sm" c="gray.6">
-                          {edu.description}
+                {education.map((edu, index) => {
+                  // Extract GPA from description if it exists
+                  const gpaMatch = edu.description?.match(/GPA:\s*([\d.]+)/);
+                  const gpa = gpaMatch ? gpaMatch[1] : null;
+                  const descriptionWithoutGpa = edu.description
+                    ?.replace(/GPA:\s*[\d.]+/, '')
+                    .trim();
+
+                  return (
+                    <Box key={index}>
+                      <Box style={{ flex: 1 }}>
+                        <Group justify="space-between" align="center" mb="xs">
+                          <Text fw={600} size="md">
+                            {edu.degree}
+                          </Text>
+                          {gpa && (
+                            <Badge
+                              color="sakura"
+                              variant="light"
+                              size="md"
+                              radius="md"
+                              style={{
+                                cursor: 'default',
+                                transition: 'all 0.2s ease',
+                              }}
+                              onMouseEnter={e => {
+                                e.currentTarget.style.transform = 'scale(1.05)';
+                                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                              }}
+                              onMouseLeave={e => {
+                                e.currentTarget.style.transform = 'scale(1)';
+                                e.currentTarget.style.boxShadow = 'none';
+                              }}
+                            >
+                              GPA: {gpa}
+                            </Badge>
+                          )}
+                        </Group>
+                        <Text c="sakura" size="sm" mb="xs">
+                          {edu.institution} • {edu.year}
                         </Text>
-                      )}
+                        <Text size="sm" c="gray.6" mb="xs">
+                          {edu.location}
+                        </Text>
+                        {descriptionWithoutGpa && (
+                          <Text size="sm" c="gray.6">
+                            {descriptionWithoutGpa}
+                          </Text>
+                        )}
+                      </Box>
+                      {index < education.length - 1 && <Divider my="md" style={{ opacity: 0 }} />}
                     </Box>
-                    {index < education.length - 1 && <Divider my="md" />}
-                  </Box>
-                ))}
+                  );
+                })}
               </Stack>
             </UnifiedCard>
           </Grid.Col>
@@ -387,11 +440,23 @@ const AboutSection = memo(() => {
                 {leadership.map((role, index) => (
                   <Box key={index}>
                     <Box style={{ flex: 1 }}>
-                      <Text fw={600} size="md">
-                        {role.name}
-                      </Text>
+                      <Group justify="space-between" align="center" mb="xs">
+                        <Text fw={600} size="md">
+                          {role.name}
+                        </Text>
+                        <BadgeWithTooltip
+                          contextType="leadership"
+                          contextValue={role.clubAbbreviation}
+                          color="sakura"
+                          variant="light"
+                          size="md"
+                          radius="md"
+                        >
+                          {role.clubAbbreviation}
+                        </BadgeWithTooltip>
+                      </Group>
                       <Text c="sakura" size="sm" mb="xs">
-                        {role.organization} • {role.year}
+                        {role.organization}
                       </Text>
                       {role.description && (
                         <Text size="sm" c="gray.6">
@@ -399,7 +464,7 @@ const AboutSection = memo(() => {
                         </Text>
                       )}
                     </Box>
-                    {index < leadership.length - 1 && <Divider my="md" />}
+                    {index < leadership.length - 1 && <Divider my="md" style={{ opacity: 0 }} />}
                   </Box>
                 ))}
               </Stack>

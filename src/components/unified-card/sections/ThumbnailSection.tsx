@@ -1,9 +1,9 @@
 'use client';
 
+import { getBadgeContext, getDefaultContext } from '@/lib/badge-contexts';
 import { Badge, Box, Image, ThemeIcon, Tooltip } from '@mantine/core';
 import { IconExternalLink } from '@tabler/icons-react';
 import { memo } from 'react';
-import { getBadgeContext, getDefaultContext } from '@/lib/badge-contexts';
 import { ThumbnailSectionProps } from '../types';
 
 const ThumbnailSection = memo(
@@ -14,7 +14,7 @@ const ThumbnailSection = memo(
     primaryAction,
     interactive,
     backgroundGradient,
-    thumbnailHeight,
+    aspectRatio,
   }: ThumbnailSectionProps) => {
     return (
       <Box
@@ -28,7 +28,7 @@ const ThumbnailSection = memo(
           : {})}
         style={{
           position: 'relative',
-          height: thumbnailHeight,
+          aspectRatio: aspectRatio,
           borderRadius: '8px',
           overflow: 'hidden',
           background: backgroundGradient,
