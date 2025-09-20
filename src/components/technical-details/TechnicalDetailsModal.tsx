@@ -350,6 +350,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
             boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
             maxHeight: '90vh',
             padding: 0,
+            maxWidth: '1000px',
+            width: '90vw',
           },
           body: {
             background: commonColors.backgroundCard,
@@ -379,52 +381,74 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
               {currentTabScreenshots.length > 1 && (
                 <>
                   <Button
-                    variant="filled"
-                    size="lg"
-                    radius="xl"
+                    variant="subtle"
+                    size="xs"
+                    radius="sm"
                     onClick={goToPrevious}
                     style={{
                       position: 'absolute',
-                      left: '1rem',
+                      left: '0.5rem',
                       top: '50%',
                       transform: 'translateY(-50%)',
                       zIndex: 10,
-                      background: 'rgba(0, 0, 0, 0.7)',
-                      color: 'white',
+                      background: 'rgba(255, 255, 255, 0.8)',
+                      color: commonColors.textPrimary,
                       border: 'none',
+                      boxShadow: `0 2px 4px ${commonColors.shadowLight}`,
+                      minWidth: '32px',
+                      height: '32px',
+                      padding: '0',
+                      opacity: '0.7',
                     }}
                     onMouseEnter={e => {
-                      e.currentTarget.style.background = 'rgba(0, 0, 0, 0.9)';
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)';
+                      e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+                      e.currentTarget.style.boxShadow = `0 4px 8px ${commonColors.shadowMedium}`;
+                      e.currentTarget.style.opacity = '1';
                     }}
                     onMouseLeave={e => {
-                      e.currentTarget.style.background = 'rgba(0, 0, 0, 0.7)';
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
+                      e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                      e.currentTarget.style.boxShadow = `0 2px 4px ${commonColors.shadowLight}`;
+                      e.currentTarget.style.opacity = '0.7';
                     }}
                   >
-                    <IconChevronLeft size={20} />
+                    <IconChevronLeft size={14} />
                   </Button>
                   <Button
-                    variant="filled"
-                    size="lg"
-                    radius="xl"
+                    variant="subtle"
+                    size="xs"
+                    radius="sm"
                     onClick={goToNext}
                     style={{
                       position: 'absolute',
-                      right: '1rem',
+                      right: '0.5rem',
                       top: '50%',
                       transform: 'translateY(-50%)',
                       zIndex: 10,
-                      background: 'rgba(0, 0, 0, 0.7)',
-                      color: 'white',
+                      background: 'rgba(255, 255, 255, 0.8)',
+                      color: commonColors.textPrimary,
                       border: 'none',
+                      boxShadow: `0 2px 4px ${commonColors.shadowLight}`,
+                      minWidth: '32px',
+                      height: '32px',
+                      padding: '0',
+                      opacity: '0.7',
                     }}
                     onMouseEnter={e => {
-                      e.currentTarget.style.background = 'rgba(0, 0, 0, 0.9)';
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)';
+                      e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+                      e.currentTarget.style.boxShadow = `0 4px 8px ${commonColors.shadowMedium}`;
+                      e.currentTarget.style.opacity = '1';
                     }}
                     onMouseLeave={e => {
-                      e.currentTarget.style.background = 'rgba(0, 0, 0, 0.7)';
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
+                      e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                      e.currentTarget.style.boxShadow = `0 2px 4px ${commonColors.shadowLight}`;
+                      e.currentTarget.style.opacity = '0.7';
                     }}
                   >
-                    <IconChevronRight size={20} />
+                    <IconChevronRight size={14} />
                   </Button>
                 </>
               )}
@@ -443,13 +467,6 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 }}
               />
             </Box>
-            {selectedImage.caption && (
-              <Box p="lg" style={{ borderTop: `1px solid ${commonColors.borderPrimary}` }}>
-                <Text size="md" fw={500} c={commonColors.textPrimary} style={{ lineHeight: 1.5 }}>
-                  {selectedImage.caption}
-                </Text>
-              </Box>
-            )}
           </Box>
         )}
       </Modal>
