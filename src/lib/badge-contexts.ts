@@ -22,7 +22,7 @@ export const skillLevelContexts: Record<string, BadgeContext> = {
   },
   intermediate: {
     title: 'Getting the Hang of It',
-    description: 'I can build things and solve problems on your own',
+    description: 'I can build things and solve problems on my own',
     capabilities: [
       'Building real projects that work',
       'Debugging issues when they come up',
