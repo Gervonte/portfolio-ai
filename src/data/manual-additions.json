@@ -1,0 +1,134 @@
+{
+  "_comment": "✅ MANUAL ADDITIONS - EDIT THIS FILE FOR CUSTOM DATA ✅",
+  "_note": "This file contains manually added data that supplements the auto-generated about-metadata.json. Add new skills, projects, or other data here.",
+  "leadership": [
+    {
+      "name": "Member, Alumni Leadership Committee",
+      "organization": "Florida Polytechnic University",
+      "clubAbbreviation": "ALC",
+      "clubDescription": "Alumni Leadership Committee - A group of dedicated alumni who oversee events and initiatives to engage and support the university's alumni community.",
+      "year": "2025",
+      "description": "Oversee events and initiatives to engage and support alumni."
+    }
+  ],
+  "education": [],
+  "experience": [],
+  "researchProjects": [
+    {
+      "title": "AI-Assisted User Story Generation",
+      "period": "Spring 2025",
+      "description": "Research project exploring how AI can improve Agile development workflows",
+      "technologies": [
+        "Python",
+        "OpenAI API",
+        "Gemini API",
+        "QWEN",
+        "Jupyter",
+        "Pandas",
+        "Scikit-learn"
+      ],
+      "achievements": [
+        "Evaluated LLMs (ChatGPT, Gemini, QWEN) for generating Agile user stories using structured metrics such as coherence, completeness, and relevance.",
+        "Developed a lightweight framework for integrating LLM outputs into real-world Agile workflows to improve clarity and delivery speed.",
+        "Simulated product integration and human-in-the-loop validation, emphasizing real-world usage and developer trust."
+      ]
+    },
+    {
+      "title": "Enhancing Fake News Detection with Explainability",
+      "period": "Spring 2025",
+      "description": "Machine learning research focused on making AI decisions more transparent and trustworthy",
+      "technologies": [
+        "Python",
+        "LIME",
+        "Scikit-learn",
+        "Pandas",
+        "Matplotlib",
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "achievements": [
+        "Added LIME-based explainability to a high-accuracy classification model for fake news detection, improving transparency for non-technical stakeholders.",
+        "Built interactive HTML visualizations of model decisions to simulate user-facing explainability tools.",
+        "Analyzed the system's robustness and generalizability to mimic production-ready ML pipelines."
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "name": "Python",
+      "level": "advanced",
+      "category": "backend"
+    },
+    {
+      "name": "TypeScript",
+      "level": "advanced",
+      "category": "frontend"
+    },
+    {
+      "name": "JavaScript",
+      "level": "advanced",
+      "category": "frontend"
+    },
+    {
+      "name": "React",
+      "level": "advanced",
+      "category": "frontend"
+    },
+    {
+      "name": "Node.js",
+      "level": "advanced",
+      "category": "backend"
+    },
+    {
+      "name": "Express",
+      "level": "advanced",
+      "category": "backend"
+    },
+    {
+      "name": "HTML",
+      "level": "advanced",
+      "category": "frontend"
+    },
+    {
+      "name": "CSS",
+      "level": "advanced",
+      "category": "frontend"
+    },
+    {
+      "name": "REST APIs",
+      "level": "advanced",
+      "category": "backend"
+    },
+    {
+      "name": "PostgreSQL",
+      "level": "advanced",
+      "category": "backend"
+    },
+    {
+      "name": "GraphQL",
+      "level": "advanced",
+      "category": "backend"
+    },
+    {
+      "name": "Git",
+      "level": "advanced",
+      "category": "devops"
+    },
+    {
+      "name": "GitHub Actions",
+      "level": "advanced",
+      "category": "devops"
+    },
+    {
+      "name": "Vercel",
+      "level": "intermediate",
+      "category": "devops"
+    },
+    {
+      "name": "Sentry",
+      "level": "intermediate",
+      "category": "devops"
+    }
+  ]
+}

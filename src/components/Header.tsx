@@ -4,6 +4,7 @@ import {
   useColorCombinations,
   useCommonColors,
   usePrimaryColors,
+  useWarmColors,
   useWithOpacity,
 } from '@/lib/theme-aware-colors';
 import {
@@ -36,6 +37,7 @@ export default function Header({ links }: HeaderProps) {
   const colorCombinations = useColorCombinations();
   const commonColors = useCommonColors();
   const primaryColors = usePrimaryColors();
+  const warmColors = useWarmColors();
   const withOpacity = useWithOpacity;
 
   useEffect(() => {
@@ -84,7 +86,9 @@ export default function Header({ links }: HeaderProps) {
         right: 0,
         zIndex: 100,
         transition: 'all 0.3s ease',
-        background: scrolled ? 'rgba(254, 254, 254, 0.95)' : 'rgba(254, 254, 254, 0.1)',
+        background: scrolled
+          ? withOpacity(warmColors[0] ?? '#FDFCFB', 0.95)
+          : withOpacity(warmColors[0] ?? '#FDFCFB', 0.1),
         borderBottom: scrolled
           ? `1px solid ${withOpacity(primaryColors[1] || '#FFCDD2', 0.2)}`
           : 'none',
@@ -152,7 +156,7 @@ export default function Header({ links }: HeaderProps) {
               left: 0,
               right: 0,
               zIndex: 0,
-              background: 'rgba(254, 254, 254, 0.98)',
+              background: withOpacity(warmColors[0] ?? '#FDFCFB', 0.98),
               backdropFilter: 'blur(10px)',
               borderTop: `1px solid ${withOpacity(primaryColors[1] || '#FFCDD2', 0.2)}`,
             }}

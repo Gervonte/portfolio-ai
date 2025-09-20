@@ -125,6 +125,16 @@ The portfolio implements a sophisticated theme-aware color system that provides 
 - **usePrimaryColors()**: Returns the primary color palette for current theme
 - **useEffectColors()**: Provides effect colors (pink for sakura, mist for ocean)
 - **useWarmColors()**: Supplies neutral warm colors (consistent across themes)
+
+#### Theme Color Consistency (Updated)
+
+- **Hardcoded Color Elimination**: All hardcoded hex values replaced with theme color references
+- **Component Color Usage**:
+  - `Header.tsx`: Uses `warmColors` for background and `withOpacity` for transparency
+  - `OptimizedLoadingSpinner.tsx`: Theme-aware skeleton gradients for light and dark modes
+  - `colors.ts`: Gradient definitions use theme colors (`sakura[0]`, `warm[1]`, etc.)
+- **UnifiedCard Subtitle Styling**: New `subtitleColor` prop allows flexible color overrides
+- **Fallback System**: All theme colors include fallback hex values for graceful degradation
 - **useEarthColors()**: Provides earth tones (consistent across themes)
 
 #### Semantic Color Mapping
@@ -565,6 +575,33 @@ const oceanTheme = {
 - **Tech Stack**: Tag-based layout with category grouping
 - **Proficiency Levels**: Beginner, Intermediate, Advanced, Expert
 
+#### Research Project Cards
+
+- **Layout**: UnifiedCard components with flexible subtitle styling
+- **Header Structure**:
+  - Title as main heading
+  - Description displayed as subtitle with dimmed color (`gray.6`)
+  - Header icon (target icon) with sakura color theming
+- **Timeline Badge**: Period displayed as timeline badge in footer (right-aligned)
+- **Achievements Display**: Plain text format without bullet points (`professionalAchievements=true`)
+- **Technology Tags**: Sakura-themed badges with tooltips
+- **Styling**:
+  - `subtitleColor="dimmed"` for description text
+  - Consistent with theme color system
+  - Hoverable cards with subtle interactions
+
+#### Education & Leadership Cards
+
+- **Layout**: UnifiedCard components with inline badges
+- **GPA Display**: Badge format without tooltips, inline with institution title
+- **Location Information**: Displayed on separate line below institution and year
+- **Club Abbreviations**: Separate badges with tooltips explaining full club names
+- **Timeline**: Year displayed as inline badge, right-aligned
+- **Styling**:
+  - Invisible dividers for clean visual separation
+  - Consistent badge sizing and positioning
+  - Theme-aware color usage
+
 ### Contact Section
 
 #### Contact Form
@@ -848,6 +885,163 @@ The portfolio implements a comprehensive skeleton loading system that provides m
   - Click: Expand for detailed information
   - Focus: Keyboard accessible navigation
 
+### Badge Design System
+
+#### Badge Design Principles
+
+The portfolio implements a comprehensive badge system that provides consistent visual indicators for various content types while maintaining the cherry blossom aesthetic and professional appearance.
+
+##### Badge Categories
+
+1. **Status Badges**: Indicate current state or availability
+2. **Skill Badges**: Display technical proficiencies and competencies
+3. **Technology Badges**: Show tools, frameworks, and technologies
+4. **Achievement Badges**: Highlight accomplishments and credentials
+5. **Context Badges**: Provide additional information or categorization
+
+##### Badge Design Specifications
+
+###### Visual Design
+
+- **Shape**: Rounded rectangle with consistent border radius (8px for small, 12px for medium)
+- **Typography**: 12px-14px font size with medium weight (500-600)
+- **Padding**: 6px-8px horizontal, 4px-6px vertical
+- **Border**: Optional 1px border for outline variants
+- **Shadow**: Subtle drop shadow for depth and elevation
+
+###### Color System
+
+- **Primary Badges**: Use theme-aware primary colors (sakura/ocean)
+- **Secondary Badges**: Neutral colors with theme-aware accents
+- **Status Badges**: Semantic colors (success, warning, error, info)
+- **Skill Badges**: Dynamic colors based on proficiency level
+- **Technology Badges**: Consistent neutral styling with theme accents
+
+###### Size Variants
+
+| Size   | Font Size | Padding   | Border Radius | Use Case                           |
+| ------ | --------- | --------- | ------------- | ---------------------------------- |
+| **xs** | 10px      | 4px 6px   | 6px           | Compact spaces, tags               |
+| **sm** | 12px      | 6px 8px   | 8px           | Standard badges, skills            |
+| **md** | 14px      | 8px 12px  | 10px          | Prominent badges, achievements     |
+| **lg** | 16px      | 10px 16px | 12px          | Hero badges, major accomplishments |
+
+###### Variant Styles
+
+1. **Filled**: Solid background with contrasting text
+2. **Light**: Light background with colored text and border
+3. **Outline**: Transparent background with colored border and text
+4. **Gradient**: Theme-aware gradient background
+5. **Subtle**: Very light background with muted text
+
+##### Interactive Behavior
+
+###### Hover Effects
+
+- **Scale Animation**: 1.05x scale transform on hover
+- **Shadow Enhancement**: Increased shadow depth and glow
+- **Color Transition**: Smooth color intensity changes
+- **Duration**: 0.2s ease-in-out transition
+- **Cursor**: Default cursor for non-clickable badges
+
+###### Focus States
+
+- **Outline Ring**: 2px outline ring for keyboard navigation
+- **High Contrast**: Enhanced contrast for accessibility
+- **Focus Management**: Proper tab order and focus indicators
+
+##### Badge Implementation Patterns
+
+###### Skill Proficiency Badges
+
+```typescript
+// Dynamic color based on skill level
+const getSkillBadgeColor = (level: string, theme: string) => {
+  const colorMap = {
+    beginner: theme === 'sakura' ? 'pink' : 'mist',
+    intermediate: theme === 'sakura' ? 'sakura' : 'ocean',
+    advanced: theme === 'sakura' ? 'red' : 'teal',
+    expert: theme === 'sakura' ? 'grape' : 'cyan',
+  };
+  return colorMap[level] || 'gray';
+};
+```
+
+###### Technology Badges
+
+```typescript
+// Consistent styling for technology indicators
+<Badge
+  color="sakura"
+  variant="light"
+  size="sm"
+  radius="md"
+  style={{
+    cursor: 'default',
+    transition: 'all 0.2s ease',
+  }}
+  onMouseEnter={e => {
+    e.currentTarget.style.transform = 'scale(1.05)';
+    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+  }}
+  onMouseLeave={e => {
+    e.currentTarget.style.transform = 'scale(1)';
+    e.currentTarget.style.boxShadow = 'none';
+  }}
+>
+  {technology}
+</Badge>
+```
+
+###### Achievement Badges (GPA Example)
+
+```typescript
+// Specialized badges for achievements and credentials
+<Badge
+  color="sakura"
+  variant="light"
+  size="sm"
+  radius="md"
+  style={{
+    cursor: 'default',
+    transition: 'all 0.2s ease',
+  }}
+  onMouseEnter={e => {
+    e.currentTarget.style.transform = 'scale(1.05)';
+    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+  }}
+  onMouseLeave={e => {
+    e.currentTarget.style.transform = 'scale(1)';
+    e.currentTarget.style.boxShadow = 'none';
+  }}
+>
+  GPA: {gpa}
+</Badge>
+```
+
+##### Accessibility Considerations
+
+- **Color Contrast**: Minimum 4.5:1 contrast ratio for text
+- **Screen Reader Support**: Proper ARIA labels and descriptions
+- **Keyboard Navigation**: Focusable badges with clear focus indicators
+- **Touch Targets**: Minimum 44px touch target for mobile devices
+- **High Contrast Mode**: Alternative styling for high contrast preferences
+
+##### Theme Integration
+
+- **Dynamic Colors**: All badges adapt to current theme (sakura/ocean)
+- **Consistent Styling**: Unified appearance across all themes
+- **Fallback Values**: Graceful degradation for theme switching
+- **Performance**: Optimized rendering with theme-aware color hooks
+
+##### Usage Guidelines
+
+1. **Consistency**: Use the same badge style for similar content types
+2. **Hierarchy**: Use size and color to indicate importance
+3. **Clarity**: Keep badge text concise and meaningful
+4. **Accessibility**: Ensure all badges meet accessibility standards
+5. **Performance**: Use appropriate hover effects without impacting performance
+
 ### Tooltip System
 
 #### Tooltip Design Specifications
@@ -985,6 +1179,29 @@ The portfolio implements a comprehensive skeleton loading system that provides m
 - **Lazy Loading**: Implemented universal lazy loading with content-specific skeleton states
 - **Code Organization**: Reduced `page.tsx` from 254 lines to ~120 lines for better maintainability
 - **Performance**: Bundle splitting and progressive loading for optimal user experience
+
+### UnifiedCard Component Enhancements (Current)
+
+#### Flexible Subtitle Styling
+
+- **New `subtitleColor` Prop**: Added to `UnifiedCardProps` and `HeaderSectionProps`
+- **Dynamic Color Application**: Allows per-card subtitle color customization
+- **Fallback System**: Defaults to `sakura` theme color when `subtitleColor` not specified
+- **Research Projects**: Use `subtitleColor="dimmed"` for description text
+- **Consistent Theming**: Maintains theme system integration while allowing overrides
+
+#### Timeline Badge Positioning
+
+- **Work Experience Cards**: Timeline badges properly positioned right-aligned in header
+- **Research Project Cards**: Timeline badges moved to footer for better visual hierarchy
+- **Flexbox Layout**: Restored proper flexbox structure from `feat-32` implementation
+- **Text Alignment**: Position text now properly inline with titles
+
+#### Achievement Display Options
+
+- **Professional Mode**: Added `professionalAchievements=true` prop to remove bullet points
+- **Research Projects**: Display achievements as plain italic text instead of bulleted lists
+- **Flexible Rendering**: Maintains backward compatibility with existing bulleted format
 
 ### Theme System Implementation
 

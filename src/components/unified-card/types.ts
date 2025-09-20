@@ -46,6 +46,7 @@ export interface UnifiedCardProps {
   // Content
   title: string;
   subtitle?: string;
+  subtitleColor?: string;
   description?: string;
   longDescription?: string;
 
@@ -58,8 +59,6 @@ export interface UnifiedCardProps {
   statusBadge?: StatusBadgeProps;
   /** Heading order for the title (1-6). Defaults to 3. Should align with document hierarchy. */
   titleHeadingOrder?: 1 | 2 | 3 | 4 | 5 | 6;
-  /** Heading order for the subtitle (1-6). Defaults to 4. Should align with document hierarchy. */
-  subtitleHeadingOrder?: 1 | 2 | 3 | 4 | 5 | 6;
 
   // Content sections
   technologies?: TechnologyProps[];
@@ -107,21 +106,21 @@ export interface ThumbnailSectionProps {
   primaryAction?: ActionProps;
   interactive: boolean;
   backgroundGradient: string;
-  thumbnailHeight: string;
+  aspectRatio: string;
 }
 
 export interface HeaderSectionProps {
   title: string;
   subtitle?: string;
+  subtitleColor?: string;
   description?: string;
   longDescription?: string;
   headerIcon?: ReactNode;
   headerIconColor: string;
   infoBoxDescription: boolean;
+  timeline?: string;
   /** Heading order for the title (1-6). Defaults to 3. Should align with document hierarchy. */
   titleHeadingOrder?: 1 | 2 | 3 | 4 | 5 | 6;
-  /** Heading order for the subtitle (1-6). Defaults to 4. Should align with document hierarchy. */
-  subtitleHeadingOrder?: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
 export interface StatusBadgeSectionProps {
@@ -166,6 +165,6 @@ export interface CardStyles {
 }
 
 export interface SizeConfig {
-  thumbnailHeight: string;
   padding: string;
+  aspectRatio: string;
 }

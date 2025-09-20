@@ -2,8 +2,8 @@
 
 import { useCommonColors } from '@/lib/theme-aware-colors';
 import '@/styles/technical-modal.css';
-import { Alert, Modal } from '@mantine/core';
-import { IconAlertCircle } from '@tabler/icons-react';
+import { Alert, Box, Button, Group, Modal, Text } from '@mantine/core';
+import { IconAlertCircle, IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import Image from 'next/image';
 import { memo, useEffect, useMemo, useState } from 'react';
 import ModalHeader from './ModalHeader';
@@ -19,6 +19,8 @@ import WorkflowsCard from './sections/WorkflowsCard';
 import TabNavigation from './TabNavigation';
 import {
   ExtendedTechnicalSection,
+  MODAL_CONFIG,
+  ScreenshotItem,
   TechnicalDetailsModalProps,
   TechnicalSectionWithKey,
 } from './types';
@@ -27,7 +29,9 @@ import { getTechnicalIcon, shouldShowSection } from './utils';
 const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetailsModalProps) => {
   const commonColors = useCommonColors();
   const [activeTab, setActiveTab] = useState<string | null>(null);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<ScreenshotItem | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+  const [currentTabScreenshots, setCurrentTabScreenshots] = useState<ScreenshotItem[]>([]);
 
   // Get technical sections
   const technicalSections = useMemo((): TechnicalSectionWithKey[] => {
@@ -65,13 +69,92 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
     }
   }, [technicalSections]);
 
+  // Collect screenshots from the active tab only
+  useEffect(() => {
+    if (project.technicalDetails && activeTab) {
+      const section = project.technicalDetails[activeTab as keyof typeof project.technicalDetails];
+      const tabScreenshots: ScreenshotItem[] = [];
+
+      if (section && section.screenshots && section.screenshots.length > 0) {
+        section.screenshots.forEach((screenshot: string | ScreenshotItem) => {
+          if (typeof screenshot === 'string') {
+            tabScreenshots.push({
+              src: screenshot,
+              alt: `Screenshot`,
+              caption: `Screenshot`,
+            });
+          } else {
+            tabScreenshots.push(screenshot);
+          }
+        });
+      }
+      setCurrentTabScreenshots(tabScreenshots);
+    }
+  }, [project.technicalDetails, activeTab]);
+
+  // Navigation functions
+  const goToPrevious = () => {
+    if (currentTabScreenshots.length > 0) {
+      const newIndex =
+        currentImageIndex > 0 ? currentImageIndex - 1 : currentTabScreenshots.length - 1;
+      setCurrentImageIndex(newIndex);
+      setSelectedImage(currentTabScreenshots[newIndex]);
+    }
+  };
+
+  const goToNext = () => {
+    if (currentTabScreenshots.length > 0) {
+      const newIndex =
+        currentImageIndex < currentTabScreenshots.length - 1 ? currentImageIndex + 1 : 0;
+      setCurrentImageIndex(newIndex);
+      setSelectedImage(currentTabScreenshots[newIndex]);
+    }
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (selectedImage) {
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          goToPrevious();
+        } else if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          goToNext();
+        } else if (event.key === 'Escape') {
+          event.preventDefault();
+          setSelectedImage(null);
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImage, currentImageIndex, currentTabScreenshots]);
+
+  // Update current image when selectedImage changes
+  useEffect(() => {
+    if (selectedImage && currentTabScreenshots.length > 0) {
+      const index = currentTabScreenshots.findIndex(img => img.src === selectedImage.src);
+      if (index !== -1) {
+        setCurrentImageIndex(index);
+      }
+    }
+  }, [selectedImage, currentTabScreenshots]);
+
+  // Reset image selection when tab changes
+  useEffect(() => {
+    setSelectedImage(null);
+    setCurrentImageIndex(0);
+  }, [activeTab]);
+
   const modalStyles = {
     content: {
       background: commonColors.backgroundModal,
       border: `1px solid ${commonColors.borderModal}`,
       boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
-      height: '70vh',
-      maxHeight: '70vh',
+      height: MODAL_CONFIG.imageMaxHeight,
+      maxHeight: MODAL_CONFIG.imageMaxHeight,
     },
     body: {
       background: commonColors.backgroundCard,
@@ -230,7 +313,13 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                     screenshots={section.screenshots}
                     sectionKey={key}
                     commonColors={commonColors}
-                    onImageSelect={setSelectedImage}
+                    onImageSelect={image => {
+                      setSelectedImage(image);
+                      const index = currentTabScreenshots.findIndex(img => img.src === image.src);
+                      if (index !== -1) {
+                        setCurrentImageIndex(index);
+                      }
+                    }}
                   />
                 ) : null}
               </div>
@@ -243,34 +332,143 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
       <Modal
         opened={!!selectedImage}
         onClose={() => setSelectedImage(null)}
-        size="xl"
+        size={MODAL_CONFIG.size}
         centered
-        title="Technical Screenshot"
+        title={
+          <Group justify="space-between" w="100%">
+            <Text size="lg" fw={600} c={commonColors.textPrimary}>
+              {selectedImage?.caption || 'Technical Screenshot'}
+            </Text>
+            <Text size="sm" c={commonColors.textSecondary}>
+              {currentImageIndex + 1} of {currentTabScreenshots.length}
+            </Text>
+          </Group>
+        }
         styles={{
           content: {
             background: commonColors.backgroundModal,
             border: `1px solid ${commonColors.borderModal}`,
             boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
-            height: '70vh',
-            maxHeight: '70vh',
+            maxHeight: MODAL_CONFIG.maxHeight,
+            padding: 0,
+            maxWidth: MODAL_CONFIG.maxWidth,
+            width: MODAL_CONFIG.size,
           },
           body: {
             background: commonColors.backgroundCard,
+            padding: 0,
           },
           header: {
             background: commonColors.backgroundCard,
             borderBottom: `1px solid ${commonColors.borderPrimary}`,
+            padding: '1rem 1.5rem',
           },
         }}
       >
         {selectedImage && (
-          <Image
-            src={`/images/technical/${selectedImage}`}
-            alt="Technical screenshot"
-            width={800}
-            height={600}
-            style={{ width: '100%', height: 'auto' }}
-          />
+          <Box>
+            <Box
+              style={{
+                position: 'relative',
+                maxHeight: MODAL_CONFIG.imageMaxHeight,
+                overflow: 'hidden',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: '#f8f9fa',
+              }}
+            >
+              {/* Navigation Buttons */}
+              {currentTabScreenshots.length > 1 && (
+                <>
+                  <Button
+                    variant="subtle"
+                    size="xs"
+                    radius="sm"
+                    onClick={goToPrevious}
+                    style={{
+                      position: 'absolute',
+                      left: '0.5rem',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      zIndex: 10,
+                      background: 'rgba(255, 255, 255, 0.8)',
+                      color: commonColors.textPrimary,
+                      border: 'none',
+                      boxShadow: `0 2px 4px ${commonColors.shadowLight}`,
+                      minWidth: '32px',
+                      height: '32px',
+                      padding: '0',
+                      opacity: '0.7',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)';
+                      e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+                      e.currentTarget.style.boxShadow = `0 4px 8px ${commonColors.shadowMedium}`;
+                      e.currentTarget.style.opacity = '1';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
+                      e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                      e.currentTarget.style.boxShadow = `0 2px 4px ${commonColors.shadowLight}`;
+                      e.currentTarget.style.opacity = '0.7';
+                    }}
+                  >
+                    <IconChevronLeft size={14} />
+                  </Button>
+                  <Button
+                    variant="subtle"
+                    size="xs"
+                    radius="sm"
+                    onClick={goToNext}
+                    style={{
+                      position: 'absolute',
+                      right: '0.5rem',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      zIndex: 10,
+                      background: 'rgba(255, 255, 255, 0.8)',
+                      color: commonColors.textPrimary,
+                      border: 'none',
+                      boxShadow: `0 2px 4px ${commonColors.shadowLight}`,
+                      minWidth: '32px',
+                      height: '32px',
+                      padding: '0',
+                      opacity: '0.7',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)';
+                      e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+                      e.currentTarget.style.boxShadow = `0 4px 8px ${commonColors.shadowMedium}`;
+                      e.currentTarget.style.opacity = '1';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
+                      e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                      e.currentTarget.style.boxShadow = `0 2px 4px ${commonColors.shadowLight}`;
+                      e.currentTarget.style.opacity = '0.7';
+                    }}
+                  >
+                    <IconChevronRight size={14} />
+                  </Button>
+                </>
+              )}
+
+              <Image
+                src={`/images/technical/${selectedImage.src}`}
+                alt={selectedImage.alt || 'Technical screenshot'}
+                width={1200}
+                height={800}
+                style={{
+                  maxWidth: '100%',
+                  maxHeight: MODAL_CONFIG.imageMaxHeight,
+                  width: 'auto',
+                  height: 'auto',
+                  objectFit: 'contain',
+                }}
+              />
+            </Box>
+          </Box>
         )}
       </Modal>
     </>

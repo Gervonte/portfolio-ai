@@ -4,8 +4,42 @@ This directory contains metadata files for the About section of the portfolio.
 
 ## Files
 
-- `about-metadata.json` - Main metadata file containing all about section data
+- `about-metadata.json` - **AUTO-GENERATED** from resume parsing (DO NOT EDIT)
+- `manual-additions.json` - **MANUAL ADDITIONS** for custom data (EDIT THIS)
 - `README-about.md` - This documentation file
+
+## Data Sources & Workflow
+
+### 🔄 Resume Parsing (Auto-Generated)
+
+The `about-metadata.json` file is automatically generated from your resume using the resume parser script:
+
+```bash
+npm run parse-resume
+```
+
+**⚠️ Important**: This file should **NEVER** be edited manually as it will be overwritten when you run the parser.
+
+### ✏️ Manual Additions (Custom Data)
+
+The `manual-additions.json` file is for adding data that isn't in your resume or needs customization:
+
+- **Skills** not mentioned in resume (e.g., Vercel, Sentry)
+- **Research projects** with different descriptions
+- **Additional experience** or education entries
+- **Custom leadership** roles or descriptions
+
+**✅ This is the file you should edit** for manual updates.
+
+### 🔀 Data Merging & Deduplication
+
+The system automatically merges data from both files with smart deduplication:
+
+1. **Skills**: Deduplicated by name, manual additions take priority
+2. **Research Projects**: Deduplicated by title, manual additions take priority
+3. **Experience/Education/Leadership**: Merged with manual additions taking priority
+
+This ensures no duplicates while allowing you to override auto-generated data.
 
 ## Structure
 
@@ -121,11 +155,25 @@ The `about-metadata.json` file contains the following sections:
 
 ## Usage
 
-The About section component automatically loads data from this metadata file. To update the About section:
+The About section component automatically loads and merges data from both metadata files. To update the About section:
 
-1. Edit `about-metadata.json` with your information
+### For Resume-Based Data:
+
+1. Update your resume in `src/assets/resume.txt`
+2. Run `npm run parse-resume` to regenerate `about-metadata.json`
+3. The changes will be reflected immediately in the About section
+
+### For Custom/Manual Data:
+
+1. Edit `manual-additions.json` with your custom information
 2. The changes will be reflected immediately in the About section
-3. No code changes are required
+3. No code changes or parsing required
+
+### Best Practice Workflow:
+
+1. **Major updates**: Update resume → run parser → add manual additions
+2. **Quick additions**: Just edit `manual-additions.json`
+3. **Skill updates**: Add to `manual-additions.json` (takes priority over resume)
 
 ## Data Validation
 
@@ -143,8 +191,23 @@ The metadata is validated using Zod schemas defined in `src/lib/schemas.ts`. Ens
 
 If the About section doesn't display correctly:
 
-1. Check JSON syntax in `about-metadata.json`
+### Data Issues:
+
+1. Check JSON syntax in both `about-metadata.json` and `manual-additions.json`
 2. Verify all required fields are present
 3. Ensure skill levels and categories use valid values
-4. Check the browser console for error messages
-5. Run `npm run type-check` to verify TypeScript types
+4. Check for duplicate entries (should be handled automatically)
+
+### File Workflow Issues:
+
+1. **Duplicates showing**: Check if same data exists in both files
+2. **Manual changes not showing**: Ensure you're editing `manual-additions.json`, not `about-metadata.json`
+3. **Resume changes not reflected**: Run `npm run parse-resume` after updating resume
+4. **Skills missing**: Add to `manual-additions.json` (takes priority over resume)
+
+### Technical Issues:
+
+1. Check the browser console for error messages
+2. Run `npm run type-check` to verify TypeScript types
+3. Verify the merging logic in `src/lib/about.ts`
+4. Check that both files are properly imported

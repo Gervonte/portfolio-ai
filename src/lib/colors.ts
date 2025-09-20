@@ -14,6 +14,63 @@ export const warm = colors?.warm ?? [];
 export const earth = colors?.earth ?? [];
 export const pink = colors?.pink ?? [];
 
+// Helper function to get color with opacity
+const withOpacity = (color: string, opacity: number): string => {
+  // Validate opacity
+  if (opacity < 0 || opacity > 1) {
+    console.warn(`withOpacity: Invalid opacity value ${opacity}. Must be between 0 and 1.`);
+    opacity = Math.max(0, Math.min(1, opacity));
+  }
+
+  // Handle different color formats
+  if (!color || typeof color !== 'string') {
+    console.warn(`withOpacity: Invalid color input: ${color}. Using fallback color.`);
+    return `rgba(0, 0, 0, ${opacity})`;
+  }
+
+  // Handle hex colors (#fff, #ffffff, #fffff0)
+  if (color.startsWith('#')) {
+    const hex = color.replace('#', '');
+
+    // Validate hex format
+    if (!/^[0-9A-Fa-f]{3}$|^[0-9A-Fa-f]{6}$/.test(hex)) {
+      console.warn(`withOpacity: Invalid hex color format: ${color}. Using fallback color.`);
+      return `rgba(0, 0, 0, ${opacity})`;
+    }
+
+    // Convert 3-digit hex to 6-digit
+    const fullHex =
+      hex.length === 3
+        ? hex
+            .split('')
+            .map(char => char + char)
+            .join('')
+        : hex;
+
+    const r = parseInt(fullHex.slice(0, 2), 16);
+    const g = parseInt(fullHex.slice(2, 4), 16);
+    const b = parseInt(fullHex.slice(4, 6), 16);
+
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+  }
+
+  // Handle rgb/rgba colors
+  if (color.startsWith('rgb')) {
+    const rgbMatch = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+    if (rgbMatch) {
+      const [, r, g, b] = rgbMatch;
+      return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+    }
+  }
+
+  // Fallback for unknown color formats
+  console.warn(`withOpacity: Unsupported color format: ${color}. Using fallback color.`);
+  return `rgba(0, 0, 0, ${opacity})`;
+};
+
+// Export the function
+export { withOpacity };
+
 // Common color combinations
 export const colorCombinations = {
   // Primary sakura gradients
@@ -24,8 +81,8 @@ export const colorCombinations = {
   pinkGradient: `linear-gradient(135deg, ${pink[3]}, ${pink[1]})`,
   pinkGradientLight: `linear-gradient(135deg, ${pink[1]}, ${pink[0]})`,
 
-  // Footer gradient (original subtle colors)
-  footerGradient: `linear-gradient(135deg, #FFF5F5, #F8F4F4)`,
+  // Footer gradient (theme-aware)
+  footerGradient: `linear-gradient(135deg, ${sakura[0]}, ${warm[1]})`,
 
   // Technical modal gradients (earth-tone themed)
   earthGradientModal: `linear-gradient(135deg, ${earth[0]}, ${earth[1]})`,
@@ -58,28 +115,18 @@ export const commonColors = {
   accentPrimary: sakura[5] ?? '#D32F2F',
   accentSecondary: sakura[1] ?? '#FFCDD2',
 
-  // Shadow colors
+  // Shadow colors (theme-aware)
   shadowLight: 'rgba(0, 0, 0, 0.05)',
   shadowMedium: 'rgba(0, 0, 0, 0.1)',
   shadowHeavy: 'rgba(0, 0, 0, 0.15)',
-  shadowSakura: 'rgba(244, 67, 54, 0.25)',
+  shadowSakura: withOpacity(sakura[3] ?? '#F44336', 0.25),
 
-  // Technical modal colors (earth-tone themed)
-  backgroundModal: '#FAFBFC',
-  borderModal: '#E9ECEF',
+  // Technical modal colors (theme-aware)
+  backgroundModal: warm[0] ?? '#FDFCFB',
+  borderModal: warm[2] ?? '#E8E8E8',
   borderEarth: earth[2] ?? '#D4A574',
   borderWarm: warm[2] ?? '#E8E8E8',
   borderSakura: sakura[1] ?? '#FFCDD2',
-};
-
-// Helper function to get color with opacity
-export const withOpacity = (color: string, opacity: number): string => {
-  // Convert hex to rgba
-  const hex = color.replace('#', '');
-  const r = parseInt(hex.slice(0, 2), 16);
-  const g = parseInt(hex.slice(2, 4), 16);
-  const b = parseInt(hex.slice(4, 6), 16);
-  return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 };
 
 // Helper function to get theme color by name and shade

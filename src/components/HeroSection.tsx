@@ -1,5 +1,6 @@
 'use client';
 
+import { getHeroSpeed } from '@/lib/parallax-config';
 import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
 import { Box, Button, Container, Group, Stack, Text, Title } from '@mantine/core';
 import { memo } from 'react';
@@ -24,11 +25,12 @@ const HeroSection = memo(() => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          marginBottom: '3rem',
         }}
       >
         <Container size="lg" py="xl">
           <Stack align="center" gap="xl">
-            <ParallaxElement speed={-1} center={true}>
+            <ParallaxElement speed={getHeroSpeed('title')}>
               <Title
                 order={1}
                 ta="center"
@@ -47,7 +49,7 @@ const HeroSection = memo(() => {
                 Hello, I&apos;m Gervonte Fowler
               </Title>
             </ParallaxElement>
-            <ParallaxElement speed={-0.8} center={true}>
+            <ParallaxElement speed={getHeroSpeed('subtitle')}>
               <Text
                 ta="center"
                 size="xl"
@@ -60,10 +62,11 @@ const HeroSection = memo(() => {
                 role="text"
                 aria-label="Professional summary and qualifications"
               >
-                2025 M.S. Computer Science Graduate | 2 Years of Series B Fintech Startup Experience
+                M.S. Computer Science | 2 Years of Engineering Experience at Series B Fintech
+                Startup
               </Text>
             </ParallaxElement>
-            <ParallaxElement speed={-0.8} center={true}>
+            <ParallaxElement speed={getHeroSpeed('buttons')}>
               <Group justify="center" gap="md" role="group" aria-label="Navigation actions">
                 <Button
                   size="lg"

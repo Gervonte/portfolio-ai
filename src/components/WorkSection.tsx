@@ -34,7 +34,7 @@ const WorkSection = memo(() => {
   const featuredProjects = useMemo(() => getFeaturedProjects(), []);
 
   return (
-    <Container size="lg" py="xl">
+    <Container size="lg">
       <Stack gap="xl">
         {/* Header */}
         <Box ta="center" mb="xl">

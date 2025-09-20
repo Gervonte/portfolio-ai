@@ -111,12 +111,12 @@ const ContactSection = memo(() => {
       title: 'Location',
       value: personalInfo.location,
       href: undefined,
-      description: 'Based in Florida, open to relocation',
+      description: 'Based in Central Florida, open to relocation',
     },
   ];
 
   return (
-    <Container size="lg" py="lg">
+    <Container size="lg">
       <Stack gap="xl">
         {/* Header */}
         <Box ta="center" mb="xl">

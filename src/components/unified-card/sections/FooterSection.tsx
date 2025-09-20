@@ -17,7 +17,7 @@ const FooterSection = memo(
     return (
       <Group justify="space-between" mt="md">
         <Group gap="xs">
-          {/* Timeline for project cards */}
+          {/* Timeline for project cards (not work experience) */}
           {timeline && !infoBoxDescription && (
             <Badge
               color="sakura"
