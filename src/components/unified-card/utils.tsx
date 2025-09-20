@@ -34,18 +34,22 @@ export const getSizeConfig = (size: string): SizeConfig => {
     case 'sm':
       return {
         padding: 'md',
+        aspectRatio: '16/9',
       };
     case 'md':
       return {
         padding: 'lg',
+        aspectRatio: '16/9',
       };
     case 'lg':
       return {
         padding: 'xl',
+        aspectRatio: '16/9',
       };
     default:
       return {
         padding: 'lg',
+        aspectRatio: '16/9',
       };
   }
 };

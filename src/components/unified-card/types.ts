@@ -106,6 +106,7 @@ export interface ThumbnailSectionProps {
   primaryAction?: ActionProps;
   interactive: boolean;
   backgroundGradient: string;
+  aspectRatio: string;
 }
 
 export interface HeaderSectionProps {
@@ -165,4 +166,5 @@ export interface CardStyles {
 
 export interface SizeConfig {
   padding: string;
+  aspectRatio: string;
 }

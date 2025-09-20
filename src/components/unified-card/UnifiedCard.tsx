@@ -83,6 +83,7 @@ const UnifiedCard = memo(
               primaryAction={primaryAction}
               interactive={interactive}
               backgroundGradient={defaultBackgroundGradient}
+              aspectRatio={sizeConfig.aspectRatio}
             />
           )}
 
