@@ -28,7 +28,10 @@
     "clean": "rm -rf .next && rm -rf node_modules/.cache",
     "fresh": "npm run clean && npm install && npm run dev",
     "check": "npm run type-check && npm run lint && npm run format:check",
-    "fix": "npm run lint:fix && npm run format"
+    "fix": "npm run lint:fix && npm run format",
+    "measure:before": "mkdir -p measurements && echo '=== PHASE BASELINE - $(date) ===' > measurements/baseline-$(date +%Y%m%d-%H%M).txt && find src/components -name '*.tsx' -exec wc -l {} + | sort -nr | head -10 >> measurements/baseline-$(date +%Y%m%d-%H%M).txt && find src -name '*.ts' -o -name '*.tsx' | xargs wc -l | tail -1 >> measurements/baseline-$(date +%Y%m%d-%H%M).txt && npm run build:analyze >> measurements/baseline-$(date +%Y%m%d-%H%M).txt 2>&1 && echo 'Baseline saved to measurements/baseline-$(date +%Y%m%d-%H%M).txt'",
+    "measure:after": "mkdir -p measurements && echo '=== PHASE PROGRESS - $(date) ===' > measurements/progress-$(date +%Y%m%d-%H%M).txt && find src/components -name '*.tsx' -exec wc -l {} + | sort -nr | head -10 >> measurements/progress-$(date +%Y%m%d-%H%M).txt && find src -name '*.ts' -o -name '*.tsx' | xargs wc -l | tail -1 >> measurements/progress-$(date +%Y%m%d-%H%M).txt && npm run build:analyze >> measurements/progress-$(date +%Y%m%d-%H%M).txt 2>&1 && echo 'Progress saved to measurements/progress-$(date +%Y%m%d-%H%M).txt'",
+    "measure:compare": "./scripts/compare-measurements.sh"
   },
   "dependencies": {
     "@mantine/core": "^8.2.8",

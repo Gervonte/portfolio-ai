@@ -1,0 +1,169 @@
+=== PHASE BASELINE - $(date) ===
+    7712 total
+     699 src/components/ScrollIndicator.tsx
+     481 src/components/AboutSection.tsx
+     480 src/components/technical-details/TechnicalDetailsModal.tsx
+     433 src/components/ContactSection.tsx
+     239 src/components/Footer.tsx
+     238 src/components/unified-card/sections/HeaderSection.tsx
+     236 src/components/ValidationDemo.tsx
+     232 src/components/unified-card/sections/ThumbnailSection.tsx
+     222 src/components/CacheManagement.tsx
+   12623 total
+
+> portfolio-ai@1.0.0 analyze
+> ANALYZE=true npm run build
+
+
+> portfolio-ai@1.0.0 build
+> npm run format && next build
+
+
+> portfolio-ai@1.0.0 format
+> prettier --write "src/**/*.{ts,tsx,js,jsx,json,md,css}"
+
+src/app/api/cache/route.ts 39ms (unchanged)
+src/app/api/contact/route.ts 12ms (unchanged)
+src/app/api/screenshot/route.ts 10ms (unchanged)
+src/app/cache-management/page.tsx 4ms (unchanged)
+src/app/layout.tsx 7ms (unchanged)
+src/app/og-image/route.tsx 6ms (unchanged)
+src/app/page.tsx 8ms (unchanged)
+src/app/robots.ts 3ms (unchanged)
+src/app/sitemap.ts 4ms (unchanged)
+src/app/validation-demo/page.tsx 1ms (unchanged)
+src/components/AboutSection.tsx 35ms (unchanged)
+src/components/BadgeWithTooltip.tsx 6ms (unchanged)
+src/components/CacheManagement.tsx 14ms (unchanged)
+src/components/ContactSection.tsx 22ms (unchanged)
+src/components/ExpandableProjectCard.tsx 4ms (unchanged)
+src/components/ExperienceSection.tsx 4ms (unchanged)
+src/components/Footer.tsx 7ms (unchanged)
+src/components/Header.tsx 6ms (unchanged)
+src/components/HeroSection.tsx 6ms (unchanged)
+src/components/LazyComponents.tsx 4ms (unchanged)
+src/components/LoadingSpinner.tsx 1ms (unchanged)
+src/components/MobileTooltip.tsx 3ms (unchanged)
+src/components/Navigation.tsx 9ms (unchanged)
+src/components/OptimizedImage.tsx 2ms (unchanged)
+src/components/OptimizedLoadingSpinner.tsx 22ms (unchanged)
+src/components/ParallaxElement.tsx 5ms (unchanged)
+src/components/SakuraBackground.tsx 14ms (unchanged)
+src/components/SakuraEffect.tsx 8ms (unchanged)
+src/components/ScrollIndicator.tsx 30ms (unchanged)
+src/components/skeletons/AboutSectionSkeleton.tsx 7ms (unchanged)
+src/components/skeletons/BaseSkeleton.tsx 4ms (unchanged)
+src/components/skeletons/ContactSectionSkeleton.tsx 6ms (unchanged)
+src/components/skeletons/ExperienceSectionSkeleton.tsx 3ms (unchanged)
+src/components/skeletons/HeroSectionSkeleton.tsx 2ms (unchanged)
+src/components/skeletons/index.ts 1ms (unchanged)
+src/components/skeletons/WorkSectionSkeleton.tsx 4ms (unchanged)
+src/components/SkipLink.tsx 2ms (unchanged)
+src/components/StructuredData.tsx 1ms (unchanged)
+src/components/technical-details/index.ts 1ms (unchanged)
+src/components/technical-details/ModalHeader.tsx 2ms (unchanged)
+src/components/technical-details/ScreenshotGallery.tsx 6ms (unchanged)
+src/components/technical-details/sections/ArchitectureCard.tsx 4ms (unchanged)
+src/components/technical-details/sections/DeploymentCard.tsx 3ms (unchanged)
+src/components/technical-details/sections/MetricsCard.tsx 4ms (unchanged)
+src/components/technical-details/sections/MonitoringCard.tsx 3ms (unchanged)
+src/components/technical-details/sections/OverviewCard.tsx 3ms (unchanged)
+src/components/technical-details/sections/PerformanceCard.tsx 7ms (unchanged)
+src/components/technical-details/sections/ToolsCard.tsx 3ms (unchanged)
+src/components/technical-details/sections/WorkflowsCard.tsx 4ms (unchanged)
+src/components/technical-details/TabNavigation.tsx 4ms (unchanged)
+src/components/technical-details/TechnicalDetailsModal.tsx 19ms (unchanged)
+src/components/technical-details/types.ts 3ms (unchanged)
+src/components/technical-details/utils.tsx 5ms (unchanged)
+src/components/TechnicalDetailsModal.tsx 1ms (unchanged)
+src/components/ThemeIconWithTooltip.tsx 4ms (unchanged)
+src/components/ThemeToggle.tsx 3ms (unchanged)
+src/components/ThemeWrapper.tsx 1ms (unchanged)
+src/components/TouchActionIcon.tsx 3ms (unchanged)
+src/components/unified-card/index.ts 1ms (unchanged)
+src/components/unified-card/sections/AchievementsSection.tsx 2ms (unchanged)
+src/components/unified-card/sections/AIToolsSection.tsx 3ms (unchanged)
+src/components/unified-card/sections/FooterSection.tsx 3ms (unchanged)
+src/components/unified-card/sections/HeaderSection.tsx 6ms (unchanged)
+src/components/unified-card/sections/TechnicalDetailsButton.tsx 2ms (unchanged)
+src/components/unified-card/sections/TechnologiesSection.tsx 3ms (unchanged)
+src/components/unified-card/sections/ThumbnailSection.tsx 6ms (unchanged)
+src/components/unified-card/types.ts 3ms (unchanged)
+src/components/unified-card/UnifiedCard.tsx 3ms (unchanged)
+src/components/unified-card/utils.tsx 3ms (unchanged)
+src/components/UnifiedCard.tsx 1ms (unchanged)
+src/components/ValidationDemo.tsx 7ms (unchanged)
+src/components/WorkSection.tsx 8ms (unchanged)
+src/data/about-metadata.json 17ms (unchanged)
+src/data/manual-additions.json 2ms (unchanged)
+src/data/projects-metadata.json 5ms (unchanged)
+src/data/README-about.md 31ms (unchanged)
+src/data/README.md 8ms (unchanged)
+src/data/sample-data.ts 8ms (unchanged)
+src/data/skills-tracking.md 11ms (unchanged)
+src/hooks/useFormValidation.ts 8ms (unchanged)
+src/hooks/useMobileTooltip.ts 4ms (unchanged)
+src/lib/about.ts 5ms (unchanged)
+src/lib/badge-contexts.ts 12ms (unchanged)
+src/lib/colors.ts 7ms (unchanged)
+src/lib/modal-context.tsx 2ms (unchanged)
+src/lib/parallax-config.ts 2ms (unchanged)
+src/lib/parallax-context.tsx 4ms (unchanged)
+src/lib/projects.ts 4ms (unchanged)
+src/lib/README-cache.md 13ms (unchanged)
+src/lib/README-parallax-config.md 6ms (unchanged)
+src/lib/schemas.ts 15ms (unchanged)
+src/lib/screenshot-cache.ts 8ms (unchanged)
+src/lib/screenshot.ts 5ms (unchanged)
+src/lib/seo.ts 3ms (unchanged)
+src/lib/theme-aware-colors.ts 7ms (unchanged)
+src/lib/theme-context.tsx 4ms (unchanged)
+src/lib/theme.ts 2ms (unchanged)
+src/lib/themes.ts 5ms (unchanged)
+src/lib/validation.ts 9ms (unchanged)
+src/styles/critical.css 6ms (unchanged)
+src/styles/mobile-tooltips.css 1ms (unchanged)
+src/styles/sakura-optimized.css 2ms (unchanged)
+src/styles/sakura.css 8ms (unchanged)
+src/styles/technical-modal.css 3ms (unchanged)
+src/types/sakura-js.d.ts 1ms (unchanged)
+   ▲ Next.js 15.5.2
+   - Environments: .env.local
+   - Experiments (use with caution):
+     · webVitalsAttribution
+     · optimizePackageImports
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 3.4s
+   Linting and checking validity of types ...
+   Collecting page data ...
+ ⚠ Using edge runtime on a page currently disables static generation for that page
+   Generating static pages (0/11) ...
+   Generating static pages (2/11) 
+   Generating static pages (5/11) 
+   Generating static pages (8/11) 
+ ✓ Generating static pages (11/11)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                         Size  First Load JS
+┌ ○ /                                            5.79 kB         251 kB
+├ ○ /_not-found                                    269 B         196 kB
+├ ƒ /api/cache                                     214 B         196 kB
+├ ƒ /api/contact                                   214 B         196 kB
+├ ƒ /api/screenshot                                214 B         196 kB
+├ ○ /cache-management                            1.61 kB         251 kB
+├ ƒ /og-image                                      214 B         196 kB
+├ ○ /robots.txt                                    214 B         196 kB
+├ ○ /sitemap.xml                                   214 B         196 kB
+└ ○ /validation-demo                             7.01 kB         256 kB
++ First Load JS shared by all                     196 kB
+  ├ chunks/next-cfb98476-1dc887f5f51738a8.js     11.2 kB
+  ├ chunks/next-ff30e0d3-699ac6f45121b0b0.js     54.2 kB
+  ├ chunks/vendors-fbd10709-abbabdfae0c2b99a.js  12.4 kB
+  └ other shared chunks (total)                   118 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
