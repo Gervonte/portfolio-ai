@@ -6,6 +6,7 @@ import { generatePageMetadata, generateStructuredData } from '@/lib/seo';
 import { ThemeProvider } from '@/lib/theme-context';
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
+import { Analytics } from '@vercel/analytics/next';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import React from 'react';
@@ -60,6 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Footer />
           </ThemeWrapper>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
